@@ -1,0 +1,97 @@
+﻿namespace ILEditor.Forms
+{
+    partial class HostSelect
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HostSelect));
+            this.systemlist = new System.Windows.Forms.ListView();
+            this.cancel = new System.Windows.Forms.Button();
+            this.newhost = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.SuspendLayout();
+            // 
+            // systemlist
+            // 
+            this.systemlist.LargeImageList = this.imageList1;
+            this.systemlist.Location = new System.Drawing.Point(12, 12);
+            this.systemlist.Name = "systemlist";
+            this.systemlist.Size = new System.Drawing.Size(438, 275);
+            this.systemlist.TabIndex = 0;
+            this.systemlist.UseCompatibleStateImageBehavior = false;
+            this.systemlist.DoubleClick += new System.EventHandler(this.systemlist_DoubleClick);
+            // 
+            // cancel
+            // 
+            this.cancel.Location = new System.Drawing.Point(12, 293);
+            this.cancel.Name = "cancel";
+            this.cancel.Size = new System.Drawing.Size(75, 23);
+            this.cancel.TabIndex = 1;
+            this.cancel.Text = "Cancel";
+            this.cancel.UseVisualStyleBackColor = true;
+            this.cancel.Click += new System.EventHandler(this.cancel_Click);
+            // 
+            // newhost
+            // 
+            this.newhost.Location = new System.Drawing.Point(375, 293);
+            this.newhost.Name = "newhost";
+            this.newhost.Size = new System.Drawing.Size(75, 23);
+            this.newhost.TabIndex = 2;
+            this.newhost.Text = "New Host";
+            this.newhost.UseVisualStyleBackColor = true;
+            this.newhost.Click += new System.EventHandler(this.newhost_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "ibmi.png");
+            // 
+            // HostSelect
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(462, 328);
+            this.Controls.Add(this.newhost);
+            this.Controls.Add(this.cancel);
+            this.Controls.Add(this.systemlist);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "HostSelect";
+            this.Text = "Host Select";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ListView systemlist;
+        private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button newhost;
+        private System.Windows.Forms.ImageList imageList1;
+    }
+}
