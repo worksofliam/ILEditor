@@ -27,6 +27,9 @@ namespace ILEditor.UserTools
                     case "MBR":
                         Editor.TheEditor.AddTool("Member Browse", new MemberBrowse());
                         break;
+                    case "ERR":
+                        Editor.TheEditor.AddTool("Error Listing", new ErrorListing());
+                        break;
                 }
             }
         }

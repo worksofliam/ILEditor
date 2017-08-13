@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Member Browser", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Error Listing", 1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserToolList));
             this.toollist = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -37,10 +38,13 @@
             // 
             // toollist
             // 
+            this.toollist.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.toollist.Dock = System.Windows.Forms.DockStyle.Fill;
             listViewItem1.Tag = "MBR";
+            listViewItem2.Tag = "ERR";
             this.toollist.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem1,
+            listViewItem2});
             this.toollist.Location = new System.Drawing.Point(0, 0);
             this.toollist.Name = "toollist";
             this.toollist.Size = new System.Drawing.Size(345, 334);
@@ -55,6 +59,7 @@
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "script_go.png");
+            this.imageList1.Images.SetKeyName(1, "application_error.png");
             // 
             // UserToolList
             // 

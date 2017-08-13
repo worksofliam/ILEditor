@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Config.cs" />
+    <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\Member.cs" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icons\script_go.png" />
+    <None Include="Resources\Icons\application_go.png" />
     <Content Include="Resources\welcome.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

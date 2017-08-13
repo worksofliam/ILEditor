@@ -22,7 +22,7 @@ namespace ILEditor
         public Editor()
         {
             InitializeComponent();
-            AddTool("Tool List", new UserToolList());
+            AddTool("Toolbox", new UserToolList());
             AddWelcome();
             TheEditor = this;
         }
@@ -50,16 +50,35 @@ namespace ILEditor
         }
 
 
-        //TODO: Maybe also pass in the member object here?
+        private int EditorContains(string Page)
+        {
+            for (int i = 0; i < editortabs.TabPages.Count; i++)
+            {
+                if (editortabs.TabPages[i].Text == Page)
+                    return i;
+            }
+
+            return -1;
+        }
+
         public void AddMemberEditor(Member MemberInfo)
         {
-            TabPage tabPage = new TabPage(MemberInfo.GetMember());
+            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "." + MemberInfo.GetMember();
+            int currentTab = EditorContains(pageName);
+
+            //Close tab if it already exists.
+            if (currentTab >= 0)
+                editortabs.TabPages.RemoveAt(currentTab);
+
+            TabPage tabPage = new TabPage(pageName);
             SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile());
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
             tabPage.Tag = MemberInfo;
             tabPage.Controls.Add(srcEdit);
             editortabs.TabPages.Add(tabPage);
+
+            editortabs.SelectTab(editortabs.TabPages.Count - 1);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
