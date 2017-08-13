@@ -114,8 +114,7 @@ namespace ILEditor.UserTools
                 Range errorRange = SourceEditor.GetLine(Line);
 
                 SourceEditor.ClearHints();
-                SourceEditor.DoRangeVisible(errorRange);
-                SourceEditor.AddHint(errorRange, ErrorText);
+                SourceEditor.AddHint(errorRange, ErrorText, true, false, true);
             }
             else
             {
