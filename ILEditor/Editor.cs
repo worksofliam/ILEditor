@@ -50,7 +50,7 @@ namespace ILEditor
         }
 
 
-        private int EditorContains(string Page)
+        public int EditorContains(string Page)
         {
             for (int i = 0; i < editortabs.TabPages.Count; i++)
             {
@@ -61,9 +61,26 @@ namespace ILEditor
             return -1;
         }
 
+        public void SwitchToTab(int index)
+        {
+            editortabs.SelectTab(index);
+        }
+
+        public FastColoredTextBox GetTabEditor(int index)
+        {
+            if (editortabs.TabPages[index].Tag != null)
+            {
+                return (FastColoredTextBox)editortabs.TabPages[index].Controls[0].Controls[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void AddMemberEditor(Member MemberInfo)
         {
-            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "." + MemberInfo.GetMember();
+            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             int currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
@@ -78,7 +95,7 @@ namespace ILEditor
             tabPage.Controls.Add(srcEdit);
             editortabs.TabPages.Add(tabPage);
 
-            editortabs.SelectTab(editortabs.TabPages.Count - 1);
+            SwitchToTab(editortabs.TabPages.Count - 1);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

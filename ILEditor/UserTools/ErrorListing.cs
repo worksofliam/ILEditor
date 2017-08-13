@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ILEditor.Classes;
+using FastColoredTextBoxNS;
 
 namespace ILEditor.UserTools
 {
@@ -81,6 +82,45 @@ namespace ILEditor.UserTools
                 publishErrors();
             });
             gothread.Start();
+        }
+
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+            if (e.Node.Tag == null) { }
+            else
+            {
+                string[] data = e.Node.Tag.ToString().Split(',');
+                int line, col;
+                string error;
+
+                line = int.Parse(data[0]) - 1;
+                col = int.Parse(data[1]);
+                error = e.Node.Text;
+                if (col > 0) col--;
+
+                onSelectError(e.Node.Parent.Text, line, col, error);
+            }
+        }
+
+        private void onSelectError(string File, int Line, int Col, string ErrorText)
+        {
+            int index = Editor.TheEditor.EditorContains(File);
+
+            if (index >= 0)
+            {
+                Editor.TheEditor.SwitchToTab(index);
+                FastColoredTextBox SourceEditor = Editor.TheEditor.GetTabEditor(index);
+                Range errorRange = SourceEditor.GetLine(Line);
+
+                SourceEditor.ClearHints();
+                SourceEditor.DoRangeVisible(errorRange);
+                SourceEditor.AddHint(errorRange, ErrorText);
+            }
+            else
+            {
+                MessageBox.Show("Unable to open error. Please open the source manually first and then try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
