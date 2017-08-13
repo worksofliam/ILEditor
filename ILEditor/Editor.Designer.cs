@@ -105,6 +105,7 @@
             this.editortabs.SelectedIndex = 0;
             this.editortabs.Size = new System.Drawing.Size(683, 550);
             this.editortabs.TabIndex = 0;
+            this.editortabs.MouseClick += new System.Windows.Forms.MouseEventHandler(this.editortabs_MouseClick);
             // 
             // usercontrol
             // 

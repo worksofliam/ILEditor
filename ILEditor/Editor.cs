@@ -54,7 +54,7 @@ namespace ILEditor
         {
             for (int i = 0; i < editortabs.TabPages.Count; i++)
             {
-                if (editortabs.TabPages[i].Text == Page)
+                if (editortabs.TabPages[i].Text.StartsWith(Page))
                     return i;
             }
 
@@ -80,7 +80,7 @@ namespace ILEditor
 
         public void AddMemberEditor(Member MemberInfo)
         {
-            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ") X";
             int currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
@@ -121,6 +121,22 @@ namespace ILEditor
             } else
             {
                 MessageBox.Show("This file is readonly.");
+            }
+        }
+
+        private void editortabs_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Rectangle r = editortabs.GetTabRect(editortabs.SelectedIndex);
+                Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
+                if (closeButton.Contains(e.Location))
+                {
+                    if (MessageBox.Show("Are you sure you want to close this source?", "Confirm Close", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        this.editortabs.TabPages.Remove(editortabs.SelectedTab);
+                    }
+                }
             }
         }
     }
