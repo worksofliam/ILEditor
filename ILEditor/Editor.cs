@@ -57,11 +57,11 @@ namespace ILEditor
             editortabs.SelectTab(index);
         }
 
-        public FastColoredTextBox GetTabEditor(int index)
+        public SourceEditor GetTabEditor(int index)
         {
             if (editortabs.TabPages[index].Tag != null)
             {
-                return (FastColoredTextBox)editortabs.TabPages[index].Controls[0].Controls[0];
+                return (SourceEditor)editortabs.TabPages[index].Controls[0];
             }
             else
             {

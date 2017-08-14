@@ -115,7 +115,7 @@ namespace ILEditor.UserTools
             if (index >= 0)
             {
                 Editor.TheEditor.SwitchToTab(index);
-                FastColoredTextBox SourceEditor = Editor.TheEditor.GetTabEditor(index);
+                FastColoredTextBox SourceEditor = Editor.TheEditor.GetTabEditor(index).Editor;
                 Range errorRange = SourceEditor.GetLine(Line);
 
                 SourceEditor.ClearHints();

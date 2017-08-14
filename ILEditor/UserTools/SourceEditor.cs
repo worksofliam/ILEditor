@@ -23,7 +23,7 @@ namespace ILEditor.UserTools
 
     public partial class SourceEditor : UserControl
     {
-        private FastColoredTextBox mybox = null;
+        public FastColoredTextBox Editor = null;
         //private CurrentLanguage Language;
 
         public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None)
@@ -32,17 +32,17 @@ namespace ILEditor.UserTools
             
             //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
 
-            mybox = new FastColoredTextBox();
-            mybox.Dock = DockStyle.Fill;
+            Editor = new FastColoredTextBox();
+            Editor.Dock = DockStyle.Fill;
 
             switch (Language) {
                 case ILELanguage.CPP:
-                    mybox.TextChanged += SetCPP;
+                    Editor.TextChanged += SetCPP;
                     break;
             }
 
-            mybox.Text = File.ReadAllText(LocalFile);
-            this.Controls.Add(mybox);
+            Editor.Text = File.ReadAllText(LocalFile);
+            this.Controls.Add(Editor);
         }
 
         #region Styles
