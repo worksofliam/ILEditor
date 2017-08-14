@@ -29,31 +29,34 @@ namespace ILEditor.UserTools
                 int totalErrors = 0;
                 TreeNode curNode;
 
-                treeView1.Nodes.Clear(); //Clear out the nodes
-                
-                //Add the errors
-                TreeNode curErr;
-                foreach (int fileid in ErrorHandle.getFileIDs())
+                if (ErrorHandle.WasSuccessful())
                 {
-                    curNode = new TreeNode(ErrorHandle.getFilePath(fileid));
-                    foreach (LineError error in ErrorHandle.getErrors(fileid))
-                    {
-                        if (error.getSev() >= 20)
-                        {
-                            totalErrors += 1;
-                            curErr = curNode.Nodes.Add(error.getCode() + ": " + error.getData().Trim() + " (" + error.getLine().ToString() + ")");
-                            curErr.Tag = error.getLine().ToString() + ',' + error.getColumn().ToString();
-                            curErr.ImageIndex = 1;
-                            curErr.SelectedImageIndex = 1;
-                        }
-                    }
+                    treeView1.Nodes.Clear(); //Clear out the nodes
 
-                    //Only add a node if there is something to display
-                    if (curNode.Nodes.Count > 0)
+                    //Add the errors
+                    TreeNode curErr;
+                    foreach (int fileid in ErrorHandle.getFileIDs())
                     {
-                        curNode.ImageIndex = 0;
-                        curNode.SelectedImageIndex = 0;
-                        treeView1.Nodes.Add(curNode);
+                        curNode = new TreeNode(ErrorHandle.getFilePath(fileid));
+                        foreach (LineError error in ErrorHandle.getErrors(fileid))
+                        {
+                            if (error.getSev() >= 20)
+                            {
+                                totalErrors += 1;
+                                curErr = curNode.Nodes.Add(error.getCode() + ": " + error.getData().Trim() + " (" + error.getLine().ToString() + ")");
+                                curErr.Tag = error.getLine().ToString() + ',' + error.getColumn().ToString();
+                                curErr.ImageIndex = 1;
+                                curErr.SelectedImageIndex = 1;
+                            }
+                        }
+
+                        //Only add a node if there is something to display
+                        if (curNode.Nodes.Count > 0)
+                        {
+                            curNode.ImageIndex = 0;
+                            curNode.SelectedImageIndex = 0;
+                            treeView1.Nodes.Add(curNode);
+                        }
                     }
                 }
 
@@ -82,6 +85,8 @@ namespace ILEditor.UserTools
                 publishErrors();
             });
             gothread.Start();
+
+            this.Parent.Text = lib.Text + "/" + obj.Text + " [Errors]";
         }
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)

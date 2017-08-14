@@ -19,24 +19,15 @@ namespace ILEditor
     {
         public static Editor TheEditor;
 
+        private Boolean IsSourceTab = false;
+        private int RightClickedTab = -1;
+
         public Editor()
         {
             InitializeComponent();
             AddTool("Toolbox", new UserToolList());
             AddWelcome();
             TheEditor = this;
-        }
-
-        public void AddTool(string TabName, UserControl UserForm)
-        {
-            if (!usercontrol.TabPages.ContainsKey(TabName))
-            {
-                TabPage tabPage = new TabPage(TabName);
-                UserForm.BringToFront();
-                UserForm.Dock = DockStyle.Fill;
-                tabPage.Controls.Add(UserForm);
-                usercontrol.TabPages.Add(tabPage);
-            }
         }
 
         private void AddWelcome()
@@ -78,9 +69,10 @@ namespace ILEditor
             }
         }
 
+        #region Editor
         public void AddMemberEditor(Member MemberInfo)
         {
-            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ") X";
+            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             int currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
@@ -126,18 +118,60 @@ namespace ILEditor
 
         private void editortabs_MouseClick(object sender, MouseEventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (e.Button == MouseButtons.Right)
             {
-                Rectangle r = editortabs.GetTabRect(editortabs.SelectedIndex);
-                Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 9, 7);
-                if (closeButton.Contains(e.Location))
+                for (int ix = 0; ix < editortabs.TabCount; ++ix)
                 {
-                    if (MessageBox.Show("Are you sure you want to close this source?", "Confirm Close", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    if (editortabs.GetTabRect(ix).Contains(e.Location))
                     {
-                        this.editortabs.TabPages.Remove(editortabs.SelectedTab);
+                        RightClickedTab = ix;
+                        IsSourceTab = true;
+                        toolstabrightclick.Show(Cursor.Position);
+                        break;
                     }
                 }
             }
+        }
+        #endregion
+
+        #region Tools
+        public void AddTool(string TabName, UserControl UserForm)
+        {
+            if (!usercontrol.TabPages.ContainsKey(TabName))
+            {
+                TabPage tabPage = new TabPage(TabName);
+                UserForm.BringToFront();
+                UserForm.Dock = DockStyle.Fill;
+                tabPage.Controls.Add(UserForm);
+                usercontrol.TabPages.Add(tabPage);
+            }
+        }
+
+        private void usercontrol_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                for (int ix = 0; ix < usercontrol.TabCount; ++ix)
+                {
+                    if (usercontrol.GetTabRect(ix).Contains(e.Location))
+                    {
+                        RightClickedTab = ix;
+                        IsSourceTab = false;
+                        toolstabrightclick.Show(Cursor.Position);
+                        //editortabs.TabPages[ix].Dispose();
+                        break;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsSourceTab)
+                editortabs.TabPages.RemoveAt(RightClickedTab);
+            else
+                usercontrol.TabPages.RemoveAt(RightClickedTab);
         }
     }
 }

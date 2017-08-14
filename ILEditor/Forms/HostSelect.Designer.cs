@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HostSelect));
             this.systemlist = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.cancel = new System.Windows.Forms.Button();
             this.newhost = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // systemlist
@@ -45,6 +45,12 @@
             this.systemlist.TabIndex = 0;
             this.systemlist.UseCompatibleStateImageBehavior = false;
             this.systemlist.DoubleClick += new System.EventHandler(this.systemlist_DoubleClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "ibmi.png");
             // 
             // cancel
             // 
@@ -66,12 +72,6 @@
             this.newhost.UseVisualStyleBackColor = true;
             this.newhost.Click += new System.EventHandler(this.newhost_Click);
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "ibmi.png");
-            // 
             // HostSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,6 +81,8 @@
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.systemlist);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(478, 367);
+            this.MinimumSize = new System.Drawing.Size(478, 367);
             this.Name = "HostSelect";
             this.Text = "Host Select";
             this.ResumeLayout(false);

@@ -111,6 +111,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.host);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(309, 168);
+            this.MinimumSize = new System.Drawing.Size(309, 168);
             this.Name = "NewSystem";
             this.Text = "New System";
             this.ResumeLayout(false);

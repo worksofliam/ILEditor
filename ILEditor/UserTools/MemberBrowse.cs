@@ -106,6 +106,7 @@ namespace ILEditor.UserTools
                 return;
             }
 
+            this.Parent.Text = library.Text + "/" + spf.Text + " [Listing]";
             UpdateListing(library.Text, spf.Text);
         }
 

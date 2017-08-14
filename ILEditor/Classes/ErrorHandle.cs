@@ -16,18 +16,21 @@ namespace ILEditor.Classes
         private static Dictionary<int, string> _FileIDs;
         private static Dictionary<int, List<LineError>> _Errors;
         private static Dictionary<int, List<expRange>> _Expansions;
+        private static Boolean _Success = false;
 
         public static void getErrors(string lib, string obj)
         {
             lib = lib.Trim().ToUpper();
             obj = obj.Trim().ToUpper();
-            
+
+            _Success = false;
             string filetemp = IBMiUtils.DownloadMember(lib, "EVFEVENT", obj);
 
             if (filetemp != "")
             {
                 ErrorHandle.doName(lib.ToUpper() + '/' + obj.ToUpper());
                 ErrorHandle.setLines(File.ReadAllLines(filetemp));
+                _Success = true;
             }
         }
 
@@ -36,6 +39,11 @@ namespace ILEditor.Classes
             if (newName != "") _name = newName;
 
             return _name;
+        }
+
+        public static Boolean WasSuccessful()
+        {
+            return _Success;
         }
 
         public static void setLines(string[] data)
