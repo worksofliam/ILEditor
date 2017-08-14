@@ -20,6 +20,20 @@ namespace ILEditor.UserTools
             InitializeComponent();
         }
 
+        private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
+        {
+            { "QRPGLESRC", ILELanguage.RPG },
+            { "QCPPSRC", ILELanguage.CPP },
+        };
+
+        private ILELanguage GetBoundLangType(string Obj)
+        {
+            if (LangTypes.ContainsKey(Obj))
+                return LangTypes[Obj];
+            else
+                return ILELanguage.None;
+        }
+
         private List<ListViewItem> curItems = new List<ListViewItem>();
         public void UpdateListing(string Lib, string Obj)
         {
@@ -82,7 +96,7 @@ namespace ILEditor.UserTools
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Editing));
+                        Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Editing), GetBoundLangType(Obj));
                     });
                 }
                 else

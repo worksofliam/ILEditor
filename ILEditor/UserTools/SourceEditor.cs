@@ -12,25 +12,30 @@ using ILEditor.Classes;
 using FastColoredTextBoxNS;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using ILEditor.Classes.LanguageTools;
+using System.Threading;
 
 namespace ILEditor.UserTools
 {
     public enum ILELanguage
     {
         None,
-        CPP
+        CPP,
+        RPG
     }
 
     public partial class SourceEditor : UserControl
     {
         public FastColoredTextBox Editor = null;
-        //private CurrentLanguage Language;
+        private ILELanguage Language;
 
         public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None)
         {
             InitializeComponent();
-            
+
             //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
+
+            this.Language = Language;
 
             Editor = new FastColoredTextBox();
             Editor.Dock = DockStyle.Fill;
@@ -42,7 +47,22 @@ namespace ILEditor.UserTools
             }
 
             Editor.Text = File.ReadAllText(LocalFile);
+            
+            OnSaveLoad();
+
             this.Controls.Add(Editor);
+        }
+
+        public void OnSaveLoad()
+        {
+            new Thread((ThreadStart)delegate
+            {
+                switch (Language)
+                {
+                    case ILELanguage.RPG:
+                        break;
+                }
+            }).Start();
         }
 
         #region Styles

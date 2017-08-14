@@ -52,6 +52,7 @@
     <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
+    <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Member.cs" />
     <Compile Include="UserTools\ErrorListing.cs">
       <SubType>UserControl</SubType>

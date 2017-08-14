@@ -12,6 +12,7 @@ using ILEditor.Classes;
 using System.Threading;
 using System.IO;
 using FastColoredTextBoxNS;
+using ILEditor.Forms;
 
 namespace ILEditor
 {
@@ -70,7 +71,7 @@ namespace ILEditor
         }
 
         #region Editor
-        public void AddMemberEditor(Member MemberInfo)
+        public void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             int currentTab = EditorContains(pageName);
@@ -80,7 +81,7 @@ namespace ILEditor
                 editortabs.TabPages.RemoveAt(currentTab);
 
             TabPage tabPage = new TabPage(pageName);
-            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile());
+            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language);
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
             tabPage.Tag = MemberInfo;
@@ -98,6 +99,7 @@ namespace ILEditor
                 if (MemberInfo.IsEditable())
                 {
                     FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
+                    GetTabEditor(editortabs.SelectedIndex).OnSaveLoad();
                     Thread gothread = new Thread((ThreadStart)delegate
                     {
                         File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.Text);
