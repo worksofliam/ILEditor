@@ -81,6 +81,7 @@
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.systemlist);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(478, 367);
             this.MinimumSize = new System.Drawing.Size(478, 367);
             this.Name = "HostSelect";
