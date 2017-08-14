@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using ILEditor.Forms;
 
 namespace ILEditor
@@ -18,7 +19,9 @@ namespace ILEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             HostSelect Selector = new HostSelect();
+
             Application.Run(Selector);
             if (Selector.SystemSelected)
                 Application.Run(new Editor());

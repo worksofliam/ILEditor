@@ -154,6 +154,7 @@
   <ItemGroup>
     <None Include="Resources\Icons\script_go.png" />
     <None Include="Resources\Icons\application_go.png" />
+    <Content Include="Resources\langs\cpp.xml" />
     <Content Include="Resources\welcome.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
