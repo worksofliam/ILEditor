@@ -46,7 +46,6 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -105,8 +104,7 @@
             this.openToolboxToolStripMenuItem,
             this.openWelcomeToolStripMenuItem,
             this.connectionSettingsToolStripMenuItem,
-            this.libraryListToolStripMenuItem,
-            this.compileSetupToolStripMenuItem});
+            this.libraryListToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -205,13 +203,6 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // compileSetupToolStripMenuItem
-            // 
-            this.compileSetupToolStripMenuItem.Name = "compileSetupToolStripMenuItem";
-            this.compileSetupToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.compileSetupToolStripMenuItem.Text = "Compile Setup";
-            this.compileSetupToolStripMenuItem.Click += new System.EventHandler(this.compileSetupToolStripMenuItem_Click);
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,7 +246,6 @@
         private System.Windows.Forms.ToolStripMenuItem libraryListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem memberToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem compileSetupToolStripMenuItem;
     }
 }
 

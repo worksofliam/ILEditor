@@ -36,6 +36,9 @@ namespace ILEditor.UserTools
                     case "CONN":
                         new Forms.Connection().ShowDialog();
                         break;
+                    case "CMP":
+                        Editor.TheEditor.AddTool("Compile Settings", new CompileOptions());
+                        break;
                 }
             }
         }

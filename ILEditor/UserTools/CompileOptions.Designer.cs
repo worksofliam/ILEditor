@@ -1,13 +1,13 @@
-﻿namespace ILEditor.Forms
+﻿namespace ILEditor.UserTools
 {
     partial class CompileOptions
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,27 +20,48 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompileOptions));
+            this.commandList = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newType = new System.Windows.Forms.ToolStripButton();
             this.newCommand = new System.Windows.Forms.ToolStripButton();
-            this.commandList = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.rightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setDefaultForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.rightClick.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // commandList
+            // 
+            this.commandList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commandList.LargeImageList = this.imageList1;
+            this.commandList.Location = new System.Drawing.Point(0, 25);
+            this.commandList.MultiSelect = false;
+            this.commandList.Name = "commandList";
+            this.commandList.Size = new System.Drawing.Size(317, 281);
+            this.commandList.SmallImageList = this.imageList1;
+            this.commandList.TabIndex = 3;
+            this.commandList.UseCompatibleStateImageBehavior = false;
+            this.commandList.View = System.Windows.Forms.View.Tile;
+            this.commandList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.commandList_MouseClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "application.png");
+            this.imageList1.Images.SetKeyName(1, "application_go.png");
             // 
             // toolStrip1
             // 
@@ -49,8 +70,8 @@
             this.newCommand});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(328, 25);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Size = new System.Drawing.Size(317, 25);
+            this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // newType
@@ -73,34 +94,13 @@
             this.newCommand.Text = "New Command";
             this.newCommand.Click += new System.EventHandler(this.newCommand_Click);
             // 
-            // commandList
-            // 
-            this.commandList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.commandList.LargeImageList = this.imageList1;
-            this.commandList.Location = new System.Drawing.Point(0, 25);
-            this.commandList.MultiSelect = false;
-            this.commandList.Name = "commandList";
-            this.commandList.Size = new System.Drawing.Size(328, 293);
-            this.commandList.SmallImageList = this.imageList1;
-            this.commandList.TabIndex = 1;
-            this.commandList.UseCompatibleStateImageBehavior = false;
-            this.commandList.View = System.Windows.Forms.View.Tile;
-            this.commandList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.commandList_MouseClick);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "application.png");
-            this.imageList1.Images.SetKeyName(1, "application_go.png");
-            // 
             // rightClick
             // 
             this.rightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setDefaultForTypeToolStripMenuItem,
             this.editToolStripMenuItem});
             this.rightClick.Name = "contextMenuStrip1";
-            this.rightClick.Size = new System.Drawing.Size(178, 48);
+            this.rightClick.Size = new System.Drawing.Size(178, 70);
             // 
             // setDefaultForTypeToolStripMenuItem
             // 
@@ -120,13 +120,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 318);
             this.Controls.Add(this.commandList);
             this.Controls.Add(this.toolStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CompileOptions";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Compile Options";
+            this.Size = new System.Drawing.Size(317, 306);
             this.Load += new System.EventHandler(this.CompileOptions_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -138,9 +135,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ListView commandList;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton newType;
         private System.Windows.Forms.ToolStripButton newCommand;
         private System.Windows.Forms.ContextMenuStrip rightClick;

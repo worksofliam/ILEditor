@@ -1,24 +1,23 @@
-﻿using ILEditor.Classes;
-using ILEditor.Forms.CompileOptionForms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
+using ILEditor.Forms.CompileOptionForms;
 
-namespace ILEditor.Forms
+namespace ILEditor.UserTools
 {
-    public partial class CompileOptions : Form
+    public partial class CompileOptions : UserControl
     {
         public CompileOptions()
         {
             InitializeComponent();
         }
-
         private void CompileOptions_Load(object sender, EventArgs e)
         {
             reloadConfig();

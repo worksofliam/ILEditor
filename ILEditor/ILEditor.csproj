@@ -67,12 +67,6 @@
     <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
       <DependentUpon>NewType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CompileOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CompileOptions.Designer.cs">
-      <DependentUpon>CompileOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\LibraryList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +90,12 @@
     </Compile>
     <Compile Include="Forms\NewMember.Designer.cs">
       <DependentUpon>NewMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\CompileOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\CompileOptions.Designer.cs">
+      <DependentUpon>CompileOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\ErrorListing.cs">
       <SubType>UserControl</SubType>
@@ -156,9 +156,6 @@
     <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
       <DependentUpon>NewType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CompileOptions.resx">
-      <DependentUpon>CompileOptions.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HostSelect.resx">
       <DependentUpon>HostSelect.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +184,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserTools\CompileOptions.resx">
+      <DependentUpon>CompileOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ErrorListing.resx">
       <DependentUpon>ErrorListing.cs</DependentUpon>
     </EmbeddedResource>

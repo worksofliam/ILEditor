@@ -33,6 +33,7 @@
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Error Listing", 1);
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Library List", 3);
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Connection Setup", 2);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Compile Settings");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserToolList));
             this.toollist = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -47,11 +48,13 @@
             listViewItem2.Tag = "ERR";
             listViewItem3.Tag = "LIBL";
             listViewItem4.Tag = "CONN";
+            listViewItem5.Tag = "CMP";
             this.toollist.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
             listViewItem3,
-            listViewItem4});
+            listViewItem4,
+            listViewItem5});
             this.toollist.Location = new System.Drawing.Point(0, 0);
             this.toollist.Name = "toollist";
             this.toollist.Size = new System.Drawing.Size(345, 334);
