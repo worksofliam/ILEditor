@@ -44,7 +44,6 @@ namespace ILEditor.Classes
                     if (RealLine.Trim() != "")
                     {
                         Line = RealLine.PadRight(70);
-                        Console.WriteLine(Line);
                         Name = Line.Substring(0, 10).Trim();
                         Desc = Line.Substring(10, 50).Trim();
                         Type = Line.Substring(60, 10).Trim();

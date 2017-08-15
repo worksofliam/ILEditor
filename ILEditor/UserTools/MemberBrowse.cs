@@ -142,5 +142,10 @@ namespace ILEditor.UserTools
                 }
             }
         }
+
+        private void memberList_Resize(object sender, EventArgs e)
+        {
+            memberList.Columns[memberList.Columns.Count - 1].Width = -2;
+        }
     }
 }

@@ -37,6 +37,7 @@
             this.membercount = new System.Windows.Forms.ToolStripLabel();
             this.memberList = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,7 +88,9 @@
             // 
             // memberList
             // 
-            this.memberList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.memberList.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
+            this.memberList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.memberList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.memberList.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberList.Location = new System.Drawing.Point(0, 25);
@@ -97,8 +100,9 @@
             this.memberList.SmallImageList = this.imageList1;
             this.memberList.TabIndex = 1;
             this.memberList.UseCompatibleStateImageBehavior = false;
-            this.memberList.View = System.Windows.Forms.View.SmallIcon;
+            this.memberList.View = System.Windows.Forms.View.Details;
             this.memberList.DoubleClick += new System.EventHandler(this.memberList_DoubleClick);
+            this.memberList.Resize += new System.EventHandler(this.memberList_Resize);
             // 
             // imageList1
             // 
@@ -107,6 +111,11 @@
             this.imageList1.Images.SetKeyName(0, "script.png");
             this.imageList1.Images.SetKeyName(1, "folder_explore.png");
             this.imageList1.Images.SetKeyName(2, "sitemap_color.png");
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Members";
+            this.columnHeader1.Width = 188;
             // 
             // MemberBrowse
             // 
@@ -132,5 +141,6 @@
         private System.Windows.Forms.ListView memberList;
         private System.Windows.Forms.ToolStripLabel membercount;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
