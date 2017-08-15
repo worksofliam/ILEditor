@@ -38,6 +38,7 @@
             this.rightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setDefaultForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.rightClick.SuspendLayout();
             this.SuspendLayout();
@@ -98,9 +99,10 @@
             // 
             this.rightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setDefaultForTypeToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
             this.rightClick.Name = "contextMenuStrip1";
-            this.rightClick.Size = new System.Drawing.Size(178, 70);
+            this.rightClick.Size = new System.Drawing.Size(178, 92);
             // 
             // setDefaultForTypeToolStripMenuItem
             // 
@@ -115,6 +117,13 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // CompileOptions
             // 
@@ -143,5 +152,6 @@
         private System.Windows.Forms.ContextMenuStrip rightClick;
         private System.Windows.Forms.ToolStripMenuItem setDefaultForTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

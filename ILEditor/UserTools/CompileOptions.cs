@@ -84,6 +84,25 @@ namespace ILEditor.UserTools
                 reloadConfig();
             }
         }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (commandList.SelectedItems.Count > 0)
+            {
+                ListViewItem item = commandList.SelectedItems[0];
+                if (IBMi.CurrentSystem.GetValue("DFT_" + item.Group.Name) != item.Text)
+                {
+                    List<string> Commands = IBMi.CurrentSystem.GetValue("TYPE_" + item.Group.Name).Split('|').ToList();
+                    Commands.Remove(item.Text);
+                    IBMi.CurrentSystem.SetValue("TYPE_" + item.Group.Name, String.Join("|", Commands));
+                    reloadConfig();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to delete command setting which is currently the default for a group.");
+                }
+            }
+        }
         #endregion
     }
 }
