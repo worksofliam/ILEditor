@@ -26,7 +26,7 @@ namespace ILEditor.UserTools
 
     public partial class SourceEditor : UserControl
     {
-        public FastColoredTextBox Editor = null;
+        public FastColoredTextBox EditorBox = null;
         private ILELanguage Language;
 
         public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None)
@@ -37,35 +37,31 @@ namespace ILEditor.UserTools
 
             this.Language = Language;
 
-            Editor = new FastColoredTextBox();
-            Editor.Dock = DockStyle.Fill;
+            EditorBox = new FastColoredTextBox();
+            EditorBox.Dock = DockStyle.Fill;
 
             switch (Language) {
                 case ILELanguage.RPG:
-                    Editor.TextChanged += SetRPG;
+                    EditorBox.TextChanged += SetRPG;
                     break;
                 case ILELanguage.CPP:
-                    Editor.TextChanged += SetCPP;
+                    EditorBox.TextChanged += SetCPP;
                     break;
             }
 
-            Editor.Text = File.ReadAllText(LocalFile);
-            
-            OnSaveLoad();
+            EditorBox.Text = File.ReadAllText(LocalFile);
 
-            this.Controls.Add(Editor);
+            EditorBox.TextChanged += Editor_TextChanged;
+
+            this.Controls.Add(EditorBox);
         }
 
-        public void OnSaveLoad()
+        private void Editor_TextChanged(object sender, TextChangedEventArgs e)
         {
-            new Thread((ThreadStart)delegate
+            if (!Editor.TheEditor.GetCurrentTab().Text.EndsWith("*"))
             {
-                switch (Language)
-                {
-                    case ILELanguage.RPG:
-                        break;
-                }
-            }).Start();
+                Editor.TheEditor.GetCurrentTab().Text += "*";
+            }
         }
 
         #region Styles

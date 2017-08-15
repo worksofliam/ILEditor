@@ -59,6 +59,11 @@ namespace ILEditor
         #endregion
 
         #region Editor
+        public TabPage GetCurrentTab()
+        {
+            return editortabs.SelectedTab;
+        }
+
         public int EditorContains(string Page)
         {
             for (int i = 0; i < editortabs.TabPages.Count; i++)
@@ -115,7 +120,6 @@ namespace ILEditor
                 if (MemberInfo.IsEditable())
                 {
                     FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
-                    GetTabEditor(editortabs.SelectedIndex).OnSaveLoad();
                     Thread gothread = new Thread((ThreadStart)delegate
                     {
                         File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.Text);
@@ -123,6 +127,15 @@ namespace ILEditor
                         if (UploadResult == false)
                         {
                             MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
+                        }
+                        else
+                        {
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                if (editortabs.SelectedTab.Text.EndsWith("*"))
+                                    editortabs.SelectedTab.Text = editortabs.SelectedTab.Text.Substring(0, editortabs.SelectedTab.Text.Length - 1);
+                            });
                         }
                     });
 
