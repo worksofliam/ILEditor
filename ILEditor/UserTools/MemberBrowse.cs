@@ -63,7 +63,7 @@ namespace ILEditor.UserTools
                 {
                     foreach (string[] member in members)
                     {
-                        curItem = new ListViewItem(member[0] + "." + member[1] + " - " + member[2], 0);
+                        curItem = new ListViewItem(new string[3] { member[0], member[1], member[2] }, 0);
                         curItem.Tag = Lib + '|' + Obj + '|' + member[0] + '|' + member[1];
 
                         curItems.Add(curItem);
@@ -141,11 +141,6 @@ namespace ILEditor.UserTools
                     }
                 }
             }
-        }
-
-        private void memberList_Resize(object sender, EventArgs e)
-        {
-            memberList.Columns[memberList.Columns.Count - 1].Width = -2;
         }
     }
 }
