@@ -138,6 +138,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "ErrorListing";
             this.Size = new System.Drawing.Size(381, 309);
+            this.Load += new System.EventHandler(this.ErrorListing_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

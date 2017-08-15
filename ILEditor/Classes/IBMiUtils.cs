@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ILEditor.UserTools;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -58,6 +59,36 @@ namespace ILEditor.Classes
             }
 
             return Members.ToArray();
+        }
+
+        public static Boolean CompileMember(Member MemberInfo)
+        {
+            string type, command;
+
+            type = MemberInfo.GetExtension();
+            command = IBMi.CurrentSystem.GetValue("DFT_" + type);
+            if (command.Trim() != "")
+            {
+                Editor.TheEditor.SetStatus("Compiling with " + command + "...");
+                command = IBMi.CurrentSystem.GetValue(command);
+                if (command.Trim() != "")
+                {
+                    command = command.Replace("&OPENLIB", MemberInfo.GetLibrary());
+                    command = command.Replace("&OPENSPF", MemberInfo.GetObject());
+                    command = command.Replace("&OPENMBR", MemberInfo.GetMember());
+                    command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
+                    
+                    IBMi.RunCommands(new string[] { "QUOTE RCMD " + command });
+                    if (command.ToUpper().Contains("*EVENTF"))
+                    {
+                        Editor.TheEditor.SetStatus("Fetching errors..");
+                        Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()));
+                    }
+                    Editor.TheEditor.SetStatus("Compile finished.");
+                }
+            }
+
+            return true;
         }
 
         public static string DownloadMember(string Lib, string Obj, string Mbr, string[] PreCommands = null)

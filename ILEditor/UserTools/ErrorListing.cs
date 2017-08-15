@@ -14,12 +14,24 @@ namespace ILEditor.UserTools
 {
     public partial class ErrorListing : UserControl
     {
-        public ErrorListing(Boolean hideBar = false)
+        public ErrorListing(string Lib = "", string Obj = "")
         {
-            if (hideBar)
-                toolStrip1.Visible = false;
-
             InitializeComponent();
+
+            if (Lib != "" && Obj != "")
+            {
+                lib.Text = Lib;
+                obj.Text = Obj;
+            }
+        }
+        
+        private void ErrorListing_Load(object sender, EventArgs e)
+        {
+            if (lib.Text != "" && obj.Text != "")
+            {
+                fetchErrors.PerformClick();
+                toolStrip1.Enabled = false;
+            }
         }
 
         public void publishErrors()

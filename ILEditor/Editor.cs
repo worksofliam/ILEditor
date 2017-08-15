@@ -26,9 +26,13 @@ namespace ILEditor
         public Editor()
         {
             InitializeComponent();
+            TheEditor = this;
+        }
+        
+        private void Editor_Load(object sender, EventArgs e)
+        {
             AddTool("Toolbox", new UserToolList());
             AddWelcome();
-            TheEditor = this;
         }
 
         private void AddWelcome()
@@ -61,6 +65,24 @@ namespace ILEditor
         {
             new Forms.LibraryList().ShowDialog();
         }
+        #endregion
+
+        #region Compile
+
+        private void compileCurrentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                Thread gothread = new Thread((ThreadStart)delegate
+                {
+                    IBMiUtils.CompileMember(MemberInfo);
+                });
+
+                gothread.Start();
+            }
+        }
+
         #endregion
 
         #region Editor
@@ -201,7 +223,12 @@ namespace ILEditor
                 UserForm.BringToFront();
                 UserForm.Dock = DockStyle.Fill;
                 tabPage.Controls.Add(UserForm);
-                usercontrol.TabPages.Add(tabPage);
+
+                this.Invoke((MethodInvoker)delegate
+                {
+                    usercontrol.TabPages.Add(tabPage);
+                    usercontrol.SelectedIndex = usercontrol.TabPages.Count - 1;
+                });
             }
         }
 
@@ -230,6 +257,11 @@ namespace ILEditor
                 editortabs.TabPages.RemoveAt(RightClickedTab);
             else
                 usercontrol.TabPages.RemoveAt(RightClickedTab);
+        }
+
+        public void SetStatus(string Text)
+        {
+            statusLabel.Text = Text;
         }
     }
 }
