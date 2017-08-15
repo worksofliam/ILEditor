@@ -55,6 +55,24 @@
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Licence.cs" />
     <Compile Include="Classes\Member.cs" />
+    <Compile Include="Forms\CompileOptionForms\EditCommand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\EditCommand.Designer.cs">
+      <DependentUpon>EditCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\NewType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
+      <DependentUpon>NewType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CompileOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompileOptions.Designer.cs">
+      <DependentUpon>CompileOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LibraryList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +149,15 @@
     </Compile>
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompileOptionForms\EditCommand.resx">
+      <DependentUpon>EditCommand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
+      <DependentUpon>NewType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompileOptions.resx">
+      <DependentUpon>CompileOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HostSelect.resx">
       <DependentUpon>HostSelect.cs</DependentUpon>

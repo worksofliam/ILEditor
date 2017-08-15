@@ -61,6 +61,12 @@ namespace ILEditor
         {
             new Forms.LibraryList().ShowDialog();
         }
+
+
+        private void compileSetupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Forms.CompileOptions().ShowDialog();
+        }
         #endregion
 
         #region Editor
