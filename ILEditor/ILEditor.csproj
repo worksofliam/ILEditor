@@ -61,6 +61,12 @@
     <Compile Include="Forms\LicenceKey.Designer.cs">
       <DependentUpon>LicenceKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Connection.Designer.cs">
+      <DependentUpon>Connection.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\ErrorListing.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewSystem.resx">
       <DependentUpon>NewSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Connection.resx">
+      <DependentUpon>Connection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

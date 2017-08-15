@@ -39,6 +39,10 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWelcomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -50,7 +54,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(833, 24);
@@ -138,6 +143,37 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolboxToolStripMenuItem,
+            this.openWelcomeToolStripMenuItem,
+            this.connectionSettingsToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // openToolboxToolStripMenuItem
+            // 
+            this.openToolboxToolStripMenuItem.Name = "openToolboxToolStripMenuItem";
+            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolboxToolStripMenuItem.Text = "Open Toolbox";
+            this.openToolboxToolStripMenuItem.Click += new System.EventHandler(this.openToolboxToolStripMenuItem_Click);
+            // 
+            // openWelcomeToolStripMenuItem
+            // 
+            this.openWelcomeToolStripMenuItem.Name = "openWelcomeToolStripMenuItem";
+            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openWelcomeToolStripMenuItem.Text = "Open Welcome";
+            this.openWelcomeToolStripMenuItem.Click += new System.EventHandler(this.openWelcomeToolStripMenuItem_Click);
+            // 
+            // connectionSettingsToolStripMenuItem
+            // 
+            this.connectionSettingsToolStripMenuItem.Name = "connectionSettingsToolStripMenuItem";
+            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.connectionSettingsToolStripMenuItem.Text = "Connection Settings";
+            this.connectionSettingsToolStripMenuItem.Click += new System.EventHandler(this.connectionSettingsToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +210,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip toolstabrightclick;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolboxToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openWelcomeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectionSettingsToolStripMenuItem;
     }
 }
 

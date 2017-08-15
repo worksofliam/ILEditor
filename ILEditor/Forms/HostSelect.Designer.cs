@@ -85,6 +85,7 @@
             this.MaximumSize = new System.Drawing.Size(478, 367);
             this.MinimumSize = new System.Drawing.Size(478, 367);
             this.Name = "HostSelect";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Host Select";
             this.ResumeLayout(false);
 

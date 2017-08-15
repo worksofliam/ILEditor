@@ -41,7 +41,24 @@ namespace ILEditor
             editortabs.TabPages.Add(tabPage);
         }
 
+        #region Tools Dropdown
+        private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddTool("Toolbox", new UserToolList());
+        }
 
+        private void openWelcomeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddWelcome();
+        }
+
+        private void connectionSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Forms.Connection().ShowDialog();
+        }
+        #endregion
+
+        #region Editor
         public int EditorContains(string Page)
         {
             for (int i = 0; i < editortabs.TabPages.Count; i++)
@@ -70,7 +87,6 @@ namespace ILEditor
             }
         }
 
-        #region Editor
         public void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
@@ -112,7 +128,8 @@ namespace ILEditor
 
                     gothread.Start();
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("This file is readonly.");
             }
