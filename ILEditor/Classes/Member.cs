@@ -12,14 +12,16 @@ namespace ILEditor.Classes
         private string _Lib;
         private string _Obj;
         private string _Mbr;
+        private string _Ext;
         private Boolean _isEditable;
 
-        public Member(string Local, string Lib, string Obj, string Mbr, Boolean isEditable)
+        public Member(string Local, string Lib, string Obj, string Mbr, string Ext, Boolean isEditable)
         {
             this._Local = Local;
             this._Lib = Lib;
             this._Obj = Obj;
             this._Mbr = Mbr;
+            this._Ext = Ext;
             this._isEditable = isEditable;
         }
 
@@ -41,6 +43,11 @@ namespace ILEditor.Classes
         public string GetMember()
         {
             return this._Mbr;
+        }
+
+        public string GetExtension()
+        {
+            return this._Ext;
         }
 
         public bool IsEditable()

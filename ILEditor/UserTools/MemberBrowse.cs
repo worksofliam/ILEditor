@@ -22,8 +22,10 @@ namespace ILEditor.UserTools
 
         private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
         {
-            { "QRPGLESRC", ILELanguage.RPG },
-            { "QCPPSRC", ILELanguage.CPP },
+            { "RPGLE", ILELanguage.RPG },
+            { "SQLRPGLE", ILELanguage.RPG },
+            { "CPP", ILELanguage.CPP },
+            { "C", ILELanguage.CPP }
         };
 
         private ILELanguage GetBoundLangType(string Obj)
@@ -39,7 +41,7 @@ namespace ILEditor.UserTools
         {
             Thread gothread = new Thread((ThreadStart)delegate
             {
-                string[] members;
+                string[][] members;
                 ListViewItem curItem;
 
                 curItems.Clear();
@@ -51,8 +53,7 @@ namespace ILEditor.UserTools
                 });
 
                 members = IBMiUtils.GetMemberList(Lib, Obj);
-
-
+                
                 this.Invoke((MethodInvoker)delegate
                 {
                     memberList.Items.Clear();
@@ -60,10 +61,10 @@ namespace ILEditor.UserTools
 
                 if (members != null)
                 {
-                    foreach (string member in members)
+                    foreach (string[] member in members)
                     {
-                        curItem = new ListViewItem(Path.GetFileNameWithoutExtension(member), 0);
-                        curItem.Tag = Lib + '|' + Obj;
+                        curItem = new ListViewItem(member[0] + "." + member[1] + " - " + member[2], 0);
+                        curItem.Tag = Lib + '|' + Obj + '|' + member[0] + '|' + member[1];
 
                         curItems.Add(curItem);
                     }
@@ -87,7 +88,7 @@ namespace ILEditor.UserTools
             gothread.Start();
         }
 
-        private void OpenMember(string Lib, string Obj, string Mbr, Boolean Editing)
+        private void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
         {
             Thread gothread = new Thread((ThreadStart)delegate {
                 string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
@@ -96,7 +97,7 @@ namespace ILEditor.UserTools
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Editing), GetBoundLangType(Obj));
+                        Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), GetBoundLangType(Ext));
                     });
                 }
                 else
@@ -136,7 +137,7 @@ namespace ILEditor.UserTools
                     {
                         string[] path = tag.Split('|');
 
-                        OpenMember(path[0], path[1], selection.Text, true);
+                        OpenMember(path[0], path[1], path[2], path[3], true);
                     }
                 }
             }
