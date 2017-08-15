@@ -117,6 +117,7 @@
             // libraryListToolStripMenuItem
             // 
             this.libraryListToolStripMenuItem.Name = "libraryListToolStripMenuItem";
+            this.libraryListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
             this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.libraryListToolStripMenuItem.Text = "Library List";
             this.libraryListToolStripMenuItem.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
@@ -197,7 +198,8 @@
             // memberToolStripMenuItem
             // 
             this.memberToolStripMenuItem.Name = "memberToolStripMenuItem";
-            this.memberToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.memberToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.memberToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.memberToolStripMenuItem.Text = "Member";
             this.memberToolStripMenuItem.Click += new System.EventHandler(this.memberToolStripMenuItem_Click);
             // 
