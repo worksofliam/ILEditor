@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using ILEditor.Classes;
 using System.IO;
+using ILEditor.Forms;
 
 namespace ILEditor.UserTools
 {
@@ -84,6 +85,11 @@ namespace ILEditor.UserTools
                         membercount.Text = "0 members";
                     });
                 }
+
+                this.Invoke((MethodInvoker)delegate
+                {
+                    addmember.Enabled = true;
+                });
             });
             gothread.Start();
         }
@@ -140,6 +146,19 @@ namespace ILEditor.UserTools
                         OpenMember(path[0], path[1], path[2], path[3], true);
                     }
                 }
+            }
+        }
+
+        private void addmember_Click(object sender, EventArgs e)
+        {
+            NewMember newMemberForm = new NewMember(library.Text.Trim(), spf.Text.Trim());
+            newMemberForm.ShowDialog();
+
+            if (newMemberForm.created)
+            {
+                ListViewItem curItem = new ListViewItem(new string[3] { newMemberForm._mbr, newMemberForm._type, newMemberForm._text }, 0);
+                curItem.Tag = newMemberForm._lib + '|' + newMemberForm._spf + '|' + newMemberForm._mbr + '|' + newMemberForm._type;
+                memberList.Items.Add(curItem);
             }
         }
     }

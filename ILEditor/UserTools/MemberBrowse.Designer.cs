@@ -34,12 +34,13 @@
             this.library = new System.Windows.Forms.ToolStripTextBox();
             this.spf = new System.Windows.Forms.ToolStripTextBox();
             this.fetchButton = new System.Windows.Forms.ToolStripButton();
+            this.addmember = new System.Windows.Forms.ToolStripButton();
             this.membercount = new System.Windows.Forms.ToolStripLabel();
             this.memberList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,10 +50,11 @@
             this.library,
             this.spf,
             this.fetchButton,
+            this.addmember,
             this.membercount});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(341, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(376, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -82,6 +84,16 @@
             this.fetchButton.Text = "toolStripButton1";
             this.fetchButton.Click += new System.EventHandler(this.fetchButton_Click);
             // 
+            // addmember
+            // 
+            this.addmember.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addmember.Enabled = false;
+            this.addmember.Image = global::ILEditor.Properties.Resources.script_add;
+            this.addmember.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addmember.Name = "addmember";
+            this.addmember.Size = new System.Drawing.Size(23, 22);
+            this.addmember.Click += new System.EventHandler(this.addmember_Click);
+            // 
             // membercount
             // 
             this.membercount.Name = "membercount";
@@ -100,7 +112,7 @@
             this.memberList.Location = new System.Drawing.Point(0, 25);
             this.memberList.MultiSelect = false;
             this.memberList.Name = "memberList";
-            this.memberList.Size = new System.Drawing.Size(341, 291);
+            this.memberList.Size = new System.Drawing.Size(376, 291);
             this.memberList.SmallImageList = this.imageList1;
             this.memberList.TabIndex = 1;
             this.memberList.UseCompatibleStateImageBehavior = false;
@@ -112,14 +124,6 @@
             this.columnHeader1.Text = "Name";
             this.columnHeader1.Width = 93;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "script.png");
-            this.imageList1.Images.SetKeyName(1, "folder_explore.png");
-            this.imageList1.Images.SetKeyName(2, "sitemap_color.png");
-            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Type";
@@ -130,6 +134,14 @@
             this.columnHeader3.Text = "Text";
             this.columnHeader3.Width = 170;
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "script.png");
+            this.imageList1.Images.SetKeyName(1, "folder_explore.png");
+            this.imageList1.Images.SetKeyName(2, "sitemap_color.png");
+            // 
             // MemberBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,7 +149,7 @@
             this.Controls.Add(this.memberList);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MemberBrowse";
-            this.Size = new System.Drawing.Size(341, 316);
+            this.Size = new System.Drawing.Size(376, 316);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -157,5 +169,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ToolStripButton addmember;
     }
 }

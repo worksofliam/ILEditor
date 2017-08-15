@@ -73,6 +73,12 @@
     <Compile Include="Forms\Connection.Designer.cs">
       <DependentUpon>Connection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NewMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewMember.Designer.cs">
+      <DependentUpon>NewMember.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\ErrorListing.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     <EmbeddedResource Include="Forms\LicenceKey.resx">
       <DependentUpon>LicenceKey.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewMember.resx">
+      <DependentUpon>NewMember.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewSystem.resx">
       <DependentUpon>NewSystem.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +192,7 @@
   <ItemGroup>
     <None Include="Resources\Icons\script_go.png" />
     <None Include="Resources\Icons\application_go.png" />
+    <None Include="Resources\Icons\script_add.png" />
     <Content Include="Resources\welcome.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
