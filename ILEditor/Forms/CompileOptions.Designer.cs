@@ -31,11 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompileOptions));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.commandList = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.newType = new System.Windows.Forms.ToolStripButton();
             this.newCommand = new System.Windows.Forms.ToolStripButton();
+            this.commandList = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.rightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.setDefaultForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
+            this.rightClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -48,25 +52,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(328, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // commandList
-            // 
-            this.commandList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.commandList.LargeImageList = this.imageList1;
-            this.commandList.Location = new System.Drawing.Point(0, 25);
-            this.commandList.Name = "commandList";
-            this.commandList.Size = new System.Drawing.Size(328, 293);
-            this.commandList.SmallImageList = this.imageList1;
-            this.commandList.TabIndex = 1;
-            this.commandList.UseCompatibleStateImageBehavior = false;
-            this.commandList.View = System.Windows.Forms.View.Tile;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "application.png");
-            this.imageList1.Images.SetKeyName(1, "application_go.png");
             // 
             // newType
             // 
@@ -88,6 +73,49 @@
             this.newCommand.Text = "New Command";
             this.newCommand.Click += new System.EventHandler(this.newCommand_Click);
             // 
+            // commandList
+            // 
+            this.commandList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commandList.LargeImageList = this.imageList1;
+            this.commandList.Location = new System.Drawing.Point(0, 25);
+            this.commandList.MultiSelect = false;
+            this.commandList.Name = "commandList";
+            this.commandList.Size = new System.Drawing.Size(328, 293);
+            this.commandList.SmallImageList = this.imageList1;
+            this.commandList.TabIndex = 1;
+            this.commandList.UseCompatibleStateImageBehavior = false;
+            this.commandList.View = System.Windows.Forms.View.Tile;
+            this.commandList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.commandList_MouseClick);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "application.png");
+            this.imageList1.Images.SetKeyName(1, "application_go.png");
+            // 
+            // rightClick
+            // 
+            this.rightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setDefaultForTypeToolStripMenuItem,
+            this.editToolStripMenuItem});
+            this.rightClick.Name = "contextMenuStrip1";
+            this.rightClick.Size = new System.Drawing.Size(178, 48);
+            // 
+            // setDefaultForTypeToolStripMenuItem
+            // 
+            this.setDefaultForTypeToolStripMenuItem.Name = "setDefaultForTypeToolStripMenuItem";
+            this.setDefaultForTypeToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.setDefaultForTypeToolStripMenuItem.Text = "Set Default for Type";
+            this.setDefaultForTypeToolStripMenuItem.Click += new System.EventHandler(this.setDefaultForTypeToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
             // CompileOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -97,10 +125,12 @@
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CompileOptions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Compile Options";
             this.Load += new System.EventHandler(this.CompileOptions_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.rightClick.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,5 +143,8 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolStripButton newType;
         private System.Windows.Forms.ToolStripButton newCommand;
+        private System.Windows.Forms.ContextMenuStrip rightClick;
+        private System.Windows.Forms.ToolStripMenuItem setDefaultForTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }

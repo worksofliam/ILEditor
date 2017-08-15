@@ -56,5 +56,35 @@ namespace ILEditor.Forms
             new EditCommand().ShowDialog();
             reloadConfig();
         }
+
+        #region RightClick
+        private void commandList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                rightClick.Show(Cursor.Position);
+            }
+        }
+
+        private void setDefaultForTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (commandList.SelectedItems.Count > 0)
+            {
+                ListViewItem item = commandList.SelectedItems[0];
+                IBMi.CurrentSystem.SetValue("DFT_" + item.Group.Name, item.Text);
+                reloadConfig();
+            }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (commandList.SelectedItems.Count > 0)
+            {
+                ListViewItem item = commandList.SelectedItems[0];
+                new EditCommand(item.Group.Name, item.Text).ShowDialog();
+                reloadConfig();
+            }
+        }
+        #endregion
     }
 }

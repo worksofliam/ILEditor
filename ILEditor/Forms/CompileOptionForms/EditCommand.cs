@@ -20,7 +20,7 @@ namespace ILEditor.Forms.CompileOptionForms
             types.Items.AddRange(IBMi.CurrentSystem.GetValue("CMPTYPES").Split('|'));
             if (Type != "")
             {
-                types.SelectedText = Type;
+                types.Text = Type;
                 types.Enabled = false;
             }
 
