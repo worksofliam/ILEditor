@@ -116,6 +116,27 @@ namespace ILEditor
 
             SwitchToTab(editortabs.TabPages.Count - 1);
         }
+        
+        private void memberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewMember newMemberForm = new NewMember();
+            newMemberForm.ShowDialog();
+            if (newMemberForm.created)
+            {
+                new Thread((ThreadStart)delegate {
+                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr);
+
+                    if (resultFile != "")
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true), MemberBrowse.GetBoundLangType(newMemberForm._type));
+                        });
+                    }
+                }).Start();
+            }
+            newMemberForm.Dispose();
+        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {

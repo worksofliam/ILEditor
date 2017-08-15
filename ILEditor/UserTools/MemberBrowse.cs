@@ -29,7 +29,7 @@ namespace ILEditor.UserTools
             { "C", ILELanguage.CPP }
         };
 
-        private ILELanguage GetBoundLangType(string Obj)
+        public static ILELanguage GetBoundLangType(string Obj)
         {
             if (LangTypes.ContainsKey(Obj))
                 return LangTypes[Obj];
@@ -94,7 +94,7 @@ namespace ILEditor.UserTools
             gothread.Start();
         }
 
-        private void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
+        public void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
         {
             Thread gothread = new Thread((ThreadStart)delegate {
                 string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
@@ -160,6 +160,8 @@ namespace ILEditor.UserTools
                 curItem.Tag = newMemberForm._lib + '|' + newMemberForm._spf + '|' + newMemberForm._mbr + '|' + newMemberForm._type;
                 memberList.Items.Add(curItem);
             }
+
+            newMemberForm.Dispose();
         }
     }
 }
