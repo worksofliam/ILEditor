@@ -55,6 +55,12 @@
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Licence.cs" />
     <Compile Include="Classes\Member.cs" />
+    <Compile Include="Forms\LibraryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LibraryList.Designer.cs">
+      <DependentUpon>LibraryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LicenceKey.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HostSelect.resx">
       <DependentUpon>HostSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LibraryList.resx">
+      <DependentUpon>LibraryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LicenceKey.resx">
       <DependentUpon>LicenceKey.cs</DependentUpon>

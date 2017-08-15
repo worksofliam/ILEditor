@@ -30,6 +30,12 @@ namespace ILEditor.UserTools
                     case "ERR":
                         Editor.TheEditor.AddTool("Error Listing", new ErrorListing());
                         break;
+                    case "LIBL":
+                        new Forms.LibraryList().ShowDialog();
+                        break;
+                    case "CONN":
+                        new Forms.Connection().ShowDialog();
+                        break;
                 }
             }
         }

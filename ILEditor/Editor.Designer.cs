@@ -33,16 +33,17 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWelcomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.editortabs = new System.Windows.Forms.TabControl();
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openWelcomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -77,6 +78,38 @@
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolboxToolStripMenuItem,
+            this.openWelcomeToolStripMenuItem,
+            this.connectionSettingsToolStripMenuItem,
+            this.libraryListToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // openToolboxToolStripMenuItem
+            // 
+            this.openToolboxToolStripMenuItem.Name = "openToolboxToolStripMenuItem";
+            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolboxToolStripMenuItem.Text = "Open Toolbox";
+            this.openToolboxToolStripMenuItem.Click += new System.EventHandler(this.openToolboxToolStripMenuItem_Click);
+            // 
+            // openWelcomeToolStripMenuItem
+            // 
+            this.openWelcomeToolStripMenuItem.Name = "openWelcomeToolStripMenuItem";
+            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openWelcomeToolStripMenuItem.Text = "Open Welcome";
+            this.openWelcomeToolStripMenuItem.Click += new System.EventHandler(this.openWelcomeToolStripMenuItem_Click);
+            // 
+            // connectionSettingsToolStripMenuItem
+            // 
+            this.connectionSettingsToolStripMenuItem.Name = "connectionSettingsToolStripMenuItem";
+            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.connectionSettingsToolStripMenuItem.Text = "Connection Settings";
+            this.connectionSettingsToolStripMenuItem.Click += new System.EventHandler(this.connectionSettingsToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -143,36 +176,12 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // toolsToolStripMenuItem
+            // libraryListToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolboxToolStripMenuItem,
-            this.openWelcomeToolStripMenuItem,
-            this.connectionSettingsToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // openToolboxToolStripMenuItem
-            // 
-            this.openToolboxToolStripMenuItem.Name = "openToolboxToolStripMenuItem";
-            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.openToolboxToolStripMenuItem.Text = "Open Toolbox";
-            this.openToolboxToolStripMenuItem.Click += new System.EventHandler(this.openToolboxToolStripMenuItem_Click);
-            // 
-            // openWelcomeToolStripMenuItem
-            // 
-            this.openWelcomeToolStripMenuItem.Name = "openWelcomeToolStripMenuItem";
-            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.openWelcomeToolStripMenuItem.Text = "Open Welcome";
-            this.openWelcomeToolStripMenuItem.Click += new System.EventHandler(this.openWelcomeToolStripMenuItem_Click);
-            // 
-            // connectionSettingsToolStripMenuItem
-            // 
-            this.connectionSettingsToolStripMenuItem.Name = "connectionSettingsToolStripMenuItem";
-            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.connectionSettingsToolStripMenuItem.Text = "Connection Settings";
-            this.connectionSettingsToolStripMenuItem.Click += new System.EventHandler(this.connectionSettingsToolStripMenuItem_Click);
+            this.libraryListToolStripMenuItem.Name = "libraryListToolStripMenuItem";
+            this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.libraryListToolStripMenuItem.Text = "Library List";
+            this.libraryListToolStripMenuItem.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -214,6 +223,7 @@
         private System.Windows.Forms.ToolStripMenuItem openToolboxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openWelcomeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem libraryListToolStripMenuItem;
     }
 }
 

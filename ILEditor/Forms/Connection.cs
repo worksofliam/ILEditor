@@ -27,6 +27,7 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("system", host.Text.Trim());
             IBMi.CurrentSystem.SetValue("username", user.Text.Trim());
             IBMi.CurrentSystem.SetValue("password", pass.Text.Trim());
+            this.Close();
         }
     }
 }
