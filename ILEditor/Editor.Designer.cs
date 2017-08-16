@@ -43,12 +43,13 @@
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.editortabs = new System.Windows.Forms.TabControl();
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -146,10 +147,12 @@
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.compileCurrentToolStripMenuItem});
+            this.compileCurrentToolStripMenuItem,
+            this.otherForTypeToolStripMenuItem});
             this.compileToolStripMenuItem.Name = "compileToolStripMenuItem";
             this.compileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.compileToolStripMenuItem.Text = "Compile";
+            this.compileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.compileToolStripMenuItem_DropDownOpening);
             // 
             // compileCurrentToolStripMenuItem
             // 
@@ -169,6 +172,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(833, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(16, 17);
+            this.statusLabel.Text = "...";
             // 
             // splitContainer1
             // 
@@ -227,11 +236,11 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // statusLabel
+            // otherForTypeToolStripMenuItem
             // 
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(16, 17);
-            this.statusLabel.Text = "...";
+            this.otherForTypeToolStripMenuItem.Name = "otherForTypeToolStripMenuItem";
+            this.otherForTypeToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.otherForTypeToolStripMenuItem.Text = "Other for Type";
             // 
             // Editor
             // 
@@ -282,6 +291,7 @@
         private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compileCurrentToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripMenuItem otherForTypeToolStripMenuItem;
     }
 }
 

@@ -82,7 +82,26 @@ namespace ILEditor
                 gothread.Start();
             }
         }
+        
+        private void compileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            otherForTypeToolStripMenuItem.DropDownItems.Clear();
+            List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
+                foreach (string Item in Items)
+                {
+                    if (Item.Trim() == "") continue;
+                    Compiles.Add(new ToolStripMenuItem(Item));
+                }
+            }
 
+            compileCurrentToolStripMenuItem.Enabled = (Compiles.Count > 0);
+            otherForTypeToolStripMenuItem.Enabled = (Compiles.Count > 0);
+            otherForTypeToolStripMenuItem.DropDownItems.AddRange(Compiles.ToArray());
+        }
         #endregion
 
         #region Editor
