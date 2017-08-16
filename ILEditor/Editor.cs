@@ -190,6 +190,12 @@ namespace ILEditor
             newMemberForm.Dispose();
         }
 
+
+        private void memberToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new OpenMember().ShowDialog();
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (editortabs.SelectedTab.Tag != null)
@@ -292,5 +298,6 @@ namespace ILEditor
         {
             statusLabel.Text = Text;
         }
+
     }
 }

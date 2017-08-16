@@ -39,6 +39,10 @@ namespace ILEditor.UserTools
             { "SQLRPGLE", ILELanguage.RPG },
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP }
+            //{ "COBOL", ILELanguage.COBOL },
+            //{ "CBL", ILELanguage.COBOL },
+            //{ "CL", ILELanguage.CL }
+            //{ "CLLE", ILELanguage.CL }
         };
 
         public static ILELanguage GetBoundLangType(string Obj)

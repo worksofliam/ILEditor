@@ -21,7 +21,8 @@ namespace ILEditor.UserTools
     {
         None,
         CPP,
-        RPG
+        RPG,
+        SQL
     }
 
     public partial class SourceEditor : UserControl
@@ -40,7 +41,11 @@ namespace ILEditor.UserTools
             EditorBox = new FastColoredTextBox();
             EditorBox.Dock = DockStyle.Fill;
 
-            switch (Language) {
+            switch (Language)
+            {
+                case ILELanguage.SQL:
+                    EditorBox.Language = FastColoredTextBoxNS.Language.SQL;
+                    break;
                 case ILELanguage.RPG:
                     EditorBox.TextChanged += SetRPG;
                     break;
