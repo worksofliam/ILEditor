@@ -74,12 +74,10 @@ namespace ILEditor
             if (editortabs.SelectedTab.Tag != null)
             {
                 Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                Thread gothread = new Thread((ThreadStart)delegate
+                new Thread((ThreadStart)delegate
                 {
                     IBMiUtils.CompileMember(MemberInfo);
-                });
-
-                gothread.Start();
+                }).Start();
             }
         }
 
@@ -89,7 +87,10 @@ namespace ILEditor
             if (editortabs.SelectedTab.Tag != null)
             {
                 Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
+                new Thread((ThreadStart)delegate
+                {
+                    IBMiUtils.CompileMember(MemberInfo);
+                }).Start();
             }
         }
 

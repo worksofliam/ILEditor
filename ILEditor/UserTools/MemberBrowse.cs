@@ -163,5 +163,68 @@ namespace ILEditor.UserTools
 
             newMemberForm.Dispose();
         }
+
+        #region rightclick
+
+        private string currentRightClick;
+        private void memberList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (memberList.FocusedItem.Bounds.Contains(e.Location) == true)
+                {
+                    currentRightClick = memberList.FocusedItem.Tag.ToString();
+                    compileRightclick.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private void compileRightclick_Opening(object sender, CancelEventArgs e)
+        {
+            compileOtherToolStripMenuItem.DropDownItems.Clear();
+            List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
+            if (currentRightClick != null)
+            {
+                string[] path = currentRightClick.Split('|');
+                Member MemberInfo = new Member("", path[0], path[1], path[2], path[3], false);
+                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + path[3]).Split('|');
+                foreach (string Item in Items)
+                {
+                    if (Item.Trim() == "") continue;
+                    Compiles.Add(new ToolStripMenuItem(Item, null, compileAnyHandle));
+                }
+            }
+
+            compileToolStripMenuItem.Enabled = (Compiles.Count > 0);
+            compileOtherToolStripMenuItem.Enabled = (Compiles.Count > 0);
+            compileOtherToolStripMenuItem.DropDownItems.AddRange(Compiles.ToArray());
+        }
+
+
+        private void compileAnyHandle(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            if (currentRightClick != null)
+            {
+                string[] path = currentRightClick.Split('|');
+                Member MemberInfo = new Member("", path[0], path[1], path[2], path[3], false);
+                IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
+            }
+        }
+
+        private void compileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentRightClick != null)
+            {
+                string[] path = currentRightClick.Split('|');
+                Member MemberInfo = new Member("", path[0], path[1], path[2], path[3], false);
+                new Thread((ThreadStart)delegate
+                {
+                    IBMiUtils.CompileMember(MemberInfo);
+                }).Start();
+            }
+        }
+
+        #endregion
     }
 }

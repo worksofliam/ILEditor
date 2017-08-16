@@ -41,7 +41,11 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.compileRightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileOtherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
+            this.compileRightclick.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -118,6 +122,7 @@
             this.memberList.UseCompatibleStateImageBehavior = false;
             this.memberList.View = System.Windows.Forms.View.Details;
             this.memberList.DoubleClick += new System.EventHandler(this.memberList_DoubleClick);
+            this.memberList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.memberList_MouseClick);
             // 
             // columnHeader1
             // 
@@ -142,6 +147,28 @@
             this.imageList1.Images.SetKeyName(1, "folder_explore.png");
             this.imageList1.Images.SetKeyName(2, "sitemap_color.png");
             // 
+            // compileRightclick
+            // 
+            this.compileRightclick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileToolStripMenuItem,
+            this.compileOtherToolStripMenuItem});
+            this.compileRightclick.Name = "compileRightclick";
+            this.compileRightclick.Size = new System.Drawing.Size(153, 70);
+            this.compileRightclick.Opening += new System.ComponentModel.CancelEventHandler(this.compileRightclick_Opening);
+            // 
+            // compileToolStripMenuItem
+            // 
+            this.compileToolStripMenuItem.Name = "compileToolStripMenuItem";
+            this.compileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.compileToolStripMenuItem.Text = "Compile";
+            this.compileToolStripMenuItem.Click += new System.EventHandler(this.compileToolStripMenuItem_Click);
+            // 
+            // compileOtherToolStripMenuItem
+            // 
+            this.compileOtherToolStripMenuItem.Name = "compileOtherToolStripMenuItem";
+            this.compileOtherToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.compileOtherToolStripMenuItem.Text = "Compile Other";
+            // 
             // MemberBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,6 +179,7 @@
             this.Size = new System.Drawing.Size(376, 316);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.compileRightclick.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,5 +198,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripButton addmember;
+        private System.Windows.Forms.ContextMenuStrip compileRightclick;
+        private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compileOtherToolStripMenuItem;
     }
 }
