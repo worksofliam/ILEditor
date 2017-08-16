@@ -159,8 +159,8 @@
             this.compileCurrentToolStripMenuItem.Name = "compileCurrentToolStripMenuItem";
             this.compileCurrentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.C)));
-            this.compileCurrentToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.compileCurrentToolStripMenuItem.Text = "Compile Current";
+            this.compileCurrentToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.compileCurrentToolStripMenuItem.Text = "Compile";
             this.compileCurrentToolStripMenuItem.Click += new System.EventHandler(this.compileCurrentToolStripMenuItem_Click);
             // 
             // statusStrip1
@@ -239,8 +239,8 @@
             // otherForTypeToolStripMenuItem
             // 
             this.otherForTypeToolStripMenuItem.Name = "otherForTypeToolStripMenuItem";
-            this.otherForTypeToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.otherForTypeToolStripMenuItem.Text = "Other for Type";
+            this.otherForTypeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.otherForTypeToolStripMenuItem.Text = "Compile Options";
             // 
             // Editor
             // 

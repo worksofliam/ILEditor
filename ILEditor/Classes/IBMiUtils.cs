@@ -61,7 +61,7 @@ namespace ILEditor.Classes
             return Members.ToArray();
         }
 
-        public static Boolean CompileMember(Member MemberInfo)
+        public static Boolean CompileMember(Member MemberInfo, string TrueCmd = "")
         {
             string type, command;
 
@@ -69,6 +69,7 @@ namespace ILEditor.Classes
             command = IBMi.CurrentSystem.GetValue("DFT_" + type);
             if (command.Trim() != "")
             {
+                if (TrueCmd != "") command = TrueCmd;
                 Editor.TheEditor.SetStatus("Compiling with " + command + "...");
                 command = IBMi.CurrentSystem.GetValue(command);
                 if (command.Trim() != "")

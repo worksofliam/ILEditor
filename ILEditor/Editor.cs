@@ -82,7 +82,17 @@ namespace ILEditor
                 gothread.Start();
             }
         }
-        
+
+        private void compileAnyHandle(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
+            }
+        }
+
         private void compileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             otherForTypeToolStripMenuItem.DropDownItems.Clear();
@@ -94,7 +104,7 @@ namespace ILEditor
                 foreach (string Item in Items)
                 {
                     if (Item.Trim() == "") continue;
-                    Compiles.Add(new ToolStripMenuItem(Item));
+                    Compiles.Add(new ToolStripMenuItem(Item, null, compileAnyHandle));
                 }
             }
 
