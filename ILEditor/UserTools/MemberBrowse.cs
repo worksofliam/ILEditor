@@ -16,9 +16,21 @@ namespace ILEditor.UserTools
 {
     public partial class MemberBrowse : UserControl
     {
-        public MemberBrowse()
+        public MemberBrowse(string Lib = "", string Obj = "") 
         {
             InitializeComponent();
+
+            if (Lib != "" && Obj != "")
+            {
+                library.Text = Lib;
+                spf.Text = Obj;
+            }
+        }
+        
+        private void MemberBrowse_Load(object sender, EventArgs e)
+        {
+            if (library.Text != "" && spf.Text != "")
+                fetchButton.PerformClick();
         }
 
         private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
@@ -129,6 +141,7 @@ namespace ILEditor.UserTools
 
             this.Parent.Text = library.Text + "/" + spf.Text + " [Listing]";
             UpdateListing(library.Text, spf.Text);
+            Welcome.JustOpened(library.Text, spf.Text);
         }
 
         private void memberList_DoubleClick(object sender, EventArgs e)

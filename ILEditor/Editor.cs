@@ -273,7 +273,6 @@ namespace ILEditor
                         RightClickedTab = ix;
                         IsSourceTab = false;
                         toolstabrightclick.Show(Cursor.Position);
-                        //editortabs.TabPages[ix].Dispose();
                         break;
                     }
                 }
