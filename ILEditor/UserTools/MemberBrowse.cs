@@ -38,7 +38,12 @@ namespace ILEditor.UserTools
             { "RPGLE", ILELanguage.RPG },
             { "SQLRPGLE", ILELanguage.RPG },
             { "CPP", ILELanguage.CPP },
-            { "C", ILELanguage.CPP }
+            { "C", ILELanguage.CPP },
+            { "SQL", ILELanguage.SQL }
+            //{ "COBOL", ILELanguage.COBOL },
+            //{ "CBL", ILELanguage.COBOL },
+            //{ "CL", ILELanguage.CL }
+            //{ "CLLE", ILELanguage.CL }
         };
 
         public static ILELanguage GetBoundLangType(string Obj)
@@ -108,22 +113,32 @@ namespace ILEditor.UserTools
 
         public void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
         {
-            Thread gothread = new Thread((ThreadStart)delegate {
-                string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
+            string TabText = Lib + "/" + Obj + "(" + Mbr + ")";
+            int TabIndex = Editor.TheEditor.EditorContains(TabText);
+            if (Editor.TheEditor.EditorContains(TabText) == -1)
+            {
+                Thread gothread = new Thread((ThreadStart)delegate {
+                    string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
 
-                if (resultFile != "")
-                {
-                    this.Invoke((MethodInvoker)delegate
+                    if (resultFile != "")
                     {
-                        Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), GetBoundLangType(Ext));
-                    });
-                }
-                else
-                {
-                    MessageBox.Show("Unable to download member " + Lib + "/" + Obj + "." + Mbr + ". Please check it exists and that you have access to the remote system.");
-                }
-            });
-            gothread.Start();
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), GetBoundLangType(Ext));
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to download member " + Lib + "/" + Obj + "." + Mbr + ". Please check it exists and that you have access to the remote system.");
+                    }
+
+                });
+                gothread.Start();
+            }
+            else
+            {
+                Editor.TheEditor.SwitchToTab(TabIndex);
+            }
         }
 
         private void fetchButton_Click(object sender, EventArgs e)

@@ -21,7 +21,8 @@ namespace ILEditor.UserTools
     {
         None,
         CPP,
-        RPG
+        RPG,
+        SQL
     }
 
     public partial class SourceEditor : UserControl
@@ -40,7 +41,11 @@ namespace ILEditor.UserTools
             EditorBox = new FastColoredTextBox();
             EditorBox.Dock = DockStyle.Fill;
 
-            switch (Language) {
+            switch (Language)
+            {
+                case ILELanguage.SQL:
+                    EditorBox.Language = FastColoredTextBoxNS.Language.SQL;
+                    break;
                 case ILELanguage.RPG:
                     EditorBox.TextChanged += SetRPG;
                     break;
@@ -72,6 +77,7 @@ namespace ILEditor.UserTools
         private static readonly Style BoldStyle = new TextStyle(Brushes.Black, null, FontStyle.Bold);
         private static readonly Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
         private static readonly Style PurpleStyle = new TextStyle(Brushes.Purple, null, FontStyle.Regular);
+        private static readonly Style OrangeStyle = new TextStyle(Brushes.DarkOrange, null, FontStyle.Regular);
         #endregion
 
         private void SetCPP(object sender, TextChangedEventArgs e)
@@ -110,6 +116,8 @@ namespace ILEditor.UserTools
             //Directives & BIFs
             e.ChangedRange.SetStyle(BlueStyle, @"\/\b(free|end-free|copy|include|set|restore|title|define|undefine|eof|if|elseif|else|endif)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             e.ChangedRange.SetStyle(BlueStyle, @"\B\%\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(OrangeStyle, @"\B\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(GreenStyle, @"\B\*\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
             e.ChangedRange.ClearFoldingMarkers();
             e.ChangedRange.SetFoldingMarkers("dcl-pr", "end-pr", RegexOptions.IgnoreCase);
