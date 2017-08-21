@@ -96,6 +96,8 @@ namespace ILEditor
 
         private void compileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
+            if (editortabs.SelectedTab == null) return;
+
             otherForTypeToolStripMenuItem.DropDownItems.Clear();
             List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
             if (editortabs.SelectedTab.Tag != null)
