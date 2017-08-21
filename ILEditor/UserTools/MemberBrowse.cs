@@ -128,6 +128,9 @@ namespace ILEditor.UserTools
 
         private void fetchButton_Click(object sender, EventArgs e)
         {
+            library.Text = library.Text.Trim();
+            spf.Text = spf.Text.Trim();
+
             if (!IBMiUtils.IsValueObjectName(library.Text))
             {
                 MessageBox.Show("Library name is not valid.");
