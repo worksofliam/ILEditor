@@ -33,11 +33,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.recents = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -77,6 +77,12 @@
             this.recents.View = System.Windows.Forms.View.Tile;
             this.recents.DoubleClick += new System.EventHandler(this.recents_DoubleClick);
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "folder_page.png");
+            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -85,7 +91,9 @@
             this.linkLabel1.Size = new System.Drawing.Size(117, 13);
             this.linkLabel1.TabIndex = 3;
             this.linkLabel1.TabStop = true;
+            this.linkLabel1.Tag = "MBR";
             this.linkLabel1.Text = "Opening a member";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // linkLabel2
             // 
@@ -95,7 +103,9 @@
             this.linkLabel2.Size = new System.Drawing.Size(138, 13);
             this.linkLabel2.TabIndex = 4;
             this.linkLabel2.TabStop = true;
+            this.linkLabel2.Tag = "LIBL";
             this.linkLabel2.Text = "Setting your library list";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // linkLabel3
             // 
@@ -116,12 +126,6 @@
             this.linkLabel4.TabIndex = 6;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Text = "Using the error list";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "folder_page.png");
             // 
             // Welcome
             // 

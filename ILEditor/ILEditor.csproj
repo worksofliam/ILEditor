@@ -97,6 +97,12 @@
     <Compile Include="Forms\OpenMember.Designer.cs">
       <DependentUpon>OpenMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HelpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HelpWindow.Designer.cs">
+      <DependentUpon>HelpWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -193,6 +199,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Forms\HelpWindow.resx">
+      <DependentUpon>HelpWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserTools\CompileOptions.resx">
       <DependentUpon>CompileOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,7 +238,11 @@
     <None Include="Resources\Icons\script_go.png" />
     <None Include="Resources\Icons\application_go.png" />
     <None Include="Resources\Icons\script_add.png" />
-    <Content Include="Resources\welcome.html" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Help\LibraryList.html" />
+    <Content Include="Resources\Help\OpenMember.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

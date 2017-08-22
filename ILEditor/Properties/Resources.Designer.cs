@@ -71,6 +71,62 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, Helvetica, sans-serif;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h3&gt;Library List in ILEditor&lt;/h3&gt;
+        ///    &lt;p&gt;The library list will apply to every command sent from ILEditor, including all compiles. To open the library list editor:&lt;/p&gt;
+        ///    &lt;ol&gt;
+        ///        &lt;li&gt;Select the Tools dropdown&lt;/li&gt;
+        ///        &lt;li&gt;Select Librar [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LibraryList {
+            get {
+                return ResourceManager.GetString("LibraryList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, Helvetica, sans-serif;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h3&gt;Opening a specific member&lt;/h3&gt;
+        ///    &lt;ol&gt;
+        ///        &lt;li&gt;Select the File dropdown&lt;/li&gt;
+        ///        &lt;li&gt;Select Open&lt;/li&gt;
+        ///        &lt;li&gt;Select Member&lt;/li&gt;
+        ///    &lt;/ol&gt;
+        ///    &lt;p&gt;Or use the Ctrl+O shortcut to open the same window.&lt;/p&gt;
+        ///
+        ///    &lt;h3&gt;Opening a me [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string OpenMember {
+            get {
+                return ResourceManager.GetString("OpenMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap script_add {
@@ -87,25 +143,6 @@ namespace ILEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("script_go", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///
-        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;&lt;/title&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;p&gt;Welcome to ILEditor.&lt;/p&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
-        /// </summary>
-        public static string welcome {
-            get {
-                return ResourceManager.GetString("welcome", resourceCulture);
             }
         }
     }

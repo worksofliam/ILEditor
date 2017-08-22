@@ -61,5 +61,20 @@ namespace ILEditor.UserTools
                 Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(path[0], path[1]));
             }
         }
+
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel label = (LinkLabel)sender;
+
+            switch (label.Tag.ToString())
+            {
+                case "MBR":
+                    new Forms.HelpWindow(Properties.Resources.OpenMember).Show();
+                    break;
+                case "LIBL":
+                    new Forms.HelpWindow(Properties.Resources.LibraryList).Show();
+                    break;
+            }
+        }
     }
 }
