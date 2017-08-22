@@ -115,7 +115,9 @@
             this.linkLabel3.Size = new System.Drawing.Size(128, 13);
             this.linkLabel3.TabIndex = 5;
             this.linkLabel3.TabStop = true;
+            this.linkLabel3.Tag = "CMP";
             this.linkLabel3.Text = "Compiling a program";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // linkLabel4
             // 

@@ -74,6 +74,9 @@ namespace ILEditor.UserTools
                 case "LIBL":
                     new Forms.HelpWindow(Properties.Resources.LibraryList).Show();
                     break;
+                case "CMP":
+                    new Forms.HelpWindow(Properties.Resources.Compiling).Show();
+                    break;
             }
         }
     }

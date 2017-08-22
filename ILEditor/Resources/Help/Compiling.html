@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h3>Compiling a program</h3>
+    <p>IlEditor will compile most ILE types by default. To compile a program</p>
+    <ul>
+        <li>Use the Compile dropdown when the member is open, or</li>
+        <li>Right click on a member in the member listing and use one of the available Compile options</li>
+    </ul>
+    <p>The default compile can be changed in the Compile Settings tool window (more below).</p>
+    <p>You can use the Ctrl+Shift+C shortcut to submit the default compile. If the compile command has "*EVENTF" within it, it will load the error listing for you automatically after it has tried to compile.</p>
+
+    <h3>Changing the compile commands</h3>
+    <p>Each command is set out into the type groups, which have specific commands - for example, the RPGLE type might have CRTBNDRPG and also CRTRPGMOD. The default command might be CRTBNDRPG.</p>
+    <p>To change the default compile, create new compile commands or change existing commands, you need to open up the Compile Settings in the Toolbox window.</p>
+    <p>Each type gets their own default compile. To change the default compile, right click on a compile command and 'Set Default for Type'. This means, whenever you use the Compile option (Ctrl+Shift+C) it will use this command to compile.</p>
+</body>
+</html>
