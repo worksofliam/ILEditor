@@ -96,6 +96,7 @@ namespace ILEditor.UserTools
             e.ChangedRange.SetFoldingMarkers(@"/\*", @"\*/");//allow to collapse comment block
         }
 
+        #region RPG
         private void SetRPG(object sender, TextChangedEventArgs e)
         {
             //Text and comments
@@ -125,6 +126,19 @@ namespace ILEditor.UserTools
             e.ChangedRange.SetFoldingMarkers("dcl-proc", "end-proc", RegexOptions.IgnoreCase);
             e.ChangedRange.SetFoldingMarkers("begsr", "endsr", RegexOptions.IgnoreCase);
         }
+
+        public void ConvertSelectedRPG()
+        {
+            int line = EditorBox.PositionToPlace(EditorBox.SelectionStart).iLine;
+            EditorBox.Selection = EditorBox.GetLine(line);
+            string freeForm = RPGFree.getFree(EditorBox.GetLineText(line));
+
+            if (freeForm != "")
+            {
+                EditorBox.SelectedText = freeForm;
+            }
+        }
+        #endregion
 
     }
 }

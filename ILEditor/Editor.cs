@@ -65,6 +65,19 @@ namespace ILEditor
         {
             new Forms.LibraryList().ShowDialog();
         }
+        
+        private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                ILELanguage Language = MemberBrowse.GetBoundLangType(MemberInfo.GetExtension());
+                if (Language == ILELanguage.RPG)
+                {
+                    GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
+                }
+            }
+        }
         #endregion
 
         #region Compile
@@ -300,6 +313,5 @@ namespace ILEditor
         {
             statusLabel.Text = Text;
         }
-
     }
 }

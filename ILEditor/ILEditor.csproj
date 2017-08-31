@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>worksofbarry_mOq_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FastColoredTextBox, Version=2.16.21.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
@@ -102,6 +105,12 @@
     </Compile>
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RPGFreeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RPGFreeWindow.Designer.cs">
+      <DependentUpon>RPGFreeWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
       <SubType>UserControl</SubType>
@@ -189,6 +198,9 @@
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RPGFreeWindow.resx">
+      <DependentUpon>RPGFreeWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -244,6 +256,7 @@
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
+    <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

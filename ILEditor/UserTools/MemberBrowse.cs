@@ -35,6 +35,7 @@ namespace ILEditor.UserTools
 
         private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
         {
+            { "RPG", ILELanguage.RPG },
             { "RPGLE", ILELanguage.RPG },
             { "SQLRPGLE", ILELanguage.RPG },
             { "CPP", ILELanguage.CPP },
