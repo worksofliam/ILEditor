@@ -127,7 +127,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 93;
+            this.columnHeader1.Width = 114;
             // 
             // columnHeader2
             // 

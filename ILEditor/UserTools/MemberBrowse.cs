@@ -38,6 +38,8 @@ namespace ILEditor.UserTools
             { "RPG", ILELanguage.RPG },
             { "RPGLE", ILELanguage.RPG },
             { "SQLRPGLE", ILELanguage.RPG },
+            { "CL", ILELanguage.CL },
+            { "CLLE", ILELanguage.CL },
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP },
             { "SQL", ILELanguage.SQL }

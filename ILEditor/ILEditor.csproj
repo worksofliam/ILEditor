@@ -55,6 +55,7 @@
     <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
+    <Compile Include="Classes\LanguageTools\CLFile.cs" />
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Licence.cs" />
     <Compile Include="Classes\Member.cs" />
@@ -105,12 +106,6 @@
     </Compile>
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\RPGFreeWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\RPGFreeWindow.Designer.cs">
-      <DependentUpon>RPGFreeWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
       <SubType>UserControl</SubType>
@@ -197,9 +192,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RPGFreeWindow.resx">
-      <DependentUpon>RPGFreeWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

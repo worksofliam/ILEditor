@@ -74,7 +74,22 @@ namespace ILEditor
                 ILELanguage Language = MemberBrowse.GetBoundLangType(MemberInfo.GetExtension());
                 if (Language == ILELanguage.RPG)
                 {
+                    SetStatus("Converting RPG in " + MemberInfo.GetMember());
                     GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
+                }
+            }
+        }
+        
+        private void cLFormatterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                ILELanguage Language = MemberBrowse.GetBoundLangType(MemberInfo.GetExtension());
+                if (Language == ILELanguage.CL)
+                {
+                    SetStatus("Formatting CL in " + MemberInfo.GetMember());
+                    GetTabEditor(editortabs.SelectedIndex).FormatCL();
                 }
             }
         }

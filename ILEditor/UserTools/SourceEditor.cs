@@ -20,6 +20,7 @@ namespace ILEditor.UserTools
     public enum ILELanguage
     {
         None,
+        CL,
         CPP,
         RPG,
         SQL
@@ -137,6 +138,16 @@ namespace ILEditor.UserTools
             {
                 EditorBox.SelectedText = freeForm;
             }
+        }
+        #endregion
+
+        #region CL
+
+        public void FormatCL()
+        {
+            string[] Lines = EditorBox.Lines.ToArray();
+            EditorBox.Clear();
+            EditorBox.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, 80)));
         }
         #endregion
 
