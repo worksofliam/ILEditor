@@ -45,6 +45,32 @@ namespace ILEditor
             editortabs.TabPages.Add(tabPage);
         }
 
+        #region MemberInfo
+        private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
+        {
+            { "RPG", ILELanguage.RPG },
+            { "RPGLE", ILELanguage.RPG },
+            { "SQLRPGLE", ILELanguage.RPG },
+            { "CL", ILELanguage.CL },
+            { "CLLE", ILELanguage.CL },
+            { "CPP", ILELanguage.CPP },
+            { "C", ILELanguage.CPP },
+            { "SQL", ILELanguage.SQL }
+            //{ "COBOL", ILELanguage.COBOL },
+            //{ "CBL", ILELanguage.COBOL },
+            //{ "CL", ILELanguage.CL }
+            //{ "CLLE", ILELanguage.CL }
+        };
+
+        public static ILELanguage GetBoundLangType(string Obj)
+        {
+            if (LangTypes.ContainsKey(Obj))
+                return LangTypes[Obj];
+            else
+                return ILELanguage.None;
+        }
+        #endregion
+
         #region Tools Dropdown
         private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -71,7 +97,7 @@ namespace ILEditor
             if (editortabs.SelectedTab.Tag != null)
             {
                 Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                ILELanguage Language = MemberBrowse.GetBoundLangType(MemberInfo.GetExtension());
+                ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
                 if (Language == ILELanguage.RPG)
                 {
                     SetStatus("Converting RPG in " + MemberInfo.GetMember());
@@ -85,7 +111,7 @@ namespace ILEditor
             if (editortabs.SelectedTab.Tag != null)
             {
                 Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                ILELanguage Language = MemberBrowse.GetBoundLangType(MemberInfo.GetExtension());
+                ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
                 if (Language == ILELanguage.CL)
                 {
                     SetStatus("Formatting CL in " + MemberInfo.GetMember());
@@ -179,6 +205,36 @@ namespace ILEditor
             }
         }
 
+        public static void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
+        {
+            string TabText = Lib + "/" + Obj + "(" + Mbr + ")";
+            int TabIndex = TheEditor.EditorContains(TabText);
+            if (TabIndex == -1)
+            {
+                Thread gothread = new Thread((ThreadStart)delegate {
+                    string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
+
+                    if (resultFile != "")
+                    {
+                        TheEditor.Invoke((MethodInvoker)delegate
+                        {
+                            TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), GetBoundLangType(Ext));
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to download member " + Lib + "/" + Obj + "." + Mbr + ". Please check it exists and that you have access to the remote system.");
+                    }
+
+                });
+                gothread.Start();
+            }
+            else
+            {
+                TheEditor.SwitchToTab(TabIndex);
+            }
+        }
+
         public void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
@@ -212,7 +268,7 @@ namespace ILEditor
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true), MemberBrowse.GetBoundLangType(newMemberForm._type));
+                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true), GetBoundLangType(newMemberForm._type));
                         });
                     }
                 }).Start();

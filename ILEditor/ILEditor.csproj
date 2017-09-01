@@ -59,6 +59,7 @@
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Licence.cs" />
     <Compile Include="Classes\Member.cs" />
+    <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Forms\CompileOptionForms\EditCommand.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +140,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserTools\ObjectBrowse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\ObjectBrowse.Designer.cs">
+      <DependentUpon>ObjectBrowse.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -214,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\MemberBrowse.resx">
       <DependentUpon>MemberBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
+      <DependentUpon>ObjectBrowse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>

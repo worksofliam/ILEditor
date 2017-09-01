@@ -33,30 +33,6 @@ namespace ILEditor.UserTools
                 fetchButton.PerformClick();
         }
 
-        private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
-        {
-            { "RPG", ILELanguage.RPG },
-            { "RPGLE", ILELanguage.RPG },
-            { "SQLRPGLE", ILELanguage.RPG },
-            { "CL", ILELanguage.CL },
-            { "CLLE", ILELanguage.CL },
-            { "CPP", ILELanguage.CPP },
-            { "C", ILELanguage.CPP },
-            { "SQL", ILELanguage.SQL }
-            //{ "COBOL", ILELanguage.COBOL },
-            //{ "CBL", ILELanguage.COBOL },
-            //{ "CL", ILELanguage.CL }
-            //{ "CLLE", ILELanguage.CL }
-        };
-
-        public static ILELanguage GetBoundLangType(string Obj)
-        {
-            if (LangTypes.ContainsKey(Obj))
-                return LangTypes[Obj];
-            else
-                return ILELanguage.None;
-        }
-
         private List<ListViewItem> curItems = new List<ListViewItem>();
         public void UpdateListing(string Lib, string Obj)
         {
@@ -114,36 +90,6 @@ namespace ILEditor.UserTools
             gothread.Start();
         }
 
-        public void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
-        {
-            string TabText = Lib + "/" + Obj + "(" + Mbr + ")";
-            int TabIndex = Editor.TheEditor.EditorContains(TabText);
-            if (Editor.TheEditor.EditorContains(TabText) == -1)
-            {
-                Thread gothread = new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
-
-                    if (resultFile != "")
-                    {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), GetBoundLangType(Ext));
-                        });
-                    }
-                    else
-                    {
-                        MessageBox.Show("Unable to download member " + Lib + "/" + Obj + "." + Mbr + ". Please check it exists and that you have access to the remote system.");
-                    }
-
-                });
-                gothread.Start();
-            }
-            else
-            {
-                Editor.TheEditor.SwitchToTab(TabIndex);
-            }
-        }
-
         private void fetchButton_Click(object sender, EventArgs e)
         {
             library.Text = library.Text.Trim();
@@ -177,7 +123,7 @@ namespace ILEditor.UserTools
                     {
                         string[] path = tag.Split('|');
 
-                        OpenMember(path[0], path[1], path[2], path[3], true);
+                        Editor.OpenMember(path[0], path[1], path[2], path[3], true);
                     }
                 }
             }

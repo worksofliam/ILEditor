@@ -31,7 +31,7 @@ namespace ILEditor.Forms
 
                 if (resultFile != "")
                 {
-                    Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), MemberBrowse.GetBoundLangType(Ext));
+                    Editor.TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), Editor.GetBoundLangType(Ext));
                     result = true;
                 }
                 else

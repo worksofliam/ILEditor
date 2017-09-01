@@ -22,6 +22,48 @@ namespace ILEditor.Classes
             return true;
         }
 
+        public static ILEObject[] GetObjectList(string Lib, string Types = "*PGM *SRVPGM *MODULE")
+        {
+            string Line = ""; ILEObject Object = new ILEObject();
+            List<ILEObject> Objects = new List<ILEObject>();
+            List<string> commands = new List<string>();
+            if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
+
+            commands.Add("QUOTE RCMD DSPOBJD OBJ(" + Lib + "/*ALL) OBJTYPE(" + Types + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/objlist)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/objlist) WITH DATA') COMMIT(*NONE)");
+            string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
+
+            if (file != "")
+            {
+                foreach (string RealLine in File.ReadAllLines(file))
+                {
+                    if (RealLine.Trim() != "")
+                    {
+                        Object = new ILEObject();
+                        Line = RealLine.PadRight(135);
+                        Object.Library = Lib;
+                        Object.Name = Line.Substring(0, 10).Trim();
+                        Object.Type = Line.Substring(10, 8).Trim();
+                        Object.Extension = Line.Substring(18, 10).Trim();
+                        UInt32.TryParse(Line.Substring(28, 12).Trim(), out Object.SizeKB);
+                        Object.Text = Line.Substring(40, 50).Trim();
+                        Object.Owner = Line.Substring(90, 10).Trim();
+                        Object.SrcSpf = Line.Substring(100, 10).Trim();
+                        Object.SrcLib = Line.Substring(110, 10).Trim();
+                        Object.SrcMbr = Line.Substring(120, 10).Trim();
+
+                        Objects.Add(Object);
+                    }
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            return Objects.ToArray();
+        }
+
         public static string[][] GetMemberList(string Lib, string Obj)
         {
             List<string[]> Members = new List<string[]>();
@@ -97,7 +139,7 @@ namespace ILEditor.Classes
             string filetemp = Path.GetTempPath() + Mbr + "." + Obj;
             List<string> commands = new List<string>();
 
-            if (!File.Exists(filetemp)) File.Create(filetemp).Close();
+            //if (!File.Exists(filetemp)) File.Create(filetemp).Close();
 
             Lib = Lib.ToUpper();
             Obj = Obj.ToUpper();

@@ -39,6 +39,9 @@ namespace ILEditor.UserTools
                     case "CMP":
                         Editor.TheEditor.AddTool("Compile Settings", new CompileOptions());
                         break;
+                    case "PGM":
+                        Editor.TheEditor.AddTool("Program Listing", new ObjectBrowse());
+                        break;
                 }
             }
         }
