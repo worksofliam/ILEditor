@@ -131,6 +131,14 @@ namespace ILEditor.UserTools
                 Editor.OpenMember(currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension, true);
             }
         }
+
+        private void objectInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentRightClick != null)
+            {
+                new Forms.ObjectInformation(currentRightClick).Show();
+            }
+        }
         #endregion
     }
 }

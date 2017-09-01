@@ -32,14 +32,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectBrowse));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.library = new System.Windows.Forms.ToolStripTextBox();
-            this.programcount = new System.Windows.Forms.ToolStripLabel();
             this.fetchButton = new System.Windows.Forms.ToolStripButton();
+            this.programcount = new System.Windows.Forms.ToolStripLabel();
             this.objectList = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.objectRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.objectInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,12 +67,6 @@
             this.library.Name = "library";
             this.library.Size = new System.Drawing.Size(100, 25);
             // 
-            // programcount
-            // 
-            this.programcount.Name = "programcount";
-            this.programcount.Size = new System.Drawing.Size(54, 22);
-            this.programcount.Text = "0 objects";
-            // 
             // fetchButton
             // 
             this.fetchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -82,6 +76,12 @@
             this.fetchButton.Size = new System.Drawing.Size(23, 22);
             this.fetchButton.Text = "Fetch";
             this.fetchButton.Click += new System.EventHandler(this.fetchButton_Click);
+            // 
+            // programcount
+            // 
+            this.programcount.Name = "programcount";
+            this.programcount.Size = new System.Drawing.Size(54, 22);
+            this.programcount.Text = "0 objects";
             // 
             // objectList
             // 
@@ -103,14 +103,6 @@
             this.objectList.View = System.Windows.Forms.View.Details;
             this.objectList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.objectList_MouseClick);
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "application.png");
-            this.imageList1.Images.SetKeyName(1, "bricks.png");
-            this.imageList1.Images.SetKeyName(2, "brick.png");
-            // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Name";
@@ -131,6 +123,14 @@
             this.columnHeader8.Text = "Text";
             this.columnHeader8.Width = 261;
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "application.png");
+            this.imageList1.Images.SetKeyName(1, "bricks.png");
+            this.imageList1.Images.SetKeyName(2, "brick.png");
+            // 
             // objectRightClick
             // 
             this.objectRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -145,6 +145,7 @@
             this.objectInformationToolStripMenuItem.Name = "objectInformationToolStripMenuItem";
             this.objectInformationToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.objectInformationToolStripMenuItem.Text = "Object Information";
+            this.objectInformationToolStripMenuItem.Click += new System.EventHandler(this.objectInformationToolStripMenuItem_Click);
             // 
             // openSourceToolStripMenuItem
             // 

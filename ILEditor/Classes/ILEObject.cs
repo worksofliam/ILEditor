@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ILEditor.Classes
 {
-    class ILEObject
+    public class ILEObject
     {
         public string Library;
         public string Name;
