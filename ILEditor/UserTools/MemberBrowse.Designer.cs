@@ -85,7 +85,7 @@
             this.fetchButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fetchButton.Name = "fetchButton";
             this.fetchButton.Size = new System.Drawing.Size(23, 22);
-            this.fetchButton.Text = "toolStripButton1";
+            this.fetchButton.Text = "Fetch";
             this.fetchButton.Click += new System.EventHandler(this.fetchButton_Click);
             // 
             // addmember
