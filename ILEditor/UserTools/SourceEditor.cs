@@ -103,7 +103,6 @@ namespace ILEditor.UserTools
             //Text and comments
             e.ChangedRange.SetStyle(GreenStyle, @"""""|@""""|''|@"".*?""|(?<!@)(?<range>"".*?[^\\]"")|'.*?[^\\]'");
             e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
-            e.ChangedRange.SetStyle(GreenStyle, @"\*(.*)", RegexOptions.Multiline);
 
             e.ChangedRange.SetStyle(MagentaStyle, @"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
 
@@ -115,13 +114,13 @@ namespace ILEditor.UserTools
             e.ChangedRange.SetStyle(BrownStyle, @"\b(CHAR|VARCHAR|BINDEC|FLOAT|INT|PACKED|UNS|ZONED|GRAPH|UCS2|DATE|TIME|TIMESTAMP|OBJECT|POINTER|IND)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
             //Dcl-*
-            e.ChangedRange.SetStyle(RedStyle, @"\b(DCL-S|DCL-C|DCL-DS|DCL-F|DCL-PI|DCL-PR|CTL-OPT|DCL-PROC|END-PROC|END-DS|END-PI|END-PR)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(RedStyle, @"\b(DCL-S|DCL-C|DCL-DS|DCL-F|DCL-PI|DCL-PR|CTL-OPT|DCL-PROC|END-PROC|END-DS|END-PI|END-PR|DCL-PARM|DCL-SUBF)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
             //Directives & BIFs
             e.ChangedRange.SetStyle(BlueStyle, @"\/\b(free|end-free|copy|include|set|restore|title|define|undefine|eof|if|elseif|else|endif)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             e.ChangedRange.SetStyle(BlueStyle, @"\B\%\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(OrangeStyle, @"\B\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             e.ChangedRange.SetStyle(GreenStyle, @"\B\*\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(OrangeStyle, @"\B\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
             e.ChangedRange.ClearFoldingMarkers();
             e.ChangedRange.SetFoldingMarkers("dcl-pr", "end-pr", RegexOptions.IgnoreCase);
