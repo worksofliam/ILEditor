@@ -58,7 +58,7 @@
             this.membercount});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(376, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(444, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -116,7 +116,7 @@
             this.memberList.Location = new System.Drawing.Point(0, 25);
             this.memberList.MultiSelect = false;
             this.memberList.Name = "memberList";
-            this.memberList.Size = new System.Drawing.Size(376, 291);
+            this.memberList.Size = new System.Drawing.Size(444, 291);
             this.memberList.SmallImageList = this.imageList1;
             this.memberList.TabIndex = 1;
             this.memberList.UseCompatibleStateImageBehavior = false;
@@ -137,7 +137,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Text";
-            this.columnHeader3.Width = 170;
+            this.columnHeader3.Width = 245;
             // 
             // imageList1
             // 
@@ -176,7 +176,7 @@
             this.Controls.Add(this.memberList);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MemberBrowse";
-            this.Size = new System.Drawing.Size(376, 316);
+            this.Size = new System.Drawing.Size(444, 316);
             this.Load += new System.EventHandler(this.MemberBrowse_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
