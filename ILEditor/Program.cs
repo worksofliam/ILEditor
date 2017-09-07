@@ -21,11 +21,14 @@ namespace ILEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+
             LicenceKey LicenceInput = new LicenceKey();
             HostSelect Selector = new HostSelect();
 
             if (!Licence.CheckExistsIsValid())
                 Application.Run(LicenceInput);
+
+            Application.Run(new Splash());
 
             if (Licence.CheckExistsIsValid())
             {
