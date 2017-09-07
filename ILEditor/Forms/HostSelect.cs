@@ -35,7 +35,7 @@ namespace ILEditor.Forms
         public static string[] GetSystemsList()
         {
             if (!Directory.Exists(Program.SYSTEMSDIR))
-                Directory.CreateDirectory(Program.SYSTEMSDIR);
+               Directory.CreateDirectory(Program.SYSTEMSDIR);
 
             string[] systems = Directory.GetFiles(Program.SYSTEMSDIR);
 
