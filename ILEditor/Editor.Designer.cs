@@ -44,6 +44,7 @@
             this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,6 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -185,6 +185,15 @@
             this.rPGConversionToolStripMenuItem.Text = "RPG Conversion";
             this.rPGConversionToolStripMenuItem.Click += new System.EventHandler(this.rPGConversionToolStripMenuItem_Click);
             // 
+            // cLFormatterToolStripMenuItem
+            // 
+            this.cLFormatterToolStripMenuItem.Name = "cLFormatterToolStripMenuItem";
+            this.cLFormatterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.X)));
+            this.cLFormatterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.cLFormatterToolStripMenuItem.Text = "CL Formatter";
+            this.cLFormatterToolStripMenuItem.Click += new System.EventHandler(this.cLFormatterToolStripMenuItem_Click);
+            // 
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -283,15 +292,6 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // cLFormatterToolStripMenuItem
-            // 
-            this.cLFormatterToolStripMenuItem.Name = "cLFormatterToolStripMenuItem";
-            this.cLFormatterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.X)));
-            this.cLFormatterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.cLFormatterToolStripMenuItem.Text = "CL Formatter";
-            this.cLFormatterToolStripMenuItem.Click += new System.EventHandler(this.cLFormatterToolStripMenuItem_Click);
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,7 +303,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Editor";
-            this.Text = "ILEditor";
+            this.Text = "Idle - IBM i Development";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Editor_Load);
             this.menuStrip1.ResumeLayout(false);
