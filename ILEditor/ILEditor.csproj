@@ -7,7 +7,7 @@
     <ProjectGuid>{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ILEditor</RootNamespace>
-    <AssemblyName>ILEditor</AssemblyName>
+    <AssemblyName>Idle</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -25,7 +25,7 @@
     <InstallUrl>http://worksofbarry.com/idle/installer/</InstallUrl>
     <UpdateUrl>http://worksofbarry.com/idle/installer/</UpdateUrl>
     <TargetCulture>en-GB</TargetCulture>
-    <ProductName>ILEditor</ProductName>
+    <ProductName>Idle</ProductName>
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
