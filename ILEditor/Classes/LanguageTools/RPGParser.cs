@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -73,6 +74,7 @@ namespace ILEditor.Classes.LanguageTools
                         case "A":
                             if (keywords.ToUpper().Contains("VARYING"))
                             {
+                                keywords = Regex.Replace(keywords, "varying", "", RegexOptions.IgnoreCase);
                                 type = "Varchar";
                             }
                             else
