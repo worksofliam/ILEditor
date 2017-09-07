@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.key = new System.Windows.Forms.TextBox();
             this.auth = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -63,14 +62,6 @@
             this.auth.UseVisualStyleBackColor = true;
             this.auth.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 3;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -86,7 +77,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(291, 138);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.auth);
             this.Controls.Add(this.key);
             this.Controls.Add(this.label1);
@@ -107,7 +97,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox key;
         private System.Windows.Forms.Button auth;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
     }
 }

@@ -16,10 +16,7 @@ namespace ILEditor.Forms
         public LicenceKey()
         {
             InitializeComponent();
-
-            #if DEBUG
-            label2.Text = Licence.GenerateKey();
-            #endif
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

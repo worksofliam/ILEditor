@@ -123,26 +123,5 @@ namespace ILEditor.Classes
 
             return result;
         }
-
-        #if DEBUG
-        private static Random random = new Random();
-
-        private static string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-
-        public static string GenerateKey()
-        {
-            string Key = RandomString(5);
-            foreach(char c in Key.ToCharArray())
-            {
-                Key += "-" + Keys[c];
-            }
-            return Key;
-        }
-        #endif
     }
 }
