@@ -41,6 +41,7 @@ namespace ILEditor.UserTools
 
             EditorBox = new FastColoredTextBox();
             EditorBox.Dock = DockStyle.Fill;
+            EditorBox.AutoIndent = false;
 
             switch (Language)
             {
