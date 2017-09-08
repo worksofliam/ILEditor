@@ -10,13 +10,14 @@ namespace ILEditor.Classes
 {
     class Licence
     {
-        
+        public static Boolean hasExpired = false;
         public static Boolean IsValid(string Key)
         {
             RegistryKey licenceinfo = Registry.CurrentUser.CreateSubKey("idle");
             Boolean result = false;
             double unixTime = 0;
             DateTime dtDateTime;
+            hasExpired = false;
             try
             {
                 using (WebClient client = new WebClient())
@@ -36,7 +37,19 @@ namespace ILEditor.Classes
                         {
                             result = true;
                         }
+                        else
+                        {
+                            hasExpired = true;
+                        }
                         licenceinfo.SetValue("key", Key);
+                    }
+                    else
+                    {
+                        if (licenceinfo.GetValue("ts") != null)
+                        {
+                            licenceinfo.DeleteValue("ts");
+                            hasExpired = true;
+                        }
                     }
                 }
             }
@@ -51,6 +64,7 @@ namespace ILEditor.Classes
                     }
                     else
                     {
+                        hasExpired = true;
                         licenceinfo.DeleteValue("ts");
                     }
 

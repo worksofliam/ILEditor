@@ -56,10 +56,6 @@ namespace ILEditor
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP },
             { "SQL", ILELanguage.SQL }
-            //{ "COBOL", ILELanguage.COBOL },
-            //{ "CBL", ILELanguage.COBOL },
-            //{ "CL", ILELanguage.CL }
-            //{ "CLLE", ILELanguage.CL }
         };
 
         public static ILELanguage GetBoundLangType(string Obj)

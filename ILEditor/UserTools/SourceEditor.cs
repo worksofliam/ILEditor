@@ -53,6 +53,9 @@ namespace ILEditor.UserTools
                 case ILELanguage.CPP:
                     EditorBox.TextChanged += SetCPP;
                     break;
+                case ILELanguage.CL:
+                    EditorBox.TextChanged += SetCL;
+                    break;
             }
 
             EditorBox.Text = File.ReadAllText(LocalFile);
@@ -77,6 +80,7 @@ namespace ILEditor.UserTools
         private static readonly Style RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
         private static readonly Style BoldStyle = new TextStyle(Brushes.Black, null, FontStyle.Bold);
         private static readonly Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
+        private static readonly Style DarkBlueStyle = new TextStyle(Brushes.DarkBlue, null, FontStyle.Regular);
         private static readonly Style PurpleStyle = new TextStyle(Brushes.Purple, null, FontStyle.Regular);
         private static readonly Style OrangeStyle = new TextStyle(Brushes.DarkOrange, null, FontStyle.Regular);
         #endregion
@@ -149,6 +153,17 @@ namespace ILEditor.UserTools
             string[] Lines = EditorBox.Lines.ToArray();
             EditorBox.Clear();
             EditorBox.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, 80)));
+        }
+
+
+        private void SetCL(object sender, TextChangedEventArgs e)
+        {
+            e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
+            e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(.*\*/)", RegexOptions.Singleline | RegexOptions.RightToLeft);
+            e.ChangedRange.SetStyle(OrangeStyle, @"\B\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(BlueStyle, @"\B[\%\&]\w+", RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(DarkBlueStyle, @"(\w+)", RegexOptions.IgnoreCase);
+            e.ChangedRange.SetStyle(GreenStyle, @"'((?:\\.|[^'\\])*)'");
         }
         #endregion
 

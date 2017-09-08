@@ -30,5 +30,10 @@ namespace ILEditor.Forms
                 MessageBox.Show("Not valid!");
             }
         }
+
+        private void LicenceKey_Shown(object sender, EventArgs e)
+        {
+            label2.Visible = Licence.hasExpired;
+        }
     }
 }

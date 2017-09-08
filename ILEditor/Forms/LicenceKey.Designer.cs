@@ -33,6 +33,7 @@
             this.key = new System.Windows.Forms.TextBox();
             this.auth = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -67,15 +68,26 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 22);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(177, 13);
+            this.label3.Size = new System.Drawing.Size(161, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Licence key required to use ILEditor";
+            this.label3.Text = "Licence key required to use Idle.";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(108, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Previous key expired.";
+            this.label2.Visible = false;
             // 
             // LicenceKey
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(291, 138);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.auth);
             this.Controls.Add(this.key);
@@ -86,7 +98,8 @@
             this.MinimumSize = new System.Drawing.Size(307, 177);
             this.Name = "LicenceKey";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LicenceKey";
+            this.Text = "Licence Key";
+            this.Shown += new System.EventHandler(this.LicenceKey_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,5 +111,6 @@
         private System.Windows.Forms.TextBox key;
         private System.Windows.Forms.Button auth;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
