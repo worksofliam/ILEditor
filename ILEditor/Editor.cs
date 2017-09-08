@@ -289,27 +289,35 @@ namespace ILEditor
                 Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
                 if (MemberInfo.IsEditable())
                 {
-                    FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
-                    Thread gothread = new Thread((ThreadStart)delegate
+                    if (!MemberInfo._IsBeingSaved)
                     {
-                        File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.Text);
-                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
-                        if (UploadResult == false)
-                        {
-                            MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
-                        }
-                        else
-                        {
+                        MemberInfo._IsBeingSaved = true;
 
-                            this.Invoke((MethodInvoker)delegate
+                        FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
+                        Thread gothread = new Thread((ThreadStart)delegate
+                        {
+                            File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.Text);
+                            bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
+                            if (UploadResult == false)
                             {
-                                if (editortabs.SelectedTab.Text.EndsWith("*"))
-                                    editortabs.SelectedTab.Text = editortabs.SelectedTab.Text.Substring(0, editortabs.SelectedTab.Text.Length - 1);
-                            });
-                        }
-                    });
+                                MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
+                            }
+                            else
+                            {
 
-                    gothread.Start();
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    if (editortabs.SelectedTab.Text.EndsWith("*"))
+                                        editortabs.SelectedTab.Text = editortabs.SelectedTab.Text.Substring(0, editortabs.SelectedTab.Text.Length - 1);
+                                })
+                                ;
+                            }
+                            MemberInfo._IsBeingSaved = false;
+                        });
+
+                        gothread.Start();
+                    }
+
                 }
             }
             else
