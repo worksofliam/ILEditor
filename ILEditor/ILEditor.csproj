@@ -59,10 +59,10 @@
     <ApplicationIcon>worksofbarry_mOq_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E24D701F4E6FDE3DD1393D91B76E61EAF776A27A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>F92848B93994E183D74E0CA647F9BC6EDE375460</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ileditor.pfx</ManifestKeyFile>
+    <ManifestKeyFile>ILEditor_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -302,6 +302,7 @@
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ileditor.pfx" />
+    <None Include="ILEditor_1_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
