@@ -293,6 +293,7 @@ namespace ILEditor
                     {
                         MemberInfo._IsBeingSaved = true;
 
+                        SetStatus("Saving " + MemberInfo.GetMember() + "..");
                         FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
                         Thread gothread = new Thread((ThreadStart)delegate
                         {
@@ -309,9 +310,13 @@ namespace ILEditor
                                 {
                                     if (editortabs.SelectedTab.Text.EndsWith("*"))
                                         editortabs.SelectedTab.Text = editortabs.SelectedTab.Text.Substring(0, editortabs.SelectedTab.Text.Length - 1);
-                                })
-                                ;
+                                });
                             }
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
+                            });
                             MemberInfo._IsBeingSaved = false;
                         });
 
