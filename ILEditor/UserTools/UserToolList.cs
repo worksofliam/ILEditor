@@ -42,6 +42,9 @@ namespace ILEditor.UserTools
                     case "PGM":
                         Editor.TheEditor.AddTool("Program Listing", new ObjectBrowse());
                         break;
+                    case "TREE":
+                        Editor.TheEditor.AddTool("Tree Browser", new TreeBrowse());
+                        break;
                 }
             }
         }

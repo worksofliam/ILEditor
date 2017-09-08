@@ -52,6 +52,8 @@ namespace ILEditor.Classes
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
 
+            CheckExist("TREE_LIST", "");
+
             CheckExist("DFT_RPGLE", "CRTBNDRPG");
             CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI");
             CheckExist("DFT_CLLE", "CRTBNDCL");
