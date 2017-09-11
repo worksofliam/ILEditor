@@ -91,16 +91,24 @@ namespace ILEditor.UserTools
                     items = new List<TreeNode>();
                     string[][] members = IBMiUtils.GetMemberList(path[0], path[1]);
 
-                    foreach (String[] member in members)
+                    if (members != null)
                     {
-                        mbr = new TreeNode(member[0] + "." + member[1].ToLower() + (member[2] == "" ? "" : " - " + member[2]));
-                        mbr.Tag = path[0] + '|' + path[1] + '|' + member[0] + '|' + member[1];
-                        mbr.ImageIndex = 3;
-                        mbr.SelectedImageIndex = mbr.ImageIndex;
-                        items.Add(mbr);
-                    }
 
-                    if (members.Length == 0)
+                        foreach (String[] member in members)
+                        {
+                            mbr = new TreeNode(member[0] + "." + member[1].ToLower() + (member[2] == "" ? "" : " - " + member[2]));
+                            mbr.Tag = path[0] + '|' + path[1] + '|' + member[0] + '|' + member[1];
+                            mbr.ImageIndex = 3;
+                            mbr.SelectedImageIndex = mbr.ImageIndex;
+                            items.Add(mbr);
+                        }
+
+                        if (members.Length == 0)
+                        {
+                            
+                        }
+                    }
+                    else
                     {
                         items.Add(new TreeNode("No members found."));
                     }
