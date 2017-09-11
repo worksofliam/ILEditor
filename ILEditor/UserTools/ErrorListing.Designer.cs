@@ -58,19 +58,23 @@
             // 
             // lib
             // 
+            this.lib.AutoToolTip = true;
             this.lib.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.lib.MaxLength = 10;
             this.lib.Name = "lib";
             this.lib.Size = new System.Drawing.Size(100, 25);
+            this.lib.ToolTipText = "Library Name";
             // 
             // obj
             // 
+            this.obj.AutoToolTip = true;
             this.obj.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.obj.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.obj.MaxLength = 10;
             this.obj.Name = "obj";
             this.obj.Size = new System.Drawing.Size(100, 25);
+            this.obj.ToolTipText = "Object Name";
             // 
             // fetchErrors
             // 

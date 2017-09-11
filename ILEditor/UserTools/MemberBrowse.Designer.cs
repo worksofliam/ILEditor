@@ -64,19 +64,23 @@
             // 
             // library
             // 
+            this.library.AutoToolTip = true;
             this.library.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.library.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.library.MaxLength = 10;
             this.library.Name = "library";
             this.library.Size = new System.Drawing.Size(100, 25);
+            this.library.ToolTipText = "Library Name";
             // 
             // spf
             // 
+            this.spf.AutoToolTip = true;
             this.spf.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.spf.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.spf.MaxLength = 10;
             this.spf.Name = "spf";
             this.spf.Size = new System.Drawing.Size(100, 25);
+            this.spf.ToolTipText = "SPF Name";
             // 
             // fetchButton
             // 

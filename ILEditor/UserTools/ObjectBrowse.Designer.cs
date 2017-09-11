@@ -61,11 +61,13 @@
             // 
             // library
             // 
+            this.library.AutoToolTip = true;
             this.library.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.library.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.library.MaxLength = 10;
             this.library.Name = "library";
             this.library.Size = new System.Drawing.Size(100, 25);
+            this.library.ToolTipText = "Library Name";
             // 
             // fetchButton
             // 
@@ -137,7 +139,7 @@
             this.objectInformationToolStripMenuItem,
             this.openSourceToolStripMenuItem});
             this.objectRightClick.Name = "objectRightClick";
-            this.objectRightClick.Size = new System.Drawing.Size(176, 70);
+            this.objectRightClick.Size = new System.Drawing.Size(176, 48);
             this.objectRightClick.Opening += new System.ComponentModel.CancelEventHandler(this.objectRightClick_Opening);
             // 
             // objectInformationToolStripMenuItem
