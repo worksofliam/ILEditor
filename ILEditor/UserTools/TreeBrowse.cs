@@ -68,13 +68,18 @@ namespace ILEditor.UserTools
             window.ShowDialog();
             if (window.Successful)
             {
-                if (AddSPF(window.Value))
+                if (!Items.Contains(window.Value.ToUpper()))
                 {
-                    Items.Add(window.Value.ToUpper());
-                    IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
+
+                    if (AddSPF(window.Value))
+                    {
+                        Items.Add(window.Value.ToUpper());
+                        IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
+                    }
                 }
             }
         }
+        
 
         private void objectList_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
