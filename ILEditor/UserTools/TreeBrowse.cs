@@ -105,7 +105,7 @@ namespace ILEditor.UserTools
 
                         if (members.Length == 0)
                         {
-                            
+                            items.Add(new TreeNode("No members found."));
                         }
                     }
                     else
