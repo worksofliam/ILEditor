@@ -393,5 +393,10 @@ namespace ILEditor
         {
             statusLabel.Text = Text;
         }
+
+        private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
     }
 }
