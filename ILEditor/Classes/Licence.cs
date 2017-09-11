@@ -57,7 +57,7 @@ namespace ILEditor.Classes
             {
                 if (licenceinfo.GetValue("ts") != null)
                 {
-                    dtDateTime = (DateTime)licenceinfo.GetValue("ts");
+                    dtDateTime = DateTime.Parse(licenceinfo.GetValue("ts").ToString());
                     if (DateTime.Now < dtDateTime)
                     {
                         result = true;
