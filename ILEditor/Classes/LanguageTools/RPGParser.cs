@@ -156,17 +156,17 @@ namespace ILEditor.Classes.LanguageTools
                     switch (field)
                     {
                         case "C":
-                            output = "Dcl-C " + name + " " + keywords + ';';
+                            output = "Dcl-C " + name + " " + keywords;
                             break;
                         case "S":
-                            output = "Dcl-S " + name + " " + type + " " + keywords + ';';
+                            output = "Dcl-S " + name + " " + type + " " + keywords;
                             break;
                         case "DS":
                         case "PR":
                         case "PI":
                             if (name == "") name = "*N";
                             isSubf = (field == "DS");
-                            output = "Dcl-" + field + " " + name + " " + type + " " + keywords + ";";
+                            output = "Dcl-" + field + " " + name + " " + type + " " + keywords;
                             break;
                         case "":
                             if (name == "") name = "*N";
@@ -176,10 +176,12 @@ namespace ILEditor.Classes.LanguageTools
                             }
                             else
                             {
-                                output = "  " + (isSubf ? "Dcl-Subf" : "Dcl-Parm") + " " + name + " " + type + " " + keywords + ';';
+                                output = "  " + (isSubf ? "Dcl-Subf" : "Dcl-Parm") + " " + name + " " + type + " " + keywords;
                             }
                             break;
                     }
+
+                    output = output.TrimEnd() + ';';
 
                     break;
 
@@ -199,7 +201,7 @@ namespace ILEditor.Classes.LanguageTools
                     switch (Char.ToUpper(chars[24]))
                     {
                         case 'B':
-                            output = "Dcl-Proc " + name + " " + keywords + ";";
+                            output = ("Dcl-Proc " + name + " " + keywords).TrimEnd() + ";";
                             break;
                         case 'E':
                             output = "End-Proc;";
@@ -223,10 +225,10 @@ namespace ILEditor.Classes.LanguageTools
                     switch (opcode)
                     {
                         case "ADD":
-                            output = result + " = " + factor1 + " + " + factor2 + ";";
+                            output = result + " = " + factor1 + " + " + factor2;
                             break;
                         case "BEGSR":
-                            output = opcode + " " + factor1 + ";";
+                            output = opcode + " " + factor1;
                             break;
                         case "CAT":
                             if (factor2.Contains(":"))
@@ -234,141 +236,141 @@ namespace ILEditor.Classes.LanguageTools
                                 spaces = int.Parse(factor2.Split(':')[1]);
                                 factor2 = factor2.Split(':')[0].Trim();
                             }
-                            output = result + " = " + factor1 + "+ '" + "".PadLeft(spaces) + "' + " + factor2 + ";";
+                            output = result + " = " + factor1 + "+ '" + "".PadLeft(spaces) + "' + " + factor2;
                             break;
                         case "CHAIN":
-                            output = opcode + " " + factor1 + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor1 + " " + factor2 + " " + result;
                             break;
                         case "CHECK":
-                            output = result + " = %Check(" + factor1 + ":" + factor2 + ");";
+                            output = result + " = %Check(" + factor1 + ":" + factor2 + ")";
                             break;
                         case "CHECKR":
-                            output = result + " = %CheckR(" + factor1 + ":" + factor2 + ");";
+                            output = result + " = %CheckR(" + factor1 + ":" + factor2 + ")";
                             break;
                         case "CLEAR":
-                            output = opcode + " " + factor1 + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor1 + " " + factor2 + " " + result;
                             break;
                         case "CLOSE":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "DELETE":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "DIV":
-                            output = result + " = " + factor1 + " / " + factor2 + ";";
+                            output = result + " = " + factor1 + " / " + factor2;
                             break;
                         case "DO":
-                            output = "For " + result + " = " + factor1 + " to " + factor2 + ";";
+                            output = "For " + result + " = " + factor1 + " to " + factor2;
                             break;
                         case "DOU":
                         case "DOW":
-                            output = opcode + " " + extended + ";";
+                            output = opcode + " " + extended;
                             break;
                         case "DSPLY":
-                            output = opcode + " (" + factor1 + ") " + factor2 + " " + result + ";";
+                            output = opcode + " (" + factor1 + ") " + factor2 + " " + result;
                             break;
                         case "ELSE":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "ELSEIF":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "ENDDO":
                             output = "Enddo;";
                             break;
                         case "ENDIF":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "ENDMON":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "ENDSL":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "ENDSR":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "EVAL":
-                            output = extended + ";";
+                            output = extended;
                             break;
                         case "EVALR":
-                            output = opcode + " " + extended + ";";
+                            output = opcode + " " + extended;
                             break;
                         case "EXFMT":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "EXSR":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "FOR":
-                            output = opcode + " " + extended + ";";
+                            output = opcode + " " + extended;
                             break;
                         case "IF":
-                            output = opcode + " " + extended + ";";
+                            output = opcode + " " + extended;
                             break;
                         case "IN":
-                            output = opcode + " " + factor1 + " " + factor2 + ";";
+                            output = opcode + " " + factor1 + " " + factor2;
                             break;
                         case "ITER":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "LEAVE":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "LEAVESR":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "LOOKUP":
-                            output = "*In" + ind3 + " = (%Lookup(" + factor1 + ":" + factor2 + ") > 0);";
+                            output = "*In" + ind3 + " = (%Lookup(" + factor1 + ":" + factor2 + ") > 0)";
                             break;
                         case "MONITOR":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "MULT":
-                            output = result + " = " + factor1 + " / " + factor2 + ";";
+                            output = result + " = " + factor1 + " / " + factor2;
                             break;
                         case "ON-ERROR":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "OPEN":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "OUT":
-                            output = opcode + " " + factor1 + " " + factor2 + ";";
+                            output = opcode + " " + factor1 + " " + factor2;
                             break;
                         case "READ":
                         case "READC":
-                            output = opcode + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor2 + " " + result;
                             break;
                         case "READE":
-                            output = opcode + " " + factor1 + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor1 + " " + factor2 + " " + result;
                             break;
                         case "READP":
-                            output = opcode + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor2 + " " + result;
                             break;
                         case "READPE":
-                            output = opcode + " " + factor1 + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor1 + " " + factor2 + " " + result;
                             break;
                         case "RETURN":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "SCAN":
                             output = result + " = %Scan(" + factor1 + ":" + factor2 + ");";
                             break;
                         case "SELECT":
-                            output = opcode + ";";
+                            output = opcode;
                             break;
                         case "SETGT":
-                            output = opcode + " " + factor1 + " " + factor2 + ";";
+                            output = opcode + " " + factor1 + " " + factor2;
                             break;
                         case "SETLL":
-                            output = opcode + " " + factor1 + " " + factor2 + ";";
+                            output = opcode + " " + factor1 + " " + factor2;
                             break;
                         case "SORTA":
-                            output = opcode + " " + extended + ";";
+                            output = opcode + " " + extended;
                             break;
                         case "SUB":
-                            output = result + " = " + factor1 + " - " + factor2 + ";";
+                            output = result + " = " + factor1 + " - " + factor2;
                             break;
                         case "SUBST":
                             if (factor2.Contains(":"))
@@ -376,16 +378,16 @@ namespace ILEditor.Classes.LanguageTools
                                 sep = factor2.Split(':')[1];
                                 factor2 = factor2.Split(':')[0].Trim();
                             }
-                            output = result + " = %Subst(" + factor2 + ":" + sep + ":" + factor1 + ");";
+                            output = result + " = %Subst(" + factor2 + ":" + sep + ":" + factor1 + ")";
                             break;
                         case "UNLOCK":
-                            output = opcode + " " + factor2 + ";";
+                            output = opcode + " " + factor2;
                             break;
                         case "UPDATE":
-                            output = opcode + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor2 + " " + result;
                             break;
                         case "WRITE":
-                            output = opcode + " " + factor2 + " " + result + ";";
+                            output = opcode + " " + factor2 + " " + result;
                             break;
                         case "Z-ADD":
                             output = result + " = 0 + " + factor2;
@@ -396,6 +398,7 @@ namespace ILEditor.Classes.LanguageTools
                         default:
                             return "";
                     }
+                    output = output.TrimEnd() + ';';
                     break;
 
                 default:

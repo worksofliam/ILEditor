@@ -53,6 +53,7 @@ namespace ILEditor
             { "SQLRPGLE", ILELanguage.RPG },
             { "CL", ILELanguage.CL },
             { "CLLE", ILELanguage.CL },
+            { "CLP", ILELanguage.CL },
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP },
             { "SQL", ILELanguage.SQL }
