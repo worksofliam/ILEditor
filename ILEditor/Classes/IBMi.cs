@@ -109,6 +109,7 @@ namespace ILEditor.Classes
                     }
                     else
                     {
+                        Console.WriteLine(outLine.Data);
                         switch (outLine.Data.Substring(0, 3))
                         {
                             case "125":

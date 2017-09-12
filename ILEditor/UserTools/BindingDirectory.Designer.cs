@@ -57,11 +57,12 @@
             this.entriesList.TabIndex = 0;
             this.entriesList.UseCompatibleStateImageBehavior = false;
             this.entriesList.View = System.Windows.Forms.View.Details;
+            this.entriesList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.entriesList_KeyDown);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Object";
-            this.columnHeader1.Width = 101;
+            this.columnHeader1.Width = 145;
             // 
             // columnHeader2
             // 

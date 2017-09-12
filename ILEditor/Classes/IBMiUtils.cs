@@ -43,12 +43,12 @@ namespace ILEditor.Classes
                         Line = RealLine.PadRight(50);
                         Entry.BindingLib = Lib;
                         Entry.BindingObj = Obj;
-                        Entry.Name = Line.Substring(0, 10);
-                        Entry.Type = Line.Substring(10, 7);
-                        Entry.Library = Line.Substring(17, 10);
-                        Entry.Activation = Line.Substring(27, 10);
-                        Entry.CreationDate = Line.Substring(37, 6);
-                        Entry.CreationTime = Line.Substring(43, 6);
+                        Entry.Name = Line.Substring(0, 10).Trim();
+                        Entry.Type = Line.Substring(10, 7).Trim();
+                        Entry.Library = Line.Substring(17, 10).Trim();
+                        Entry.Activation = Line.Substring(27, 10).Trim();
+                        Entry.CreationDate = Line.Substring(37, 6).Trim();
+                        Entry.CreationTime = Line.Substring(43, 6).Trim();
                         Entries.Add(Entry);
                     }
                 }
