@@ -30,6 +30,11 @@ namespace ILEditor.Classes
             this._IsBeingSaved = false;
         }
 
+        public int GetRecordLength()
+        {
+            return this._RecordLength;
+        }
+
         public string GetText()
         {
             return this._Text;

@@ -30,14 +30,16 @@ namespace ILEditor.UserTools
     {
         public FastColoredTextBox EditorBox = null;
         private ILELanguage Language;
+        private int RcdLen;
 
-        public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None)
+        public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
         {
             InitializeComponent();
 
             //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
 
             this.Language = Language;
+            this.RcdLen = RecordLength;
 
             EditorBox = new FastColoredTextBox();
             EditorBox.Dock = DockStyle.Fill;
@@ -71,6 +73,14 @@ namespace ILEditor.UserTools
             if (!Editor.TheEditor.GetCurrentTab().Text.EndsWith("*"))
             {
                 Editor.TheEditor.GetCurrentTab().Text += "*";
+            }
+            if (this.RcdLen > 0)
+            {
+                int line = EditorBox.PositionToPlace(EditorBox.SelectionStart).iLine;
+                if (EditorBox.GetLineLength(line) > this.RcdLen)
+                {
+                    EditorBox.AddHint(EditorBox.GetLine(line), "Exceeding record format limit.");
+                }
             }
         }
 

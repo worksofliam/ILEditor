@@ -263,7 +263,7 @@ namespace ILEditor
                 editortabs.TabPages.RemoveAt(currentTab);
 
             TabPage tabPage = new TabPage(pageName);
-            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language);
+            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
             tabPage.Tag = MemberInfo;
