@@ -14,10 +14,16 @@ namespace ILEditor.UserTools
 {
     public partial class BindingDirectory : UserControl
     {
+        private string Library;
+        private string Object;
+
         public BindingDirectory(string Lib, string Obj)
         {
             InitializeComponent();
             UpdateListing(Lib, Obj);
+
+            Library = Lib;
+            Object = Obj;
         }
 
         public void UpdateListing(string Lib, string Obj)
@@ -40,6 +46,10 @@ namespace ILEditor.UserTools
                         entriesList.Items.Clear();
                         entriesList.Items.AddRange(Rows.ToArray());
                     });
+                }
+                else
+                {
+                    MessageBox.Show("Unable to obtain binding directory!");
                 }
             });
 
@@ -76,6 +86,64 @@ namespace ILEditor.UserTools
                     }
                 }
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (!IBMiUtils.IsValueObjectName(objectName.Text))
+            {
+                MessageBox.Show("Object name is not valid.");
+                objectName.Focus();
+                return;
+            }
+            if (objectType.Text == "")
+            {
+                MessageBox.Show("Object type is not valid.");
+                objectType.Focus();
+                return;
+            }
+            if (IBMiUtils.IsValueObjectName(objectLib.Text) == false && objectLib.Text != "*LIBL")
+            {
+                MessageBox.Show("Object library name is not valid.");
+                objectLib.Focus();
+                return;
+            }
+            if (objectActivation.Text == "")
+            {
+                MessageBox.Show("Object activation is not valid.");
+                objectType.Focus();
+                return;
+            }
+
+            BindingEntry Entry = new BindingEntry();
+
+            Entry.BindingLib = Library;
+            Entry.BindingObj = Object;
+            Entry.Name = objectName.Text.Trim();
+            Entry.Library = objectLib.Text.Trim();
+            Entry.Type = objectType.Text;
+            Entry.Activation = objectActivation.Text;
+            Entry.CreationDate = "";
+            Entry.CreationTime = "";
+
+            string command = "QUOTE RCMD ADDBNDDIRE BNDDIR(" + Library + "/" + Object + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + " " + Entry.Activation + "))";
+            Thread gothread = new Thread((ThreadStart)delegate
+            {
+                if (IBMi.RunCommands(new string[1] { command }) == false)
+                {
+                    ListViewItem Item = new ListViewItem(new string[6] { Entry.Name, Entry.Type, Entry.Library, Entry.Activation, Entry.CreationDate, Entry.CreationTime });
+                    Item.Tag = Entry;
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        entriesList.Items.Add(Item);
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Unable to create binding entry.");
+                }
+            });
+            gothread.Start();
         }
     }
 }

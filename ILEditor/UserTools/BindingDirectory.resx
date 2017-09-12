@@ -117,4 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMcSURBVDhPbZLdT5tlGMb7Z2xHemg0O/BkzDmZk+g+wGii
+        sXG0pXyPFhiayXB8dGw2rYBQSkuhLcJcKS2FURxsULawsbV8vAzarha2uY2XITNOQ6IznvnzoWwmyu7k
+        ypvnTa7fdT/3/Sg26/2KnteySruSmaXucGZpF0dK3RzWC+lcHBI6WOLkvWOdvFvcQUZBG+nqrx6kjM8r
+        s8zdKvR3lWOCvDMD5NYPoD0dIMcQQGPoR13nQ1XjI6usi4wiB/tUZp5Zt0okL1Y5QoyHl1l68DPJ+49J
+        /rhO4t4at+8+Ira8SnRJ5qfHT9jY2ODVdOX/Aa6V3qk7VLSOkiOSNXX+lFS1PrJF8tHqPj790pu61oGC
+        9u2Awzq37J+5j/1qgvHEOpdi64xG17i48IigtMrg7Ar+6Yf0TN7liN65HSAGJXvD96jsi+CavEPb5RjN
+        QYmGC3OYAjOcDUiYgjFcE8tiqJ0vBnjEFT73XMc2Fmfttz9Z/fUpstDKk6c8/OUPDH6J9rGk2MgLAGJN
+        cvfkEse7r2IZTWAelKj3TVPbG+HUuZtUngtT3SdhGUmIdXZsB4ifsmviB0qcYzRcTGAainNmMEpt/yJV
+        3luc8Eh84ZmnYTgu3oJjO0A8ELn9cpxC6whnL8QwBBY55btFZa/EZ9/NUfbtDOVOK8ftGoqaP0B5+gAH
+        T+6qeWZXKDIKHbJ1JIq2cYga/wInvfOcOC9R3jOLrmuaYlsj9YFcRhJ2oushWiZ0KFt2sVu/sykFeKeg
+        XW4OLpBt7BetbqXqReoxV4T8zjBq0yGGb1sYTlrZrKYrhbRcKRaAHX+lAG/n22XzgISyzkt59ywlIrWo
+        M0Ku4wYq6xRZ1a9zKeFOmZ/X93E7afqdW7PYn2eXjf45Pq46T7EzQl7HTTS2KY5arvNJ0zX2lr1MYygP
+        U0ibMpvGtf/tYH+uTTYG5vl6KIY5GMc4GKO+P4qhb5FqzwJKYwUfNb3CN6GCVPLmd/P87wzStTb3W1ob
+        +7RtvJljZa/GyhvqVvaoLexRWUjLbiEt/0PSdC+l2hbG33frdpgVCoXiHxN1TFfFqoiqAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
 </root>
