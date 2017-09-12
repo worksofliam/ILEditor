@@ -33,9 +33,10 @@ namespace ILEditor.Forms.CompileOptionForms
 
         private void save_Click(object sender, EventArgs e)
         {
-            if (!IBMi.CurrentSystem.GetValue("CMPTYPES").Split('|').Contains(types.Text))
+            if (types.Text == "")
             {
-                MessageBox.Show("Invalid type.");
+                MessageBox.Show("Invalid member type.");
+                types.Focus();
                 return;
             }
 
