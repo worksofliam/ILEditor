@@ -103,9 +103,9 @@ namespace ILEditor.Classes
             return Objects.ToArray();
         }
 
-        public static string[][] GetMemberList(string Lib, string Obj)
+        public static Member[] GetMemberList(string Lib, string Obj)
         {
-            List<string[]> Members = new List<string[]>();
+            List<Member> Members = new List<Member>();
             List<string> commands = new List<string>();
 
             Lib = Lib.ToUpper();
@@ -121,6 +121,8 @@ namespace ILEditor.Classes
 
             if (file != "")
             {
+
+                Member NewMember;
                 foreach(string RealLine in File.ReadAllLines(file))
                 {
                     if (RealLine.Trim() != "")
@@ -131,7 +133,10 @@ namespace ILEditor.Classes
                         Type = Line.Substring(60, 10).Trim();
                         RcdLen = Line.Substring(70, 7).Trim();
 
-                        Members.Add(new string[4] { Name, Type, Desc, RcdLen });
+                        NewMember = new Member("", Lib, Obj, Name, Type, true, int.Parse(RcdLen));
+                        NewMember._Text = Desc;
+
+                        Members.Add(NewMember);
                     }
                 }
             }

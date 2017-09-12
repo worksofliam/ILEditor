@@ -142,7 +142,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.AddBindingList(currentRightClick.Library, currentRightClick.Name);
                         break;
                     default:
-                        Editor.OpenMember(currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension, true);
+                        Editor.OpenMember(new Member("", currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension));
                         break;
                 }
             }

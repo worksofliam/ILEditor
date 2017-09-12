@@ -8,11 +8,12 @@ namespace ILEditor.Classes
 {
     public class Member
     {
-        private string _Local;
+        public string _Local;
         private string _Lib;
         private string _Obj;
         private string _Mbr;
         private string _Ext;
+        public string _Text;
         private int _RecordLength;
         private Boolean _isEditable;
         public Boolean _IsBeingSaved;
@@ -27,6 +28,11 @@ namespace ILEditor.Classes
             this._RecordLength = RecordLength;
             this._isEditable = isEditable;
             this._IsBeingSaved = false;
+        }
+
+        public string GetText()
+        {
+            return this._Text;
         }
 
         public string GetLocalFile()

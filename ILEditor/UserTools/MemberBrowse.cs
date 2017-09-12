@@ -38,7 +38,7 @@ namespace ILEditor.UserTools
         {
             Thread gothread = new Thread((ThreadStart)delegate
             {
-                string[][] members;
+                Member[] members;
                 ListViewItem curItem;
 
                 curItems.Clear();
@@ -58,10 +58,10 @@ namespace ILEditor.UserTools
 
                 if (members != null)
                 {
-                    foreach (string[] member in members)
+                    foreach (Member member in members)
                     {
-                        curItem = new ListViewItem(new string[3] { member[0], member[1], member[2] }, 0);
-                        curItem.Tag = Lib + '|' + Obj + '|' + member[0] + '|' + member[1];
+                        curItem = new ListViewItem(new string[3] { member.GetMember(), member.GetExtension(), member.GetText() }, 0);
+                        curItem.Tag = member;
 
                         curItems.Add(curItem);
                     }
@@ -118,13 +118,9 @@ namespace ILEditor.UserTools
                 ListViewItem selection = memberList.SelectedItems[0];
                 if (selection.Tag != null)
                 {
-                    string tag = (string)selection.Tag;
-                    if (tag != "")
-                    {
-                        string[] path = tag.Split('|');
+                    Member member = (Member)selection.Tag;
 
-                        Editor.OpenMember(path[0], path[1], path[2], path[3], true);
-                    }
+                    Editor.OpenMember(member);
                 }
             }
         }
@@ -137,7 +133,7 @@ namespace ILEditor.UserTools
             if (newMemberForm.created)
             {
                 ListViewItem curItem = new ListViewItem(new string[3] { newMemberForm._mbr, newMemberForm._type, newMemberForm._text }, 0);
-                curItem.Tag = newMemberForm._lib + '|' + newMemberForm._spf + '|' + newMemberForm._mbr + '|' + newMemberForm._type;
+                curItem.Tag = new Member("", library.Text.Trim(), spf.Text.Trim(), newMemberForm._mbr, newMemberForm._type);
                 memberList.Items.Add(curItem);
             }
 
@@ -146,14 +142,14 @@ namespace ILEditor.UserTools
 
         #region rightclick
 
-        private string currentRightClick;
+        private Member currentRightClick;
         private void memberList_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 if (memberList.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
-                    currentRightClick = memberList.FocusedItem.Tag.ToString();
+                    currentRightClick = (Member)memberList.FocusedItem.Tag;
                     compileRightclick.Show(Cursor.Position);
                 }
             }
@@ -165,9 +161,8 @@ namespace ILEditor.UserTools
             List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
             if (currentRightClick != null)
             {
-                string[] path = currentRightClick.Split('|');
-                Member MemberInfo = new Member("", path[0], path[1], path[2], path[3], false);
-                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + path[3]).Split('|');
+                Member MemberInfo = currentRightClick;
+                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
                 foreach (string Item in Items)
                 {
                     if (Item.Trim() == "") continue;
@@ -186,9 +181,7 @@ namespace ILEditor.UserTools
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             if (currentRightClick != null)
             {
-                string[] path = currentRightClick.Split('|');
-                Member MemberInfo = new Member("", path[0], path[1], path[2], path[3], false);
-                IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
+                IBMiUtils.CompileMember(currentRightClick, clickedItem.Text);
             }
         }
 
@@ -196,11 +189,9 @@ namespace ILEditor.UserTools
         {
             if (currentRightClick != null)
             {
-                string[] path = currentRightClick.Split('|');
-                Member MemberInfo = new Member("", path[0], path[1], path[2], path[3], false);
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(MemberInfo);
+                    IBMiUtils.CompileMember(currentRightClick);
                 }).Start();
             }
         }

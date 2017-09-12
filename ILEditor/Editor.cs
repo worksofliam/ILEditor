@@ -203,25 +203,26 @@ namespace ILEditor
             }
         }
 
-        public static void OpenMember(string Lib, string Obj, string Mbr, string Ext, Boolean Editing)
+        public static void OpenMember(Member member)
         {
-            string TabText = Lib + "/" + Obj + "(" + Mbr + ")";
+            string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
             int TabIndex = TheEditor.EditorContains(TabText);
             if (TabIndex == -1)
             {
                 Thread gothread = new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember(Lib, Obj, Mbr);
+                    string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember());
 
                     if (resultFile != "")
                     {
+                        member._Local = resultFile;
                         TheEditor.Invoke((MethodInvoker)delegate
                         {
-                            TheEditor.AddMemberEditor(new Member(resultFile, Lib, Obj, Mbr, Ext, Editing), GetBoundLangType(Ext));
+                            TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
                         });
                     }
                     else
                     {
-                        MessageBox.Show("Unable to download member " + Lib + "/" + Obj + "." + Mbr + ". Please check it exists and that you have access to the remote system.");
+                        MessageBox.Show("Unable to download member " + member.GetLibrary() + "/" + member.GetObject() + "." + member.GetMember() + ". Please check it exists and that you have access to the remote system.");
                     }
 
                 });
@@ -252,7 +253,7 @@ namespace ILEditor
             SwitchToTab(editortabs.TabPages.Count - 1);
         }
 
-        public void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
+        private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             int currentTab = EditorContains(pageName);

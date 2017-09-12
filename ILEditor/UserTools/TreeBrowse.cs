@@ -94,15 +94,15 @@ namespace ILEditor.UserTools
                 {
                     path = node.Tag.ToString().Split('/');
                     items = new List<TreeNode>();
-                    string[][] members = IBMiUtils.GetMemberList(path[0], path[1]);
+                    Member[] members = IBMiUtils.GetMemberList(path[0], path[1]);
 
                     if (members != null)
                     {
 
-                        foreach (String[] member in members)
+                        foreach (Member member in members)
                         {
-                            mbr = new TreeNode(member[0] + "." + member[1].ToLower() + (member[2] == "" ? "" : " - " + member[2]));
-                            mbr.Tag = path[0] + '|' + path[1] + '|' + member[0] + '|' + member[1];
+                            mbr = new TreeNode(member.GetMember() + "." + member.GetExtension().ToLower() + (member.GetText() == "" ? "" : " - " + member.GetText()));
+                            mbr.Tag = member;
                             mbr.ImageIndex = 3;
                             mbr.SelectedImageIndex = mbr.ImageIndex;
                             items.Add(mbr);
@@ -134,13 +134,10 @@ namespace ILEditor.UserTools
             if (e.Node.Tag == null) { }
             else
             {
-                string tag = e.Node.Tag.ToString();
-                if (tag != "")
+                if (e.Node.Tag is Member)
                 {
-                    string[] path = tag.Split('|');
-
-                    if (path.Length == 4)
-                        Editor.OpenMember(path[0], path[1], path[2], path[3], true);
+                    Member member = (Member)e.Node.Tag;
+                    Editor.OpenMember(member);
                 }
             }
         }
