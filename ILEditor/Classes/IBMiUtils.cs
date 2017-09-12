@@ -113,11 +113,11 @@ namespace ILEditor.Classes
 
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
-            commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBRLIST) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MLNAME, MLMTXT, MLSEU2 FROM QTEMP/MEMBERS) WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS) WITH DATA') COMMIT(*NONE)");
             string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
 
-            string Line, Name, Desc, Type;
+            string Line, Name, Desc, Type, RcdLen;
 
             if (file != "")
             {
@@ -125,12 +125,13 @@ namespace ILEditor.Classes
                 {
                     if (RealLine.Trim() != "")
                     {
-                        Line = RealLine.PadRight(70);
+                        Line = RealLine.PadRight(80);
                         Name = Line.Substring(0, 10).Trim();
                         Desc = Line.Substring(10, 50).Trim();
                         Type = Line.Substring(60, 10).Trim();
+                        RcdLen = Line.Substring(70, 7).Trim();
 
-                        Members.Add(new string[3] { Name, Type, Desc });
+                        Members.Add(new string[4] { Name, Type, Desc, RcdLen });
                     }
                 }
             }

@@ -13,16 +13,18 @@ namespace ILEditor.Classes
         private string _Obj;
         private string _Mbr;
         private string _Ext;
+        private int _RecordLength;
         private Boolean _isEditable;
         public Boolean _IsBeingSaved;
 
-        public Member(string Local, string Lib, string Obj, string Mbr, string Ext, Boolean isEditable)
+        public Member(string Local, string Lib, string Obj, string Mbr, string Ext, Boolean isEditable = true, int RecordLength = 0)
         {
             this._Local = Local;
             this._Lib = Lib;
             this._Obj = Obj;
             this._Mbr = Mbr;
             this._Ext = Ext;
+            this._RecordLength = RecordLength;
             this._isEditable = isEditable;
             this._IsBeingSaved = false;
         }
