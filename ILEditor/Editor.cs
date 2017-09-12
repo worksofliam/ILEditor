@@ -231,6 +231,25 @@ namespace ILEditor
             }
         }
 
+        public void AddBindingList(string Lib, string Obj)
+        {
+            string pageName = Lib + "/" + Obj + " Binding Directory";
+            int currentTab = EditorContains(pageName);
+
+            //Close tab if it already exists.
+            if (currentTab >= 0)
+                editortabs.TabPages.RemoveAt(currentTab);
+
+            TabPage tabPage = new TabPage(pageName);
+            BindingDirectory bnddirlist = new BindingDirectory(Lib, Obj);
+            bnddirlist.BringToFront();
+            bnddirlist.Dock = DockStyle.Fill;
+            tabPage.Controls.Add(bnddirlist);
+            editortabs.TabPages.Add(tabPage);
+
+            SwitchToTab(editortabs.TabPages.Count - 1);
+        }
+
         public void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";

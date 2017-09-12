@@ -23,7 +23,8 @@ namespace ILEditor.UserTools
         {
             { "*PGM", 0 },
             { "*SRVPGM", 1 },
-            { "*MODULE", 2 }
+            { "*MODULE", 2 },
+            { "*BNDDIR", 3 }
         };
         private List<ListViewItem> curItems = new List<ListViewItem>();
         public void UpdateListing(string Lib)
@@ -41,7 +42,7 @@ namespace ILEditor.UserTools
                     objectList.Items.Add(new ListViewItem("Loading...", 2));
                 });
 
-                objects = IBMiUtils.GetObjectList(Lib);
+                objects = IBMiUtils.GetObjectList(Lib, "*PGM *SRVPGM *MODULE *BNDDIR");
 
                 this.Invoke((MethodInvoker)delegate
                 {
@@ -115,7 +116,14 @@ namespace ILEditor.UserTools
             if (currentRightClick != null)
             {
                 objectInformationToolStripMenuItem.Enabled = true;
-                openSourceToolStripMenuItem.Enabled = (currentRightClick.SrcMbr != "");
+                switch (currentRightClick.Type) {
+                    case "*BNDDIR":
+                        openSourceToolStripMenuItem.Enabled = true;
+                        break;
+                    default:
+                        openSourceToolStripMenuItem.Enabled = (currentRightClick.SrcMbr != "");
+                        break;
+                }
             }
             else
             {
@@ -128,7 +136,15 @@ namespace ILEditor.UserTools
         {
             if (currentRightClick != null)
             {
-                Editor.OpenMember(currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension, true);
+                switch (currentRightClick.Type)
+                {
+                    case "*BNDDIR":
+                        Editor.TheEditor.AddBindingList(currentRightClick.Library, currentRightClick.Name);
+                        break;
+                    default:
+                        Editor.OpenMember(currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension, true);
+                        break;
+                }
             }
         }
 

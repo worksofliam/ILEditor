@@ -22,9 +22,48 @@ namespace ILEditor.Classes
             return true;
         }
 
+        public static BindingEntry[] GetBindingDirectory(string Lib, string Obj)
+        {
+            string Line = ""; BindingEntry Entry;
+            List<BindingEntry> Entries = new List<BindingEntry>();
+            List<string> commands = new List<string>();
+            if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
+
+            commands.Add("QUOTE RCMD DSPBNDDIR BNDDIR(" + Lib + "/" + Obj + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/BNDDIR)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/BNDDATA AS (SELECT BNOBNM, BNOBTP, BNOLNM, BNOACT, BNODAT, BNOTIM FROM qtemp/bnddir) WITH DATA ') COMMIT(*NONE)");
+            string file = DownloadMember("QTEMP", "BNDDATA", "BNDDATA", commands.ToArray());
+
+            if (file != "")
+            {
+                foreach (string RealLine in File.ReadAllLines(file))
+                {
+                    if (RealLine.Trim() != "")
+                    {
+                        Entry = new BindingEntry();
+                        Line = RealLine.PadRight(50);
+                        Entry.BindingLib = Lib;
+                        Entry.BindingObj = Obj;
+                        Entry.Name = Line.Substring(0, 10);
+                        Entry.Type = Line.Substring(10, 7);
+                        Entry.Library = Line.Substring(17, 10);
+                        Entry.Activation = Line.Substring(27, 10);
+                        Entry.CreationDate = Line.Substring(37, 6);
+                        Entry.CreationTime = Line.Substring(43, 6);
+                        Entries.Add(Entry);
+                    }
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            return Entries.ToArray();
+        }
+
         public static ILEObject[] GetObjectList(string Lib, string Types = "*PGM *SRVPGM *MODULE")
         {
-            string Line = ""; ILEObject Object = new ILEObject();
+            string Line = ""; ILEObject Object;
             List<ILEObject> Objects = new List<ILEObject>();
             List<string> commands = new List<string>();
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");

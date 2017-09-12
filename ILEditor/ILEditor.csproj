@@ -100,6 +100,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
@@ -174,6 +175,12 @@
     </Compile>
     <Compile Include="Forms\ValueWindow.Designer.cs">
       <DependentUpon>ValueWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\BindingDirectory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\BindingDirectory.Designer.cs">
+      <DependentUpon>BindingDirectory.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
       <SubType>UserControl</SubType>
@@ -294,6 +301,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\HelpWindow.resx">
       <DependentUpon>HelpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\BindingDirectory.resx">
+      <DependentUpon>BindingDirectory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\CompileOptions.resx">
       <DependentUpon>CompileOptions.cs</DependentUpon>
