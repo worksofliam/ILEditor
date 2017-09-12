@@ -26,6 +26,7 @@ namespace ILEditor
         public Editor()
         {
             InitializeComponent();
+            this.Text += " (" + IBMi.CurrentSystem.GetValue("system") + ")";
             TheEditor = this;
         }
         

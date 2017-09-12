@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using ILEditor.Forms;
 using ILEditor.Classes;
+using NetFwTypeLib;
 
 namespace ILEditor
 {
@@ -20,7 +21,11 @@ namespace ILEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+            Firewall.AuthorizeApplication("Notepad", @"C:\Windows\Notepad.exe",
+                NET_FW_SCOPE_.NET_FW_SCOPE_ALL,
+                NET_FW_IP_VERSION_.NET_FW_IP_VERSION_ANY);
+
             LicenceKey LicenceInput = new LicenceKey();
             HostSelect Selector = new HostSelect();
 

@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>32</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -103,6 +103,7 @@
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\ErrorHandle.cs" />
+    <Compile Include="Classes\Firewall.cs" />
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
@@ -367,6 +368,17 @@
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
     <Content Include="worksofbarry_mOq_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NetFwTypeLib">
+      <Guid>{58FBCF7C-E7A9-467C-80B3-FC65E8FCCA08}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
