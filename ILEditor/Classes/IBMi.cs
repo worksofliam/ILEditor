@@ -15,6 +15,7 @@ namespace ILEditor.Classes
 
         readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
         {
+            { "245", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall." },
             { "426", "Connection closed; transfer aborted." },
             { "530", "Configuration username and password incorrect." }
         };
@@ -122,6 +123,7 @@ namespace ILEditor.Classes
                             case "150":
                                 //_output.Add("> " + outLine.Data.Substring(4));
                                 break;
+                            case "425":
                             case "426":
                             case "530":
                             case "550":

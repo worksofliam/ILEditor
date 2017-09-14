@@ -22,10 +22,6 @@ namespace ILEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Firewall.AuthorizeApplication("FTP", @"%SystemRoot%\System32\ftp.exe",
-                NET_FW_SCOPE_.NET_FW_SCOPE_ALL,
-                NET_FW_IP_VERSION_.NET_FW_IP_VERSION_ANY);
-
             LicenceKey LicenceInput = new LicenceKey();
             HostSelect Selector = new HostSelect();
 
