@@ -146,14 +146,27 @@ namespace ILEditor.UserTools
 
         public void ConvertSelectedRPG()
         {
-            int line = EditorBox.PositionToPlace(EditorBox.SelectionStart).iLine;
-            EditorBox.Selection = EditorBox.GetLine(line);
-            string freeForm = RPGFree.getFree(EditorBox.GetLineText(line));
-
-            if (freeForm != "")
+            if (EditorBox.SelectedText == "")
             {
-                EditorBox.SelectedText = freeForm;
+                MessageBox.Show("Please highlight the code you want to convert and then try the conversion again.", "Fixed-To-Free", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                string[] lines = EditorBox.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                string freeForm = "";
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    freeForm = RPGFree.getFree(lines[i]);
+                    if (freeForm != "")
+                    {
+                        lines[i] = freeForm;
+                    }
+                }
+
+                EditorBox.SelectedText = String.Join(Environment.NewLine, lines);
+            }
+
         }
         #endregion
 
