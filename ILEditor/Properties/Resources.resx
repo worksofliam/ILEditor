@@ -136,4 +136,7 @@
   <data name="LibraryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Help\LibraryList.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="FTP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Help\FTP.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

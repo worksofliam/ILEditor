@@ -124,10 +124,12 @@
             this.linkLabel4.AutoSize = true;
             this.linkLabel4.Location = new System.Drawing.Point(45, 154);
             this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(113, 13);
+            this.linkLabel4.Size = new System.Drawing.Size(129, 13);
             this.linkLabel4.TabIndex = 6;
             this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "Using the error list";
+            this.linkLabel4.Tag = "FTP";
+            this.linkLabel4.Text = "Getting an FTP error?";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // Welcome
             // 

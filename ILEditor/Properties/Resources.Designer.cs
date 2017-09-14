@@ -110,6 +110,33 @@ namespace ILEditor.Properties {
         ///    &lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
+        ///    &lt;h3&gt;Something not working?&lt;/h3&gt;
+        ///    &lt;p&gt;Are you seeing this error message?&lt;/p&gt;
+        ///    &lt;img src=&quot;https://i.imgur.com/qA7Dhqt.png&quot; /&gt;
+        ///    &lt;p&gt;This may be because the Windows Firewall is blocking either:&lt;/p&gt;
+        ///    &lt;ul&gt;
+        ///        &lt;li&gt;ftp.exe (the Windows F [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string FTP {
+            get {
+                return ResourceManager.GetString("FTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, Helvetica, sans-serif;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
         ///    &lt;h3&gt;Library List in ILEditor&lt;/h3&gt;
         ///    &lt;p&gt;The library list will apply to every command sent from ILEditor, including all compiles. To open the library list editor:&lt;/p&gt;
         ///    &lt;ol&gt;

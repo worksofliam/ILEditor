@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>40</ApplicationRevision>
+    <ApplicationRevision>42</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -363,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Help\Compiling.html" />
+    <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
     <Content Include="worksofbarry_mOq_icon.ico" />

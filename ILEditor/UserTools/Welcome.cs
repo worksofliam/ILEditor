@@ -77,6 +77,9 @@ namespace ILEditor.UserTools
                 case "CMP":
                     new Forms.HelpWindow(Properties.Resources.Compiling).Show();
                     break;
+                case "FTP":
+                    new Forms.HelpWindow(Properties.Resources.FTP).Show();
+                    break;
             }
         }
     }
