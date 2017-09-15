@@ -190,8 +190,10 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
             string TrueLib = Lib;
+            if (IBMi.CurrentSystem.GetValue("LIB_" + Lib) != "")
+                TrueLib = IBMi.CurrentSystem.GetValue("LIB_" + Lib);
+
             string SPFDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + TrueLib + "\\" + Obj;
-            //Check if if Lib should be saved into another Lib
 
             if (!Directory.Exists(SPFDir))
                 Directory.CreateDirectory(SPFDir);
