@@ -109,6 +109,12 @@
     <Compile Include="Classes\Licence.cs" />
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
+    <Compile Include="Forms\CloneWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CloneWindow.Designer.cs">
+      <DependentUpon>CloneWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CompileOptionForms\EditCommand.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,12 @@
     </Compile>
     <Compile Include="Forms\LibraryList.Designer.cs">
       <DependentUpon>LibraryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LibrarySaveOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LibrarySaveOption.Designer.cs">
+      <DependentUpon>LibrarySaveOption.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LicenceKey.cs">
       <SubType>Form</SubType>
@@ -264,6 +276,9 @@
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CloneWindow.resx">
+      <DependentUpon>CloneWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompileOptionForms\EditCommand.resx">
       <DependentUpon>EditCommand.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LibraryList.resx">
       <DependentUpon>LibraryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LibrarySaveOption.resx">
+      <DependentUpon>LibrarySaveOption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LicenceKey.resx">
       <DependentUpon>LicenceKey.cs</DependentUpon>

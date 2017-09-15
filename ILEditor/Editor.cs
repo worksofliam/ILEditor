@@ -47,7 +47,7 @@ namespace ILEditor
         }
 
         #region MemberInfo
-        private static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
+        public static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
         {
             { "RPG", ILELanguage.RPG },
             { "RPGLE", ILELanguage.RPG },
@@ -116,6 +116,16 @@ namespace ILEditor
                     GetTabEditor(editortabs.SelectedIndex).FormatCL();
                 }
             }
+        }
+        
+        private void sPFCloneToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new CloneWindow().ShowDialog();
+        }
+
+        private void manageSavingOptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new LibrarySaveOption().ShowDialog();
         }
         #endregion
 
@@ -210,7 +220,7 @@ namespace ILEditor
             if (TabIndex == -1)
             {
                 Thread gothread = new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember());
+                    string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
 
                     if (resultFile != "")
                     {

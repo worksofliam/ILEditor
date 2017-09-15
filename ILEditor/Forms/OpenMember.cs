@@ -18,6 +18,7 @@ namespace ILEditor.Forms
         public OpenMember()
         {
             InitializeComponent();
+            type.Items.AddRange(Editor.LangTypes.Keys.ToArray());
         }
 
         private void button1_Click(object sender, EventArgs e)

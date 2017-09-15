@@ -106,14 +106,8 @@
             // 
             // type
             // 
+            this.type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.type.FormattingEnabled = true;
-            this.type.Items.AddRange(new object[] {
-            "RPGLE",
-            "CLLE",
-            "C",
-            "CPP",
-            "COBOL",
-            "SQL"});
             this.type.Location = new System.Drawing.Point(158, 96);
             this.type.Name = "type";
             this.type.Size = new System.Drawing.Size(100, 21);

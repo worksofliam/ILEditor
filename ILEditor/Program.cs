@@ -13,6 +13,7 @@ namespace ILEditor
     static class Program
     {
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
+        public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

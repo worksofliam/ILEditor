@@ -87,7 +87,7 @@ namespace ILEditor.Classes
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-            process.WaitForExit(15000);
+            process.WaitForExit();
 
             if (FTPFirewallIssue)
                 _Failed = "425";

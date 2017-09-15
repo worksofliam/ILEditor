@@ -179,18 +179,32 @@ namespace ILEditor.Classes
             return true;
         }
 
-        public static string DownloadMember(string Lib, string Obj, string Mbr, string[] PreCommands = null)
+        public static string GetLocal(string Lib, string Obj, string Mbr, string Ext = "")
         {
-            string filetemp = Path.GetTempPath() + Mbr + "." + Obj;
-            List<string> commands = new List<string>();
-
-            //if (!File.Exists(filetemp)) File.Create(filetemp).Close();
-
             Lib = Lib.ToUpper();
             Obj = Obj.ToUpper();
             Mbr = Mbr.ToUpper();
+            if (Ext == "")
+                Ext = "mbr";
 
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
+
+            string TrueLib = Lib;
+            string SPFDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + TrueLib + "\\" + Obj;
+            //Check if if Lib should be saved into another Lib
+
+            if (!Directory.Exists(SPFDir))
+                Directory.CreateDirectory(SPFDir);
+
+            return SPFDir + "\\" + Mbr.ToUpper() + "." + Ext.ToLower();
+        }
+
+        public static string DownloadMember(string Lib, string Obj, string Mbr, string[] PreCommands = null, string Ext = "")
+        {
+            string filetemp = GetLocal(Lib, Obj, Mbr, Ext);
+            List<string> commands = new List<string>();
+
+            //if (!File.Exists(filetemp)) File.Create(filetemp).Close();
             
             if (PreCommands != null)
                 commands.AddRange(PreCommands);

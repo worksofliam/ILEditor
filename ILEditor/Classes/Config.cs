@@ -74,6 +74,8 @@ namespace ILEditor.Classes
             CheckExist("TYPE_C", "CRTBNDC|CRTCMOD");
             CheckExist("CRTBNDC", "CRTBNDC PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) DBGVIEW(*SOURCE) OPTION(*EVENTF)");
             CheckExist("CRTCMOD", "CRTCMOD MODULE(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) DBGVIEW(*SOURCE) OPTION(*EVENTF)");
+            
+            CheckExist("LIBSAVE", "");
 
             SaveConfig();
         }
