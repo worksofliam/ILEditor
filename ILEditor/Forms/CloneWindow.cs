@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,8 @@ namespace ILEditor.Forms
             if (IBMi.RunCommands(Commands.ToArray()) == false)
             {
                 MessageBox.Show("Source-Physical File cloned sucessfully.", "SPF Clone", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string Location = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + lib.Text + "\\" + spf.Text;
+                Process.Start("explorer.exe", "/select, " + Location);
                 this.Close();
             }
             else
