@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>44</ApplicationRevision>
+    <ApplicationRevision>47</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -120,6 +120,18 @@
     </Compile>
     <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
       <DependentUpon>NewType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FirewallHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirewallHelp.Designer.cs">
+      <DependentUpon>FirewallHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FirewallPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirewallPrompt.Designer.cs">
+      <DependentUpon>FirewallPrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LibraryList.cs">
       <SubType>Form</SubType>
@@ -258,6 +270,12 @@
     <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
       <DependentUpon>NewType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirewallHelp.resx">
+      <DependentUpon>FirewallHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirewallPrompt.resx">
+      <DependentUpon>FirewallPrompt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HostSelect.resx">
       <DependentUpon>HostSelect.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,6 +380,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\firewall.png" />
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />

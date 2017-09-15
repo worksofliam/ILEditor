@@ -97,6 +97,16 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap firewall {
+            get {
+                object obj = ResourceManager.GetObject("firewall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///
         ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
@@ -112,10 +122,10 @@ namespace ILEditor.Properties {
         ///&lt;body&gt;
         ///    &lt;h3&gt;Something not working?&lt;/h3&gt;
         ///    &lt;p&gt;Are you seeing this error message?&lt;/p&gt;
-        ///    &lt;img src=&quot;https://i.imgur.com/qA7Dhqt.png&quot; /&gt;
+        ///    &lt;img width=&quot;100%&quot; src=&quot;https://i.imgur.com/qA7Dhqt.png&quot; /&gt;
         ///    &lt;p&gt;This may be because the Windows Firewall is blocking either:&lt;/p&gt;
         ///    &lt;ul&gt;
-        ///        &lt;li&gt;ftp.exe (the Windows F [rest of string was truncated]&quot;;.
+        ///        &lt;li&gt;ftp.exe ( [rest of string was truncated]&quot;;.
         /// </summary>
         public static string FTP {
             get {

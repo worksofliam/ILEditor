@@ -78,7 +78,7 @@ namespace ILEditor.UserTools
                     new Forms.HelpWindow(Properties.Resources.Compiling).Show();
                     break;
                 case "FTP":
-                    new Forms.HelpWindow(Properties.Resources.FTP).Show();
+                    new Forms.FirewallHelp().Show();
                     break;
             }
         }

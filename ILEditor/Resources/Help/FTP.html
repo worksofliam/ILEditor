@@ -19,8 +19,27 @@
         <li>ftp.exe (the Windows FTP client)</li>
         <li>Port 20</li>
         <li>Port 21</li>
+        <li>You're using Parallels (see bottom)</li>
     </ul>
-    <p>View these guides to solve this issue:</p>
+
+    <p>Follow these steps:</p>
+    <ol>
+        <li>Open the Windows Firewall</li>
+        <li>Click 'Allow an app or features through Windows Firewall' in the top left</li>
+        <li>Find 'File Transfer Program' in the list shown - there may be multiple.</li>
+        <li>Make sure all the 'File Transfer Program' items are ticked - as well as the public and private columns.</li>
+        <li>If you didn't see them, select 'Allow another app...'</li>
+        <li>You will need to add two 'ftp.exe' programs to the list:<br />
+            <ol>
+                <li><code>C:\Windows\SysWOW64\ftp.exe</code></li>
+                <li><code>C:\Windows\System32\ftp.exe</code></li>
+            </ol>
+            <small>Please take into account which drive you installed Windows on.</small>
+        </li>
+        <li>Retest what wasn't working.</li>
+    </ol>
+
+    <p>Still not working? Check out these guides:</p>
     <ul>
         <li><a href="https://www.youtube.com/watch?v=EqxPjfYz5Oc&feature=youtu.be">Add ftp.exe to the firewall</a> (video) - after you have done this, test Idle again as you may not need to unblock the ports if this works.</li>
         <li><a href="http://www.sysprobs.com/how-to-allow-ftp-traffic-through-windows-8-8-1-windows-7-firewall">How to Allow FTP Traffic Through Windows 8, 8.1 and Windows 7 Firewall</a> (article) - also works for Windows 10</li>

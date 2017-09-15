@@ -21,6 +21,7 @@ namespace ILEditor.Classes
         };
 
         private static Boolean _NotConnected = false;
+        private static Boolean FTPFirewallIssue = false;
         private static string _Failed = "";
 
         private static Boolean _getList = false;
@@ -58,7 +59,10 @@ namespace ILEditor.Classes
 
             File.WriteAllLines(tempfile, lines.ToArray());
             result = RunFTP(tempfile);
-            File.Delete(tempfile);
+            try
+            {
+                File.Delete(tempfile);
+            } catch { }
 
             return result;
         }
@@ -83,8 +87,11 @@ namespace ILEditor.Classes
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-            process.WaitForExit();
-            
+            process.WaitForExit(15000);
+
+            if (FTPFirewallIssue)
+                _Failed = "425";
+
             if (_NotConnected)
             {
                 MessageBox.Show("Not able to connect to " + CurrentSystem.GetValue("system"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -100,6 +107,7 @@ namespace ILEditor.Classes
 
         private static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
+            string code = "";
             if (outLine.Data != null)
             {
                 if (outLine.Data.Length >= 5)
@@ -111,17 +119,18 @@ namespace ILEditor.Classes
                     else
                     {
                         Console.WriteLine(outLine.Data);
-                        switch (outLine.Data.Substring(0, 3))
+                        code = outLine.Data.Substring(0, 3);
+                        switch (code)
                         {
+                            case "200":
+                                FTPFirewallIssue = true;
+                                break;
+
                             case "125":
                                 _getList = true;
                                 break;
                             case "250":
                                 _getList = false;
-                                //_output.Add("> " + outLine.Data.Substring(4));
-                                break;
-                            case "150":
-                                //_output.Add("> " + outLine.Data.Substring(4));
                                 break;
                             case "425":
                             case "426":
@@ -131,6 +140,7 @@ namespace ILEditor.Classes
                                 //_output.Add("> " + outLine.Data.Substring(4));
                                 break;
                             default:
+                                FTPFirewallIssue = false;
                                 if (_getList) _list.Add(outLine.Data);
                                 break;
                         }
