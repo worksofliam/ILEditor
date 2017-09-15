@@ -43,6 +43,9 @@
             this.openWelcomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sPFCloneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageSavingOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,9 +59,6 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sPFCloneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageSavingOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -96,7 +96,7 @@
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // memberToolStripMenuItem
@@ -112,7 +112,7 @@
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem1});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // memberToolStripMenuItem1
@@ -127,14 +127,14 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // switchSystemToolStripMenuItem
             // 
             this.switchSystemToolStripMenuItem.Name = "switchSystemToolStripMenuItem";
-            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.switchSystemToolStripMenuItem.Text = "Switch System";
             this.switchSystemToolStripMenuItem.Click += new System.EventHandler(this.switchSystemToolStripMenuItem_Click);
             // 
@@ -179,6 +179,32 @@
             this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.libraryListToolStripMenuItem.Text = "Library List";
             this.libraryListToolStripMenuItem.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
+            // 
+            // localCopiesToolStripMenuItem
+            // 
+            this.localCopiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sPFCloneToolStripMenuItem1,
+            this.manageSavingOptionsToolStripMenuItem});
+            this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
+            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.localCopiesToolStripMenuItem.Text = "Local Copies";
+            // 
+            // sPFCloneToolStripMenuItem1
+            // 
+            this.sPFCloneToolStripMenuItem1.Name = "sPFCloneToolStripMenuItem1";
+            this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
+            this.sPFCloneToolStripMenuItem1.Text = "SPF Clone";
+            this.sPFCloneToolStripMenuItem1.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem1_Click);
+            // 
+            // manageSavingOptionsToolStripMenuItem
+            // 
+            this.manageSavingOptionsToolStripMenuItem.AutoToolTip = true;
+            this.manageSavingOptionsToolStripMenuItem.Enabled = false;
+            this.manageSavingOptionsToolStripMenuItem.Name = "manageSavingOptionsToolStripMenuItem";
+            this.manageSavingOptionsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.manageSavingOptionsToolStripMenuItem.Text = "Manage Saving Options";
+            this.manageSavingOptionsToolStripMenuItem.ToolTipText = "Currently Disabled";
+            this.manageSavingOptionsToolStripMenuItem.Click += new System.EventHandler(this.manageSavingOptionsToolStripMenuItem_Click);
             // 
             // languageToolsToolStripMenuItem
             // 
@@ -304,29 +330,6 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // localCopiesToolStripMenuItem
-            // 
-            this.localCopiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sPFCloneToolStripMenuItem1,
-            this.manageSavingOptionsToolStripMenuItem});
-            this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
-            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.localCopiesToolStripMenuItem.Text = "Local Copies";
-            // 
-            // sPFCloneToolStripMenuItem1
-            // 
-            this.sPFCloneToolStripMenuItem1.Name = "sPFCloneToolStripMenuItem1";
-            this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
-            this.sPFCloneToolStripMenuItem1.Text = "SPF Clone";
-            this.sPFCloneToolStripMenuItem1.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem1_Click);
-            // 
-            // manageSavingOptionsToolStripMenuItem
-            // 
-            this.manageSavingOptionsToolStripMenuItem.Name = "manageSavingOptionsToolStripMenuItem";
-            this.manageSavingOptionsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.manageSavingOptionsToolStripMenuItem.Text = "Manage Saving Options";
-            this.manageSavingOptionsToolStripMenuItem.Click += new System.EventHandler(this.manageSavingOptionsToolStripMenuItem_Click);
             // 
             // Editor
             // 
