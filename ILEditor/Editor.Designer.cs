@@ -59,6 +59,7 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -210,7 +211,8 @@
             // 
             this.languageToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rPGConversionToolStripMenuItem,
-            this.cLFormatterToolStripMenuItem});
+            this.cLFormatterToolStripMenuItem,
+            this.serviceProgramGeneratorToolStripMenuItem});
             this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
             this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.languageToolsToolStripMenuItem.Text = "Language Tools";
@@ -331,6 +333,13 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // serviceProgramGeneratorToolStripMenuItem
+            // 
+            this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
+            this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
+            this.serviceProgramGeneratorToolStripMenuItem.Click += new System.EventHandler(this.serviceProgramGeneratorToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -390,6 +399,7 @@
         private System.Windows.Forms.ToolStripMenuItem localCopiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem manageSavingOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serviceProgramGeneratorToolStripMenuItem;
     }
 }
 

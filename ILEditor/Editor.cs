@@ -430,5 +430,10 @@ namespace ILEditor
         {
             Application.Restart();
         }
+
+        private void serviceProgramGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ServiceGenerator().ShowDialog();
+        }
     }
 }
