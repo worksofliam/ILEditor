@@ -54,11 +54,11 @@ namespace ILEditor.Classes
 
             CheckExist("TREE_LIST", "");
 
-            CheckExist("DFT_RPGLE", "CRTBNDRPG");
-            CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI");
-            CheckExist("DFT_CLLE", "CRTBNDCL");
-            CheckExist("DFT_C", "CRTBNDC");
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C");
+            CheckExist("DFT_RPGLE", "CRTBNDRPG|CRTRPGMOD");
+            CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI|CRTSQLRPGI_MOD");
+            CheckExist("DFT_CLLE", "CRTBNDCL");
+            CheckExist("DFT_C", "CRTBNDC|CRTCMOD");
 
             CheckExist("TYPE_RPGLE", "CRTBNDRPG|CRTRPGMOD");
             CheckExist("CRTBNDRPG", "CRTBNDRPG PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF) DBGVIEW(*SOURCE)");
