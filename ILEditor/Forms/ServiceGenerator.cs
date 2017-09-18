@@ -136,7 +136,7 @@ namespace ILEditor.Forms
                 Ref.Add("");
 
                 Src.Add(W + "Dcl-Proc " + Procedure + " Export;");
-                Src.Add(W + "  Dcl-Pi *N");
+                Src.Add(W + "  Dcl-Pi *N;");
                 Src.Add(W + "  End-Pi;");
                 Src.Add("");
                 Src.Add(W + "  //Source code here");
@@ -183,7 +183,7 @@ namespace ILEditor.Forms
 
             if (IBMi.RunCommands(Commands.ToArray()) == false)
             {
-                MessageBox.Show("Service program has been generated. Don't forget to add your service program to your binding directory.");
+                MessageBox.Show("Service program has been generated. Don't forget to add your service program to your binding directory. New source members will not have their associated types.");
             }
             else
             {
