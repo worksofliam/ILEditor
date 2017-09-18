@@ -151,7 +151,7 @@ namespace ILEditor
                 Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(MemberInfo);
+                    IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
                 }).Start();
             }
         }
