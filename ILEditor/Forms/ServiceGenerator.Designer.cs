@@ -47,6 +47,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.generate = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.isC = new System.Windows.Forms.RadioButton();
+            this.isRPG = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -142,6 +144,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.isRPG);
+            this.groupBox2.Controls.Add(this.isC);
             this.groupBox2.Controls.Add(this.bndsrc);
             this.groupBox2.Controls.Add(this.modsrc);
             this.groupBox2.Controls.Add(this.protspf);
@@ -150,7 +154,7 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(12, 242);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(264, 102);
+            this.groupBox2.Size = new System.Drawing.Size(264, 129);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Source Information";
@@ -158,7 +162,7 @@
             // bndsrc
             // 
             this.bndsrc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.bndsrc.Location = new System.Drawing.Point(163, 74);
+            this.bndsrc.Location = new System.Drawing.Point(163, 96);
             this.bndsrc.MaxLength = 10;
             this.bndsrc.Name = "bndsrc";
             this.bndsrc.Size = new System.Drawing.Size(95, 20);
@@ -168,7 +172,7 @@
             // modsrc
             // 
             this.modsrc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.modsrc.Location = new System.Drawing.Point(163, 48);
+            this.modsrc.Location = new System.Drawing.Point(163, 70);
             this.modsrc.MaxLength = 10;
             this.modsrc.Name = "modsrc";
             this.modsrc.Size = new System.Drawing.Size(95, 20);
@@ -178,7 +182,7 @@
             // protspf
             // 
             this.protspf.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.protspf.Location = new System.Drawing.Point(163, 22);
+            this.protspf.Location = new System.Drawing.Point(163, 44);
             this.protspf.MaxLength = 10;
             this.protspf.Name = "protspf";
             this.protspf.Size = new System.Drawing.Size(95, 20);
@@ -188,7 +192,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 77);
+            this.label6.Location = new System.Drawing.Point(6, 99);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 13);
             this.label6.TabIndex = 2;
@@ -197,7 +201,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 51);
+            this.label5.Location = new System.Drawing.Point(6, 73);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 13);
             this.label5.TabIndex = 1;
@@ -206,7 +210,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 25);
+            this.label4.Location = new System.Drawing.Point(6, 47);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 13);
             this.label4.TabIndex = 0;
@@ -214,7 +218,7 @@
             // 
             // generate
             // 
-            this.generate.Location = new System.Drawing.Point(201, 350);
+            this.generate.Location = new System.Drawing.Point(201, 389);
             this.generate.Name = "generate";
             this.generate.Size = new System.Drawing.Size(75, 23);
             this.generate.TabIndex = 6;
@@ -224,7 +228,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 350);
+            this.button1.Location = new System.Drawing.Point(12, 389);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -232,11 +236,34 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // isC
+            // 
+            this.isC.AutoSize = true;
+            this.isC.Enabled = false;
+            this.isC.Location = new System.Drawing.Point(80, 19);
+            this.isC.Name = "isC";
+            this.isC.Size = new System.Drawing.Size(32, 17);
+            this.isC.TabIndex = 11;
+            this.isC.Text = "C";
+            this.isC.UseVisualStyleBackColor = true;
+            // 
+            // isRPG
+            // 
+            this.isRPG.AutoSize = true;
+            this.isRPG.Checked = true;
+            this.isRPG.Location = new System.Drawing.Point(132, 19);
+            this.isRPG.Name = "isRPG";
+            this.isRPG.Size = new System.Drawing.Size(61, 17);
+            this.isRPG.TabIndex = 12;
+            this.isRPG.TabStop = true;
+            this.isRPG.Text = "RPGLE";
+            this.isRPG.UseVisualStyleBackColor = true;
+            // 
             // ServiceGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 382);
+            this.ClientSize = new System.Drawing.Size(288, 424);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.generate);
             this.Controls.Add(this.groupBox2);
@@ -276,5 +303,7 @@
         private System.Windows.Forms.Button addproc;
         private System.Windows.Forms.Button generate;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton isRPG;
+        private System.Windows.Forms.RadioButton isC;
     }
 }
