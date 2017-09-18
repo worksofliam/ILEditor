@@ -163,7 +163,7 @@
             this.bndsrc.Name = "bndsrc";
             this.bndsrc.Size = new System.Drawing.Size(95, 20);
             this.bndsrc.TabIndex = 10;
-            this.bndsrc.Text = "QBNDSRC";
+            this.bndsrc.Text = "QSRVSRC";
             // 
             // modsrc
             // 
