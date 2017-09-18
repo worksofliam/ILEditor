@@ -106,7 +106,6 @@
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
-    <Compile Include="Classes\Licence.cs" />
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Forms\CloneWindow.cs">
@@ -151,17 +150,17 @@
     <Compile Include="Forms\LibrarySaveOption.Designer.cs">
       <DependentUpon>LibrarySaveOption.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LicenceKey.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\LicenceKey.Designer.cs">
-      <DependentUpon>LicenceKey.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Connection.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Connection.Designer.cs">
       <DependentUpon>Connection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberSearch.Designer.cs">
+      <DependentUpon>MemberSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NewMember.cs">
       <SubType>Form</SubType>
@@ -306,8 +305,8 @@
     <EmbeddedResource Include="Forms\LibrarySaveOption.resx">
       <DependentUpon>LibrarySaveOption.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LicenceKey.resx">
-      <DependentUpon>LicenceKey.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MemberSearch.resx">
+      <DependentUpon>MemberSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewMember.resx">
       <DependentUpon>NewMember.cs</DependentUpon>

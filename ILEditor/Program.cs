@@ -26,19 +26,9 @@ namespace ILEditor
             HostSelect Selector = new HostSelect();
 
             Application.Run(new Splash());
-            
-            if (!Licence.CheckExistsIsValid())
-            {
-                Application.Run(new LicenceKey());
-                Application.Run(new FirewallPrompt());
-            }
-
-            if (Licence.CheckExistsIsValid())
-            {
-                Application.Run(Selector);
-                if (Selector.SystemSelected)
-                    Application.Run(new Editor());
-            }
+            Application.Run(Selector);
+            if (Selector.SystemSelected)
+                Application.Run(new Editor());
         }
     }
 }
