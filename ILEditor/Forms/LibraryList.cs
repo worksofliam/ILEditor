@@ -168,5 +168,12 @@ namespace ILEditor.Forms
             textBox2.Enabled = UseIdleLibl;
             button3.Enabled = UseIdleLibl;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            if (index >= 0)
+                listBox1.Items.RemoveAt(index);
+        }
     }
 }

@@ -38,6 +38,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.userLibl = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -95,7 +96,7 @@
             // textBox1
             // 
             this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox1.Location = new System.Drawing.Point(200, 77);
+            this.textBox1.Location = new System.Drawing.Point(200, 52);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.MaxLength = 10;
             this.textBox1.Name = "textBox1";
@@ -104,7 +105,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(200, 98);
+            this.button3.Location = new System.Drawing.Point(200, 73);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(116, 21);
@@ -133,12 +134,24 @@
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 4;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(200, 98);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(116, 21);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Delete selected";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // LibraryList
             // 
             this.AcceptButton = this.button3;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 157);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.userLibl);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox1);
@@ -171,5 +184,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox userLibl;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button4;
     }
 }
