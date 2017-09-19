@@ -144,12 +144,6 @@
     <Compile Include="Forms\LibraryList.Designer.cs">
       <DependentUpon>LibraryList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LibrarySaveOption.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\LibrarySaveOption.Designer.cs">
-      <DependentUpon>LibrarySaveOption.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Connection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +236,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserTools\MemberSearchListing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\MemberSearchListing.Designer.cs">
+      <DependentUpon>MemberSearchListing.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\ObjectBrowse.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -302,9 +302,6 @@
     <EmbeddedResource Include="Forms\LibraryList.resx">
       <DependentUpon>LibraryList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LibrarySaveOption.resx">
-      <DependentUpon>LibrarySaveOption.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberSearch.resx">
       <DependentUpon>MemberSearch.cs</DependentUpon>
     </EmbeddedResource>
@@ -356,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\MemberBrowse.resx">
       <DependentUpon>MemberBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\MemberSearchListing.resx">
+      <DependentUpon>MemberSearchListing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>

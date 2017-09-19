@@ -122,10 +122,15 @@ namespace ILEditor
         {
             new CloneWindow().ShowDialog();
         }
-
-        private void manageSavingOptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        
+        private void serviceProgramGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new LibrarySaveOption().ShowDialog();
+            new ServiceGenerator().ShowDialog();
+        }
+        
+        private void searchMembersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new MemberSearch().ShowDialog();
         }
         #endregion
 
@@ -429,11 +434,6 @@ namespace ILEditor
         private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Restart();
-        }
-
-        private void serviceProgramGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new ServiceGenerator().ShowDialog();
         }
     }
 }

@@ -164,9 +164,9 @@ namespace ILEditor.Forms
             GenerateBinderSource();
 
             List<string> Commands = new List<string>();
-            string ReferenceFile = IBMiUtils.GetLocal(srvpgmlib.Text, protspf.Text, srvpgmnam.Text);
-            string ModuleFile = IBMiUtils.GetLocal(srvpgmlib.Text, modsrc.Text, srvpgmnam.Text);
-            string BinderFile = IBMiUtils.GetLocal(srvpgmlib.Text, bndsrc.Text, srvpgmnam.Text);
+            string ReferenceFile = IBMiUtils.GetLocalFile(srvpgmlib.Text, protspf.Text, srvpgmnam.Text);
+            string ModuleFile = IBMiUtils.GetLocalFile(srvpgmlib.Text, modsrc.Text, srvpgmnam.Text);
+            string BinderFile = IBMiUtils.GetLocalFile(srvpgmlib.Text, bndsrc.Text, srvpgmnam.Text);
 
             File.WriteAllLines(ReferenceFile, Ref);
             File.WriteAllLines(ModuleFile, Src);

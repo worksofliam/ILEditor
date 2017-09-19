@@ -51,7 +51,7 @@ namespace ILEditor.Forms
                 {
                     Items[i] = new ListViewItem(MemberList[i].GetMember() + "." + MemberList[i].GetExtension().ToLower());
                     Items[i].Checked = true;
-                    Items[i].Tag = new string[2] { MemberList[i].GetMember(), IBMiUtils.GetLocal(MemberList[i].GetLibrary(), MemberList[i].GetObject(), MemberList[i].GetMember(), MemberList[i].GetExtension()) };
+                    Items[i].Tag = new string[2] { MemberList[i].GetMember(), IBMiUtils.GetLocalFile(MemberList[i].GetLibrary(), MemberList[i].GetObject(), MemberList[i].GetMember(), MemberList[i].GetExtension()) };
                 }
 
                 memberList.Items.AddRange(Items);

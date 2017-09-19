@@ -45,10 +45,10 @@
             this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sPFCloneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageSavingOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +59,7 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -185,7 +185,7 @@
             // 
             this.localCopiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sPFCloneToolStripMenuItem1,
-            this.manageSavingOptionsToolStripMenuItem});
+            this.searchMembersToolStripMenuItem});
             this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
             this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.localCopiesToolStripMenuItem.Text = "Local Copies";
@@ -193,19 +193,9 @@
             // sPFCloneToolStripMenuItem1
             // 
             this.sPFCloneToolStripMenuItem1.Name = "sPFCloneToolStripMenuItem1";
-            this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
+            this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.sPFCloneToolStripMenuItem1.Text = "SPF Clone";
             this.sPFCloneToolStripMenuItem1.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem1_Click);
-            // 
-            // manageSavingOptionsToolStripMenuItem
-            // 
-            this.manageSavingOptionsToolStripMenuItem.AutoToolTip = true;
-            this.manageSavingOptionsToolStripMenuItem.Enabled = false;
-            this.manageSavingOptionsToolStripMenuItem.Name = "manageSavingOptionsToolStripMenuItem";
-            this.manageSavingOptionsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.manageSavingOptionsToolStripMenuItem.Text = "Manage Saving Options";
-            this.manageSavingOptionsToolStripMenuItem.ToolTipText = "Currently Disabled";
-            this.manageSavingOptionsToolStripMenuItem.Click += new System.EventHandler(this.manageSavingOptionsToolStripMenuItem_Click);
             // 
             // languageToolsToolStripMenuItem
             // 
@@ -234,6 +224,13 @@
             this.cLFormatterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.cLFormatterToolStripMenuItem.Text = "CL Formatter";
             this.cLFormatterToolStripMenuItem.Click += new System.EventHandler(this.cLFormatterToolStripMenuItem_Click);
+            // 
+            // serviceProgramGeneratorToolStripMenuItem
+            // 
+            this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
+            this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
+            this.serviceProgramGeneratorToolStripMenuItem.Click += new System.EventHandler(this.serviceProgramGeneratorToolStripMenuItem_Click);
             // 
             // compileToolStripMenuItem
             // 
@@ -333,12 +330,12 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // serviceProgramGeneratorToolStripMenuItem
+            // searchMembersToolStripMenuItem
             // 
-            this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
-            this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
-            this.serviceProgramGeneratorToolStripMenuItem.Click += new System.EventHandler(this.serviceProgramGeneratorToolStripMenuItem_Click);
+            this.searchMembersToolStripMenuItem.Name = "searchMembersToolStripMenuItem";
+            this.searchMembersToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.searchMembersToolStripMenuItem.Text = "Search Members";
+            this.searchMembersToolStripMenuItem.Click += new System.EventHandler(this.searchMembersToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -398,8 +395,8 @@
         private System.Windows.Forms.ToolStripMenuItem switchSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem localCopiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem manageSavingOptionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serviceProgramGeneratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchMembersToolStripMenuItem;
     }
 }
 
