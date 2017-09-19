@@ -56,7 +56,7 @@ namespace ILEditor.UserTools
                     {
                         Name = Path.GetFileNameWithoutExtension(Path.GetFileName(Member)).ToUpper();
                         Extension = Path.GetExtension(Member).Substring(1).ToUpper();
-                        CurrentFile = new TreeNode(Name, 0, 0); currentLine = 1;
+                        CurrentFile = new TreeNode(Name, 2, 2); currentLine = 1;
                         foreach (string Line in File.ReadAllLines(Member))
                         {
                             Contains = false;
@@ -67,7 +67,7 @@ namespace ILEditor.UserTools
 
                             if (Contains)
                             {
-                                currentResult = new TreeNode("Line " + currentLine.ToString(), 0, 0);
+                                currentResult = new TreeNode("Line " + currentLine.ToString(), 3, 3);
                                 currentResult.Tag = new Member(Member, Library, SPF, Name, Extension);
                                 CurrentFile.Nodes.Add(currentResult);
                             }
@@ -85,7 +85,7 @@ namespace ILEditor.UserTools
                     }
                     else
                     {
-                        TreeOut.Insert(0, new TreeNode("Results for '" + SearchValue + "' in " + Library + "/" + SPF, 0, 0));
+                        TreeOut.Insert(0, new TreeNode("Results for '" + SearchValue + "' in " + Library + "/" + SPF, 1, 1));
                     }
                 }
 
