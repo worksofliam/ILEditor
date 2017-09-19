@@ -167,6 +167,7 @@ namespace ILEditor.Forms
             textBox1.Enabled = UseIdleLibl;
             textBox2.Enabled = UseIdleLibl;
             button3.Enabled = UseIdleLibl;
+            button4.Enabled = UseIdleLibl;
         }
 
         private void button4_Click(object sender, EventArgs e)
