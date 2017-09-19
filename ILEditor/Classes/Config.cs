@@ -49,8 +49,10 @@ namespace ILEditor.Classes
             CheckExist("system", "system");
             CheckExist("username", "myuser");
             CheckExist("password", "mypass");
+
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
+            CheckExist("useuserlibl", "false");
 
             CheckExist("TREE_LIST", "");
 

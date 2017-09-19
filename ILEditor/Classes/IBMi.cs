@@ -46,7 +46,8 @@ namespace ILEditor.Classes
             lines.Add(CurrentSystem.GetValue("password"));
 
             lines.Add("ASCII");
-            lines.Add($"QUOTE RCMD CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+            if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
+                lines.Add($"QUOTE RCMD CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
             foreach (string cmd in list)
             {
                 if (cmd == null) continue;

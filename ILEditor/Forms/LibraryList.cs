@@ -29,6 +29,9 @@ namespace ILEditor.Forms
             }
 
             textBox2.Text = IBMi.CurrentSystem.GetValue("curlib");
+
+            userLibl.Checked = (IBMi.CurrentSystem.GetValue("useuserlibl") == "true");
+            UpdateEnables();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,53 +41,61 @@ namespace ILEditor.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            label2.Text = "";
-            label2.Update();
-
-            //Add a default library
-            if (listBox1.Items.Count == 0)
-                listBox1.Items.Add("SYSTOOLS");
-
-            string s = "";
-            foreach (string item in listBox1.Items)
+            IBMi.CurrentSystem.SetValue("useuserlibl", userLibl.Checked.ToString().ToLower());
+            if (userLibl.Checked)
             {
-                if (IBMiUtils.IsValueObjectName(item.Trim()))
-                {
-                    s += item.Trim() + ',';
-                }
-                else
-                {
-                    label2.Text = "Invalid library: " + item.Trim();
-                    label2.Update();
-                    return;
-                }
-            }
-
-            if (!IBMiUtils.IsValueObjectName(textBox2.Text.Trim()))
-            {
-                label2.Text = "Invalid current library.";
-                label2.Update();
-                return;
-            }
-
-            string origLibl = IBMi.CurrentSystem.GetValue("datalibl");
-            string origCur = IBMi.CurrentSystem.GetValue("curlib");
-
-            IBMi.CurrentSystem.SetValue("datalibl", s.Remove(s.Length - 1, 1)); //Remove last comma
-            IBMi.CurrentSystem.SetValue("curlib", textBox2.Text.Trim()); //Remove last comma
-
-            Boolean hasFailed = IBMi.RunCommands(new string[0]);
-
-            if (hasFailed)
-            {
-                IBMi.CurrentSystem.SetValue("datalibl", origLibl);
-                IBMi.CurrentSystem.SetValue("curlib", origCur);
-
-                MessageBox.Show("Library list contains invalid libraries.", "Library list", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
             else
             {
-                this.Close();
+                label2.Text = "";
+                label2.Update();
+
+                //Add a default library
+                if (listBox1.Items.Count == 0)
+                    listBox1.Items.Add("SYSTOOLS");
+
+                string s = "";
+                foreach (string item in listBox1.Items)
+                {
+                    if (IBMiUtils.IsValueObjectName(item.Trim()))
+                    {
+                        s += item.Trim() + ',';
+                    }
+                    else
+                    {
+                        label2.Text = "Invalid library: " + item.Trim();
+                        label2.Update();
+                        return;
+                    }
+                }
+
+                if (!IBMiUtils.IsValueObjectName(textBox2.Text.Trim()))
+                {
+                    label2.Text = "Invalid current library.";
+                    label2.Update();
+                    return;
+                }
+
+                string origLibl = IBMi.CurrentSystem.GetValue("datalibl");
+                string origCur = IBMi.CurrentSystem.GetValue("curlib");
+
+                IBMi.CurrentSystem.SetValue("datalibl", s.Remove(s.Length - 1, 1)); //Remove last comma
+                IBMi.CurrentSystem.SetValue("curlib", textBox2.Text.Trim()); //Remove last comma
+
+                Boolean hasFailed = IBMi.RunCommands(new string[0]);
+
+                if (hasFailed)
+                {
+                    IBMi.CurrentSystem.SetValue("datalibl", origLibl);
+                    IBMi.CurrentSystem.SetValue("curlib", origCur);
+
+                    MessageBox.Show("Library list contains invalid libraries.", "Library list", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -141,6 +152,21 @@ namespace ILEditor.Forms
             listBox1.Items.Insert(newIndex, selected);
             // Restore selection
             if (direction == 1) listBox1.SetSelected(newIndex - 1, true);
+        }
+
+        private void userLibl_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateEnables();
+        }
+
+        private void UpdateEnables()
+        {
+            Boolean UseIdleLibl = !userLibl.Checked;
+
+            listBox1.Enabled = UseIdleLibl;
+            textBox1.Enabled = UseIdleLibl;
+            textBox2.Enabled = UseIdleLibl;
+            button3.Enabled = UseIdleLibl;
         }
     }
 }
