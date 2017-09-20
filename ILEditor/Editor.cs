@@ -418,6 +418,28 @@ namespace ILEditor
         }
         #endregion
 
+        #region Toolbar
+        private void newButton_Click(object sender, EventArgs e)
+        {
+            memberToolStripMenuItem.PerformClick();
+        }
+        
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            saveToolStripMenuItem.PerformClick();
+        }
+
+        private void liblButton_Click(object sender, EventArgs e)
+        {
+            libraryListToolStripMenuItem.PerformClick();
+        }
+
+        private void compileButton_Click(object sender, EventArgs e)
+        {
+            compileCurrentToolStripMenuItem.PerformClick();
+        }
+        #endregion
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsSourceTab)
