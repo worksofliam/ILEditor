@@ -70,9 +70,9 @@ namespace ILEditor.UserTools
 
         private void Editor_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!Editor.TheEditor.GetCurrentTab().Text.EndsWith("*"))
+            if (!this.Parent.Text.EndsWith("*"))
             {
-                Editor.TheEditor.GetCurrentTab().Text += "*";
+                this.Parent.Text += "*";
             }
             if (this.RcdLen > 0)
             {
