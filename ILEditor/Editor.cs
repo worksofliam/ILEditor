@@ -55,6 +55,7 @@ namespace ILEditor
             { "CL", ILELanguage.CL },
             { "CLLE", ILELanguage.CL },
             { "CLP", ILELanguage.CL },
+            { "CMD", ILELanguage.CL },
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP },
             { "SQL", ILELanguage.SQL }

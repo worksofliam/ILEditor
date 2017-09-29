@@ -65,6 +65,8 @@ namespace ILEditor.UserTools
 
             EditorBox.TextChanged += Editor_TextChanged;
 
+            EditorBox.ClearUndo();
+
             this.Controls.Add(EditorBox);
         }
 
@@ -176,7 +178,8 @@ namespace ILEditor.UserTools
         {
             string[] Lines = EditorBox.Lines.ToArray();
             EditorBox.Clear();
-            EditorBox.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, 80)));
+            int length = (RcdLen > 0 ? RcdLen : 80);
+            EditorBox.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }
 
 
