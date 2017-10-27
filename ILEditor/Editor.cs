@@ -73,7 +73,7 @@ namespace ILEditor
         #region Tools Dropdown
         private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddTool("Toolbox", new UserToolList());
+            AddTool("Toolbox", new UserToolList(), true);
         }
 
         private void openWelcomeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -384,21 +384,33 @@ namespace ILEditor
         #endregion
 
         #region Tools
-        public void AddTool(string TabName, UserControl UserForm)
-        {
-            if (!usercontrol.TabPages.ContainsKey(TabName))
-            {
-                TabPage tabPage = new TabPage(TabName);
-                UserForm.BringToFront();
-                UserForm.Dock = DockStyle.Fill;
-                tabPage.Controls.Add(UserForm);
 
-                this.Invoke((MethodInvoker)delegate
+        public void AddTool(string TabName, UserControl UserForm, Boolean Replace = false)
+        {
+            if (Replace)
+            {
+                for (int i = 0; i < usercontrol.TabPages.Count; i++)
                 {
-                    usercontrol.TabPages.Add(tabPage);
-                    usercontrol.SelectedIndex = usercontrol.TabPages.Count - 1;
-                });
+                    if (usercontrol.TabPages[i].Text.Equals(TabName))
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            usercontrol.TabPages.RemoveAt(i);
+                        });
+                    }
+                }
             }
+            
+            TabPage tabPage = new TabPage(TabName);
+            UserForm.BringToFront();
+            UserForm.Dock = DockStyle.Fill;
+            tabPage.Controls.Add(UserForm);
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                usercontrol.TabPages.Add(tabPage);
+                usercontrol.SelectedIndex = usercontrol.TabPages.Count - 1;
+            });
         }
 
         private void usercontrol_MouseClick(object sender, MouseEventArgs e)

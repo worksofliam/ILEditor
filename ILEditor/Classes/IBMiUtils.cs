@@ -170,7 +170,7 @@ namespace ILEditor.Classes
                     if (command.ToUpper().Contains("*EVENTF"))
                     {
                         Editor.TheEditor.SetStatus("Fetching errors..");
-                        Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()));
+                        Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
                     }
                     Editor.TheEditor.SetStatus("Compile finished.");
                 }

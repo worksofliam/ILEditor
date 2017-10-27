@@ -14,24 +14,26 @@ namespace ILEditor.UserTools
 {
     public partial class ErrorListing : UserControl
     {
+        private string Library;
+        private string Object;
+
         public ErrorListing(string Lib = "", string Obj = "")
         {
             InitializeComponent();
-
-            if (Lib != "" && Obj != "")
-            {
-                lib.Text = Lib;
-                obj.Text = Obj;
-            }
+            Library = Lib;
+            Object = Obj;
         }
         
         private void ErrorListing_Load(object sender, EventArgs e)
         {
-            if (lib.Text != "" && obj.Text != "")
+            this.Parent.Text = "Error Listing";
+
+            Thread gothread = new Thread((ThreadStart)delegate
             {
-                fetchErrors.PerformClick();
-                toolStrip1.Enabled = false;
-            }
+                ErrorHandle.getErrors(Library, Object);
+                publishErrors();
+            });
+            gothread.Start();
         }
 
         public void publishErrors()
@@ -70,35 +72,17 @@ namespace ILEditor.UserTools
                             treeView1.Nodes.Add(curNode);
                         }
                     }
+
+                    if (totalErrors == 0)
+                    {
+                        treeView1.Nodes.Add(new TreeNode("No errors found for " + Library + "/" + Object + ".", 2, 2));
+                    }
                 }
 
                 toolStripStatusLabel1.Text = "Total errors: " + totalErrors.ToString();
                 toolStripStatusLabel2.Text = ErrorHandle.doName();
                 toolStripStatusLabel3.Text = DateTime.Now.ToString("h:mm:ss tt");
             });
-        }
-
-        private void fetchErrors_Click(object sender, EventArgs e)
-        {
-            if (!IBMiUtils.IsValueObjectName(lib.Text))
-            {
-                MessageBox.Show("Library name is not valid.");
-                return;
-            }
-            if (!IBMiUtils.IsValueObjectName(obj.Text))
-            {
-                MessageBox.Show("Object name is not valid.");
-                return;
-            }
-
-            Thread gothread = new Thread((ThreadStart)delegate
-            {
-                ErrorHandle.getErrors(lib.Text, obj.Text);
-                publishErrors();
-            });
-            gothread.Start();
-
-            this.Parent.Text = lib.Text + "/" + obj.Text + " [Errors]";
         }
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
