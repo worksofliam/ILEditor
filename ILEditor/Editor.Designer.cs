@@ -61,11 +61,11 @@
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.newButton = new System.Windows.Forms.ToolStripButton();
+            this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.liblButton = new System.Windows.Forms.ToolStripButton();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -105,7 +105,7 @@
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // memberToolStripMenuItem
@@ -121,7 +121,7 @@
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem1});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // memberToolStripMenuItem1
@@ -136,14 +136,14 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // switchSystemToolStripMenuItem
             // 
             this.switchSystemToolStripMenuItem.Name = "switchSystemToolStripMenuItem";
-            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.switchSystemToolStripMenuItem.Text = "Switch System";
             this.switchSystemToolStripMenuItem.Click += new System.EventHandler(this.switchSystemToolStripMenuItem_Click);
             // 
@@ -242,6 +242,7 @@
             // 
             // serviceProgramGeneratorToolStripMenuItem
             // 
+            this.serviceProgramGeneratorToolStripMenuItem.Enabled = false;
             this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
             this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
@@ -358,14 +359,15 @@
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // panel1
+            // newButton
             // 
-            this.panel1.Controls.Add(this.splitContainer1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 49);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(833, 531);
-            this.panel1.TabIndex = 4;
+            this.newButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newButton.Image = ((System.Drawing.Image)(resources.GetObject("newButton.Image")));
+            this.newButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(23, 22);
+            this.newButton.Text = "New Member";
+            this.newButton.Click += new System.EventHandler(this.newButton_Click);
             // 
             // saveButton
             // 
@@ -377,16 +379,6 @@
             this.saveButton.Text = "Save Member";
             this.saveButton.ToolTipText = "Save Member";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // newButton
-            // 
-            this.newButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newButton.Image = ((System.Drawing.Image)(resources.GetObject("newButton.Image")));
-            this.newButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(23, 22);
-            this.newButton.Text = "New Member";
-            this.newButton.Click += new System.EventHandler(this.newButton_Click);
             // 
             // liblButton
             // 
@@ -407,6 +399,15 @@
             this.compileButton.Size = new System.Drawing.Size(23, 22);
             this.compileButton.Text = "Compile";
             this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.splitContainer1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(833, 531);
+            this.panel1.TabIndex = 4;
             // 
             // Editor
             // 
