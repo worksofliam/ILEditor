@@ -100,6 +100,12 @@ namespace ILEditor.UserTools
                 MessageBox.Show("Library name is not valid.");
                 return;
             }
+            if (library.Text.ToUpper() == "*ALL")
+            {
+                MessageBox.Show("Library name is not valid.");
+                return;
+            }
+
             if (!IBMiUtils.IsValueObjectName(spf.Text))
             {
                 MessageBox.Show("Object name is not valid.");
