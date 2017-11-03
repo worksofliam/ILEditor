@@ -29,6 +29,7 @@ namespace ILEditor.UserTools
     public partial class SourceEditor : UserControl
     {
         public FastColoredTextBox EditorBox = null;
+        private AutocompleteMenu popupMenu;
         private ILELanguage Language;
         private int RcdLen;
 
@@ -45,6 +46,10 @@ namespace ILEditor.UserTools
             EditorBox.Dock = DockStyle.Fill;
             EditorBox.AutoIndent = false;
 
+            popupMenu = new AutocompleteMenu(EditorBox);
+            popupMenu.SearchPattern = @"[\w\.]";
+            popupMenu.ImageList = imageList1;
+
             switch (Language)
             {
                 case ILELanguage.SQL:
@@ -52,9 +57,11 @@ namespace ILEditor.UserTools
                     break;
                 case ILELanguage.RPG:
                     EditorBox.TextChanged += SetRPG;
+                    popupMenu.Items.SetAutocompleteItems(Program.RPGKeywords);
                     break;
                 case ILELanguage.CPP:
                     EditorBox.TextChanged += SetCPP;
+                    popupMenu.Items.SetAutocompleteItems(Program.CPPKeywords);
                     break;
                 case ILELanguage.CL:
                     EditorBox.TextChanged += SetCL;
@@ -64,6 +71,7 @@ namespace ILEditor.UserTools
             EditorBox.Text = File.ReadAllText(LocalFile);
 
             EditorBox.TextChanged += Editor_TextChanged;
+            EditorBox.KeyDown += Editor_KeyDown;
 
             EditorBox.ClearUndo();
 
@@ -83,6 +91,15 @@ namespace ILEditor.UserTools
                 {
                     EditorBox.AddHint(EditorBox.GetLine(line), "Exceeding record format limit.");
                 }
+            }
+        }
+
+        private void Editor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.Space | Keys.Control))
+            {
+                popupMenu.Show(true);
+                e.Handled = true;
             }
         }
 

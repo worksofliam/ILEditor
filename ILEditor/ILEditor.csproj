@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AutoCompleteFileParse.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\ErrorHandle.cs" />
@@ -407,6 +408,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\firewall.png" />
+    <Content Include="Resources\AutoComplete\CL.txt" />
+    <Content Include="Resources\AutoComplete\CPP.txt" />
+    <Content Include="Resources\AutoComplete\RPG.txt" />
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
@@ -424,5 +428,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

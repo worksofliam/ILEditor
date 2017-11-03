@@ -28,7 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SourceEditor));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "application.png");
+            this.imageList1.Images.SetKeyName(1, "package.png");
+            this.imageList1.Images.SetKeyName(2, "wrench.png");
+            this.imageList1.Images.SetKeyName(3, "database.png");
+            this.imageList1.Images.SetKeyName(4, "application_edit.png");
+            this.imageList1.Images.SetKeyName(5, "application_delete.png");
+            this.imageList1.Images.SetKeyName(6, "bricks.png");
+            this.imageList1.Images.SetKeyName(7, "brick_edit.png");
             // 
             // SourceEditor
             // 
@@ -41,5 +57,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

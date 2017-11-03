@@ -1,0 +1,202 @@
+﻿%ABS|Absolute Value of Expression|1
+%ADDR|Get Address of Variable|1
+%ALLOC|Allocate Storage|1
+%BITAND|Bitwise AND Operation|1
+%BITNOT|Invert Bits|1
+%BITOR|Bitwise OR Operation|1
+%BITXOR|Bitwise Exclusive-OR Operation|1
+%CHAR|Convert to Character Data|1
+%CHECK|Check Characters|1
+%CHECKR|Check Reverse|1
+%DATE|Convert to Date|1
+%DAYS|Number of Days|1
+%DEC|Convert to Packed Decimal Format|1
+%DECH|Convert to Packed Decimal Format with Half Adjust|1
+%DECPOS|Get Number of Decimal Positions|1
+%DIFF|Difference Between Two Date, Time, or Timestamp Values|1
+%DIV|Return Integer Portion of Quotient|1
+%EDITC|Edit Value Using an Editcode|1
+%EDITFLT|Convert to Float External Representation|1
+%EDITW|Edit Value Using an Editword|1
+%ELEM|Get Number of Elements|1
+%EOF|Return End or Beginning of File Condition|1
+%EQUAL|Return Exact Match Condition|1
+%ERROR|Return Error Condition|1
+%FIELDS|Fields to update|1
+%FLOAT|Convert to Floating Format|1
+%FOUND|Return Found Condition|1
+%GRAPH|Convert to Graphic Value|1
+%HANDLER|handlingProcedure : communicationArea |1
+%HOURS|Number of Hours|1
+%INT|Convert to Integer Format|1
+%INTH|Convert to Integer Format with Half Adjust|1
+%KDS|Search Arguments in Data Structure|1
+%LEN|Get or Set Length|1
+%LOOKUP|Look Up an Array Element|1
+%MINUTES|Number of Minutes|1
+%MONTHS|Number of Months|1
+%MSECONDS|Number of Microseconds|1
+%NULLIND|Query or Set Null Indicator|1
+%OCCUR|Set/Get Occurrence of a Data Structure|1
+%OPEN|Return File Open Condition|1
+%PADDR|Get Procedure Address|1
+%PARMS|Return Number of Parameters|1
+%REALLOC|Reallocate Storage|1
+%REM|Return Integer Remainder|1
+%REPLACE|Replace Character String|1
+%SCAN|Scan for Characters|1
+%SECONDS|Number of Seconds|1
+%SHTDN|Shut Down|1
+%SIZE|Get Size in Bytes|1
+%SQRT|Square Root of Expression|1
+%STATUS|Return File or Program Status|1
+%STR|Get or Store Null-Terminated String|1
+%SUBARR|Set/Get Portion of an Array|1
+%SUBDT|Extract a Portion of a Date, Time, or Timestamp|1
+%SUBST|Get Substring|1
+%THIS|Return Class Instance for Native Method|1
+%TIME|Convert to Time|1
+%TIMESTAMP|Convert to Timestamp|1
+%TLOOKUP|Look Up a Table Element|1
+%TRIM|Trim Characters at Edges|1
+%TRIML|Trim Leading Characters|1
+%TRIMR|Trim Trailing Characters|1
+%UCS2|Convert to UCS-2 Value|1
+%UNS|Convert to Unsigned Format|1
+%UNSH|Convert to Unsigned Format with Half Adjust|1
+%XFOOT|Sum Array Expression Elements|1
+%XLATE|Translate|1
+%XML|xmlDocument {:options}|1
+%YEARS|Number of Years|1
+ACQ|Acquire|0
+ADD|Add|0
+ADDDUR|Add Duration|0
+ALLOC|Allocate Storage|0
+AND|And|0
+BEGSR|Beginning of Subroutine|0
+BITOFF|Set Bits Off|0
+BITON|Set Bits On|0
+CALL|Call a Program|0
+CALLB|Call a Bound Procedure|0
+CALLP|Call a Prototyped Procedure or Program|0
+CAT|Concatenate Two Strings|0
+CHAIN|Random Retrieval from a File|0
+CHECK|Check Characters|0
+CHECKR|Check Reverse|0
+CLEAR|Clear|0
+CLOSE|Close Files|0
+COMMIT|Commit|0
+COMP|Compare|0
+DEALLOC|Free Storage|0
+DEFINE|Field Definition|0
+DELETE|Delete Record|0
+DIV|Divide|0
+DO|Do|0
+DOU|Do Until|0
+DOW|Do While|0
+DSPLY|Display Message|0
+DUMP|Program Dump|0
+ELSE|Else|0
+ELSEIF|Else If|0
+ENDyy|End a Structured Group|0
+ENDSR|End of Subroutine|0
+EVAL|Evaluate expression|0
+EVALR|Evaluate expression, right adjust|0
+EVAL-CORR|Assign corresponding subfields|0
+EXCEPT|Calculation Time Output|0
+EXFMT|Write/Then Read Format|0
+EXSR|Invoke Subroutine|0
+EXTRCT|Extract Date/Time/Timestamp|0
+FEOD|Force End of Data|0
+FOR|For|0
+FORCE|Force a Certain File to Be Read Next Cycle|0
+GOTO|Go To|0
+IF|If|0
+IN|Retrieve a Data Area|0
+ITER|Iterate|0
+KFLD|Define Parts of a Key|0
+KLIST|Define a Composite Key|0
+LEAVE|Leave a Do/For Group|0
+LEAVESR|Leave a Subroutine|0
+LOOKUP|Look Up a Table or Array Element|0
+MHHZO|Move High to High Zone|0
+MHLZO|Move High to Low Zone|0
+MLHZO|Move Low to High Zone|0
+MLLZO|Move Low to Low Zone|0
+MONITOR|Begin a Monitor Group|0
+MOVE|Move|0
+MOVEA|Move Array|0
+MOVEL|Move Left|0
+MULT|Multiply|0
+MVR|Move Remainder|0
+NEXT|Next|0
+OCCUR|Set/Get Occurrence of a Data Structure|0
+ON-ERROR|On Error|0
+OPEN|Open File for Processing|0
+OR|Or|0
+OTHER|Otherwise Select|0
+OUT|Write a Data Area|0
+PARM|Identify Parameters|0
+PLIST|Identify a Parameter List|0
+POST|Post|0
+READ|Read a Record|0
+READC|Read Next Changed Record|0
+READE|Read Equal Key|0
+READP|Read Prior Record|0
+READPE|Read Prior Equal|0
+REALLOC|Reallocate Storage with New Length|0
+REL|Release|0
+RESET|Reset|0
+RETURN|Return to Caller|0
+ROLBK|Roll Back|0
+SCAN|Scan String|0
+SELECT|Begin a Select Group|0
+SETGT|Set Greater Than|0
+SETLL|Set Lower Limit|0
+SETOFF|Set Indicator Off|0
+SETON|Set Indicator On|0
+SHTDN|Shut Down|0
+SORTA|Sort an Array|0
+SQRT|Square Root|0
+SUB|Subtract|0
+SUBDUR|Subtract Duration|0
+SUBST|Substring|0
+TAG|Tag|0
+TEST|Test Date/Time/Timestamp|0
+TESTB|Test Bit|0
+TESTN|Test Numeric|0
+TESTZ|Test Zone|0
+TIME|Retrieve Time and Date|0
+UNLOCK|Unlock a Data Area or Release a Record|0
+UPDATE|Modify Existing Record|0
+WHEN|When True Then Select|0
+WRITE|Create New Records|0
+XFOOT|Summing the Elements of an Array|0
+XLATE|Translate|0
+XML-INTO|Parse an XML Document into a Variable|0
+XML-SAX|Parse an XML Document|0
+Z-ADD|Zero and Add|0
+Z-SUB|Zero and Subtract|0
+CHAR|Character|3
+VARCHAR|Varying length character|3
+BINDEC|Binary-Decimal|3
+FLOAT|Float|3
+INT|Integer|3
+PACKED|Packaged-Decimal|3
+UNS|Unsigned Integer|3
+ZONED|Zoned-Decimal|3
+GRAPH|Graphic|3
+UCS2|UCS-2|3
+DATE|Date|3
+TIME|Time|3
+TIMESTAMP|Timestamp|3
+OBJECT|Java Object|3
+POINTER|Pointer|3
+IND|Indicator / Boolean|3
+DCL-S|Declare Standalone|3
+DCL-C|Declare Constant|3
+DCL-DS|Declare Datastructure|3
+DCL-F|Declare File|3
+DCL-PI|Declare Procedure Interface|0
+DCL-PR|Declare Prototype|0
+CTL-OPT|Control Options|3

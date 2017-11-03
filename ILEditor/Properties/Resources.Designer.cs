@@ -19,7 +19,7 @@ namespace ILEditor.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -71,6 +71,27 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ADDACC|Add Access Code|2
+        ///ADDAJE|Add Autostart Job Entry|2
+        ///ADDALRACNE|Add Alert Action Entry|2
+        ///ADDALRD|Add Alert Description|2
+        ///ADDALRSLTE|Add Alert Selection Entry|2
+        ///ADDASPCPYD|Add ASP Copy Description|2
+        ///ADDAUTLE|Add Authorization List Entry|2
+        ///ADDBKP|Add Breakpoint|2
+        ///ADDBNDDIRE|Add Binding Directory Entry|2
+        ///ADDCADMRE|Add Cluster Administrative Domain Managed Resource Entry|2
+        ///ADDCADNODE|Add Cluster Administrative Domain Node Entry|2
+        ///ADDCCSCLT|Add Change Control Server Client|2
+        ///ADDCFGLE|Add Configu [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string CL {
+            get {
+                return ResourceManager.GetString("CL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///
         ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
@@ -93,6 +114,26 @@ namespace ILEditor.Properties {
         public static string Compiling {
             get {
                 return ResourceManager.GetString("Compiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and|alternative to &amp;&amp; operator|6
+        ///and_eq|alternative to &amp;= operator|6
+        ///asm|insert an assembly instruction|6
+        ///auto|declare a local variable, or we can let the compiler to deduce the type of the variable from the initialization.|6
+        ///bitand|alternative to bitwise &amp; operator|6
+        ///bitor|alternative to | operator|6
+        ///bool|declare a boolean variable|6
+        ///break|break out of a loop|6
+        ///case|a block of code in a switch statement|6
+        ///catch|handles exceptions from throw|6
+        ///char|declare a character variable|6
+        ///class|declare a c [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string CPP {
+            get {
+                return ResourceManager.GetString("CPP", resourceCulture);
             }
         }
         
@@ -186,6 +227,30 @@ namespace ILEditor.Properties {
         public static string OpenMember {
             get {
                 return ResourceManager.GetString("OpenMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %ABS|Absolute Value of Expression|1
+        ///%ADDR|Get Address of Variable|1
+        ///%ALLOC|Allocate Storage|1
+        ///%BITAND|Bitwise AND Operation|1
+        ///%BITNOT|Invert Bits|1
+        ///%BITOR|Bitwise OR Operation|1
+        ///%BITXOR|Bitwise Exclusive-OR Operation|1
+        ///%CHAR|Convert to Character Data|1
+        ///%CHECK|Check Characters|1
+        ///%CHECKR|Check Reverse|1
+        ///%DATE|Convert to Date|1
+        ///%DAYS|Number of Days|1
+        ///%DEC|Convert to Packed Decimal Format|1
+        ///%DECH|Convert to Packed Decimal Format with Half Adjust|1
+        ///%DECPOS|Get Number of Decimal Positions|1
+        ///%DIFF|D [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string RPG {
+            get {
+                return ResourceManager.GetString("RPG", resourceCulture);
             }
         }
         
