@@ -109,6 +109,7 @@
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
+    <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Forms\CloneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +181,12 @@
     </Compile>
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuickMemberSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuickMemberSearch.Designer.cs">
+      <DependentUpon>QuickMemberSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ServiceGenerator.cs">
       <SubType>Form</SubType>
@@ -320,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuickMemberSearch.resx">
+      <DependentUpon>QuickMemberSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ServiceGenerator.resx">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>

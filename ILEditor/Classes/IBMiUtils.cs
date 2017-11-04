@@ -138,6 +138,7 @@ namespace ILEditor.Classes
                         NewMember._Text = Desc;
 
                         Members.Add(NewMember);
+                        MemberCache.AddMember(Lib + "/" + Object + "." + Name, Type);
                     }
                 }
             }

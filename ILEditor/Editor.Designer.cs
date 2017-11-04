@@ -66,6 +66,7 @@
             this.liblButton = new System.Windows.Forms.ToolStripButton();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -155,7 +156,8 @@
             this.connectionSettingsToolStripMenuItem,
             this.libraryListToolStripMenuItem,
             this.localCopiesToolStripMenuItem,
-            this.languageToolsToolStripMenuItem});
+            this.languageToolsToolStripMenuItem,
+            this.quickMemberSearchToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -409,6 +411,15 @@
             this.panel1.Size = new System.Drawing.Size(833, 531);
             this.panel1.TabIndex = 4;
             // 
+            // quickMemberSearchToolStripMenuItem
+            // 
+            this.quickMemberSearchToolStripMenuItem.Name = "quickMemberSearchToolStripMenuItem";
+            this.quickMemberSearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.quickMemberSearchToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.quickMemberSearchToolStripMenuItem.Text = "Quick Member Search";
+            this.quickMemberSearchToolStripMenuItem.Visible = false;
+            this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,6 +434,7 @@
             this.Name = "Editor";
             this.Text = "Idle - IBM i Development";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Editor_FormClosing);
             this.Load += new System.EventHandler(this.Editor_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -479,6 +491,7 @@
         private System.Windows.Forms.ToolStripButton newButton;
         private System.Windows.Forms.ToolStripButton liblButton;
         private System.Windows.Forms.ToolStripButton compileButton;
+        private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
     }
 }
 

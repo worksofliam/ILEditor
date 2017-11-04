@@ -26,8 +26,10 @@ namespace ILEditor
         public Editor()
         {
             InitializeComponent();
-            this.Text += " (" + IBMi.CurrentSystem.GetValue("system") + ")";
             TheEditor = this;
+
+            this.Text += " (" + IBMi.CurrentSystem.GetValue("system") + ")";
+            MemberCache.Import();
         }
         
         private void Editor_Load(object sender, EventArgs e)
@@ -132,6 +134,11 @@ namespace ILEditor
         private void searchMembersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new MemberSearch().ShowDialog();
+        }
+        
+        private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new QuickMemberSearch().Show();
         }
         #endregion
 
@@ -469,6 +476,11 @@ namespace ILEditor
         private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Restart();
+        }
+
+        private void Editor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MemberCache.Export();
         }
     }
 }
