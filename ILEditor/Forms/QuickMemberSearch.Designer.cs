@@ -39,21 +39,21 @@
             this.memberValue.Location = new System.Drawing.Point(12, 12);
             this.memberValue.MaxLength = 32;
             this.memberValue.Name = "memberValue";
-            this.memberValue.Size = new System.Drawing.Size(317, 26);
+            this.memberValue.Size = new System.Drawing.Size(330, 26);
             this.memberValue.TabIndex = 0;
             this.memberValue.TextChanged += new System.EventHandler(this.memberValue_TextChanged);
             this.memberValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.memberValue_KeyDown);
             // 
             // memberList
             // 
-            this.memberList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.memberList.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberList.FormattingEnabled = true;
-            this.memberList.ItemHeight = 20;
+            this.memberList.ItemHeight = 18;
             this.memberList.Items.AddRange(new object[] {
             "Enter search value"});
             this.memberList.Location = new System.Drawing.Point(12, 44);
             this.memberList.Name = "memberList";
-            this.memberList.Size = new System.Drawing.Size(317, 204);
+            this.memberList.Size = new System.Drawing.Size(330, 202);
             this.memberList.TabIndex = 1;
             this.memberList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.memberList_KeyDown);
             this.memberList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.memberList_MouseDoubleClick);
@@ -63,7 +63,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(341, 263);
+            this.ClientSize = new System.Drawing.Size(354, 263);
             this.Controls.Add(this.memberList);
             this.Controls.Add(this.memberValue);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
