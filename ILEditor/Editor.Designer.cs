@@ -67,6 +67,7 @@
             this.compileButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -96,6 +97,7 @@
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
+            this.closeMemberToolStripMenuItem,
             this.switchSystemToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -420,6 +422,15 @@
             this.quickMemberSearchToolStripMenuItem.Visible = false;
             this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
             // 
+            // closeMemberToolStripMenuItem
+            // 
+            this.closeMemberToolStripMenuItem.Name = "closeMemberToolStripMenuItem";
+            this.closeMemberToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.closeMemberToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.closeMemberToolStripMenuItem.Text = "Close Member";
+            this.closeMemberToolStripMenuItem.Visible = false;
+            this.closeMemberToolStripMenuItem.Click += new System.EventHandler(this.closeMemberToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -492,6 +503,7 @@
         private System.Windows.Forms.ToolStripButton liblButton;
         private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeMemberToolStripMenuItem;
     }
 }
 

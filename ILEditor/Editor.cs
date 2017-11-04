@@ -322,6 +322,21 @@ namespace ILEditor
         {
             new OpenMember().ShowDialog();
         }
+        
+        private void closeMemberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedIndex >= 0)
+            {
+                if (editortabs.TabPages[editortabs.SelectedIndex].Text.EndsWith("*"))
+                {
+                    MessageBox.Show("Cannot close this member because there are unsaved changes.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    editortabs.TabPages.RemoveAt(editortabs.SelectedIndex);
+                }
+            }
+        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
