@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ILEditor.Classes;
-using FastColoredTextBoxNS;
 
 namespace ILEditor.UserTools
 {
@@ -111,11 +110,10 @@ namespace ILEditor.UserTools
             if (index >= 0)
             {
                 Editor.TheEditor.SwitchToTab(index);
-                FastColoredTextBox SourceEditor = Editor.TheEditor.GetTabEditor(index).EditorBox;
-                Range errorRange = SourceEditor.GetLine(Line);
+                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(index);
 
-                SourceEditor.ClearHints();
-                SourceEditor.AddHint(errorRange, ErrorText, true, false, true);
+                SourceEditor.Focus();
+                SourceEditor.GotoLine(Line, Col);
             }
             else
             {

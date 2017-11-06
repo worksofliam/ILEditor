@@ -55,6 +55,7 @@ namespace ILEditor.Classes
             CheckExist("useuserlibl", "false");
 
             CheckExist("TREE_LIST", "");
+            CheckExist("ZOOM", 12.75f.ToString());
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C");
             CheckExist("DFT_RPGLE", "CRTBNDRPG|CRTRPGMOD");

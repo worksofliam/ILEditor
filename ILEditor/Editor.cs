@@ -11,7 +11,6 @@ using ILEditor.UserTools;
 using ILEditor.Classes;
 using System.Threading;
 using System.IO;
-using FastColoredTextBoxNS;
 using ILEditor.Forms;
 
 namespace ILEditor
@@ -350,10 +349,14 @@ namespace ILEditor
                         MemberInfo._IsBeingSaved = true;
 
                         SetStatus("Saving " + MemberInfo.GetMember() + "..");
-                        FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
+                        SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
                         Thread gothread = new Thread((ThreadStart)delegate
                         {
-                            File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.Text);
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.GetText());
+                            });
                             bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
                             if (UploadResult == false)
                             {
@@ -473,6 +476,24 @@ namespace ILEditor
         {
             compileCurrentToolStripMenuItem.PerformClick();
         }
+        
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                sourceCode.Zoom(+1f);
+            }
+        }
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                sourceCode.Zoom(-1f);
+            }
+        }
         #endregion
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -496,6 +517,15 @@ namespace ILEditor
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             MemberCache.Export();
+        }
+
+        private void findAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                sourceCode.replacewindow_Start();
+            }
         }
     }
 }

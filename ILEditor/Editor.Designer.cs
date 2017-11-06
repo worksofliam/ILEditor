@@ -37,6 +37,7 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +51,8 @@
             this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findAndReplaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,8 +69,9 @@
             this.liblButton = new System.Windows.Forms.ToolStripButton();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.zoomInButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -108,7 +112,7 @@
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // memberToolStripMenuItem
@@ -124,7 +128,7 @@
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem1});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // memberToolStripMenuItem1
@@ -139,14 +143,23 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // closeMemberToolStripMenuItem
+            // 
+            this.closeMemberToolStripMenuItem.Name = "closeMemberToolStripMenuItem";
+            this.closeMemberToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.closeMemberToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.closeMemberToolStripMenuItem.Text = "Close Member";
+            this.closeMemberToolStripMenuItem.Visible = false;
+            this.closeMemberToolStripMenuItem.Click += new System.EventHandler(this.closeMemberToolStripMenuItem_Click);
             // 
             // switchSystemToolStripMenuItem
             // 
             this.switchSystemToolStripMenuItem.Name = "switchSystemToolStripMenuItem";
-            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.switchSystemToolStripMenuItem.Text = "Switch System";
             this.switchSystemToolStripMenuItem.Click += new System.EventHandler(this.switchSystemToolStripMenuItem_Click);
             // 
@@ -159,7 +172,8 @@
             this.libraryListToolStripMenuItem,
             this.localCopiesToolStripMenuItem,
             this.languageToolsToolStripMenuItem,
-            this.quickMemberSearchToolStripMenuItem});
+            this.quickMemberSearchToolStripMenuItem,
+            this.findAndReplaceToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -167,21 +181,21 @@
             // openToolboxToolStripMenuItem
             // 
             this.openToolboxToolStripMenuItem.Name = "openToolboxToolStripMenuItem";
-            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.openToolboxToolStripMenuItem.Text = "Open Toolbox";
             this.openToolboxToolStripMenuItem.Click += new System.EventHandler(this.openToolboxToolStripMenuItem_Click);
             // 
             // openWelcomeToolStripMenuItem
             // 
             this.openWelcomeToolStripMenuItem.Name = "openWelcomeToolStripMenuItem";
-            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.openWelcomeToolStripMenuItem.Text = "Open Welcome";
             this.openWelcomeToolStripMenuItem.Click += new System.EventHandler(this.openWelcomeToolStripMenuItem_Click);
             // 
             // connectionSettingsToolStripMenuItem
             // 
             this.connectionSettingsToolStripMenuItem.Name = "connectionSettingsToolStripMenuItem";
-            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.connectionSettingsToolStripMenuItem.Text = "Connection Settings";
             this.connectionSettingsToolStripMenuItem.Click += new System.EventHandler(this.connectionSettingsToolStripMenuItem_Click);
             // 
@@ -189,7 +203,7 @@
             // 
             this.libraryListToolStripMenuItem.Name = "libraryListToolStripMenuItem";
             this.libraryListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.libraryListToolStripMenuItem.Text = "Library List";
             this.libraryListToolStripMenuItem.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
             // 
@@ -199,7 +213,7 @@
             this.sPFCloneToolStripMenuItem1,
             this.searchMembersToolStripMenuItem});
             this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
-            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.localCopiesToolStripMenuItem.Text = "Local Copies";
             // 
             // sPFCloneToolStripMenuItem1
@@ -223,7 +237,7 @@
             this.cLFormatterToolStripMenuItem,
             this.serviceProgramGeneratorToolStripMenuItem});
             this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
-            this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.languageToolsToolStripMenuItem.Text = "Language Tools";
             // 
             // rPGConversionToolStripMenuItem
@@ -251,6 +265,24 @@
             this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
             this.serviceProgramGeneratorToolStripMenuItem.Click += new System.EventHandler(this.serviceProgramGeneratorToolStripMenuItem_Click);
+            // 
+            // quickMemberSearchToolStripMenuItem
+            // 
+            this.quickMemberSearchToolStripMenuItem.Name = "quickMemberSearchToolStripMenuItem";
+            this.quickMemberSearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.quickMemberSearchToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.quickMemberSearchToolStripMenuItem.Text = "Quick Member Search";
+            this.quickMemberSearchToolStripMenuItem.Visible = false;
+            this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
+            // 
+            // findAndReplaceToolStripMenuItem
+            // 
+            this.findAndReplaceToolStripMenuItem.Name = "findAndReplaceToolStripMenuItem";
+            this.findAndReplaceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.findAndReplaceToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.findAndReplaceToolStripMenuItem.Text = "Replace";
+            this.findAndReplaceToolStripMenuItem.Visible = false;
+            this.findAndReplaceToolStripMenuItem.Click += new System.EventHandler(this.findAndReplaceToolStripMenuItem_Click);
             // 
             // compileToolStripMenuItem
             // 
@@ -356,7 +388,10 @@
             this.newButton,
             this.saveButton,
             this.liblButton,
-            this.compileButton});
+            this.compileButton,
+            this.toolStripSeparator1,
+            this.zoomInButton,
+            this.zoomOutButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(833, 25);
@@ -413,23 +448,31 @@
             this.panel1.Size = new System.Drawing.Size(833, 531);
             this.panel1.TabIndex = 4;
             // 
-            // quickMemberSearchToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.quickMemberSearchToolStripMenuItem.Name = "quickMemberSearchToolStripMenuItem";
-            this.quickMemberSearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.quickMemberSearchToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.quickMemberSearchToolStripMenuItem.Text = "Quick Member Search";
-            this.quickMemberSearchToolStripMenuItem.Visible = false;
-            this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // closeMemberToolStripMenuItem
+            // zoomInButton
             // 
-            this.closeMemberToolStripMenuItem.Name = "closeMemberToolStripMenuItem";
-            this.closeMemberToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.closeMemberToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.closeMemberToolStripMenuItem.Text = "Close Member";
-            this.closeMemberToolStripMenuItem.Visible = false;
-            this.closeMemberToolStripMenuItem.Click += new System.EventHandler(this.closeMemberToolStripMenuItem_Click);
+            this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomInButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomInButton.Image")));
+            this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.Size = new System.Drawing.Size(23, 22);
+            this.zoomInButton.Text = "toolStripButton1";
+            this.zoomInButton.ToolTipText = "Zoom In";
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
+            // 
+            // zoomOutButton
+            // 
+            this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomOutButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomOutButton.Image")));
+            this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomOutButton.Name = "zoomOutButton";
+            this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
+            this.zoomOutButton.Text = "Zoom Out";
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // Editor
             // 
@@ -504,6 +547,10 @@
         private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeMemberToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findAndReplaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton zoomInButton;
+        private System.Windows.Forms.ToolStripButton zoomOutButton;
     }
 }
 
