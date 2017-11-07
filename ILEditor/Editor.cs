@@ -518,5 +518,14 @@ namespace ILEditor
         {
             MemberCache.Export();
         }
+
+        private void findAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                sourceCode.replacewindow_Start();
+            }
+        }
     }
 }
