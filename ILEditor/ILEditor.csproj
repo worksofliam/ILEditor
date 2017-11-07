@@ -29,8 +29,8 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>65</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -250,6 +250,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserTools\FindReplace\SearchReplacePanel.xaml.cs">
+      <DependentUpon>SearchReplacePanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\MemberSearchListing.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -439,6 +442,11 @@
     <Content Include="Resources\Highlighting\SQL.xml" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="UserTools\FindReplace\SearchReplacePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

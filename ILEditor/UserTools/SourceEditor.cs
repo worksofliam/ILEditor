@@ -18,6 +18,7 @@ using ICSharpCode.AvalonEdit;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Search;
+using ILEditor.UserTools.FindReplace;
 
 namespace ILEditor.UserTools
 {
@@ -54,7 +55,7 @@ namespace ILEditor.UserTools
 
             textEditor.TextChanged += TextEditor_TextChanged;
 
-            SearchPanel.Install(textEditor);
+            SearchReplacePanel.Install(textEditor);
 
             string lang = "";
             switch (Language)
@@ -82,7 +83,7 @@ namespace ILEditor.UserTools
                 xshd_reader.Close();
                 xshd_stream.Close();
             }
-
+            
             ElementHost host = new ElementHost();
             host.Dock = DockStyle.Fill;
             host.Child = textEditor;
@@ -110,6 +111,11 @@ namespace ILEditor.UserTools
                 textEditor.FontSize += change;
                 IBMi.CurrentSystem.SetValue("ZOOM", textEditor.FontSize.ToString());
             }
+        }
+
+        public TextEditor GetTextEditor()
+        {
+            return this.textEditor;
         }
 
         private void TextEditor_TextChanged(object sender, EventArgs e)
@@ -160,34 +166,6 @@ namespace ILEditor.UserTools
             textEditor.Clear();
             int length = (RcdLen > 0 ? RcdLen : 80);
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
-        }
-        #endregion
-
-        #region replace
-        public void replacewindow_Start()
-        {
-            int x;
-
-            x = (this.Size.Width - 25) - replacewindow.Size.Width;
-
-            replacewindow.Location = new Point(x, 0);
-
-            replacewindow.Enabled = true;
-            replacewindow.Visible = true;
-        }
-
-        private void replacewindow_Leave(object sender, EventArgs e)
-        {
-            replacewindow.Enabled = false;
-            replacewindow.Visible = false;
-        }
-
-        private void replace_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("The replace function is not undoable - are you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes) 
-                textEditor.Text = textEditor.Text.Replace(search_val.Text, replace_val.Text);
         }
         #endregion
     }
