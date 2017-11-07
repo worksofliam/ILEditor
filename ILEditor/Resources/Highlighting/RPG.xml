@@ -2,6 +2,7 @@
         xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="Green" />
   <Color name="String" foreground="Green" />
+  <Color name="ESQL" foreground="DarkBlue" />
 
   <!-- This is the main ruleset. -->
   <RuleSet ignoreCase="true">
@@ -10,6 +11,11 @@
     <Span color="String">
       <Begin>'</Begin>
       <End>'</End>
+    </Span>
+    
+    <Span color="ESQL" multiline="true">
+      <Begin>EXEC</Begin>
+      <End>;</End>
     </Span>
 
     <Keywords foreground="Brown">
@@ -164,7 +170,7 @@
     </Keywords>
 
     <!-- Digits -->
-    <Rule foreground="Blue">
+    <Rule foreground="Green">
       \b0[xX][0-9a-fA-F]+  # hex number
       |    \b
       (    \d+(\.[0-9]+)?   #number with optional floating point
