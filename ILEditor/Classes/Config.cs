@@ -56,6 +56,9 @@ namespace ILEditor.Classes
 
             CheckExist("TREE_LIST", "");
             CheckExist("ZOOM", 12.75f.ToString());
+            CheckExist("INDENT_SIZE", "4");
+            CheckExist("SHOW_SPACES", "true");
+            CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C");
             CheckExist("DFT_RPGLE", "CRTBNDRPG|CRTRPGMOD");

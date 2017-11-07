@@ -36,11 +36,24 @@
             this.user = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.host = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cur_size = new System.Windows.Forms.TextBox();
+            this.indent_size = new System.Windows.Forms.NumericUpDown();
+            this.show_spaces = new System.Windows.Forms.ComboBox();
+            this.highlight_line = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.SuspendLayout();
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(209, 97);
+            this.save.Location = new System.Drawing.Point(209, 272);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 13;
@@ -51,7 +64,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 73);
+            this.label3.Location = new System.Drawing.Point(6, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 12;
@@ -60,7 +73,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 47);
+            this.label2.Location = new System.Drawing.Point(6, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 11;
@@ -68,7 +81,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(149, 70);
+            this.pass.Location = new System.Drawing.Point(131, 77);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -77,7 +90,7 @@
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(149, 44);
+            this.user.Location = new System.Drawing.Point(131, 51);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -86,7 +99,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 21);
+            this.label1.Location = new System.Drawing.Point(6, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 8;
@@ -94,30 +107,153 @@
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(149, 18);
+            this.host.Location = new System.Drawing.Point(131, 25);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
             this.host.TabIndex = 7;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.pass);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.user);
+            this.groupBox1.Controls.Add(this.host);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(272, 114);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Connection";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.highlight_line);
+            this.groupBox2.Controls.Add(this.show_spaces);
+            this.groupBox2.Controls.Add(this.indent_size);
+            this.groupBox2.Controls.Add(this.cur_size);
+            this.groupBox2.Location = new System.Drawing.Point(12, 132);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(272, 134);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Editor";
+            // 
+            // cur_size
+            // 
+            this.cur_size.Location = new System.Drawing.Point(131, 19);
+            this.cur_size.MaxLength = 10;
+            this.cur_size.Name = "cur_size";
+            this.cur_size.ReadOnly = true;
+            this.cur_size.Size = new System.Drawing.Size(135, 20);
+            this.cur_size.TabIndex = 0;
+            // 
+            // indent_size
+            // 
+            this.indent_size.Location = new System.Drawing.Point(131, 45);
+            this.indent_size.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.indent_size.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.indent_size.Name = "indent_size";
+            this.indent_size.Size = new System.Drawing.Size(135, 20);
+            this.indent_size.TabIndex = 1;
+            this.indent_size.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // show_spaces
+            // 
+            this.show_spaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.show_spaces.FormattingEnabled = true;
+            this.show_spaces.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.show_spaces.Location = new System.Drawing.Point(131, 71);
+            this.show_spaces.Name = "show_spaces";
+            this.show_spaces.Size = new System.Drawing.Size(135, 21);
+            this.show_spaces.TabIndex = 2;
+            // 
+            // highlight_line
+            // 
+            this.highlight_line.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.highlight_line.FormattingEnabled = true;
+            this.highlight_line.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.highlight_line.Location = new System.Drawing.Point(131, 98);
+            this.highlight_line.Name = "highlight_line";
+            this.highlight_line.Size = new System.Drawing.Size(135, 21);
+            this.highlight_line.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Current Zoom";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 47);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Indent Size";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(117, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Show spaces (by DOT)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 101);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Highlight editing line";
             // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 134);
+            this.ClientSize = new System.Drawing.Size(298, 307);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.pass);
-            this.Controls.Add(this.user);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.host);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Connection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Connection";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.indent_size)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -130,5 +266,15 @@
         private System.Windows.Forms.TextBox user;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox host;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ComboBox show_spaces;
+        private System.Windows.Forms.NumericUpDown indent_size;
+        private System.Windows.Forms.TextBox cur_size;
+        private System.Windows.Forms.ComboBox highlight_line;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -54,6 +54,18 @@ namespace ILEditor.UserTools
 
             textEditor.TextChanged += TextEditor_TextChanged;
 
+            textEditor.Options.ConvertTabsToSpaces = true;
+            textEditor.Options.EnableTextDragDrop = false;
+            textEditor.Options.IndentationSize = int.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
+            textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
+            textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
+
+            if (this.RcdLen > 0)
+            {
+                textEditor.Options.ShowColumnRuler = true;
+                textEditor.Options.ColumnRulerPosition = this.RcdLen;
+            }
+
             SearchPanel.Install(textEditor);
 
             string lang = "";

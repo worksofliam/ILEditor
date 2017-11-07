@@ -183,14 +183,19 @@
       \/\b(free|end-free|copy|include|set|restore|title|define|undefine|eof|if|elseif|else|endif)\b
     </Rule>
 
-    <!-- Directives -->
+    <!-- BIFs -->
     <Rule foreground="Blue">
       \B\%\w+
     </Rule>
 
-    <!-- Directives -->
+    <!-- Constants -->
     <Rule foreground="Orange">
       \B\*\w+
+    </Rule>
+
+    <!-- All free directive -->
+    <Rule foreground="Green">
+      \B\*\*\w+
     </Rule>
   </RuleSet>
 </SyntaxDefinition>
