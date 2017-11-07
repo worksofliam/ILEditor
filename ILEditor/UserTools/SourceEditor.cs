@@ -59,7 +59,7 @@ namespace ILEditor.UserTools
             textEditor.Options.IndentationSize = int.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
             textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
-
+            
             if (this.RcdLen > 0)
             {
                 textEditor.Options.ShowColumnRuler = true;
@@ -196,10 +196,13 @@ namespace ILEditor.UserTools
 
         private void replace_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("The replace function is not undoable - are you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (search_val.Text != "")
+            {
+                DialogResult result = MessageBox.Show("The replace function is not undoable - are you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes) 
-                textEditor.Text = textEditor.Text.Replace(search_val.Text, replace_val.Text);
+                if (result == DialogResult.Yes)
+                    textEditor.Text = textEditor.Text.Replace(search_val.Text, replace_val.Text);
+            }
         }
         #endregion
     }
