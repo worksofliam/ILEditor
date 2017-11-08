@@ -62,7 +62,7 @@
             this.usercontrol = new System.Windows.Forms.TabControl();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.newButton = new System.Windows.Forms.ToolStripButton();
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.liblButton = new System.Windows.Forms.ToolStripButton();
@@ -70,7 +70,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.zoomInButton = new System.Windows.Forms.ToolStripButton();
             this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.tool_bar = new System.Windows.Forms.ToolStrip();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -78,8 +78,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.toolstabrightclick.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tool_bar.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -330,30 +330,26 @@
             this.splitContainer1.Panel2.Controls.Add(this.usercontrol);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(833, 531);
-            this.splitContainer1.SplitterDistance = 631;
+            this.splitContainer1.SplitterDistance = 662;
             this.splitContainer1.TabIndex = 2;
             // 
             // editortabs
             // 
-            this.editortabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.editortabs.Location = new System.Drawing.Point(3, 3);
+            this.editortabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editortabs.Location = new System.Drawing.Point(0, 0);
             this.editortabs.Name = "editortabs";
             this.editortabs.SelectedIndex = 0;
-            this.editortabs.Size = new System.Drawing.Size(625, 525);
+            this.editortabs.Size = new System.Drawing.Size(662, 531);
             this.editortabs.TabIndex = 0;
             this.editortabs.MouseClick += new System.Windows.Forms.MouseEventHandler(this.editortabs_MouseClick);
             // 
             // usercontrol
             // 
-            this.usercontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usercontrol.Location = new System.Drawing.Point(-1, 3);
+            this.usercontrol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usercontrol.Location = new System.Drawing.Point(0, 0);
             this.usercontrol.Name = "usercontrol";
             this.usercontrol.SelectedIndex = 0;
-            this.usercontrol.Size = new System.Drawing.Size(196, 525);
+            this.usercontrol.Size = new System.Drawing.Size(167, 531);
             this.usercontrol.TabIndex = 0;
             this.usercontrol.MouseClick += new System.Windows.Forms.MouseEventHandler(this.usercontrol_MouseClick);
             // 
@@ -371,21 +367,14 @@
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // toolStrip1
+            // panel1
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newButton,
-            this.saveButton,
-            this.liblButton,
-            this.compileButton,
-            this.toolStripSeparator1,
-            this.zoomInButton,
-            this.zoomOutButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(833, 25);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
+            this.panel1.Controls.Add(this.splitContainer1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(833, 531);
+            this.panel1.TabIndex = 4;
             // 
             // newButton
             // 
@@ -454,14 +443,21 @@
             this.zoomOutButton.Text = "Zoom Out";
             this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
-            // panel1
+            // tool_bar
             // 
-            this.panel1.Controls.Add(this.splitContainer1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 49);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(833, 531);
-            this.panel1.TabIndex = 4;
+            this.tool_bar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newButton,
+            this.saveButton,
+            this.liblButton,
+            this.compileButton,
+            this.toolStripSeparator1,
+            this.zoomInButton,
+            this.zoomOutButton});
+            this.tool_bar.Location = new System.Drawing.Point(0, 24);
+            this.tool_bar.Name = "tool_bar";
+            this.tool_bar.Size = new System.Drawing.Size(833, 25);
+            this.tool_bar.TabIndex = 3;
+            this.tool_bar.Text = "toolStrip1";
             // 
             // Editor
             // 
@@ -469,7 +465,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(833, 602);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.tool_bar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -488,9 +484,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.toolstabrightclick.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tool_bar.ResumeLayout(false);
+            this.tool_bar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -528,17 +524,17 @@
         private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem serviceProgramGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchMembersToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStripButton saveButton;
-        private System.Windows.Forms.ToolStripButton newButton;
-        private System.Windows.Forms.ToolStripButton liblButton;
-        private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeMemberToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton newButton;
+        private System.Windows.Forms.ToolStripButton saveButton;
+        private System.Windows.Forms.ToolStripButton liblButton;
+        private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton zoomInButton;
         private System.Windows.Forms.ToolStripButton zoomOutButton;
+        private System.Windows.Forms.ToolStrip tool_bar;
     }
 }
 

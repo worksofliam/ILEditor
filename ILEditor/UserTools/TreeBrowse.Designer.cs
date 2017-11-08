@@ -31,16 +31,16 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeBrowse));
             this.objectList = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.addSpf = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.addSpf.SuspendLayout();
             this.SuspendLayout();
             // 
             // objectList
             // 
             this.objectList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.objectList.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectList.ImageIndex = 0;
             this.objectList.ImageList = this.imageList1;
             this.objectList.Location = new System.Drawing.Point(0, 0);
@@ -51,6 +51,15 @@
             this.objectList.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.objectList_BeforeExpand);
             this.objectList.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.objectList_NodeMouseDoubleClick);
             this.objectList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.objectList_KeyDown);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "information.png");
+            this.imageList1.Images.SetKeyName(1, "bricks.png");
+            this.imageList1.Images.SetKeyName(2, "folder_page.png");
+            this.imageList1.Images.SetKeyName(3, "script.png");
             // 
             // addSpf
             // 
@@ -72,15 +81,6 @@
             this.toolStripButton1.Size = new System.Drawing.Size(71, 22);
             this.toolStripButton1.Text = "Add SPF";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "information.png");
-            this.imageList1.Images.SetKeyName(1, "bricks.png");
-            this.imageList1.Images.SetKeyName(2, "folder_page.png");
-            this.imageList1.Images.SetKeyName(3, "script.png");
             // 
             // TreeBrowse
             // 
