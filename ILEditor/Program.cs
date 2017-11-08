@@ -35,6 +35,7 @@ namespace ILEditor
             File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
             File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
             File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
+            File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
 
             Application.Run(Selector);
             if (Selector.SystemSelected)

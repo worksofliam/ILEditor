@@ -59,7 +59,10 @@ namespace ILEditor
             { "CMD", ILELanguage.CL },
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP },
-            { "SQL", ILELanguage.SQL }
+            { "SQL", ILELanguage.SQL },
+            { "CBL", ILELanguage.COBOL },
+            { "COBOL", ILELanguage.COBOL },
+            { "CBLLE", ILELanguage.COBOL }
         };
 
         public static ILELanguage GetBoundLangType(string Obj)
@@ -517,15 +520,6 @@ namespace ILEditor
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             MemberCache.Export();
-        }
-
-        private void findAndReplaceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (editortabs.SelectedTab.Tag != null)
-            {
-                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
-                sourceCode.replacewindow_Start();
-            }
         }
     }
 }

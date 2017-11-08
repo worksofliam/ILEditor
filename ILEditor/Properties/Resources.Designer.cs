@@ -92,11 +92,54 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;CLLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///
+        ///  &lt;!-- This is the main ruleset. --&gt;
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Span color=&quot;Comment&quot; begin=&quot;//&quot; /&gt;
+        ///
+        ///    &lt;Span color=&quot;String&quot;&gt;
+        ///      &lt;Begin&gt;&apos;&lt;/Begin&gt;
+        ///      &lt;End&gt;&apos;&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///
+        ///    &lt;Span color=&quot;Comment&quot; multiline=&quot;true&quot;&gt;
+        ///      &lt;Begin&gt;/\*&lt;/Begin&gt;
+        ///      &lt;End&gt;\*/&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CLSyntax {
             get {
                 return ResourceManager.GetString("CLSyntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Keywords foreground=&quot;DarkBlue&quot;&gt;
+        ///      &lt;Word&gt;access&lt;/Word&gt;
+        ///      &lt;Word&gt;acquire&lt;/Word&gt;
+        ///      &lt;Word&gt;actual&lt;/Word&gt;
+        ///      &lt;Word&gt;address&lt;/Word&gt;
+        ///      &lt;Word&gt;advancing&lt;/Word&gt;
+        ///      &lt;Word&gt;after&lt;/Word&gt;
+        ///      &lt;Word&gt;all&lt;/Word&gt;
+        ///      &lt;Word&gt;allowing&lt;/Word&gt;
+        ///      &lt;Word&gt;alphabet&lt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string COBOLSyntax {
+            get {
+                return ResourceManager.GetString("COBOLSyntax", resourceCulture);
             }
         }
         
@@ -285,6 +328,7 @@ namespace ILEditor.Properties {
         ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
         ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
         ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;ESQL&quot; foreground=&quot;DarkBlue&quot; /&gt;
         ///
         ///  &lt;!-- This is the main ruleset. --&gt;
         ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
@@ -294,11 +338,9 @@ namespace ILEditor.Properties {
         ///      &lt;Begin&gt;&apos;&lt;/Begin&gt;
         ///      &lt;End&gt;&apos;&lt;/End&gt;
         ///    &lt;/Span&gt;
-        ///
-        ///    &lt;Keywords foreground=&quot;Brown&quot;&gt;
-        ///      &lt;Word&gt;CHAR&lt;/Word&gt;
-        ///      &lt;Word&gt;VARCHAR&lt;/Word&gt;
-        ///      &lt;Word&gt;BINDEC&lt; [rest of string was truncated]&quot;;.
+        ///    
+        ///    &lt;Span color=&quot;ESQL&quot; multiline=&quot;true&quot;&gt;
+        ///      &lt;Begin&gt;E [rest of string was truncated]&quot;;.
         /// </summary>
         public static string RPGSyntax {
             get {
@@ -328,15 +370,12 @@ namespace ILEditor.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
-        ///&lt;SyntaxDefinition name=&quot;TSQL&quot; extensions=&quot;.sql&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;-- comment&quot; /&gt;
-        ///  &lt;Color name=&quot;Char&quot; foreground=&quot;Red&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
-        ///  &lt;Color name=&quot;Keywords&quot; fontWeight=&quot;bold&quot; foreground=&quot;Blue&quot; exampleText=&quot;SELECT FROM&quot;/&gt;
-        ///
-        ///  &lt;Property name=&quot;DocCommentMarker&quot; value=&quot;///&quot; /&gt;
-        ///
-        ///  &lt;RuleSet name=&quot;CommentMarkerSet&quot;&gt;
-        ///    &lt;Keywords fontWeight=&quot;bold&quot; foreground=&quot;Red&quot;&gt;        /// [rest of string was truncated]&quot;;.
+        ///&lt;SyntaxDefinition name=&quot;sql&quot; extensions=&quot;.sql&quot;
+        ///                  xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Olive&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;String2&quot; foreground=&quot;#993&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;Punctuation&quot; foreground=&quot;Red&quot; exampleText= [rest of string was truncated]&quot;;.
         /// </summary>
         public static string SQLSyntax {
             get {

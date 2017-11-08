@@ -18,6 +18,7 @@ using ICSharpCode.AvalonEdit;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Search;
+using FindReplace;
 
 namespace ILEditor.UserTools
 {
@@ -27,7 +28,8 @@ namespace ILEditor.UserTools
         CL,
         CPP,
         RPG,
-        SQL
+        SQL,
+        COBOL
     }
 
     public partial class SourceEditor : UserControl
@@ -66,7 +68,8 @@ namespace ILEditor.UserTools
                 textEditor.Options.ColumnRulerPosition = this.RcdLen;
             }
 
-            SearchPanel.Install(textEditor);
+            //SearchPanel.Install(textEditor);
+            SearchReplacePanel.Install(textEditor);
 
             string lang = "";
             switch (Language)
@@ -82,6 +85,9 @@ namespace ILEditor.UserTools
                     break;
                 case ILELanguage.CL:
                     lang = "CL.xml";
+                    break;
+                case ILELanguage.COBOL:
+                    lang = "COBOL.xml";
                     break;
             }
 
@@ -172,37 +178,6 @@ namespace ILEditor.UserTools
             textEditor.Clear();
             int length = (RcdLen > 0 ? RcdLen : 80);
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
-        }
-        #endregion
-
-        #region replace
-        public void replacewindow_Start()
-        {
-            int x;
-
-            x = (this.Size.Width - 25) - replacewindow.Size.Width;
-
-            replacewindow.Location = new Point(x, 0);
-
-            replacewindow.Enabled = true;
-            replacewindow.Visible = true;
-        }
-
-        private void replacewindow_Leave(object sender, EventArgs e)
-        {
-            replacewindow.Enabled = false;
-            replacewindow.Visible = false;
-        }
-
-        private void replace_Click(object sender, EventArgs e)
-        {
-            if (search_val.Text != "")
-            {
-                DialogResult result = MessageBox.Show("The replace function is not undoable - are you sure you want to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                    textEditor.Text = textEditor.Text.Replace(search_val.Text, replace_val.Text);
-            }
         }
         #endregion
     }

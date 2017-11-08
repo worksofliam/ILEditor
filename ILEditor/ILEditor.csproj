@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -117,6 +117,7 @@
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Classes\MemberCache.cs" />
+    <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Forms\CloneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -433,6 +434,7 @@
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
     <Content Include="Resources\Highlighting\CL.xml" />
+    <Content Include="Resources\Highlighting\COBOL.xml" />
     <Content Include="Resources\Highlighting\CPP.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -440,6 +442,11 @@
     <Content Include="Resources\Highlighting\SQL.xml" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
