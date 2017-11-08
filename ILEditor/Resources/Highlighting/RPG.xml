@@ -2,7 +2,7 @@
         xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="Green" />
   <Color name="String" foreground="Green" />
-  <Color name="ESQL" foreground="DarkBlue" />
+  <Color name="ESQL" foreground="Blue" />
 
   <!-- This is the main ruleset. -->
   <RuleSet ignoreCase="true">
