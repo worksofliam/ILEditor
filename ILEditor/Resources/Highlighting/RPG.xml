@@ -7,16 +7,14 @@
   <!-- This is the main ruleset. -->
   <RuleSet ignoreCase="true">
     <Span color="Comment" begin="//" />
+    <Span color="Comment" begin="\*\*" />
     
     <Span color="String">
       <Begin>'</Begin>
       <End>'</End>
     </Span>
     
-    <Span color="ESQL" multiline="true">
-      <Begin>EXEC</Begin>
-      <End>;</End>
-    </Span>
+    <Span color="ESQL" multiline="true" begin="EXEC SQL" end=";" />
 
     <Keywords foreground="Brown">
       <Word>CHAR</Word>
