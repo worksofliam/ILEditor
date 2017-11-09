@@ -36,27 +36,29 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.save = new System.Windows.Forms.Button();
+            this.alias = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(146, 15);
+            this.host.Location = new System.Drawing.Point(146, 42);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
-            this.host.TabIndex = 0;
+            this.host.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Location = new System.Drawing.Point(12, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
+            this.label1.Size = new System.Drawing.Size(119, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Host name";
+            this.label1.Text = "Host name / IP address";
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(146, 41);
+            this.user.Location = new System.Drawing.Point(146, 68);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -64,7 +66,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(146, 67);
+            this.pass.Location = new System.Drawing.Point(146, 94);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -74,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 44);
+            this.label2.Location = new System.Drawing.Point(12, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 4;
@@ -83,7 +85,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 70);
+            this.label3.Location = new System.Drawing.Point(12, 97);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 5;
@@ -91,19 +93,39 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(206, 94);
+            this.save.Location = new System.Drawing.Point(206, 120);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
-            this.save.TabIndex = 6;
+            this.save.TabIndex = 4;
             this.save.Text = "Save";
             this.save.UseVisualStyleBackColor = true;
             this.save.Click += new System.EventHandler(this.save_Click);
             // 
+            // alias
+            // 
+            this.alias.Location = new System.Drawing.Point(146, 16);
+            this.alias.MaxLength = 16;
+            this.alias.Name = "alias";
+            this.alias.Size = new System.Drawing.Size(135, 20);
+            this.alias.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Alias name";
+            // 
             // NewSystem
             // 
+            this.AcceptButton = this.save;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 129);
+            this.ClientSize = new System.Drawing.Size(293, 156);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.alias);
             this.Controls.Add(this.save);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -113,8 +135,6 @@
             this.Controls.Add(this.host);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(309, 168);
-            this.MinimumSize = new System.Drawing.Size(309, 168);
             this.Name = "NewSystem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New System";
@@ -132,5 +152,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button save;
+        private System.Windows.Forms.TextBox alias;
+        private System.Windows.Forms.Label label4;
     }
 }

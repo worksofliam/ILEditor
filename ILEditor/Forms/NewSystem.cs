@@ -20,14 +20,14 @@ namespace ILEditor.Forms
 
         private void save_Click(object sender, EventArgs e)
         {
-            if (WriteFile(host.Text.Trim(), user.Text.Trim(), pass.Text.Trim()))
+            if (WriteFile(alias.Text.Trim(), host.Text.Trim(), user.Text.Trim(), pass.Text.Trim()))
                 this.Close();
         }
 
-        private Boolean WriteFile(string Host, string User, string Pass)
+        private Boolean WriteFile(string Alias, string Host, string User, string Pass)
         {
             Boolean Successful = false;
-            string SystemPath = Program.SYSTEMSDIR + @"\" + Host;
+            string SystemPath = Program.SYSTEMSDIR + @"\" + Alias;
             string[] lines = new string[3];
             if (!File.Exists(SystemPath))
             {
@@ -39,7 +39,7 @@ namespace ILEditor.Forms
             }
             else
             {
-                MessageBox.Show("System with same host already exists.");
+                MessageBox.Show("Setup with same alias name already exists.");
                 Successful = false;
             }
 

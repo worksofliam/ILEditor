@@ -45,6 +45,7 @@
             this.systemlist.TabIndex = 0;
             this.systemlist.UseCompatibleStateImageBehavior = false;
             this.systemlist.DoubleClick += new System.EventHandler(this.systemlist_DoubleClick);
+            this.systemlist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.systemlist_KeyDown);
             // 
             // imageList1
             // 
