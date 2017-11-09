@@ -60,11 +60,12 @@ namespace ILEditor.Classes
             CheckExist("SHOW_SPACES", "true");
             CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
 
-            CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C");
+            CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");
             CheckExist("DFT_RPGLE", "CRTBNDRPG|CRTRPGMOD");
             CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI|CRTSQLRPGI_MOD");
             CheckExist("DFT_CLLE", "CRTBNDCL");
             CheckExist("DFT_C", "CRTBNDC|CRTCMOD");
+            CheckExist("DFT_CMD", "CRTCMD");
 
             CheckExist("TYPE_RPGLE", "CRTBNDRPG|CRTRPGMOD");
             CheckExist("CRTBNDRPG", "CRTBNDRPG PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF) DBGVIEW(*SOURCE)");
@@ -80,7 +81,10 @@ namespace ILEditor.Classes
             CheckExist("TYPE_C", "CRTBNDC|CRTCMOD");
             CheckExist("CRTBNDC", "CRTBNDC PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) DBGVIEW(*SOURCE) OPTION(*EVENTF)");
             CheckExist("CRTCMOD", "CRTCMOD MODULE(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) DBGVIEW(*SOURCE) OPTION(*EVENTF)");
-            
+
+            CheckExist("TYPE_CMD", "CRTCMD");
+            CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
+
             CheckExist("LIBSAVE", "");
 
             SaveConfig();

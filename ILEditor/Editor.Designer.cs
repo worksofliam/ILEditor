@@ -52,6 +52,7 @@
             this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +72,6 @@
             this.zoomInButton = new System.Windows.Forms.ToolStripButton();
             this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
             this.tool_bar = new System.Windows.Forms.ToolStrip();
-            this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -275,6 +275,13 @@
             this.quickMemberSearchToolStripMenuItem.Visible = false;
             this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
             // 
+            // compareMembersToolStripMenuItem
+            // 
+            this.compareMembersToolStripMenuItem.Name = "compareMembersToolStripMenuItem";
+            this.compareMembersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.compareMembersToolStripMenuItem.Text = "Compare Members";
+            this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
+            // 
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -332,7 +339,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.usercontrol);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(833, 531);
-            this.splitContainer1.SplitterDistance = 662;
+            this.splitContainer1.SplitterDistance = 591;
             this.splitContainer1.TabIndex = 2;
             // 
             // editortabs
@@ -341,7 +348,7 @@
             this.editortabs.Location = new System.Drawing.Point(0, 0);
             this.editortabs.Name = "editortabs";
             this.editortabs.SelectedIndex = 0;
-            this.editortabs.Size = new System.Drawing.Size(662, 531);
+            this.editortabs.Size = new System.Drawing.Size(591, 531);
             this.editortabs.TabIndex = 0;
             this.editortabs.MouseClick += new System.Windows.Forms.MouseEventHandler(this.editortabs_MouseClick);
             // 
@@ -351,7 +358,7 @@
             this.usercontrol.Location = new System.Drawing.Point(0, 0);
             this.usercontrol.Name = "usercontrol";
             this.usercontrol.SelectedIndex = 0;
-            this.usercontrol.Size = new System.Drawing.Size(167, 531);
+            this.usercontrol.Size = new System.Drawing.Size(238, 531);
             this.usercontrol.TabIndex = 0;
             this.usercontrol.MouseClick += new System.Windows.Forms.MouseEventHandler(this.usercontrol_MouseClick);
             // 
@@ -460,13 +467,6 @@
             this.tool_bar.Size = new System.Drawing.Size(833, 25);
             this.tool_bar.TabIndex = 3;
             this.tool_bar.Text = "toolStrip1";
-            // 
-            // compareMembersToolStripMenuItem
-            // 
-            this.compareMembersToolStripMenuItem.Name = "compareMembersToolStripMenuItem";
-            this.compareMembersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.compareMembersToolStripMenuItem.Text = "Compare Members";
-            this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
             // 
             // Editor
             // 
