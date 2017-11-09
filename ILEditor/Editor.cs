@@ -27,7 +27,7 @@ namespace ILEditor
             InitializeComponent();
             TheEditor = this;
 
-            this.Text += " (" + IBMi.CurrentSystem.GetValue("system") + ")";
+            this.Text += " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             MemberCache.Import();
         }
         

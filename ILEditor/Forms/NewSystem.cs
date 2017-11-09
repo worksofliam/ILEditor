@@ -28,12 +28,13 @@ namespace ILEditor.Forms
         {
             Boolean Successful = false;
             string SystemPath = Program.SYSTEMSDIR + @"\" + Alias;
-            string[] lines = new string[3];
+            string[] lines = new string[4];
             if (!File.Exists(SystemPath))
             {
-                lines[0] = "system=" + Host;
-                lines[1] = "username=" + User;
-                lines[2] = "password=" + Pass;
+                lines[0] = "alias=" + Alias;
+                lines[1] = "system=" + Host;
+                lines[2] = "username=" + User;
+                lines[3] = "password=" + Pass;
                 File.WriteAllLines(SystemPath, lines);
                 Successful = true;
             }

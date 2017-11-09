@@ -49,6 +49,7 @@ namespace ILEditor.Classes
             CheckExist("system", "system");
             CheckExist("username", "myuser");
             CheckExist("password", "mypass");
+            CheckExist("alias", Data["system"]);
 
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
@@ -61,10 +62,10 @@ namespace ILEditor.Classes
             CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");
-            CheckExist("DFT_RPGLE", "CRTBNDRPG|CRTRPGMOD");
-            CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI|CRTSQLRPGI_MOD");
+            CheckExist("DFT_RPGLE", "CRTBNDRPG");
+            CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI");
             CheckExist("DFT_CLLE", "CRTBNDCL");
-            CheckExist("DFT_C", "CRTBNDC|CRTCMOD");
+            CheckExist("DFT_C", "CRTBNDC");
             CheckExist("DFT_CMD", "CRTCMD");
 
             CheckExist("TYPE_RPGLE", "CRTBNDRPG|CRTRPGMOD");
