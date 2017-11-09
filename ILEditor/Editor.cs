@@ -142,6 +142,19 @@ namespace ILEditor
         {
             new QuickMemberSearch().Show();
         }
+
+        private void compareMembersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string lib = "", spf = "", mbr = "";
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                lib = MemberInfo.GetLibrary();
+                spf = MemberInfo.GetObject();
+                mbr = MemberInfo.GetMember();
+            }
+            new MemberCompareSelect(lib, spf, mbr).ShowDialog();
+        }
         #endregion
 
         #region Compile

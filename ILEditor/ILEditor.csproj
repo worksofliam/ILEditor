@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -90,6 +90,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -109,6 +110,7 @@
     <Compile Include="Classes\AutoCompleteData.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
+    <Compile Include="Classes\DiffMatchPatch.cs" />
     <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
@@ -159,6 +161,18 @@
     </Compile>
     <Compile Include="Forms\Connection.Designer.cs">
       <DependentUpon>Connection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberCompareDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberCompareDisplay.Designer.cs">
+      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberCompareSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberCompareSelect.Designer.cs">
+      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MemberSearch.cs">
       <SubType>Form</SubType>
@@ -317,6 +331,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LibraryList.resx">
       <DependentUpon>LibraryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberCompareDisplay.resx">
+      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberCompareSelect.resx">
+      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberSearch.resx">
       <DependentUpon>MemberSearch.cs</DependentUpon>

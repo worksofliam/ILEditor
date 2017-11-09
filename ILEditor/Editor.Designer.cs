@@ -71,6 +71,7 @@
             this.zoomInButton = new System.Windows.Forms.ToolStripButton();
             this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
             this.tool_bar = new System.Windows.Forms.ToolStrip();
+            this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -171,7 +172,8 @@
             this.libraryListToolStripMenuItem,
             this.localCopiesToolStripMenuItem,
             this.languageToolsToolStripMenuItem,
-            this.quickMemberSearchToolStripMenuItem});
+            this.quickMemberSearchToolStripMenuItem,
+            this.compareMembersToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -459,6 +461,13 @@
             this.tool_bar.TabIndex = 3;
             this.tool_bar.Text = "toolStrip1";
             // 
+            // compareMembersToolStripMenuItem
+            // 
+            this.compareMembersToolStripMenuItem.Name = "compareMembersToolStripMenuItem";
+            this.compareMembersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.compareMembersToolStripMenuItem.Text = "Compare Members";
+            this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,6 +544,7 @@
         private System.Windows.Forms.ToolStripButton zoomInButton;
         private System.Windows.Forms.ToolStripButton zoomOutButton;
         private System.Windows.Forms.ToolStrip tool_bar;
+        private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
     }
 }
 
