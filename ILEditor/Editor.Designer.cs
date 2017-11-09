@@ -345,6 +345,7 @@
             // editortabs
             // 
             this.editortabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editortabs.ItemSize = new System.Drawing.Size(0, 25);
             this.editortabs.Location = new System.Drawing.Point(0, 0);
             this.editortabs.Name = "editortabs";
             this.editortabs.SelectedIndex = 0;
@@ -355,6 +356,7 @@
             // usercontrol
             // 
             this.usercontrol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usercontrol.ItemSize = new System.Drawing.Size(0, 25);
             this.usercontrol.Location = new System.Drawing.Point(0, 0);
             this.usercontrol.Name = "usercontrol";
             this.usercontrol.SelectedIndex = 0;
