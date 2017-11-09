@@ -185,7 +185,15 @@ namespace ILEditor.UserTools
                         }
                         break;
                     case Keys.F5:
-                        requestRefresh(objectList.SelectedNode);
+                        if (objectList.SelectedNode.Tag == null)
+                        {
+                            foreach(TreeNode node in objectList.SelectedNode.Nodes)
+                                requestRefresh(node);
+                        }
+                        else if (objectList.SelectedNode.Tag is string)
+                        {
+                            requestRefresh(objectList.SelectedNode);
+                        }
                         break;
                 }
             }
