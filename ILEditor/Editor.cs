@@ -97,28 +97,34 @@ namespace ILEditor
         
         private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabs.SelectedIndex >= 0)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
-                if (Language == ILELanguage.RPG)
+                if (editortabs.SelectedTab.Tag != null)
                 {
-                    SetStatus("Converting RPG in " + MemberInfo.GetMember());
-                    GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
+                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                    ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
+                    if (Language == ILELanguage.RPG)
+                    {
+                        SetStatus("Converting RPG in " + MemberInfo.GetMember());
+                        GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
+                    }
                 }
             }
         }
         
         private void cLFormatterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabs.SelectedIndex >= 0)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
-                if (Language == ILELanguage.CL)
+                if (editortabs.SelectedTab.Tag != null)
                 {
-                    SetStatus("Formatting CL in " + MemberInfo.GetMember());
-                    GetTabEditor(editortabs.SelectedIndex).FormatCL();
+                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                    ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
+                    if (Language == ILELanguage.CL)
+                    {
+                        SetStatus("Formatting CL in " + MemberInfo.GetMember());
+                        GetTabEditor(editortabs.SelectedIndex).FormatCL();
+                    }
                 }
             }
         }
@@ -146,12 +152,15 @@ namespace ILEditor
         private void compareMembersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string lib = "", spf = "", mbr = "";
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabs.SelectedIndex >= 0)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                lib = MemberInfo.GetLibrary();
-                spf = MemberInfo.GetObject();
-                mbr = MemberInfo.GetMember();
+                if (editortabs.SelectedTab.Tag != null)
+                {
+                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                    lib = MemberInfo.GetLibrary();
+                    spf = MemberInfo.GetObject();
+                    mbr = MemberInfo.GetMember();
+                }
             }
             new MemberCompareSelect(lib, spf, mbr).ShowDialog();
         }
