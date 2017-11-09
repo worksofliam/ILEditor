@@ -6,8 +6,6 @@ using System.Windows.Forms;
 using System.IO;
 using ILEditor.Forms;
 using ILEditor.Classes;
-using NetFwTypeLib;
-using FastColoredTextBoxNS;
 
 namespace ILEditor
 {
@@ -15,11 +13,8 @@ namespace ILEditor
     {
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
         public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle";
-
-        public static AutocompleteItem[] RPGKeywords;
-        public static AutocompleteItem[] CPPKeywords;
-
-
+        public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\langs\";
+        
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
@@ -31,9 +26,16 @@ namespace ILEditor
             HostSelect Selector = new HostSelect();
 
             Application.Run(new Splash());
+            
+            Directory.CreateDirectory(SYSTEMSDIR);
+            Directory.CreateDirectory(SOURCEDIR);
+            Directory.CreateDirectory(SYNTAXDIR);
 
-            RPGKeywords = AutoCompleteFileParse.ParseFile(Properties.Resources.RPG.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None));
-            CPPKeywords = AutoCompleteFileParse.ParseFile(Properties.Resources.CPP.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None));
+            File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
+            File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
+            File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
+            File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
+            File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
 
             Application.Run(Selector);
             if (Selector.SystemSelected)

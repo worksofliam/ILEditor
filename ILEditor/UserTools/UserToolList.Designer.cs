@@ -59,12 +59,13 @@
             listViewItem5,
             listViewItem6});
             this.toollist.Location = new System.Drawing.Point(0, 0);
+            this.toollist.MultiSelect = false;
             this.toollist.Name = "toollist";
             this.toollist.Size = new System.Drawing.Size(345, 334);
             this.toollist.SmallImageList = this.imageList1;
             this.toollist.TabIndex = 0;
             this.toollist.UseCompatibleStateImageBehavior = false;
-            this.toollist.View = System.Windows.Forms.View.List;
+            this.toollist.View = System.Windows.Forms.View.SmallIcon;
             this.toollist.DoubleClick += new System.EventHandler(this.toollist_DoubleClick);
             // 
             // imageList1

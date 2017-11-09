@@ -11,7 +11,6 @@ using ILEditor.UserTools;
 using ILEditor.Classes;
 using System.Threading;
 using System.IO;
-using FastColoredTextBoxNS;
 using ILEditor.Forms;
 
 namespace ILEditor
@@ -28,7 +27,7 @@ namespace ILEditor
             InitializeComponent();
             TheEditor = this;
 
-            this.Text += " (" + IBMi.CurrentSystem.GetValue("system") + ")";
+            this.Text += " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             MemberCache.Import();
         }
         
@@ -60,7 +59,10 @@ namespace ILEditor
             { "CMD", ILELanguage.CL },
             { "CPP", ILELanguage.CPP },
             { "C", ILELanguage.CPP },
-            { "SQL", ILELanguage.SQL }
+            { "SQL", ILELanguage.SQL },
+            { "CBL", ILELanguage.COBOL },
+            { "COBOL", ILELanguage.COBOL },
+            { "CBLLE", ILELanguage.COBOL }
         };
 
         public static ILELanguage GetBoundLangType(string Obj)
@@ -95,28 +97,34 @@ namespace ILEditor
         
         private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabs.SelectedIndex >= 0)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
-                if (Language == ILELanguage.RPG)
+                if (editortabs.SelectedTab.Tag != null)
                 {
-                    SetStatus("Converting RPG in " + MemberInfo.GetMember());
-                    GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
+                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                    ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
+                    if (Language == ILELanguage.RPG)
+                    {
+                        SetStatus("Converting RPG in " + MemberInfo.GetMember());
+                        GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
+                    }
                 }
             }
         }
         
         private void cLFormatterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabs.SelectedIndex >= 0)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
-                if (Language == ILELanguage.CL)
+                if (editortabs.SelectedTab.Tag != null)
                 {
-                    SetStatus("Formatting CL in " + MemberInfo.GetMember());
-                    GetTabEditor(editortabs.SelectedIndex).FormatCL();
+                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                    ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
+                    if (Language == ILELanguage.CL)
+                    {
+                        SetStatus("Formatting CL in " + MemberInfo.GetMember());
+                        GetTabEditor(editortabs.SelectedIndex).FormatCL();
+                    }
                 }
             }
         }
@@ -139,6 +147,22 @@ namespace ILEditor
         private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new QuickMemberSearch().Show();
+        }
+
+        private void compareMembersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string lib = "", spf = "", mbr = "";
+            if (editortabs.SelectedIndex >= 0)
+            {
+                if (editortabs.SelectedTab.Tag != null)
+                {
+                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                    lib = MemberInfo.GetLibrary();
+                    spf = MemberInfo.GetObject();
+                    mbr = MemberInfo.GetMember();
+                }
+            }
+            new MemberCompareSelect(lib, spf, mbr).ShowDialog();
         }
         #endregion
 
@@ -350,10 +374,14 @@ namespace ILEditor
                         MemberInfo._IsBeingSaved = true;
 
                         SetStatus("Saving " + MemberInfo.GetMember() + "..");
-                        FastColoredTextBox sourceCode = (FastColoredTextBox)editortabs.SelectedTab.Controls[0].Controls[0];
+                        SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
                         Thread gothread = new Thread((ThreadStart)delegate
                         {
-                            File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.Text);
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.GetText());
+                            });
                             bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
                             if (UploadResult == false)
                             {
@@ -472,6 +500,24 @@ namespace ILEditor
         private void compileButton_Click(object sender, EventArgs e)
         {
             compileCurrentToolStripMenuItem.PerformClick();
+        }
+        
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                sourceCode.Zoom(+1f);
+            }
+        }
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                sourceCode.Zoom(-1f);
+            }
         }
         #endregion
 

@@ -115,6 +115,8 @@ namespace ILEditor.Classes
 
             commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
             commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS) WITH DATA') COMMIT(*NONE)");
+
+            Editor.TheEditor.SetStatus("Fetching members for " + Lib + "/" + Obj + "...");
             string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
 
             string Line, Object, Name, Desc, Type, RcdLen;
@@ -134,7 +136,7 @@ namespace ILEditor.Classes
                         Type = Line.Substring(70, 10).Trim();
                         RcdLen = Line.Substring(80, 7).Trim();
 
-                        NewMember = new Member("", Lib, Object, Name, Type, true, int.Parse(RcdLen));
+                        NewMember = new Member("", Lib, Object, Name, Type, true, int.Parse(RcdLen)-12);
                         NewMember._Text = Desc;
 
                         Members.Add(NewMember);
@@ -146,6 +148,8 @@ namespace ILEditor.Classes
             {
                 return null;
             }
+
+            Editor.TheEditor.SetStatus("Fetched members for " + Lib + " / " + Obj + ".");
 
             return Members.ToArray();
         }

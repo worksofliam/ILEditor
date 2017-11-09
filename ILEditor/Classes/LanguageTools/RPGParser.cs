@@ -355,7 +355,7 @@ namespace ILEditor.Classes.LanguageTools
                             output = opcode + " " + factor2;
                             break;
                         case "SCAN":
-                            output = result + " = %Scan(" + factor1 + ":" + factor2 + ");";
+                            output = result + " = %Scan(" + factor1 + ":" + factor2 + ")";
                             break;
                         case "SELECT":
                             output = opcode;

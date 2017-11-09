@@ -69,5 +69,24 @@ namespace ILEditor.Forms
                 this.Close();
             }
         }
+
+        private void systemlist_KeyDown(object sender, KeyEventArgs e)
+        {
+            string deleting;
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (systemlist.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = systemlist.SelectedItems[0];
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete this setup?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        deleting = Program.SYSTEMSDIR + @"\" + item.Text;
+                        File.Delete(deleting);
+                        systemlist.Items.Remove(item);
+                    }
+                }
+            }
+        }
     }
 }

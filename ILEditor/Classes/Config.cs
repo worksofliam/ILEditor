@@ -49,18 +49,24 @@ namespace ILEditor.Classes
             CheckExist("system", "system");
             CheckExist("username", "myuser");
             CheckExist("password", "mypass");
+            CheckExist("alias", Data["system"]);
 
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
             CheckExist("useuserlibl", "false");
 
             CheckExist("TREE_LIST", "");
+            CheckExist("ZOOM", 12.75f.ToString());
+            CheckExist("INDENT_SIZE", "4");
+            CheckExist("SHOW_SPACES", "true");
+            CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
 
-            CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C");
-            CheckExist("DFT_RPGLE", "CRTBNDRPG|CRTRPGMOD");
-            CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI|CRTSQLRPGI_MOD");
+            CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");
+            CheckExist("DFT_RPGLE", "CRTBNDRPG");
+            CheckExist("DFT_SQLRPGLE", "CRTSQLRPGI");
             CheckExist("DFT_CLLE", "CRTBNDCL");
-            CheckExist("DFT_C", "CRTBNDC|CRTCMOD");
+            CheckExist("DFT_C", "CRTBNDC");
+            CheckExist("DFT_CMD", "CRTCMD");
 
             CheckExist("TYPE_RPGLE", "CRTBNDRPG|CRTRPGMOD");
             CheckExist("CRTBNDRPG", "CRTBNDRPG PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF) DBGVIEW(*SOURCE)");
@@ -76,7 +82,10 @@ namespace ILEditor.Classes
             CheckExist("TYPE_C", "CRTBNDC|CRTCMOD");
             CheckExist("CRTBNDC", "CRTBNDC PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) DBGVIEW(*SOURCE) OPTION(*EVENTF)");
             CheckExist("CRTCMOD", "CRTCMOD MODULE(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) DBGVIEW(*SOURCE) OPTION(*EVENTF)");
-            
+
+            CheckExist("TYPE_CMD", "CRTCMD");
+            CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
+
             CheckExist("LIBSAVE", "");
 
             SaveConfig();

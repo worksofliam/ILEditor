@@ -7,13 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 using System.IO;
 using ILEditor.Classes;
-using FastColoredTextBoxNS;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using ILEditor.Classes.LanguageTools;
 using System.Threading;
+using ICSharpCode.AvalonEdit;
+using System.Xml;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Search;
+using FindReplace;
 
 namespace ILEditor.UserTools
 {
@@ -23,13 +28,13 @@ namespace ILEditor.UserTools
         CL,
         CPP,
         RPG,
-        SQL
+        SQL,
+        COBOL
     }
 
     public partial class SourceEditor : UserControl
     {
-        public FastColoredTextBox EditorBox = null;
-        private AutocompleteMenu popupMenu;
+        private TextEditor textEditor = null;
         private ILELanguage Language;
         private int RcdLen;
 
@@ -42,136 +47,112 @@ namespace ILEditor.UserTools
             this.Language = Language;
             this.RcdLen = RecordLength;
 
-            EditorBox = new FastColoredTextBox();
-            EditorBox.Dock = DockStyle.Fill;
-            EditorBox.AutoIndent = false;
+            textEditor = new TextEditor();
+            textEditor.ShowLineNumbers = true;
+            textEditor.Text = File.ReadAllText(LocalFile);
 
-            popupMenu = new AutocompleteMenu(EditorBox);
-            popupMenu.SearchPattern = @"[\w\.]";
-            popupMenu.ImageList = imageList1;
+            textEditor.FontFamily = new System.Windows.Media.FontFamily("Consolas");
+            textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
 
+            textEditor.TextChanged += TextEditor_TextChanged;
+
+            textEditor.Options.ConvertTabsToSpaces = true;
+            textEditor.Options.EnableTextDragDrop = false;
+            textEditor.Options.IndentationSize = int.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
+            textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
+            textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
+            
+            if (this.RcdLen > 0)
+            {
+                textEditor.Options.ShowColumnRuler = true;
+                textEditor.Options.ColumnRulerPosition = this.RcdLen;
+            }
+
+            //SearchPanel.Install(textEditor);
+            SearchReplacePanel.Install(textEditor);
+
+            string lang = "";
             switch (Language)
             {
-                case ILELanguage.SQL:
-                    EditorBox.Language = FastColoredTextBoxNS.Language.SQL;
-                    break;
                 case ILELanguage.RPG:
-                    EditorBox.TextChanged += SetRPG;
-                    popupMenu.Items.SetAutocompleteItems(Program.RPGKeywords);
+                    lang = "RPG.xml";
+                    break;
+                case ILELanguage.SQL:
+                    lang = "SQL.xml";
                     break;
                 case ILELanguage.CPP:
-                    EditorBox.TextChanged += SetCPP;
-                    popupMenu.Items.SetAutocompleteItems(Program.CPPKeywords);
+                    lang = "CPP.xml";
                     break;
                 case ILELanguage.CL:
-                    EditorBox.TextChanged += SetCL;
+                    lang = "CL.xml";
+                    break;
+                case ILELanguage.COBOL:
+                    lang = "COBOL.xml";
                     break;
             }
 
-            EditorBox.Text = File.ReadAllText(LocalFile);
+            if (File.Exists(Program.SYNTAXDIR + lang))
+            {
+                Stream xshd_stream = File.OpenRead(Program.SYNTAXDIR + lang);
+                XmlTextReader xshd_reader = new XmlTextReader(xshd_stream);
+                // Apply the new syntax highlighting definition.
+                textEditor.SyntaxHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.HighlightingLoader.Load(xshd_reader, ICSharpCode.AvalonEdit.Highlighting.HighlightingManager.Instance);
+                xshd_reader.Close();
+                xshd_stream.Close();
+            }
 
-            EditorBox.TextChanged += Editor_TextChanged;
-            EditorBox.KeyDown += Editor_KeyDown;
-
-            EditorBox.ClearUndo();
-
-            this.Controls.Add(EditorBox);
+            ElementHost host = new ElementHost();
+            host.Dock = DockStyle.Fill;
+            host.Child = textEditor;
+            this.Controls.Add(host);
         }
 
-        private void Editor_TextChanged(object sender, TextChangedEventArgs e)
+        public string GetText()
+        {
+            return textEditor.Text;
+        }
+
+        public void GotoLine(int line, int col)
+        {
+            line++; col++;
+            int pos = textEditor.Document.GetOffset(line, col);
+            textEditor.ScrollToLine(line);
+            textEditor.CaretOffset = pos;
+            textEditor.Focus();
+        }
+
+        public void Zoom(float change)
+        {
+            if (textEditor.FontSize + change > 5 && textEditor.FontSize + change < 100)
+            {
+                textEditor.FontSize += change;
+                IBMi.CurrentSystem.SetValue("ZOOM", textEditor.FontSize.ToString());
+            }
+        }
+
+        private void TextEditor_TextChanged(object sender, EventArgs e)
         {
             if (!this.Parent.Text.EndsWith("*"))
             {
                 this.Parent.Text += "*";
             }
-            if (this.RcdLen > 0)
-            {
-                int line = EditorBox.PositionToPlace(EditorBox.SelectionStart).iLine;
-                if (EditorBox.GetLineLength(line) > this.RcdLen)
-                {
-                    EditorBox.AddHint(EditorBox.GetLine(line), "Exceeding record format limit.");
-                }
-            }
+
+            DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+            int col = textEditor.CaretOffset - line.Offset;
+            Editor.TheEditor.SetStatus(line.LineNumber.ToString() + ", " + col.ToString());
         }
-
-        private void Editor_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == (Keys.Space | Keys.Control))
-            {
-                popupMenu.Show(true);
-                e.Handled = true;
-            }
-        }
-
-        #region Styles
-        private static readonly Style BrownStyle = new TextStyle(Brushes.Brown, null, FontStyle.Regular);
-        private static readonly Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
-        private static readonly Style MagentaStyle = new TextStyle(Brushes.Magenta, null, FontStyle.Regular);
-        private static readonly Style RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
-        private static readonly Style BoldStyle = new TextStyle(Brushes.Black, null, FontStyle.Bold);
-        private static readonly Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
-        private static readonly Style DarkBlueStyle = new TextStyle(Brushes.DarkBlue, null, FontStyle.Regular);
-        private static readonly Style PurpleStyle = new TextStyle(Brushes.Purple, null, FontStyle.Regular);
-        private static readonly Style OrangeStyle = new TextStyle(Brushes.DarkOrange, null, FontStyle.Regular);
-        #endregion
-
-        private void SetCPP(object sender, TextChangedEventArgs e)
-        {
-            e.ChangedRange.SetStyle(BrownStyle, @"""""|@""""|''|@"".*?""|(?<!@)(?<range>"".*?[^\\]"")|'.*?[^\\]'");
-            e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
-            e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
-            e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(.*\*/)", RegexOptions.Singleline | RegexOptions.RightToLeft);
-            e.ChangedRange.SetStyle(MagentaStyle, @"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
-            e.ChangedRange.SetStyle(BoldStyle, @"\b(class|struct|enum|interface)\s+(?<range>\w+?)\b");
-            e.ChangedRange.SetStyle(BlueStyle, @"\b(and|and_eq|asm|auto|bitand|bitor|bool|break|case|catch|char|compl|const|const_cast|continue|default|delete|do|double|dynamic_cast|else|exit|explicit|export|extern|extern|FALSE|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|not|not_eq|operator|or|or_eq|private|protected|public|register|reinterpret_cast|short|signed|sizeof|static|static_cast|string|switch|template|this|throw|TRUE|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while|xor|xor_eq)\b");
-            e.ChangedRange.SetStyle(MagentaStyle, @"#\b(include|pragma|if|else|elif|ifndef|ifdef|endif|undef|define|line|error)\b", RegexOptions.Singleline);
-            e.ChangedRange.SetStyle(MagentaStyle, @"\*", RegexOptions.Singleline);
-            e.ChangedRange.ClearFoldingMarkers();
-            e.ChangedRange.SetFoldingMarkers("{", "}");//allow to collapse brackets block 
-            e.ChangedRange.SetFoldingMarkers(@"/\*", @"\*/");//allow to collapse comment block
-        }
-
+        
         #region RPG
-        private void SetRPG(object sender, TextChangedEventArgs e)
-        {
-            //Text and comments
-            e.ChangedRange.SetStyle(GreenStyle, @"""""|@""""|''|@"".*?""|(?<!@)(?<range>"".*?[^\\]"")|'.*?[^\\]'");
-            e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
-
-            e.ChangedRange.SetStyle(MagentaStyle, @"\b\d+[\.]?\d*([eE]\-?\d+)?[lLdDfF]?\b|\b0x[a-fA-F\d]+\b");
-
-            //Opcodes
-            e.ChangedRange.SetStyle(PurpleStyle, @"\b(ACQ|ADD|ADDDUR|ALLOC|AND|BEGSR|BITOFF|BITON|CALL|CALLB|CALLP|CAT|CHAIN|CHECK|CHECKR|CLEAR|CLOSE|COMMIT|COMP|DEALLOC|DEFINE|DELETE|DIV|DO|DOU|DOW|DSPLY|DUMP|ELSE|ELSEIF|ENDDO|ENDIF|ENDSR|ENDSL|ENDMON|EVAL|EVALR|EVAL-CORR|EXCEPT|EXFMT|EXSR|EXTRCT|FEOD|FOR|FORCE|GOTO|IF|IN|ITER|KFLD|KLIST|LEAVE|LEAVESR|LOOKUP|MHHZO|MHLZO|MLHZO|MLLZO|MONITOR|MOVE|MOVEA|MOVEL|MULT|MVR|NEXT|OCCUR|ON-ERROR|OPEN|OR|OTHER|OUT|PARM|PLIST|POST|READ|READC|READE|READP|READPE|REALLOC|REL|RESET|RETURN|ROLBK|SCAN|SELECT|SETGT|SETLL|SETOFF|SETON|SHTDN|SORTA|SQRT|SUB|SUBDUR|SUBST|TAG|TEST|TESTB|TESTN|TESTZ|TIME|UNLOCK|UPDATE|WHEN|WRITE|XFOOT|XLATE|XML-INTO|XML-SAX|Z-ADD|Z-SUB)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(RedStyle, @"^.{5}[HFDICOP]", RegexOptions.Multiline);
-
-            //Types
-            e.ChangedRange.SetStyle(BrownStyle, @"\b(CHAR|VARCHAR|BINDEC|FLOAT|INT|PACKED|UNS|ZONED|GRAPH|UCS2|DATE|TIME|TIMESTAMP|OBJECT|POINTER|IND)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-            //Dcl-*
-            e.ChangedRange.SetStyle(RedStyle, @"\b(DCL-S|DCL-C|DCL-DS|DCL-F|DCL-PI|DCL-PR|CTL-OPT|DCL-PROC|END-PROC|END-DS|END-PI|END-PR|DCL-PARM|DCL-SUBF)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-            //Directives & BIFs
-            e.ChangedRange.SetStyle(BlueStyle, @"\/\b(free|end-free|copy|include|set|restore|title|define|undefine|eof|if|elseif|else|endif)\b", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(BlueStyle, @"\B\%\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(GreenStyle, @"\B\*\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(OrangeStyle, @"\B\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-            e.ChangedRange.ClearFoldingMarkers();
-            e.ChangedRange.SetFoldingMarkers("dcl-pr", "end-pr", RegexOptions.IgnoreCase);
-            e.ChangedRange.SetFoldingMarkers("dcl-pi", "end-pi", RegexOptions.IgnoreCase);
-            e.ChangedRange.SetFoldingMarkers("dcl-proc", "end-proc", RegexOptions.IgnoreCase);
-            e.ChangedRange.SetFoldingMarkers("begsr", "endsr", RegexOptions.IgnoreCase);
-        }
 
         public void ConvertSelectedRPG()
         {
-            if (EditorBox.SelectedText == "")
+            if (textEditor.SelectedText == "")
             {
                 MessageBox.Show("Please highlight the code you want to convert and then try the conversion again.", "Fixed-To-Free", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                string[] lines = EditorBox.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                string[] lines = textEditor.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 string freeForm = "";
 
                 for (int i = 0; i < lines.Length; i++)
@@ -183,7 +164,7 @@ namespace ILEditor.UserTools
                     }
                 }
 
-                EditorBox.SelectedText = String.Join(Environment.NewLine, lines);
+                textEditor.SelectedText = String.Join(Environment.NewLine, lines);
             }
 
         }
@@ -193,23 +174,11 @@ namespace ILEditor.UserTools
 
         public void FormatCL()
         {
-            string[] Lines = EditorBox.Lines.ToArray();
-            EditorBox.Clear();
+            string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            textEditor.Clear();
             int length = (RcdLen > 0 ? RcdLen : 80);
-            EditorBox.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
-        }
-
-
-        private void SetCL(object sender, TextChangedEventArgs e)
-        {
-            e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
-            e.ChangedRange.SetStyle(GreenStyle, @"(/\*.*?\*/)|(.*\*/)", RegexOptions.Singleline | RegexOptions.RightToLeft);
-            e.ChangedRange.SetStyle(OrangeStyle, @"\B\*\w+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(BlueStyle, @"\B[\%\&]\w+", RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(DarkBlueStyle, @"(\w+)", RegexOptions.IgnoreCase);
-            e.ChangedRange.SetStyle(GreenStyle, @"'((?:\\.|[^'\\])*)'");
+            textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }
         #endregion
-
     }
 }

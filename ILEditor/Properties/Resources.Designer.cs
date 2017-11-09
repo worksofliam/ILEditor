@@ -92,6 +92,58 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;CLLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///
+        ///  &lt;!-- This is the main ruleset. --&gt;
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Span color=&quot;Comment&quot; begin=&quot;//&quot; /&gt;
+        ///
+        ///    &lt;Span color=&quot;String&quot;&gt;
+        ///      &lt;Begin&gt;&apos;&lt;/Begin&gt;
+        ///      &lt;End&gt;&apos;&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///
+        ///    &lt;Span color=&quot;Comment&quot; multiline=&quot;true&quot;&gt;
+        ///      &lt;Begin&gt;/\*&lt;/Begin&gt;
+        ///      &lt;End&gt;\*/&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///
+        ///     [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string CLSyntax {
+            get {
+                return ResourceManager.GetString("CLSyntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Keywords foreground=&quot;DarkBlue&quot;&gt;
+        ///      &lt;Word&gt;access&lt;/Word&gt;
+        ///      &lt;Word&gt;acquire&lt;/Word&gt;
+        ///      &lt;Word&gt;actual&lt;/Word&gt;
+        ///      &lt;Word&gt;address&lt;/Word&gt;
+        ///      &lt;Word&gt;advancing&lt;/Word&gt;
+        ///      &lt;Word&gt;after&lt;/Word&gt;
+        ///      &lt;Word&gt;all&lt;/Word&gt;
+        ///      &lt;Word&gt;allowing&lt;/Word&gt;
+        ///      &lt;Word&gt;alphabet&lt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string COBOLSyntax {
+            get {
+                return ResourceManager.GetString("COBOLSyntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///
         ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
@@ -123,17 +175,34 @@ namespace ILEditor.Properties {
         ///asm|insert an assembly instruction|6
         ///auto|declare a local variable, or we can let the compiler to deduce the type of the variable from the initialization.|6
         ///bitand|alternative to bitwise &amp; operator|6
-        ///bitor|alternative to | operator|6
+        ///bitor|alternative to pipe operator|6
         ///bool|declare a boolean variable|6
         ///break|break out of a loop|6
         ///case|a block of code in a switch statement|6
         ///catch|handles exceptions from throw|6
         ///char|declare a character variable|6
-        ///class|declare a c [rest of string was truncated]&quot;;.
+        ///class|declare  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CPP {
             get {
                 return ResourceManager.GetString("CPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger --&gt;
+        ///&lt;!-- converted to AvalonEdit format by Siegfried Pammer in 2010 --&gt;
+        ///&lt;SyntaxDefinition name=&quot;C++&quot; extensions=&quot;.c;.h;.cc;.cpp;.hpp&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///	&lt;Color name=&quot;Character&quot; foreground=&quot;Fuchsia&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;Fuchsia&quot; /&gt;
+        ///	&lt;Color name=&quot;Preprocessor&quot; foreground=&quot;Green&quot; /&gt;
+        ///	&lt;Color name=&quot;Punctua [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string CPPSyntax {
+            get {
+                return ResourceManager.GetString("CPPSyntax", resourceCulture);
             }
         }
         
@@ -255,6 +324,31 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;ESQL&quot; foreground=&quot;DarkBlue&quot; /&gt;
+        ///
+        ///  &lt;!-- This is the main ruleset. --&gt;
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Span color=&quot;Comment&quot; begin=&quot;//&quot; /&gt;
+        ///    
+        ///    &lt;Span color=&quot;String&quot;&gt;
+        ///      &lt;Begin&gt;&apos;&lt;/Begin&gt;
+        ///      &lt;End&gt;&apos;&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///    
+        ///    &lt;Span color=&quot;ESQL&quot; multiline=&quot;true&quot;&gt;
+        ///      &lt;Begin&gt;E [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string RPGSyntax {
+            get {
+                return ResourceManager.GetString("RPGSyntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap script_add {
@@ -271,6 +365,21 @@ namespace ILEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("script_go", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;SyntaxDefinition name=&quot;sql&quot; extensions=&quot;.sql&quot;
+        ///                  xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Olive&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;String2&quot; foreground=&quot;#993&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;Punctuation&quot; foreground=&quot;Red&quot; exampleText= [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SQLSyntax {
+            get {
+                return ResourceManager.GetString("SQLSyntax", resourceCulture);
             }
         }
     }
