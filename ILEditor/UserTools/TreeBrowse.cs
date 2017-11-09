@@ -81,14 +81,12 @@ namespace ILEditor.UserTools
             }
         }
         
-
-        private void objectList_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        private void requestRefresh(TreeNode node)
         {
-            TreeNode node = e.Node;
             TreeNode mbr;
             List<TreeNode> items;
             string[] path;
-            
+
             if (node.Tag is string)
             {
                 Thread gothread = new Thread((ThreadStart)delegate
@@ -130,6 +128,12 @@ namespace ILEditor.UserTools
             }
         }
 
+        private void objectList_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            TreeNode node = e.Node;
+            requestRefresh(node);
+        }
+
         private void objectList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag == null) { }
@@ -156,28 +160,33 @@ namespace ILEditor.UserTools
 
         private void objectList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            if (objectList.SelectedNode != null)
             {
-                if (objectList.SelectedNode != null)
+                switch (e.KeyCode)
                 {
-                    if (objectList.SelectedNode.Tag != null)
-                    { 
-                        string path = objectList.SelectedNode.Tag.ToString();
-                        if (path.Contains("/"))
+                    case Keys.Delete:
+                        if (objectList.SelectedNode.Tag != null)
                         {
-                            var confirmResult = MessageBox.Show("Are you sure to delete this shortcut?",
-                                             "Delete shortcut",
-                                             MessageBoxButtons.YesNo);
-
-                            if (confirmResult == DialogResult.Yes)
+                            string path = objectList.SelectedNode.Tag.ToString();
+                            if (path.Contains("/"))
                             {
-                                List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
-                                Items.Remove(path);
-                                IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
-                                objectList.Nodes.Remove(objectList.SelectedNode);
+                                var confirmResult = MessageBox.Show("Are you sure to delete this shortcut?",
+                                                 "Delete shortcut",
+                                                 MessageBoxButtons.YesNo);
+
+                                if (confirmResult == DialogResult.Yes)
+                                {
+                                    List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
+                                    Items.Remove(path);
+                                    IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
+                                    objectList.Nodes.Remove(objectList.SelectedNode);
+                                }
                             }
                         }
-                    }
+                        break;
+                    case Keys.F5:
+                        requestRefresh(objectList.SelectedNode);
+                        break;
                 }
             }
         }
