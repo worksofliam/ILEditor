@@ -20,7 +20,7 @@ namespace ILEditor.UserTools
             InitializeComponent();
         }
 
-        private ValueWindow window;
+        private SPFSelect window;
 
         private Boolean AddSPF(string Value)
         {
@@ -64,16 +64,17 @@ namespace ILEditor.UserTools
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
-            window = new ValueWindow("Library", "Enter source-physical file \nlocation (LIB/OBJ)", 21);
+            string value = "";
+            window = new SPFSelect();
             window.ShowDialog();
             if (window.Successful)
             {
-                if (!Items.Contains(window.Value.ToUpper()))
+                value = (window.Lib + "/" + window.Spf).ToUpper();
+                if (!Items.Contains(value))
                 {
-
-                    if (AddSPF(window.Value))
+                    if (AddSPF(value))
                     {
-                        Items.Add(window.Value.ToUpper());
+                        Items.Add(value);
                         IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
                     }
                 }
