@@ -40,6 +40,7 @@ namespace ILEditor.UserTools
             {
                 Member[] members;
                 ListViewItem curItem;
+                Boolean NoMembers = false;
 
                 curItems.Clear();
 
@@ -58,23 +59,31 @@ namespace ILEditor.UserTools
 
                 if (members != null)
                 {
-                    foreach (Member member in members)
+                    NoMembers = (members.Length == 0);
+                    if (!NoMembers)
                     {
-                        curItem = new ListViewItem(new string[3] { member.GetMember(), member.GetExtension(), member.GetText() }, 0);
-                        curItem.Tag = member;
+                        foreach (Member member in members)
+                        {
+                            curItem = new ListViewItem(new string[3] { member.GetMember(), member.GetExtension(), member.GetText() }, 0);
+                            curItem.Tag = member;
 
-                        curItems.Add(curItem);
+                            curItems.Add(curItem);
+                        }
+
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            memberList.Items.AddRange(curItems.ToArray());
+                            membercount.Text = members.Length.ToString() + " member" + (members.Length == 1 ? "" : "s");
+                        });
                     }
-
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        memberList.Items.AddRange(curItems.ToArray());
-                        membercount.Text = members.Length.ToString() + " member" + (members.Length == 1 ? "" : "s");
-                    });
                 }
                 else
                 {
+                    NoMembers = true;
+                }
 
+                if (NoMembers)
+                {
                     this.Invoke((MethodInvoker)delegate
                     {
                         memberList.Items.Add(new ListViewItem("No members found!", 1));
