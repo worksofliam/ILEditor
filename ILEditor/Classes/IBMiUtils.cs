@@ -69,7 +69,7 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
             commands.Add("QUOTE RCMD DSPOBJD OBJ(" + Lib + "/*ALL) OBJTYPE(" + Types + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/objlist)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/objlist) WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/objlist order by ODOBNM) WITH DATA') COMMIT(*NONE)");
             string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
 
             if (file != "")
@@ -113,7 +113,7 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
             commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/SPFLIST)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT PHFILE, PHLIB FROM QTEMP/SPFLIST WHERE PHDTAT = ''S'') WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT PHFILE, PHLIB FROM QTEMP/SPFLIST WHERE PHDTAT = ''S'' order by PHFILE) WITH DATA') COMMIT(*NONE)");
 
             Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
             string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
@@ -159,7 +159,7 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
             commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS) WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS order by MBNAME) WITH DATA') COMMIT(*NONE)");
 
             Editor.TheEditor.SetStatus("Fetching members for " + Lib + "/" + Obj + "...");
             string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());

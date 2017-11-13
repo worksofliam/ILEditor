@@ -40,6 +40,7 @@
             // 
             this.systemlist.LargeImageList = this.imageList1;
             this.systemlist.Location = new System.Drawing.Point(12, 12);
+            this.systemlist.MultiSelect = false;
             this.systemlist.Name = "systemlist";
             this.systemlist.Size = new System.Drawing.Size(438, 275);
             this.systemlist.TabIndex = 0;

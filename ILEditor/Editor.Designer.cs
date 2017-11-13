@@ -345,6 +345,7 @@
             // editortabs
             // 
             this.editortabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editortabs.HotTrack = true;
             this.editortabs.ItemSize = new System.Drawing.Size(0, 25);
             this.editortabs.Location = new System.Drawing.Point(0, 0);
             this.editortabs.Name = "editortabs";
