@@ -22,6 +22,19 @@ namespace ILEditor.UserTools
 
         private SPFSelect window;
 
+        private void addItem(string value)
+        {
+            List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
+            if (!Items.Contains(value))
+            {
+                if (AddSPF(value))
+                {
+                    Items.Add(value);
+                    IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
+                }
+            }
+        }
+
         private Boolean AddSPF(string Value)
         {
             Boolean added = false;
@@ -63,20 +76,35 @@ namespace ILEditor.UserTools
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
             string value = "";
             window = new SPFSelect();
             window.ShowDialog();
             if (window.Successful)
             {
-                value = (window.Lib + "/" + window.Spf).ToUpper();
-                if (!Items.Contains(value))
+                if (window.Spf != "")
                 {
-                    if (AddSPF(value))
+                    value = (window.Lib + "/" + window.Spf).ToUpper();
+                    addItem(value);
+                }
+                else
+                {
+                    Thread gothread = new Thread((ThreadStart)delegate
                     {
-                        Items.Add(value);
-                        IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
-                    }
+                        ILEObject[] Objects = IBMiUtils.GetSPFList(window.Lib);
+                        if (Objects != null)
+                        {
+                            foreach (ILEObject Obj in Objects)
+                            {
+                                value = (Obj.Library + "/" + Obj.Name).ToUpper();
+
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    addItem(value);
+                                });
+                            }
+                        }
+                    });
+                    gothread.Start();
                 }
             }
         }
@@ -97,7 +125,6 @@ namespace ILEditor.UserTools
 
                     if (members != null)
                     {
-
                         foreach (Member member in members)
                         {
                             mbr = new TreeNode(member.GetMember() + "." + member.GetExtension().ToLower() + (member.GetText() == "" ? "" : " - " + member.GetText()));

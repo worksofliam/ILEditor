@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.select = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
+            this.loadAllCheck = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // spf
@@ -75,7 +76,7 @@
             // 
             // select
             // 
-            this.select.Location = new System.Drawing.Point(160, 75);
+            this.select.Location = new System.Drawing.Point(160, 87);
             this.select.Name = "select";
             this.select.Size = new System.Drawing.Size(100, 23);
             this.select.TabIndex = 9;
@@ -86,7 +87,7 @@
             // cancel
             // 
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancel.Location = new System.Drawing.Point(12, 75);
+            this.cancel.Location = new System.Drawing.Point(12, 87);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(100, 23);
             this.cancel.TabIndex = 10;
@@ -94,13 +95,26 @@
             this.cancel.UseVisualStyleBackColor = true;
             this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
+            // loadAllCheck
+            // 
+            this.loadAllCheck.AutoSize = true;
+            this.loadAllCheck.Location = new System.Drawing.Point(100, 64);
+            this.loadAllCheck.Name = "loadAllCheck";
+            this.loadAllCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.loadAllCheck.Size = new System.Drawing.Size(160, 17);
+            this.loadAllCheck.TabIndex = 11;
+            this.loadAllCheck.Text = "Load all source-physical files";
+            this.loadAllCheck.UseVisualStyleBackColor = true;
+            this.loadAllCheck.CheckedChanged += new System.EventHandler(this.loadAllCheck_CheckedChanged);
+            // 
             // SPFSelect
             // 
             this.AcceptButton = this.select;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
-            this.ClientSize = new System.Drawing.Size(272, 108);
+            this.ClientSize = new System.Drawing.Size(272, 120);
+            this.Controls.Add(this.loadAllCheck);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.select);
             this.Controls.Add(this.spf);
@@ -125,5 +139,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button select;
         private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.CheckBox loadAllCheck;
     }
 }

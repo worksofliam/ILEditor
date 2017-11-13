@@ -31,8 +31,6 @@ namespace ILEditor.Forms
 
             if (!IBMiUtils.IsValueObjectName(this.Lib))
                 valid = false;
-            if (!IBMiUtils.IsValueObjectName(this.Spf))
-                valid = false;
 
             if (!valid)
             {
@@ -48,6 +46,11 @@ namespace ILEditor.Forms
         private void cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void loadAllCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            spf.Enabled = !loadAllCheck.Checked;
         }
     }
 }

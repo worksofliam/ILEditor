@@ -103,6 +103,51 @@ namespace ILEditor.Classes
             return Objects.ToArray();
         }
 
+        public static ILEObject[] GetSPFList(string Lib)
+        {
+            List<ILEObject> SPFList = new List<ILEObject>();
+            List<string> commands = new List<string>();
+
+            Lib = Lib.ToUpper();
+
+            if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
+
+            commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/SPFLIST)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT PHFILE, PHLIB FROM QTEMP/SPFLIST WHERE PHDTAT = ''S'') WITH DATA') COMMIT(*NONE)");
+
+            Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
+            string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
+
+            if (file != "")
+            {
+                string Line, Library, Object;
+                ILEObject Obj;
+                foreach (string RealLine in File.ReadAllLines(file))
+                {
+                    if (RealLine.Trim() != "")
+                    {
+                        Line = RealLine.PadRight(31);
+                        Object = Line.Substring(0, 10).Trim();
+                        Library = Line.Substring(10, 10).Trim();
+
+                        Obj = new ILEObject();
+                        Obj.Library = Library;
+                        Obj.Name = Object;
+
+                        SPFList.Add(Obj);
+                    }
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            Editor.TheEditor.SetStatus("Fetched source-physical files for " + Lib + ".");
+
+            return SPFList.ToArray();
+        }
+
         public static Member[] GetMemberList(string Lib, string Obj)
         {
             List<Member> Members = new List<Member>();
