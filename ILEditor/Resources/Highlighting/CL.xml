@@ -7,7 +7,7 @@
   <RuleSet ignoreCase="true">
     <Span color="Comment" begin="//" />
 
-    <Span color="String">
+    <Span color="String"  multiline="true">
       <Begin>'</Begin>
       <End>'</End>
     </Span>
