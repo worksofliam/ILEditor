@@ -136,11 +136,14 @@ namespace ILEditor.Classes
                         Type = Line.Substring(70, 10).Trim();
                         RcdLen = Line.Substring(80, 7).Trim();
 
-                        NewMember = new Member("", Lib, Object, Name, Type, true, int.Parse(RcdLen)-12);
-                        NewMember._Text = Desc;
+                        if (Name != "")
+                        {
+                            NewMember = new Member("", Lib, Object, Name, Type, true, int.Parse(RcdLen) - 12);
+                            NewMember._Text = Desc;
 
-                        Members.Add(NewMember);
-                        MemberCache.AddMember(Lib + "/" + Object + "." + Name, Type);
+                            Members.Add(NewMember);
+                            MemberCache.AddMember(Lib + "/" + Object + "." + Name, Type);
+                        }
                     }
                 }
             }
