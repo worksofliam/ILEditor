@@ -14,7 +14,8 @@ namespace ILEditor
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
         public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle";
         public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\langs\";
-        
+        public static readonly string ACSPATH = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\acspath";
+
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
@@ -36,6 +37,9 @@ namespace ILEditor
             File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
             File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
             File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
+
+            if (!File.Exists(ACSPATH))
+                File.WriteAllText(ACSPATH, "false");
 
             Application.Run(Selector);
             if (Selector.SystemSelected)

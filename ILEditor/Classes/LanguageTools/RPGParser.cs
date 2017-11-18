@@ -408,4 +408,124 @@ namespace ILEditor.Classes.LanguageTools
             return "".PadLeft(7) + output;
         }
     }
+
+    class RPGOutline
+    {
+        public static TreeNode[] ScanFile(string Path)
+        {
+            Dictionary<string, TreeNode> Nodes = new Dictionary<string, TreeNode>()
+            {
+                { "Global", new TreeNode("Global") }
+            };
+            TreeNode Item = null;
+            string Free = "", Keywords = "", Subf = "", lastProcName = "Global";
+            string[] Pieces;
+            Boolean isDs = false;
+            int line = 0;
+            foreach (string Line in File.ReadAllLines(Path))
+            {
+                line++;
+                Free = LanguageTools.RPGFree.getFree(Line);
+                Free = Free.Trim();
+                if (Free == "")
+                    Free = Line.Trim();
+
+                Item = null;
+                if (Free != "")
+                {
+                    if (Free.Contains("//"))
+                        Free.Substring(0, Free.IndexOf("//"));
+
+                    Free = Free.TrimEnd(';');
+                    Pieces = Free.Split(' ');
+                    Pieces = Pieces.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+
+                    if (Pieces.Length >= 2)
+                    {
+                        Keywords = String.Join(" ", Pieces.Skip(2).ToArray());
+                        switch (Pieces[0].ToUpper())
+                        {
+                            case "DCL-S":
+                                Subf = "";
+                                Item = new TreeNode(Pieces[1] + " " + Pieces[2], 3, 3);
+                                break;
+                            case "DCL-C":
+                                Subf = "";
+                                Item = new TreeNode(Pieces[1] + " " + Pieces[2], 3, 3);
+                                break;
+                            case "DCL-DS":
+                                if (Pieces[1].ToUpper() != "*N")
+                                    Item = new TreeNode(Pieces[1] + " " + Keywords, 2, 25);
+
+                                if (Pieces[Pieces.Length - 1].ToUpper() != "END-DS")
+                                    Subf = Pieces[1];
+                                //if (!Keywords.ToUpper().Contains("TEMPLATE"))
+                                isDs = true;
+                                break;
+                            case "DCL-PROC":
+                                lastProcName = Pieces[1];
+                                Nodes.Add(lastProcName, new TreeNode(lastProcName, 0, 0));
+                                break;
+                            case "DCL-PR":
+                                Item = new TreeNode(Pieces[1] + " " + Keywords, 2, 2);
+                                Subf = "";
+                                isDs = false;
+                                break;
+                            case "DCL-PI":
+                                if (Pieces[1].ToUpper() == "*N")
+                                    Pieces[1] = lastProcName;
+
+                                if (Pieces[Pieces.Length - 1].ToUpper() != "END-PI")
+                                {
+                                    Subf = Pieces[1];
+                                    Item.Text += " " + Pieces[Pieces.Length - 1];
+                                }
+                                else
+                                {
+                                    Item.Text += " " + Pieces[Pieces.Length - 2];
+                                }
+
+                                if (Subf == lastProcName)
+                                    Subf = "Parameter";
+
+                                isDs = false;
+                                break;
+                            case "DCL-SUBF":
+                            case "DCL-PARM":
+                                if (Subf != "")
+                                {
+                                    if (Item != null)
+                                        Item.Nodes.Add(new TreeNode(Pieces[1] + " " + Keywords, 1, 1));
+                                }
+
+                                break;
+                            default:
+                                if (Subf != "")
+                                {
+                                    Keywords = String.Join(" ", Pieces.Skip(1).ToArray());
+
+                                    if (Item != null)
+                                    Item.Nodes.Add(new TreeNode(Pieces[1] + " " + Keywords, 1, 1));
+                                }
+                                break;
+                        }
+                    }
+
+                    if (Free.ToUpper().StartsWith("END"))
+                    {
+                        Subf = "";
+                        isDs = false;
+                    }
+
+                    if (Item != null)
+                    {
+                        Nodes[lastProcName].Nodes.Add(Item);
+                    }
+
+                }
+            }
+
+            return Nodes.Values.ToArray();
+        }
+    }
 }

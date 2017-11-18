@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILEditor.Classes;
+using System.IO;
 
 namespace ILEditor.Forms
 {
@@ -25,6 +26,8 @@ namespace ILEditor.Forms
             indent_size.Value = decimal.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             show_spaces.SelectedItem = IBMi.CurrentSystem.GetValue("SHOW_SPACES");
             highlight_line.SelectedItem = IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE");
+
+            validACS.Checked = (File.ReadAllText(Program.ACSPATH) != "false");
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -37,6 +40,18 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.SelectedItem.ToString());
             this.Close();
+        }
+
+        private void findACS_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Multiselect = false;
+            openFile.ShowDialog();
+            validACS.Checked = File.Exists(openFile.FileName);
+            if (validACS.Checked)
+            {
+                File.WriteAllText(Program.ACSPATH, openFile.FileName);
+            }
         }
     }
 }

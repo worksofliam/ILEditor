@@ -12,6 +12,7 @@ using ILEditor.Classes;
 using System.Threading;
 using System.IO;
 using ILEditor.Forms;
+using System.Diagnostics;
 
 namespace ILEditor
 {
@@ -75,6 +76,25 @@ namespace ILEditor
         #endregion
 
         #region Tools Dropdown
+        
+        private void start5250EmulatorACSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = File.ReadAllText(Program.ACSPATH);
+            if (path == "false")
+                MessageBox.Show("Please setup the ACS path in the Connection Setup.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                try
+                {
+                    Process.Start(path, " /plugin=5250 /sso /system=" + IBMi.CurrentSystem.GetValue("system"));
+                }
+                catch
+                {
+                    MessageBox.Show("Something went wrong launching the 5250 session.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
         private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddTool("Toolbox", new UserToolList(), true);
@@ -401,6 +421,7 @@ namespace ILEditor
                             {
                                 SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
                             });
+                            
                             MemberInfo._IsBeingSaved = false;
                         });
 

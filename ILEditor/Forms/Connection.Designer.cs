@@ -38,22 +38,27 @@
             this.host = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cur_size = new System.Windows.Forms.TextBox();
-            this.indent_size = new System.Windows.Forms.NumericUpDown();
-            this.show_spaces = new System.Windows.Forms.ComboBox();
-            this.highlight_line = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.highlight_line = new System.Windows.Forms.ComboBox();
+            this.show_spaces = new System.Windows.Forms.ComboBox();
+            this.indent_size = new System.Windows.Forms.NumericUpDown();
+            this.cur_size = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.validACS = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.findACS = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(209, 272);
+            this.save.Location = new System.Drawing.Point(209, 327);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 13;
@@ -144,14 +149,65 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Editor";
             // 
-            // cur_size
+            // label7
             // 
-            this.cur_size.Location = new System.Drawing.Point(131, 19);
-            this.cur_size.MaxLength = 10;
-            this.cur_size.Name = "cur_size";
-            this.cur_size.ReadOnly = true;
-            this.cur_size.Size = new System.Drawing.Size(135, 20);
-            this.cur_size.TabIndex = 0;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 101);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Highlight editing line";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 74);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(117, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Show spaces (by DOT)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 47);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Indent Size";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Current Zoom";
+            // 
+            // highlight_line
+            // 
+            this.highlight_line.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.highlight_line.FormattingEnabled = true;
+            this.highlight_line.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.highlight_line.Location = new System.Drawing.Point(131, 98);
+            this.highlight_line.Name = "highlight_line";
+            this.highlight_line.Size = new System.Drawing.Size(135, 21);
+            this.highlight_line.TabIndex = 3;
+            // 
+            // show_spaces
+            // 
+            this.show_spaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.show_spaces.FormattingEnabled = true;
+            this.show_spaces.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.show_spaces.Location = new System.Drawing.Point(131, 71);
+            this.show_spaces.Name = "show_spaces";
+            this.show_spaces.Size = new System.Drawing.Size(135, 21);
+            this.show_spaces.TabIndex = 2;
             // 
             // indent_size
             // 
@@ -175,71 +231,63 @@
             0,
             0});
             // 
-            // show_spaces
+            // cur_size
             // 
-            this.show_spaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.show_spaces.FormattingEnabled = true;
-            this.show_spaces.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.show_spaces.Location = new System.Drawing.Point(131, 71);
-            this.show_spaces.Name = "show_spaces";
-            this.show_spaces.Size = new System.Drawing.Size(135, 21);
-            this.show_spaces.TabIndex = 2;
+            this.cur_size.Location = new System.Drawing.Point(131, 19);
+            this.cur_size.MaxLength = 10;
+            this.cur_size.Name = "cur_size";
+            this.cur_size.ReadOnly = true;
+            this.cur_size.Size = new System.Drawing.Size(135, 20);
+            this.cur_size.TabIndex = 0;
             // 
-            // highlight_line
+            // groupBox3
             // 
-            this.highlight_line.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.highlight_line.FormattingEnabled = true;
-            this.highlight_line.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.highlight_line.Location = new System.Drawing.Point(131, 98);
-            this.highlight_line.Name = "highlight_line";
-            this.highlight_line.Size = new System.Drawing.Size(135, 21);
-            this.highlight_line.TabIndex = 3;
+            this.groupBox3.Controls.Add(this.findACS);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.validACS);
+            this.groupBox3.Location = new System.Drawing.Point(12, 272);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(274, 49);
+            this.groupBox3.TabIndex = 16;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "ACS Configuration";
             // 
-            // label4
+            // validACS
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Current Zoom";
+            this.validACS.AutoSize = true;
+            this.validACS.Enabled = false;
+            this.validACS.Location = new System.Drawing.Point(138, 22);
+            this.validACS.Name = "validACS";
+            this.validACS.Size = new System.Drawing.Size(49, 17);
+            this.validACS.TabIndex = 0;
+            this.validACS.Text = "Valid";
+            this.validACS.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // label8
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 47);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Indent Size";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(60, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Executable";
             // 
-            // label6
+            // findACS
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 74);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Show spaces (by DOT)";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 101);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(101, 13);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Highlight editing line";
+            this.findACS.Location = new System.Drawing.Point(193, 18);
+            this.findACS.Name = "findACS";
+            this.findACS.Size = new System.Drawing.Size(75, 23);
+            this.findACS.TabIndex = 2;
+            this.findACS.Text = "Find ACS";
+            this.findACS.UseVisualStyleBackColor = true;
+            this.findACS.Click += new System.EventHandler(this.findACS_Click);
             // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 307);
+            this.ClientSize = new System.Drawing.Size(298, 362);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save);
@@ -253,6 +301,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -276,5 +326,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox validACS;
+        private System.Windows.Forms.Button findACS;
     }
 }

@@ -72,6 +72,7 @@
             this.zoomInButton = new System.Windows.Forms.ToolStripButton();
             this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
             this.tool_bar = new System.Windows.Forms.ToolStrip();
+            this.start5250EmulatorACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -173,7 +174,8 @@
             this.localCopiesToolStripMenuItem,
             this.languageToolsToolStripMenuItem,
             this.quickMemberSearchToolStripMenuItem,
-            this.compareMembersToolStripMenuItem});
+            this.compareMembersToolStripMenuItem,
+            this.start5250EmulatorACSToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -471,6 +473,13 @@
             this.tool_bar.TabIndex = 3;
             this.tool_bar.Text = "toolStrip1";
             // 
+            // start5250EmulatorACSToolStripMenuItem
+            // 
+            this.start5250EmulatorACSToolStripMenuItem.Name = "start5250EmulatorACSToolStripMenuItem";
+            this.start5250EmulatorACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.start5250EmulatorACSToolStripMenuItem.Text = "Start 5250 Emulator (ACS)";
+            this.start5250EmulatorACSToolStripMenuItem.Click += new System.EventHandler(this.start5250EmulatorACSToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -548,6 +557,7 @@
         private System.Windows.Forms.ToolStripButton zoomOutButton;
         private System.Windows.Forms.ToolStrip tool_bar;
         private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem start5250EmulatorACSToolStripMenuItem;
     }
 }
 
