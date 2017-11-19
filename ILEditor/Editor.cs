@@ -272,7 +272,7 @@ namespace ILEditor
 
         public static void OpenMember(Member member)
         {
-            string TabText = member.GetMember() + '.' + member.GetExtension().ToLower();
+            string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
             int TabIndex = TheEditor.EditorContains(TabText);
             if (TabIndex == -1)
             {
@@ -322,7 +322,7 @@ namespace ILEditor
 
         private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
-            string pageName = MemberInfo.GetMember() + '.' + MemberInfo.GetExtension().ToLower();
+            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             int currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
