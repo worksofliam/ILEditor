@@ -272,7 +272,7 @@ namespace ILEditor
 
         public static void OpenMember(Member member)
         {
-            string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
+            string TabText = member.GetMember() + '.' + member.GetExtension().ToLower();
             int TabIndex = TheEditor.EditorContains(TabText);
             if (TabIndex == -1)
             {
@@ -322,7 +322,7 @@ namespace ILEditor
 
         private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
-            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+            string pageName = MemberInfo.GetMember() + '.' + MemberInfo.GetExtension().ToLower();
             int currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
@@ -330,6 +330,7 @@ namespace ILEditor
                 editortabs.TabPages.RemoveAt(currentTab);
 
             TabPage tabPage = new TabPage(pageName);
+            tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;

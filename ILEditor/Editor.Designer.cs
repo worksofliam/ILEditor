@@ -53,6 +53,7 @@
             this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.start5250EmulatorACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +73,8 @@
             this.zoomInButton = new System.Windows.Forms.ToolStripButton();
             this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
             this.tool_bar = new System.Windows.Forms.ToolStrip();
-            this.start5250EmulatorACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.greenOpen = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -284,6 +286,13 @@
             this.compareMembersToolStripMenuItem.Text = "Compare Members";
             this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
             // 
+            // start5250EmulatorACSToolStripMenuItem
+            // 
+            this.start5250EmulatorACSToolStripMenuItem.Name = "start5250EmulatorACSToolStripMenuItem";
+            this.start5250EmulatorACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.start5250EmulatorACSToolStripMenuItem.Text = "Start 5250 Emulator (ACS)";
+            this.start5250EmulatorACSToolStripMenuItem.Click += new System.EventHandler(this.start5250EmulatorACSToolStripMenuItem_Click);
+            // 
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -465,6 +474,8 @@
             this.liblButton,
             this.compileButton,
             this.toolStripSeparator1,
+            this.greenOpen,
+            this.toolStripSeparator2,
             this.zoomInButton,
             this.zoomOutButton});
             this.tool_bar.Location = new System.Drawing.Point(0, 24);
@@ -473,12 +484,20 @@
             this.tool_bar.TabIndex = 3;
             this.tool_bar.Text = "toolStrip1";
             // 
-            // start5250EmulatorACSToolStripMenuItem
+            // greenOpen
             // 
-            this.start5250EmulatorACSToolStripMenuItem.Name = "start5250EmulatorACSToolStripMenuItem";
-            this.start5250EmulatorACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.start5250EmulatorACSToolStripMenuItem.Text = "Start 5250 Emulator (ACS)";
-            this.start5250EmulatorACSToolStripMenuItem.Click += new System.EventHandler(this.start5250EmulatorACSToolStripMenuItem_Click);
+            this.greenOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.greenOpen.Image = ((System.Drawing.Image)(resources.GetObject("greenOpen.Image")));
+            this.greenOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.greenOpen.Name = "greenOpen";
+            this.greenOpen.Size = new System.Drawing.Size(23, 22);
+            this.greenOpen.ToolTipText = "Start 5250 Session";
+            this.greenOpen.Click += new System.EventHandler(this.start5250EmulatorACSToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // Editor
             // 
@@ -558,6 +577,8 @@
         private System.Windows.Forms.ToolStrip tool_bar;
         private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem start5250EmulatorACSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton greenOpen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
