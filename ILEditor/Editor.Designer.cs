@@ -44,15 +44,6 @@
             this.openWelcomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sPFCloneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.start5250EmulatorACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +66,16 @@
             this.tool_bar = new System.Windows.Forms.ToolStrip();
             this.greenOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.sourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sPFCloneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -91,6 +92,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
+            this.sourceToolStripMenuItem,
             this.compileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -173,10 +175,6 @@
             this.openWelcomeToolStripMenuItem,
             this.connectionSettingsToolStripMenuItem,
             this.libraryListToolStripMenuItem,
-            this.localCopiesToolStripMenuItem,
-            this.languageToolsToolStripMenuItem,
-            this.quickMemberSearchToolStripMenuItem,
-            this.compareMembersToolStripMenuItem,
             this.start5250EmulatorACSToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
@@ -185,21 +183,21 @@
             // openToolboxToolStripMenuItem
             // 
             this.openToolboxToolStripMenuItem.Name = "openToolboxToolStripMenuItem";
-            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.openToolboxToolStripMenuItem.Text = "Open Toolbox";
             this.openToolboxToolStripMenuItem.Click += new System.EventHandler(this.openToolboxToolStripMenuItem_Click);
             // 
             // openWelcomeToolStripMenuItem
             // 
             this.openWelcomeToolStripMenuItem.Name = "openWelcomeToolStripMenuItem";
-            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.openWelcomeToolStripMenuItem.Text = "Open Welcome";
             this.openWelcomeToolStripMenuItem.Click += new System.EventHandler(this.openWelcomeToolStripMenuItem_Click);
             // 
             // connectionSettingsToolStripMenuItem
             // 
             this.connectionSettingsToolStripMenuItem.Name = "connectionSettingsToolStripMenuItem";
-            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.connectionSettingsToolStripMenuItem.Text = "Connection Settings";
             this.connectionSettingsToolStripMenuItem.Click += new System.EventHandler(this.connectionSettingsToolStripMenuItem_Click);
             // 
@@ -207,89 +205,14 @@
             // 
             this.libraryListToolStripMenuItem.Name = "libraryListToolStripMenuItem";
             this.libraryListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.libraryListToolStripMenuItem.Text = "Library List";
             this.libraryListToolStripMenuItem.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
-            // 
-            // localCopiesToolStripMenuItem
-            // 
-            this.localCopiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sPFCloneToolStripMenuItem1,
-            this.searchMembersToolStripMenuItem});
-            this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
-            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.localCopiesToolStripMenuItem.Text = "Local Copies";
-            // 
-            // sPFCloneToolStripMenuItem1
-            // 
-            this.sPFCloneToolStripMenuItem1.Name = "sPFCloneToolStripMenuItem1";
-            this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
-            this.sPFCloneToolStripMenuItem1.Text = "SPF Clone";
-            this.sPFCloneToolStripMenuItem1.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem1_Click);
-            // 
-            // searchMembersToolStripMenuItem
-            // 
-            this.searchMembersToolStripMenuItem.Name = "searchMembersToolStripMenuItem";
-            this.searchMembersToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.searchMembersToolStripMenuItem.Text = "Search Members";
-            this.searchMembersToolStripMenuItem.Click += new System.EventHandler(this.searchMembersToolStripMenuItem_Click);
-            // 
-            // languageToolsToolStripMenuItem
-            // 
-            this.languageToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rPGConversionToolStripMenuItem,
-            this.cLFormatterToolStripMenuItem,
-            this.serviceProgramGeneratorToolStripMenuItem});
-            this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
-            this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.languageToolsToolStripMenuItem.Text = "Language Tools";
-            // 
-            // rPGConversionToolStripMenuItem
-            // 
-            this.rPGConversionToolStripMenuItem.Name = "rPGConversionToolStripMenuItem";
-            this.rPGConversionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.C)));
-            this.rPGConversionToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.rPGConversionToolStripMenuItem.Text = "RPG Conversion";
-            this.rPGConversionToolStripMenuItem.Click += new System.EventHandler(this.rPGConversionToolStripMenuItem_Click);
-            // 
-            // cLFormatterToolStripMenuItem
-            // 
-            this.cLFormatterToolStripMenuItem.Name = "cLFormatterToolStripMenuItem";
-            this.cLFormatterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.X)));
-            this.cLFormatterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.cLFormatterToolStripMenuItem.Text = "CL Formatter";
-            this.cLFormatterToolStripMenuItem.Click += new System.EventHandler(this.cLFormatterToolStripMenuItem_Click);
-            // 
-            // serviceProgramGeneratorToolStripMenuItem
-            // 
-            this.serviceProgramGeneratorToolStripMenuItem.Enabled = false;
-            this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
-            this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
-            this.serviceProgramGeneratorToolStripMenuItem.Click += new System.EventHandler(this.serviceProgramGeneratorToolStripMenuItem_Click);
-            // 
-            // quickMemberSearchToolStripMenuItem
-            // 
-            this.quickMemberSearchToolStripMenuItem.Name = "quickMemberSearchToolStripMenuItem";
-            this.quickMemberSearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.quickMemberSearchToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.quickMemberSearchToolStripMenuItem.Text = "Quick Member Search";
-            this.quickMemberSearchToolStripMenuItem.Visible = false;
-            this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
-            // 
-            // compareMembersToolStripMenuItem
-            // 
-            this.compareMembersToolStripMenuItem.Name = "compareMembersToolStripMenuItem";
-            this.compareMembersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.compareMembersToolStripMenuItem.Text = "Compare Members";
-            this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
             // 
             // start5250EmulatorACSToolStripMenuItem
             // 
             this.start5250EmulatorACSToolStripMenuItem.Name = "start5250EmulatorACSToolStripMenuItem";
-            this.start5250EmulatorACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.start5250EmulatorACSToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.start5250EmulatorACSToolStripMenuItem.Text = "Start 5250 Emulator (ACS)";
             this.start5250EmulatorACSToolStripMenuItem.Click += new System.EventHandler(this.start5250EmulatorACSToolStripMenuItem_Click);
             // 
@@ -499,6 +422,91 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // sourceToolStripMenuItem
+            // 
+            this.sourceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.localCopiesToolStripMenuItem,
+            this.languageToolsToolStripMenuItem,
+            this.quickMemberSearchToolStripMenuItem,
+            this.compareMembersToolStripMenuItem});
+            this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
+            this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.sourceToolStripMenuItem.Text = "Source";
+            // 
+            // localCopiesToolStripMenuItem
+            // 
+            this.localCopiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sPFCloneToolStripMenuItem1,
+            this.searchMembersToolStripMenuItem});
+            this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
+            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.localCopiesToolStripMenuItem.Text = "Local Copies";
+            // 
+            // sPFCloneToolStripMenuItem1
+            // 
+            this.sPFCloneToolStripMenuItem1.Name = "sPFCloneToolStripMenuItem1";
+            this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.sPFCloneToolStripMenuItem1.Text = "SPF Clone";
+            this.sPFCloneToolStripMenuItem1.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem1_Click);
+            // 
+            // searchMembersToolStripMenuItem
+            // 
+            this.searchMembersToolStripMenuItem.Name = "searchMembersToolStripMenuItem";
+            this.searchMembersToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.searchMembersToolStripMenuItem.Text = "Search Members";
+            this.searchMembersToolStripMenuItem.Click += new System.EventHandler(this.searchMembersToolStripMenuItem_Click);
+            // 
+            // languageToolsToolStripMenuItem
+            // 
+            this.languageToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rPGConversionToolStripMenuItem,
+            this.cLFormatterToolStripMenuItem,
+            this.serviceProgramGeneratorToolStripMenuItem});
+            this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
+            this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.languageToolsToolStripMenuItem.Text = "Language Tools";
+            // 
+            // rPGConversionToolStripMenuItem
+            // 
+            this.rPGConversionToolStripMenuItem.Name = "rPGConversionToolStripMenuItem";
+            this.rPGConversionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.rPGConversionToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.rPGConversionToolStripMenuItem.Text = "RPG Conversion";
+            this.rPGConversionToolStripMenuItem.Click += new System.EventHandler(this.rPGConversionToolStripMenuItem_Click);
+            // 
+            // cLFormatterToolStripMenuItem
+            // 
+            this.cLFormatterToolStripMenuItem.Name = "cLFormatterToolStripMenuItem";
+            this.cLFormatterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.X)));
+            this.cLFormatterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.cLFormatterToolStripMenuItem.Text = "CL Formatter";
+            this.cLFormatterToolStripMenuItem.Click += new System.EventHandler(this.cLFormatterToolStripMenuItem_Click);
+            // 
+            // serviceProgramGeneratorToolStripMenuItem
+            // 
+            this.serviceProgramGeneratorToolStripMenuItem.Enabled = false;
+            this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
+            this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
+            // 
+            // quickMemberSearchToolStripMenuItem
+            // 
+            this.quickMemberSearchToolStripMenuItem.Name = "quickMemberSearchToolStripMenuItem";
+            this.quickMemberSearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.quickMemberSearchToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.quickMemberSearchToolStripMenuItem.Text = "Quick Member Search";
+            this.quickMemberSearchToolStripMenuItem.Visible = false;
+            this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
+            // 
+            // compareMembersToolStripMenuItem
+            // 
+            this.compareMembersToolStripMenuItem.Name = "compareMembersToolStripMenuItem";
+            this.compareMembersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.compareMembersToolStripMenuItem.Text = "Compare Members";
+            this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,16 +564,8 @@
         private System.Windows.Forms.ToolStripMenuItem otherForTypeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem memberToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem languageToolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rPGConversionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cLFormatterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem switchSystemToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem localCopiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem serviceProgramGeneratorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchMembersToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeMemberToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton newButton;
         private System.Windows.Forms.ToolStripButton saveButton;
@@ -575,10 +575,19 @@
         private System.Windows.Forms.ToolStripButton zoomInButton;
         private System.Windows.Forms.ToolStripButton zoomOutButton;
         private System.Windows.Forms.ToolStrip tool_bar;
-        private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem start5250EmulatorACSToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton greenOpen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem sourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem localCopiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem searchMembersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGConversionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cLFormatterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serviceProgramGeneratorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
     }
 }
 
