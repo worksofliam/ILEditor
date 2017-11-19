@@ -46,6 +46,7 @@ namespace ILEditor.Forms
         {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Multiselect = false;
+            openFile.Filter = "Applications (*.exe)|*.exe";
             openFile.ShowDialog();
             validACS.Checked = File.Exists(openFile.FileName);
             if (validACS.Checked)
