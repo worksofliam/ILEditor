@@ -144,7 +144,7 @@
             this.devNews.Name = "devNews";
             this.devNews.ScriptErrorsSuppressed = true;
             this.devNews.ScrollBarsEnabled = false;
-            this.devNews.Size = new System.Drawing.Size(463, 435);
+            this.devNews.Size = new System.Drawing.Size(548, 435);
             this.devNews.TabIndex = 7;
             this.devNews.Url = new System.Uri("http://worksofbarry.com/idle/devnews/", System.UriKind.Absolute);
             this.devNews.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.devNews_Navigating);
