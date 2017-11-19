@@ -38,6 +38,8 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.devNews = new System.Windows.Forms.WebBrowser();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,7 +72,7 @@
             this.recents.Location = new System.Drawing.Point(40, 277);
             this.recents.MultiSelect = false;
             this.recents.Name = "recents";
-            this.recents.Size = new System.Drawing.Size(333, 186);
+            this.recents.Size = new System.Drawing.Size(264, 186);
             this.recents.SmallImageList = this.imageList1;
             this.recents.TabIndex = 2;
             this.recents.UseCompatibleStateImageBehavior = false;
@@ -131,11 +133,41 @@
             this.linkLabel4.Text = "Getting an FTP error?";
             this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // devNews
+            // 
+            this.devNews.AllowWebBrowserDrop = false;
+            this.devNews.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.devNews.IsWebBrowserContextMenuEnabled = false;
+            this.devNews.Location = new System.Drawing.Point(310, 66);
+            this.devNews.MinimumSize = new System.Drawing.Size(20, 20);
+            this.devNews.Name = "devNews";
+            this.devNews.ScriptErrorsSuppressed = true;
+            this.devNews.ScrollBarsEnabled = false;
+            this.devNews.Size = new System.Drawing.Size(463, 435);
+            this.devNews.TabIndex = 7;
+            this.devNews.Url = new System.Uri("http://worksofbarry.com/idle/devnews/", System.UriKind.Absolute);
+            this.devNews.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.devNews_Navigating);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(315, 33);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(214, 31);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Developer News";
+            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.devNews);
             this.Controls.Add(this.linkLabel4);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
@@ -145,7 +177,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Welcome";
-            this.Size = new System.Drawing.Size(768, 529);
+            this.Size = new System.Drawing.Size(889, 529);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,5 +193,7 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel4;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.WebBrowser devNews;
+        private System.Windows.Forms.Label label3;
     }
 }
