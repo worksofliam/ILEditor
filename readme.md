@@ -1,6 +1,6 @@
 # [Idle](http://worksofbarry.com/idle/)
 
-![Welcome Screen](https://pbs.twimg.com/media/DPAjxz7V4AAXU4L.jpg)
+![Welcome Screen](https://i.imgur.com/oIzFcDD.png)
 
 Idle is an editor for development of ILE applications on IBM i. Idle will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
 
