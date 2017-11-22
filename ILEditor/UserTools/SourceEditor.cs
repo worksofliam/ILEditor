@@ -51,7 +51,7 @@ namespace ILEditor.UserTools
             textEditor.ShowLineNumbers = true;
             textEditor.Text = File.ReadAllText(LocalFile);
 
-            textEditor.FontFamily = new System.Windows.Media.FontFamily("Consolas");
+            textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
 
             textEditor.TextChanged += TextEditor_TextChanged;

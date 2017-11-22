@@ -47,9 +47,11 @@
             this.indent_size = new System.Windows.Forms.NumericUpDown();
             this.cur_size = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.validACS = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.findACS = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.validACS = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.selectedFont = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
@@ -58,7 +60,7 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(209, 327);
+            this.save.Location = new System.Drawing.Point(209, 375);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 13;
@@ -134,6 +136,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.selectedFont);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
@@ -144,7 +148,7 @@
             this.groupBox2.Controls.Add(this.cur_size);
             this.groupBox2.Location = new System.Drawing.Point(12, 132);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(272, 134);
+            this.groupBox2.Size = new System.Drawing.Size(272, 159);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Editor";
@@ -152,7 +156,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 101);
+            this.label7.Location = new System.Drawing.Point(6, 128);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 13);
             this.label7.TabIndex = 7;
@@ -161,7 +165,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 74);
+            this.label6.Location = new System.Drawing.Point(6, 101);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(117, 13);
             this.label6.TabIndex = 6;
@@ -170,7 +174,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 47);
+            this.label5.Location = new System.Drawing.Point(6, 74);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 13);
             this.label5.TabIndex = 5;
@@ -179,7 +183,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 22);
+            this.label4.Location = new System.Drawing.Point(6, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 4;
@@ -192,7 +196,7 @@
             this.highlight_line.Items.AddRange(new object[] {
             "true",
             "false"});
-            this.highlight_line.Location = new System.Drawing.Point(131, 98);
+            this.highlight_line.Location = new System.Drawing.Point(131, 125);
             this.highlight_line.Name = "highlight_line";
             this.highlight_line.Size = new System.Drawing.Size(135, 21);
             this.highlight_line.TabIndex = 3;
@@ -204,14 +208,14 @@
             this.show_spaces.Items.AddRange(new object[] {
             "true",
             "false"});
-            this.show_spaces.Location = new System.Drawing.Point(131, 71);
+            this.show_spaces.Location = new System.Drawing.Point(131, 98);
             this.show_spaces.Name = "show_spaces";
             this.show_spaces.Size = new System.Drawing.Size(135, 21);
             this.show_spaces.TabIndex = 2;
             // 
             // indent_size
             // 
-            this.indent_size.Location = new System.Drawing.Point(131, 45);
+            this.indent_size.Location = new System.Drawing.Point(131, 72);
             this.indent_size.Maximum = new decimal(new int[] {
             12,
             0,
@@ -233,7 +237,7 @@
             // 
             // cur_size
             // 
-            this.cur_size.Location = new System.Drawing.Point(131, 19);
+            this.cur_size.Location = new System.Drawing.Point(131, 47);
             this.cur_size.MaxLength = 10;
             this.cur_size.Name = "cur_size";
             this.cur_size.ReadOnly = true;
@@ -245,12 +249,31 @@
             this.groupBox3.Controls.Add(this.findACS);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.validACS);
-            this.groupBox3.Location = new System.Drawing.Point(12, 272);
+            this.groupBox3.Location = new System.Drawing.Point(12, 297);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(274, 49);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ACS Configuration";
+            // 
+            // findACS
+            // 
+            this.findACS.Location = new System.Drawing.Point(193, 18);
+            this.findACS.Name = "findACS";
+            this.findACS.Size = new System.Drawing.Size(75, 23);
+            this.findACS.TabIndex = 2;
+            this.findACS.Text = "Find ACS";
+            this.findACS.UseVisualStyleBackColor = true;
+            this.findACS.Click += new System.EventHandler(this.findACS_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(60, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Executable";
             // 
             // validACS
             // 
@@ -263,30 +286,33 @@
             this.validACS.Text = "Valid";
             this.validACS.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // label9
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 23);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(60, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Executable";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(28, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Font";
             // 
-            // findACS
+            // selectedFont
             // 
-            this.findACS.Location = new System.Drawing.Point(193, 18);
-            this.findACS.Name = "findACS";
-            this.findACS.Size = new System.Drawing.Size(75, 23);
-            this.findACS.TabIndex = 2;
-            this.findACS.Text = "Find ACS";
-            this.findACS.UseVisualStyleBackColor = true;
-            this.findACS.Click += new System.EventHandler(this.findACS_Click);
+            this.selectedFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectedFont.FormattingEnabled = true;
+            this.selectedFont.Items.AddRange(new object[] {
+            "Consolas",
+            "Courier New",
+            "Lucida Console"});
+            this.selectedFont.Location = new System.Drawing.Point(131, 21);
+            this.selectedFont.Name = "selectedFont";
+            this.selectedFont.Size = new System.Drawing.Size(135, 21);
+            this.selectedFont.TabIndex = 9;
             // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 362);
+            this.ClientSize = new System.Drawing.Size(298, 410);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -330,5 +356,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox validACS;
         private System.Windows.Forms.Button findACS;
+        private System.Windows.Forms.ComboBox selectedFont;
+        private System.Windows.Forms.Label label9;
     }
 }

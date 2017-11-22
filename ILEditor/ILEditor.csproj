@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationRevision>27</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -68,7 +68,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -453,7 +453,9 @@
     <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
-    <Content Include="Resources\Highlighting\CL.xml" />
+    <Content Include="Resources\Highlighting\CL.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources\Highlighting\COBOL.xml" />
     <Content Include="Resources\Highlighting\CPP.xml">
       <SubType>Designer</SubType>

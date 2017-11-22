@@ -56,6 +56,7 @@ namespace ILEditor.Classes
             CheckExist("useuserlibl", "false");
 
             CheckExist("TREE_LIST", "");
+            CheckExist("FONT", "Consolas");
             CheckExist("ZOOM", 12.75f.ToString());
             CheckExist("INDENT_SIZE", "4");
             CheckExist("SHOW_SPACES", "true");

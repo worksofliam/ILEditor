@@ -22,6 +22,7 @@ namespace ILEditor.Forms
             user.Text = IBMi.CurrentSystem.GetValue("username");
             pass.Text = IBMi.CurrentSystem.GetValue("password");
 
+            selectedFont.SelectedItem = IBMi.CurrentSystem.GetValue("FONT");
             cur_size.Text = IBMi.CurrentSystem.GetValue("ZOOM");
             indent_size.Value = decimal.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             show_spaces.SelectedItem = IBMi.CurrentSystem.GetValue("SHOW_SPACES");
@@ -36,6 +37,7 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("username", user.Text.Trim());
             IBMi.CurrentSystem.SetValue("password", pass.Text.Trim());
 
+            IBMi.CurrentSystem.SetValue("FONT", selectedFont.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
             IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.SelectedItem.ToString());
