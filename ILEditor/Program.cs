@@ -32,11 +32,20 @@ namespace ILEditor
             Directory.CreateDirectory(SOURCEDIR);
             Directory.CreateDirectory(SYNTAXDIR);
 
-            File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
-            File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
-            File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
-            File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
-            File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
+            if (!File.Exists(Program.SYNTAXDIR + "RPG.xml"))
+                File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
+
+            if (!File.Exists(Program.SYNTAXDIR + "SQL.xml"))
+                File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
+
+            if (!File.Exists(Program.SYNTAXDIR + "CPP.xml"))
+                File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
+
+            if (!File.Exists(Program.SYNTAXDIR + "CL.xml"))
+                File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
+
+            if (!File.Exists(Program.SYNTAXDIR + "COBOL.xml"))
+                File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
 
             if (!File.Exists(ACSPATH))
                 File.WriteAllText(ACSPATH, "false");
