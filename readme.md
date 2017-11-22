@@ -1,4 +1,4 @@
-# [Idle]()
+# [Idle](http://worksofbarry.com/idle/)
 
 ![Welcome Screen](https://pbs.twimg.com/media/DPAjxz7V4AAXU4L.jpg)
 
@@ -17,7 +17,7 @@ Idle is an editor for development of ILE applications on IBM i. Idle will suppor
 
 ## Installation
 
-* You'll be able to install from the ClickOnce installer, which will also prompt you when an update is available.
+* You'll be able to install from the ClickOnce installer, which will also prompt you when an update is available. [Download here](http://worksofbarry.com/idle/installer/setup.exe).
 * Build from source. Clone from GitHub, open the project into Visual Studio and build from there.
 
 ## Notes
