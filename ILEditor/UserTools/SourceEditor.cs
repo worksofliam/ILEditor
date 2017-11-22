@@ -61,6 +61,8 @@ namespace ILEditor.UserTools
             textEditor.Options.IndentationSize = int.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
             textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
+
+            textEditor.Options.AllowScrollBelowDocument = true;
             
             if (this.RcdLen > 0)
             {
