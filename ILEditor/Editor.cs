@@ -353,7 +353,7 @@ namespace ILEditor
             if (newMemberForm.created)
             {
                 new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr);
+                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, null, newMemberForm._type);
 
                     if (resultFile != "")
                     {
