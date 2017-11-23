@@ -71,11 +71,11 @@
             // 
             // fetch
             // 
-            this.fetch.Location = new System.Drawing.Point(325, 63);
+            this.fetch.Location = new System.Drawing.Point(293, 63);
             this.fetch.Name = "fetch";
-            this.fetch.Size = new System.Drawing.Size(86, 20);
+            this.fetch.Size = new System.Drawing.Size(118, 20);
             this.fetch.TabIndex = 3;
-            this.fetch.Text = "Fetch";
+            this.fetch.Text = "Fetch Member List";
             this.fetch.UseVisualStyleBackColor = true;
             this.fetch.Click += new System.EventHandler(this.fetch_Click);
             // 

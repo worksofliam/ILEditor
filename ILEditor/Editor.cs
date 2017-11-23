@@ -154,6 +154,11 @@ namespace ILEditor
             new CloneWindow().ShowDialog();
         }
         
+        private void sPFPushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new PushWindow().ShowDialog();
+        }
+
         private void serviceProgramGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ServiceGenerator().ShowDialog();
