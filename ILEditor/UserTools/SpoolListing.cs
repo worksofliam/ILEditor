@@ -77,5 +77,35 @@ namespace ILEditor.UserTools
                 }
             }
         }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshList();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to delete all spool files of user " + IBMi.CurrentSystem.GetValue("username") + "? This process can take some time.", "Continue", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            
+            if (result == DialogResult.Yes)
+            {
+                Editor.TheEditor.SetStatus("Deleting all spool files..");
+                new Thread((ThreadStart)delegate
+                {
+                    if (IBMi.RunCommands(new[] { "QUOTE RCMD DLTSPLF FILE(*SELECT)" }) == false)
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            Editor.TheEditor.SetStatus("Spool files deleted.");
+                            spoolList.Items.Clear();
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete all spool files.");
+                    }
+                }).Start();
+            }
+        }
     }
 }
