@@ -57,17 +57,23 @@ namespace ILEditor.UserTools
                 ListViewItem selection = spoolList.SelectedItems[0];
                 if (selection.Tag != null)
                 {
-                    SpoolFile spool = selection.Tag as SpoolFile;
-                    string SpoolFile = spool.Download();
+                    new Thread((ThreadStart)delegate
+                    {
+                        SpoolFile spool = selection.Tag as SpoolFile;
+                        string SpoolFile = spool.Download();
 
-                    if (SpoolFile != "")
-                    {
-                        Editor.TheEditor.AddSpoolFile(spool.getName(), SpoolFile);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Spool file was not downloaded. Please check the spool file exists.");
-                    }
+                        if (SpoolFile != "")
+                        {
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                Editor.TheEditor.AddSpoolFile(spool.getName(), SpoolFile);
+                            });
+                        }
+                        else
+                        {
+                            MessageBox.Show("Spool file was not downloaded. Please check the spool file exists.");
+                        }
+                    }).Start();
                 }
             }
         }
