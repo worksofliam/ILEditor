@@ -202,6 +202,50 @@ namespace ILEditor.Classes
             return Members.ToArray();
         }
 
+        public static SpoolFile[] GetSpoolListing()
+        {
+            List<SpoolFile> Listing = new List<SpoolFile>();
+            List<string> commands = new List<string>();
+
+            //string SQLFile = IBMiUtils.GetLocalFile("QTEMP", "SPOOL", "SPOOL");
+            //string SQLFileContent = "CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(USER_DATA) as b, Char(JOB_NAME) as c FROM QSYS2.OUTPUT_QUEUE_ENTRIES ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 100 ROWS ONLY) WITH DATA";
+            //File.WriteAllText(SQLFile, SQLFileContent);
+
+            //commands.Add("put \"" + SQLFile + "\" \"/tmp/LALLANSpool.sql\"");
+            //commands.Add("QUOTE RCMD RUNSQLSTM SRCSTMF('/tmp/LALLANSpool.sql') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d FROM QSYS2.OUTPUT_QUEUE_ENTRIES WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 100 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
+
+            Editor.TheEditor.SetStatus("Fetching spool file listing..");
+            string file = DownloadMember("QTEMP", "SPOOL", "SPOOL", commands.ToArray());
+
+            if (file != "")
+            {
+                string Line, SpoolName, UserData, Job, Status;
+                foreach (string RealLine in File.ReadAllLines(file))
+                {
+                    if (RealLine.Trim() != "")
+                    {
+                        Line = RealLine.PadRight(65);
+                        SpoolName = Line.Substring(0, 10).Trim();
+                        UserData = Line.Substring(10, 10).Trim();
+                        Job = Line.Substring(20, 28).Trim();
+                        Status = Line.Substring(48, 15).Trim();
+
+                        if (SpoolName != "")
+                        {
+                            Listing.Add(new SpoolFile(SpoolName, UserData, Job, Status));
+                        }
+                    }
+                }
+
+                return (Listing.Count > 0 ? Listing.ToArray() : null);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static Boolean CompileMember(Member MemberInfo, string TrueCmd = "")
         {
             string type, command;
@@ -259,6 +303,27 @@ namespace ILEditor.Classes
                 Directory.CreateDirectory(SPFDir);
 
             return SPFDir + "\\" + Mbr.ToUpper() + "." + Ext.ToLower();
+        }
+
+        public static string DownloadSpoolFile(String Name, string Job)
+        {
+            //CPYSPLF FILE(NAME) JOB(B/A/JOB) TOSTMF('STMF')
+
+            string filetemp = GetLocalFile("QTEMP", "SPOOLS", "NAME", "SPOOL");
+            string remoteTemp = "/tmp/" + Name + ".spool";
+            List<string> commands = new List<string>();
+
+            commands.Add("QUOTE RCMD CPYSPLF FILE(" + Name + ") JOB(" + Job + ") TOFILE(*TOSTMF) TOSTMF('" + remoteTemp + "') STMFOPT(*REPLACE)");
+            commands.Add("recv \"" + remoteTemp + "\" \"" + filetemp + "\"");
+
+            if (IBMi.RunCommands(commands.ToArray()) == false)
+            {
+                return filetemp;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public static string DownloadMember(string Lib, string Obj, string Mbr, string[] PreCommands = null, string Ext = "")

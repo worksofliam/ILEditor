@@ -64,7 +64,7 @@ namespace ILEditor.UserTools
                     {
                         foreach (Member member in members)
                         {
-                            curItem = new ListViewItem(new string[3] { member.GetMember(), member.GetExtension(), member.GetText() }, 0);
+                            curItem = new ListViewItem(new[] { member.GetMember(), member.GetExtension(), member.GetText() }, 0);
                             curItem.Tag = member;
 
                             curItems.Add(curItem);

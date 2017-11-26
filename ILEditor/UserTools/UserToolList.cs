@@ -42,6 +42,9 @@ namespace ILEditor.UserTools
                     case "TREE":
                         Editor.TheEditor.AddTool("Tree Browser", new TreeBrowse());
                         break;
+                    case "SPL":
+                        Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
+                        break;
                 }
             }
         }
