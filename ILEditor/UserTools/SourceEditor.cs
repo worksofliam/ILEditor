@@ -19,6 +19,8 @@ using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Search;
 using FindReplace;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using System.Windows.Input;
 
 namespace ILEditor.UserTools
 {
@@ -107,8 +109,46 @@ namespace ILEditor.UserTools
             host.Dock = DockStyle.Fill;
             host.Child = textEditor;
             this.Controls.Add(host);
+            textEditor.TextArea.TextEntered += textEditor_TextArea_TextEntered;
         }
+        void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
+		{
+			DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+			String line_text_to_cursor = textEditor.Document.GetText(line.Offset, (textEditor.CaretOffset-line.Offset));
+			string lastWord = line_text_to_cursor.Split(' ').Last();
+			// Open code completion after the user has pressed dot:
+			completionWindow = new CompletionWindow(textEditor.TextArea);
+			IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
 
+			string[] words = textEditor.Text.Split(' ');
+			HashSet<string> set = new HashSet<string>(words);
+			string[] result = new string[set.Count];
+			set.CopyTo(result);
+
+			data.Clear();
+			Array.Sort(result);
+
+			Boolean has_items = false;
+			foreach (var word in result)
+			{
+				String trimmed_word = word.Trim();
+				if ((lastWord.Length > 0) && (trimmed_word.StartsWith(lastWord) && (!trimmed_word.Equals(lastWord))))
+				{
+					data.Add(new AutoCompleteData(trimmed_word, trimmed_word));
+					has_items = true;
+				}
+			}
+			if (has_items)
+			{
+				completionWindow.Show();
+				
+				completionWindow.Closed += delegate
+				{
+					completionWindow = null;
+				};
+			}
+		}
+        
         public string GetText()
         {
             return textEditor.Text;
