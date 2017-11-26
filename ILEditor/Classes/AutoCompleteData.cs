@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using System.Windows.Media;
+using System.Windows.Documents;
 
 namespace ILEditor.Classes
 {
@@ -36,7 +37,9 @@ namespace ILEditor.Classes
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            textArea.Document.Replace(completionSegment, this.Text);
+  			int begin =  TextUtilities.GetNextCaretPosition(textArea.Document, textArea.Caret.Offset, LogicalDirection.Backward, CaretPositioningMode.WordStart);
+			int end = textArea.Caret.Offset;
+			textArea.Document.Replace(begin, (end-begin),  this.Text);
         }
     }
 }
