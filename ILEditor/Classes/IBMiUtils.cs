@@ -213,7 +213,7 @@ namespace ILEditor.Classes
 
             //commands.Add("put \"" + SQLFile + "\" \"/tmp/LALLANSpool.sql\"");
             //commands.Add("QUOTE RCMD RUNSQLSTM SRCSTMF('/tmp/LALLANSpool.sql') COMMIT(*NONE)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d FROM QSYS2.OUTPUT_QUEUE_ENTRIES WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 100 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d, Char(FILE_NUMBER) as e FROM QSYS2.OUTPUT_QUEUE_ENTRIES WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 100 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
 
             Editor.TheEditor.SetStatus("Fetching spool file listing.. (can take a moment)");
             string file = DownloadMember("QTEMP", "SPOOL", "SPOOL", commands.ToArray());
@@ -221,20 +221,21 @@ namespace ILEditor.Classes
 
             if (file != "")
             {
-                string Line, SpoolName, UserData, Job, Status;
+                string Line, SpoolName, UserData, Job, Status, Number;
                 foreach (string RealLine in File.ReadAllLines(file))
                 {
                     if (RealLine.Trim() != "")
                     {
-                        Line = RealLine.PadRight(65);
+                        Line = RealLine.PadRight(75);
                         SpoolName = Line.Substring(0, 10).Trim();
                         UserData = Line.Substring(10, 10).Trim();
                         Job = Line.Substring(20, 28).Trim();
                         Status = Line.Substring(48, 15).Trim();
+                        Number = Line.Substring(63, 11);
 
                         if (SpoolName != "")
                         {
-                            Listing.Add(new SpoolFile(SpoolName, UserData, Job, Status));
+                            Listing.Add(new SpoolFile(SpoolName, UserData, Job, Status, int.Parse(Number)));
                         }
                     }
                 }
@@ -307,7 +308,7 @@ namespace ILEditor.Classes
             return SPFDir + "\\" + Mbr.ToUpper() + "." + Ext.ToLower();
         }
 
-        public static string DownloadSpoolFile(String Name, string Job)
+        public static string DownloadSpoolFile(string Name, int Number, string Job)
         {
             //CPYSPLF FILE(NAME) JOB(B/A/JOB) TOSTMF('STMF')
 
@@ -316,7 +317,7 @@ namespace ILEditor.Classes
             List<string> commands = new List<string>();
 
             Editor.TheEditor.SetStatus("Downloading spool file " + Name + "..");
-            commands.Add("QUOTE RCMD CPYSPLF FILE(" + Name + ") JOB(" + Job + ") TOFILE(*TOSTMF) TOSTMF('" + remoteTemp + "') STMFOPT(*REPLACE)");
+            commands.Add("QUOTE RCMD CPYSPLF FILE(" + Name + ") JOB(" + Job + ") SPLNBR(" + Number.ToString() + ") TOFILE(*TOSTMF) TOSTMF('" + remoteTemp + "') STMFOPT(*REPLACE)");
             commands.Add("recv \"" + remoteTemp + "\" \"" + filetemp + "\"");
 
             if (IBMi.RunCommands(commands.ToArray()) == false)

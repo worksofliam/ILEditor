@@ -12,13 +12,15 @@ namespace ILEditor.Classes
         private string USER_DATA;
         private string JOB_NAME;
         private string STATUS;
+        private int FILE_NUMBER;
 
-        public SpoolFile(string name, string userdata, string job, string status)
+        public SpoolFile(string name, string userdata, string job, string status, int fileNumber)
         {
             this.SPOOLED_FILE_NAME = name;
             this.USER_DATA = userdata;
             this.JOB_NAME = job;
             this.STATUS = status;
+            this.FILE_NUMBER = fileNumber;
         }
 
         public string getName()
@@ -41,9 +43,14 @@ namespace ILEditor.Classes
             return this.STATUS;
         }
 
+        public int getFileNumber()
+        {
+            return this.FILE_NUMBER;
+        }
+
         public string Download()
         {
-            return IBMiUtils.DownloadSpoolFile(this.SPOOLED_FILE_NAME, this.JOB_NAME);
+            return IBMiUtils.DownloadSpoolFile(this.SPOOLED_FILE_NAME, this.FILE_NUMBER, this.JOB_NAME);
         }
     }
 }

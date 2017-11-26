@@ -60,7 +60,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Spool File Name";
-            this.columnHeader1.Width = 121;
+            this.columnHeader1.Width = 132;
             // 
             // columnHeader2
             // 

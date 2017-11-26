@@ -308,11 +308,8 @@ namespace ILEditor
 
         public void AddSpoolFile(string pageName, string Local)
         {
+            pageName += " Spool";
             int currentTab = EditorContains(pageName);
-
-            //Close tab if it already exists.
-            if (currentTab >= 0)
-                editortabs.TabPages.RemoveAt(currentTab);
 
             TabPage tabPage = new TabPage(pageName);
             SpoolViewer SpoolFile = new SpoolViewer(Local);
