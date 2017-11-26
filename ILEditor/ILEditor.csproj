@@ -120,6 +120,7 @@
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
+    <Compile Include="Classes\SpoolFile.cs" />
     <Compile Include="Forms\CloneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -296,6 +297,18 @@
     <Compile Include="UserTools\MemberBrowse.Designer.cs">
       <DependentUpon>MemberBrowse.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserTools\SpoolListing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\SpoolListing.Designer.cs">
+      <DependentUpon>SpoolListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\SpoolViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\SpoolViewer.Designer.cs">
+      <DependentUpon>SpoolViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\TreeBrowse.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -410,6 +423,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\SpoolListing.resx">
+      <DependentUpon>SpoolListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\SpoolViewer.resx">
+      <DependentUpon>SpoolViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\TreeBrowse.resx">
       <DependentUpon>TreeBrowse.cs</DependentUpon>

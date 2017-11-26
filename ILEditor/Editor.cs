@@ -306,6 +306,21 @@ namespace ILEditor
             }
         }
 
+        public void AddSpoolFile(string pageName, string Local)
+        {
+            pageName += " Spool";
+            int currentTab = EditorContains(pageName);
+
+            TabPage tabPage = new TabPage(pageName);
+            SpoolViewer SpoolFile = new SpoolViewer(Local);
+            SpoolFile.BringToFront();
+            SpoolFile.Dock = DockStyle.Fill;
+            tabPage.Controls.Add(SpoolFile);
+            editortabs.TabPages.Add(tabPage);
+
+            SwitchToTab(editortabs.TabPages.Count - 1);
+        }
+
         public void AddBindingList(string Lib, string Obj)
         {
             string pageName = Lib + "/" + Obj + " Binding Directory";

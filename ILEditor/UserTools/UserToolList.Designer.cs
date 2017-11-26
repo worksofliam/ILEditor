@@ -35,6 +35,7 @@
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Library List", 3);
             System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Connection Setup", 2);
             System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Compile Settings", 4);
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserToolList));
             this.toollist = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -51,13 +52,15 @@
             listViewItem4.Tag = "LIBL";
             listViewItem5.Tag = "CONN";
             listViewItem6.Tag = "CMP";
+            listViewItem7.Tag = "SPL";
             this.toollist.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
             listViewItem3,
             listViewItem4,
             listViewItem5,
-            listViewItem6});
+            listViewItem6,
+            listViewItem7});
             this.toollist.Location = new System.Drawing.Point(0, 0);
             this.toollist.MultiSelect = false;
             this.toollist.Name = "toollist";
@@ -79,6 +82,7 @@
             this.imageList1.Images.SetKeyName(4, "application_go.png");
             this.imageList1.Images.SetKeyName(5, "application_view_list.png");
             this.imageList1.Images.SetKeyName(6, "world.png");
+            this.imageList1.Images.SetKeyName(7, "script.png");
             // 
             // UserToolList
             // 
