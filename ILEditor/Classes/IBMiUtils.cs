@@ -215,8 +215,9 @@ namespace ILEditor.Classes
             //commands.Add("QUOTE RCMD RUNSQLSTM SRCSTMF('/tmp/LALLANSpool.sql') COMMIT(*NONE)");
             commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d FROM QSYS2.OUTPUT_QUEUE_ENTRIES WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 100 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
 
-            Editor.TheEditor.SetStatus("Fetching spool file listing..");
+            Editor.TheEditor.SetStatus("Fetching spool file listing.. (can take a moment)");
             string file = DownloadMember("QTEMP", "SPOOL", "SPOOL", commands.ToArray());
+            Editor.TheEditor.SetStatus("Finished fetching spool file listing.");
 
             if (file != "")
             {
@@ -244,6 +245,7 @@ namespace ILEditor.Classes
             {
                 return null;
             }
+
         }
 
         public static Boolean CompileMember(Member MemberInfo, string TrueCmd = "")
@@ -313,15 +315,18 @@ namespace ILEditor.Classes
             string remoteTemp = "/tmp/" + Name + ".spool";
             List<string> commands = new List<string>();
 
+            Editor.TheEditor.SetStatus("Downloading spool file " + Name + "..");
             commands.Add("QUOTE RCMD CPYSPLF FILE(" + Name + ") JOB(" + Job + ") TOFILE(*TOSTMF) TOSTMF('" + remoteTemp + "') STMFOPT(*REPLACE)");
             commands.Add("recv \"" + remoteTemp + "\" \"" + filetemp + "\"");
 
             if (IBMi.RunCommands(commands.ToArray()) == false)
             {
+                Editor.TheEditor.SetStatus("Downloaded spool file " + Name + ".");
                 return filetemp;
             }
             else
             {
+                Editor.TheEditor.SetStatus("Failed downloading spool file " + Name + ".");
                 return "";
             }
         }
