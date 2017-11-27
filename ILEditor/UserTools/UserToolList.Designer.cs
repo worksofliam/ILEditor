@@ -82,7 +82,7 @@
             this.imageList1.Images.SetKeyName(4, "application_go.png");
             this.imageList1.Images.SetKeyName(5, "application_view_list.png");
             this.imageList1.Images.SetKeyName(6, "world.png");
-            this.imageList1.Images.SetKeyName(7, "script.png");
+            this.imageList1.Images.SetKeyName(7, "page.png");
             // 
             // UserToolList
             // 

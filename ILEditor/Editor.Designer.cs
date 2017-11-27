@@ -48,6 +48,7 @@
             this.sourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sPFCloneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sPFPushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +77,7 @@
             this.tool_bar = new System.Windows.Forms.ToolStrip();
             this.greenOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.sPFPushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabImageList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -244,6 +245,13 @@
             this.sPFCloneToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.sPFCloneToolStripMenuItem1.Text = "SPF Clone";
             this.sPFCloneToolStripMenuItem1.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem1_Click);
+            // 
+            // sPFPushToolStripMenuItem
+            // 
+            this.sPFPushToolStripMenuItem.Name = "sPFPushToolStripMenuItem";
+            this.sPFPushToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.sPFPushToolStripMenuItem.Text = "SPF Push";
+            this.sPFPushToolStripMenuItem.Click += new System.EventHandler(this.sPFPushToolStripMenuItem_Click);
             // 
             // searchMembersToolStripMenuItem
             // 
@@ -509,12 +517,14 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // sPFPushToolStripMenuItem
+            // tabImageList
             // 
-            this.sPFPushToolStripMenuItem.Name = "sPFPushToolStripMenuItem";
-            this.sPFPushToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.sPFPushToolStripMenuItem.Text = "SPF Push";
-            this.sPFPushToolStripMenuItem.Click += new System.EventHandler(this.sPFPushToolStripMenuItem_Click);
+            this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
+            this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.tabImageList.Images.SetKeyName(0, "script.png");
+            this.tabImageList.Images.SetKeyName(1, "book.png");
+            this.tabImageList.Images.SetKeyName(2, "page.png");
+            this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
             // Editor
             // 
@@ -598,6 +608,7 @@
         private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sPFPushToolStripMenuItem;
+        private System.Windows.Forms.ImageList tabImageList;
     }
 }
 

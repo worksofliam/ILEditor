@@ -28,6 +28,7 @@ namespace ILEditor
             InitializeComponent();
             TheEditor = this;
 
+            editortabs.ImageList = tabImageList;
             this.Text += " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             MemberCache.Import();
         }
@@ -41,6 +42,7 @@ namespace ILEditor
         private void AddWelcome()
         {
             TabPage tabPage = new TabPage("Welcome");
+            tabPage.ImageIndex = 4;
             Welcome WelcomeScrn = new Welcome();
             WelcomeScrn.BringToFront();
             WelcomeScrn.Dock = DockStyle.Fill;
@@ -312,6 +314,7 @@ namespace ILEditor
             int currentTab = EditorContains(pageName);
 
             TabPage tabPage = new TabPage(pageName);
+            tabPage.ImageIndex = 2;
             SpoolViewer SpoolFile = new SpoolViewer(Local);
             SpoolFile.BringToFront();
             SpoolFile.Dock = DockStyle.Fill;
@@ -331,6 +334,7 @@ namespace ILEditor
                 editortabs.TabPages.RemoveAt(currentTab);
 
             TabPage tabPage = new TabPage(pageName);
+            tabPage.ImageIndex = 1;
             BindingDirectory bnddirlist = new BindingDirectory(Lib, Obj);
             bnddirlist.BringToFront();
             bnddirlist.Dock = DockStyle.Fill;
@@ -350,6 +354,7 @@ namespace ILEditor
                 editortabs.TabPages.RemoveAt(currentTab);
 
             TabPage tabPage = new TabPage(pageName);
+            tabPage.ImageIndex = 0;
             tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
             srcEdit.BringToFront();
