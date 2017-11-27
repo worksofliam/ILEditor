@@ -22,6 +22,7 @@ using FindReplace;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Windows.Input;
 
+
 namespace ILEditor.UserTools
 {
     public enum ILELanguage
@@ -39,8 +40,10 @@ namespace ILEditor.UserTools
         private TextEditor textEditor = null;
         private ILELanguage Language;
         private int RcdLen;
+		CompletionWindow completionWindow;
+		List<String> autocompleDefaultList = new List<String>();
 
-        public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
+		public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
         {
             InitializeComponent();
 
@@ -76,20 +79,24 @@ namespace ILEditor.UserTools
             SearchReplacePanel.Install(textEditor);
 
             string lang = "";
+			string autocomplete = "";
             switch (Language)
             {
                 case ILELanguage.RPG:
                     lang = "RPG.xml";
+					autocomplete = "RPG.TXT";
                     break;
                 case ILELanguage.SQL:
                     lang = "SQL.xml";
                     break;
                 case ILELanguage.CPP:
                     lang = "CPP.xml";
-                    break;
+					autocomplete = "CPP.TXT";
+					break;
                 case ILELanguage.CL:
                     lang = "CL.xml";
-                    break;
+					autocomplete = "CL.TXT";
+					break;
                 case ILELanguage.COBOL:
                     lang = "COBOL.xml";
                     break;
@@ -110,35 +117,57 @@ namespace ILEditor.UserTools
             host.Child = textEditor;
             this.Controls.Add(host);
             textEditor.TextArea.TextEntered += textEditor_TextArea_TextEntered;
+
+			loadDefaultAutocompleteList(autocomplete);
         }
+
+		void loadDefaultAutocompleteList(String resourceName)
+		{
+			String[] lines = File.ReadAllLines(Program.SYNTAXDIR + resourceName);
+			foreach (String line in lines)
+			{
+				String[] parts = line.Split('|');
+				autocompleDefaultList.Add(parts[0]);
+			}
+		}
+
         void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
 		{
 			DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
 			String line_text_to_cursor = textEditor.Document.GetText(line.Offset, (textEditor.CaretOffset-line.Offset));
-			string lastWord = line_text_to_cursor.Split(' ').Last();
+			//string lastWord = line_text_to_cursor.Split(new Char[] { ',', '(',' ','=',':','+','-','*','/','\\' }).Last();
+			int begin = TextUtilities.GetNextCaretPosition(textEditor.Document, textEditor.CaretOffset, System.Windows.Documents.LogicalDirection.Backward, CaretPositioningMode.WordStart);
+			int end =  textEditor.CaretOffset;
+			String lastWord = textEditor.Document.GetText(begin, (end-begin));
 			// Open code completion after the user has pressed dot:
 			completionWindow = new CompletionWindow(textEditor.TextArea);
 			IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-
-			string[] words = textEditor.Text.Split(' ');
-			HashSet<string> set = new HashSet<string>(words);
+			
+			HashSet<string> set = new HashSet<string>();
+			string pattern = "%{0,1}?(\\w|-|@)+";
+			foreach (Match match in Regex.Matches(textEditor.Text, pattern, RegexOptions.IgnoreCase))
+			{
+				set.Add(match.Value);
+			}
+			foreach (String word in autocompleDefaultList)
+			{
+				set.Add(word);
+			}
 			string[] result = new string[set.Count];
 			set.CopyTo(result);
-
+			
 			data.Clear();
 			Array.Sort(result);
 
-			Boolean has_items = false;
 			foreach (var word in result)
 			{
 				String trimmed_word = word.Trim();
-				if ((lastWord.Length > 0) && (trimmed_word.StartsWith(lastWord) && (!trimmed_word.Equals(lastWord))))
+				if ((lastWord.Length > 0) && (trimmed_word.StartsWith(lastWord,StringComparison.OrdinalIgnoreCase) && (!trimmed_word.Equals(lastWord,StringComparison.OrdinalIgnoreCase))))
 				{
 					data.Add(new AutoCompleteData(trimmed_word, trimmed_word));
-					has_items = true;
 				}
 			}
-			if (has_items)
+			if (data.Any())
 			{
 				completionWindow.Show();
 				
