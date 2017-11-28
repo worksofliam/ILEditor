@@ -42,7 +42,7 @@ namespace ILEditor
         private void AddWelcome()
         {
             TabPage tabPage = new TabPage("Welcome");
-            tabPage.ImageIndex = 4;
+            tabPage.ImageIndex = 3;
             Welcome WelcomeScrn = new Welcome();
             WelcomeScrn.BringToFront();
             WelcomeScrn.Dock = DockStyle.Fill;
