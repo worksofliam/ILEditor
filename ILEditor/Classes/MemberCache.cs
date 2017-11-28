@@ -19,7 +19,8 @@ namespace ILEditor.Classes
 
         public static void Export()
         {
-            string ExportLoc = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system") + @"\membercache";
+            string ExportDir = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system");
+            string ExportLoc = ExportDir + @"\membercache";
 
             List<string> Output = new List<string>();
 
@@ -28,6 +29,7 @@ namespace ILEditor.Classes
                 Output.Add(Member.Key + "," + Member.Value);
             }
 
+            Directory.CreateDirectory(ExportDir);
             File.WriteAllLines(ExportLoc, Output);
         }
 
