@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
@@ -26,6 +27,7 @@ namespace ILEditor.Forms
 
         private Boolean WriteFile(string Alias, string Host, string User, string Pass)
         {
+            Pass = Password.Encode(Pass);
             Boolean Successful = false;
             string SystemPath = Program.SYSTEMSDIR + @"\" + Alias;
             string[] lines = new string[4];

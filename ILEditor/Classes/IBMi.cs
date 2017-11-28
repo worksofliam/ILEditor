@@ -34,6 +34,7 @@ namespace ILEditor.Classes
 
         public static Boolean RunCommands(string[] list)
         {
+            string password = Password.Decode(CurrentSystem.GetValue("password"));
             Boolean result = true;
 
             string tempfile = Path.GetTempFileName();
@@ -43,7 +44,7 @@ namespace ILEditor.Classes
             List<string> lines = new List<string>();
 
             lines.Add("user " + CurrentSystem.GetValue("username"));
-            lines.Add(CurrentSystem.GetValue("password"));
+            lines.Add(password);
 
             lines.Add("ASCII");
             if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")

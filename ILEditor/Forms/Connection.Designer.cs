@@ -38,6 +38,8 @@
             this.host = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.selectedFont = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,8 +52,6 @@
             this.findACS = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.validACS = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.selectedFont = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
@@ -152,6 +152,28 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Editor";
+            // 
+            // selectedFont
+            // 
+            this.selectedFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectedFont.FormattingEnabled = true;
+            this.selectedFont.Items.AddRange(new object[] {
+            "Consolas",
+            "Courier New",
+            "Lucida Console"});
+            this.selectedFont.Location = new System.Drawing.Point(131, 21);
+            this.selectedFont.Name = "selectedFont";
+            this.selectedFont.Size = new System.Drawing.Size(135, 21);
+            this.selectedFont.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(28, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Font";
             // 
             // label7
             // 
@@ -286,28 +308,6 @@
             this.validACS.Text = "Valid";
             this.validACS.UseVisualStyleBackColor = true;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 24);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(28, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Font";
-            // 
-            // selectedFont
-            // 
-            this.selectedFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectedFont.FormattingEnabled = true;
-            this.selectedFont.Items.AddRange(new object[] {
-            "Consolas",
-            "Courier New",
-            "Lucida Console"});
-            this.selectedFont.Location = new System.Drawing.Point(131, 21);
-            this.selectedFont.Name = "selectedFont";
-            this.selectedFont.Size = new System.Drawing.Size(135, 21);
-            this.selectedFont.TabIndex = 9;
-            // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,7 +321,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Connection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Connection";
+            this.Text = "Connection Settings";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

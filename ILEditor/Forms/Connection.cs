@@ -16,11 +16,15 @@ namespace ILEditor.Forms
     {
         public Connection()
         {
+            string password = "";
             InitializeComponent();
 
             host.Text = IBMi.CurrentSystem.GetValue("system");
             user.Text = IBMi.CurrentSystem.GetValue("username");
-            pass.Text = IBMi.CurrentSystem.GetValue("password");
+
+            password = IBMi.CurrentSystem.GetValue("password");
+            password = Password.Decode(password);
+            pass.Text = password;
 
             selectedFont.SelectedItem = IBMi.CurrentSystem.GetValue("FONT");
             cur_size.Text = IBMi.CurrentSystem.GetValue("ZOOM");
@@ -33,9 +37,12 @@ namespace ILEditor.Forms
 
         private void save_Click(object sender, EventArgs e)
         {
+            string password = "";
             IBMi.CurrentSystem.SetValue("system", host.Text.Trim());
             IBMi.CurrentSystem.SetValue("username", user.Text.Trim());
-            IBMi.CurrentSystem.SetValue("password", pass.Text.Trim());
+            password = pass.Text.Trim();
+            password = Password.Encode(password);
+            IBMi.CurrentSystem.SetValue("password", password);
 
             IBMi.CurrentSystem.SetValue("FONT", selectedFont.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
