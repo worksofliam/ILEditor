@@ -133,21 +133,27 @@ namespace ILEditor.UserTools
 
         void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
 		{
+			
+
 			DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
-			String line_text_to_cursor = textEditor.Document.GetText(line.Offset, (textEditor.CaretOffset-line.Offset));
-			//string lastWord = line_text_to_cursor.Split(new Char[] { ',', '(',' ','=',':','+','-','*','/','\\' }).Last();
-			int begin = TextUtilities.GetNextCaretPosition(textEditor.Document, textEditor.CaretOffset, System.Windows.Documents.LogicalDirection.Backward, CaretPositioningMode.WordStart);
-			int end =  textEditor.CaretOffset;
-			String lastWord = textEditor.Document.GetText(begin, (end-begin));
+			string line_text_to_cursor = textEditor.Document.GetText(line.Offset, (textEditor.CaretOffset-line.Offset));
+			List<string> words_in_line = getWordsList(line_text_to_cursor);
+			if (words_in_line.Count == 0) return;
+			string lastWord = getWordsList(line_text_to_cursor).Last<string>();
 			// Open code completion after the user has pressed dot:
 			completionWindow = new CompletionWindow(textEditor.TextArea);
 			IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
 			
 			HashSet<string> set = new HashSet<string>();
-			string pattern = "%{0,1}?(\\w|-|@)+";
-			foreach (Match match in Regex.Matches(textEditor.Text, pattern, RegexOptions.IgnoreCase))
+			
+			foreach (string word in getWordsList(textEditor.Text))
 			{
-				set.Add(match.Value);
+				string uppercased_word = word.ToUpper();
+				if (autocompleDefaultList.Contains(uppercased_word))
+				{
+					autocompleDefaultList.Remove(uppercased_word);
+				}
+				set.Add(word);
 			}
 			foreach (String word in autocompleDefaultList)
 			{
@@ -177,7 +183,17 @@ namespace ILEditor.UserTools
 				};
 			}
 		}
-        
+
+		private List<string> getWordsList(String text)
+		{
+			List<string> results = new List<string>();
+
+			string word_pattern = "%{0,1}?(\\w|-|@)+";
+			foreach (Match match in Regex.Matches(text, word_pattern, RegexOptions.IgnoreCase))
+				results.Add(match.Value);
+			return results;
+		}
+
         public string GetText()
         {
             return textEditor.Text;
