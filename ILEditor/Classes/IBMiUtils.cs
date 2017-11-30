@@ -312,7 +312,7 @@ namespace ILEditor.Classes
         {
             //CPYSPLF FILE(NAME) JOB(B/A/JOB) TOSTMF('STMF')
 
-            string filetemp = GetLocalFile("QTEMP", "SPOOLS", "NAME", "SPOOL");
+            string filetemp = GetLocalFile("SPOOLS", Job.Replace('/', '.'), Name + '-' + Number.ToString(), "SPOOL");
             string remoteTemp = "/tmp/" + Name + ".spool";
             List<string> commands = new List<string>();
 
