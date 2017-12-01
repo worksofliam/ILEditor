@@ -40,8 +40,10 @@ namespace ILEditor.UserTools
         private TextEditor textEditor = null;
         private ILELanguage Language;
         private int RcdLen;
+		string word_pattern = "%{0,1}?(\\w|-|@)+";
 		CompletionWindow completionWindow;
 		List<String> autocompleDefaultList = new List<String>();
+		StringBuilder word_builder = new StringBuilder();
 
 		public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
         {
@@ -133,7 +135,19 @@ namespace ILEditor.UserTools
 
         void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
 		{
-			
+			var match = Regex.Match(e.Text, this.word_pattern);
+			if (match.Success)
+			{
+				word_builder.Append(e.Text);
+			}
+			else
+			{
+				string word = word_builder.ToString();
+				if (word.Length > 0)
+				{
+				}
+				resetWordBuilder();
+			}
 
 			DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
 			string line_text_to_cursor = textEditor.Document.GetText(line.Offset, (textEditor.CaretOffset-line.Offset));
@@ -170,7 +184,7 @@ namespace ILEditor.UserTools
 				String trimmed_word = word.Trim();
 				if ((lastWord.Length > 0) && (trimmed_word.StartsWith(lastWord,StringComparison.OrdinalIgnoreCase) && (!trimmed_word.Equals(lastWord,StringComparison.OrdinalIgnoreCase))))
 				{
-					data.Add(new AutoCompleteData(trimmed_word, trimmed_word));
+					data.Add(new AutoCompleteData(trimmed_word, trimmed_word, this));
 				}
 			}
 			if (data.Any())
@@ -184,12 +198,17 @@ namespace ILEditor.UserTools
 			}
 		}
 
+		public void resetWordBuilder()
+		{
+			word_builder.Clear();
+		}
+
 		private List<string> getWordsList(String text)
 		{
 			List<string> results = new List<string>();
 
-			string word_pattern = "%{0,1}?(\\w|-|@)+";
-			foreach (Match match in Regex.Matches(text, word_pattern, RegexOptions.IgnoreCase))
+			
+			foreach (Match match in Regex.Matches(text, this.word_pattern, RegexOptions.IgnoreCase))
 				results.Add(match.Value);
 			return results;
 		}
