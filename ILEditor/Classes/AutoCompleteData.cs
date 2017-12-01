@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using System.Windows.Media;
+using System.Windows.Documents;
+using ILEditor.UserTools;
 
 namespace ILEditor.Classes
 {
     class AutoCompleteData : ICompletionData
     {
-        public AutoCompleteData(string text, string desc)
+        public AutoCompleteData(string text, string desc, SourceEditor sourceEditor)
         {
             this.Text = text;
             this.Description = desc;
+			this.Editor = sourceEditor;
         }
 
         public System.Windows.Media.ImageSource Image
@@ -25,9 +28,10 @@ namespace ILEditor.Classes
 
         public string Text { get; private set; }
         public object Description { get; private set; }
+		public SourceEditor Editor { get; private set; }
 
-        // Use this property if you want to show a fancy UIElement in the list.
-        public object Content
+		// Use this property if you want to show a fancy UIElement in the list.
+		public object Content
         {
             get { return this.Text; }
         }
@@ -36,7 +40,11 @@ namespace ILEditor.Classes
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            textArea.Document.Replace(completionSegment, this.Text);
-        }
+  			int begin =  TextUtilities.GetNextCaretPosition(textArea.Document, textArea.Caret.Offset, LogicalDirection.Backward, CaretPositioningMode.WordStart);
+			int end = textArea.Caret.Offset;
+			textArea.Document.Replace(begin, (end-begin),  this.Text);
+			this.Editor.resetWordBuilder();
+
+		}
     }
 }

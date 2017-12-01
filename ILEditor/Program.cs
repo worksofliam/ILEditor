@@ -19,33 +19,42 @@ namespace ILEditor
         //Files
         public static readonly string ACSPATH = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\acspath";
 
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            
-            HostSelect Selector = new HostSelect();
+		/// The main entry point for the application.
+		/// </summary>
+		[STAThread]
+		static void Main()
+		{
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new Splash());
-            
-            Directory.CreateDirectory(SYSTEMSDIR);
-            Directory.CreateDirectory(SOURCEDIR);
-            Directory.CreateDirectory(SYNTAXDIR);
+			HostSelect Selector = new HostSelect();
 
-            if (!File.Exists(Program.SYNTAXDIR + "RPG.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
+			Application.Run(new Splash());
 
-            if (!File.Exists(Program.SYNTAXDIR + "SQL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
+			Directory.CreateDirectory(SYSTEMSDIR);
+			Directory.CreateDirectory(SOURCEDIR);
+			Directory.CreateDirectory(SYNTAXDIR);
 
-            if (!File.Exists(Program.SYNTAXDIR + "CPP.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
+			if (!File.Exists(Program.SYNTAXDIR + "RPG.xml"))
+			{
+				File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
+				File.WriteAllText(Program.SYNTAXDIR + "RPG.TXT", Properties.Resources.RPG);
+			}
 
-            if (!File.Exists(Program.SYNTAXDIR + "CL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
+			if (!File.Exists(Program.SYNTAXDIR + "SQL.xml"))
+				File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
+
+			if (!File.Exists(Program.SYNTAXDIR + "CPP.xml"))
+			{
+				File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
+				File.WriteAllText(Program.SYNTAXDIR + "CPP.TXT", Properties.Resources.CPP);
+			}
+
+			if (!File.Exists(Program.SYNTAXDIR + "CL.xml"))
+			{
+				File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
+				File.WriteAllText(Program.SYNTAXDIR + "CL.TXT", Properties.Resources.CL);
+			}
 
             if (!File.Exists(Program.SYNTAXDIR + "COBOL.xml"))
                 File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
