@@ -1,8 +1,8 @@
-# [Idle](http://worksofbarry.com/idle/)
+# [ILEditor](http://worksofbarry.com/ileditor/)
 
 ![Welcome Screen](https://i.imgur.com/oIzFcDD.png)
 
-Idle is an editor for development of ILE applications on IBM i. Idle will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
+ILEditor is an editor for development of ILE applications on IBM i. ILEditor will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
 
 ## Features
 
@@ -17,9 +17,9 @@ Idle is an editor for development of ILE applications on IBM i. Idle will suppor
 
 ## Installation
 
-* You'll be able to install from the ClickOnce installer, which will also prompt you when an update is available. [Download here](http://worksofbarry.com/idle/installer/setup.exe).
+* You'll be able to install from the ClickOnce installer, which will also prompt you when an update is available. [Download here](http://worksofbarry.com/ileditor/installer/setup.exe).
 * Build from source. Clone from GitHub, open the project into Visual Studio and build from there.
 
 ## Notes
 
-This does manipulate source members. Currently, saving a source member will set every record's SRCDAT value to `0`. Please raise an issue if this is a major stopping point for you using Idle.
+This does manipulate source members. Currently, saving a source member will set every record's SRCDAT value to `0`. Please raise an issue if this is a major stopping point for you using ILEditor.
