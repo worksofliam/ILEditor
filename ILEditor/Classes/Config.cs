@@ -127,10 +127,10 @@ namespace ILEditor.Classes
     {
         public static string Encode(string ValuePlain)
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Idle", true);
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("ILEditor", true);
 
             if (SoftwareKey == null)
-                SoftwareKey = Registry.CurrentUser.CreateSubKey("Idle");
+                SoftwareKey = Registry.CurrentUser.CreateSubKey("ILEditor");
 
             byte[] valBytes = Encoding.ASCII.GetBytes(ValuePlain);
 
@@ -154,10 +154,10 @@ namespace ILEditor.Classes
 
         public static string Decode(string ValueBase64)
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Idle", true);
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("ILEditor", true);
 
             if (SoftwareKey == null)
-                SoftwareKey = Registry.CurrentUser.CreateSubKey("Idle");
+                SoftwareKey = Registry.CurrentUser.CreateSubKey("ILEditor");
 
             byte[] entropy = SoftwareKey.GetValue("passkey") as byte[];
 

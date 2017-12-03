@@ -13,11 +13,11 @@ namespace ILEditor
     {
         //Directories
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
-        public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle";
-        public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\langs\";
+        public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
+        public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor\langs\";
 
         //Files
-        public static readonly string ACSPATH = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\acspath";
+        public static readonly string ACSPATH = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor\acspath";
 
         /// The main entry point for the application.
         /// </summary>
@@ -58,7 +58,7 @@ namespace ILEditor
             {
                 if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
                 {
-                    MessageBox.Show("Idle has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     new Connection().ShowDialog();
                 }
 
