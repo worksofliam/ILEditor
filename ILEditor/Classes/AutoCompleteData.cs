@@ -14,11 +14,10 @@ namespace ILEditor.Classes
 {
     class AutoCompleteData : ICompletionData
     {
-        public AutoCompleteData(string text, string desc, SourceEditor sourceEditor)
+        public AutoCompleteData(string text, string desc)
         {
             this.Text = text;
             this.Description = desc;
-			this.Editor = sourceEditor;
         }
 
         public System.Windows.Media.ImageSource Image
@@ -28,7 +27,6 @@ namespace ILEditor.Classes
 
         public string Text { get; private set; }
         public object Description { get; private set; }
-		public SourceEditor Editor { get; private set; }
 
 		// Use this property if you want to show a fancy UIElement in the list.
 		public object Content
@@ -43,8 +41,6 @@ namespace ILEditor.Classes
   			int begin =  TextUtilities.GetNextCaretPosition(textArea.Document, textArea.Caret.Offset, LogicalDirection.Backward, CaretPositioningMode.WordStart);
 			int end = textArea.Caret.Offset;
 			textArea.Document.Replace(begin, (end-begin),  this.Text);
-			this.Editor.resetWordBuilder();
-
 		}
     }
 }

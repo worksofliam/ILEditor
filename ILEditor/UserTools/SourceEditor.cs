@@ -42,8 +42,7 @@ namespace ILEditor.UserTools
         private int RcdLen;
 		string word_pattern = "%{0,1}?(\\w|-|@)+";
 		CompletionWindow completionWindow;
-		List<String> autocompleDefaultList = new List<String>();
-		StringBuilder word_builder = new StringBuilder();
+		HashSet<String> autocompleteSet = new HashSet<String>();
 
 		public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
         {
@@ -81,23 +80,23 @@ namespace ILEditor.UserTools
             SearchReplacePanel.Install(textEditor);
 
             string lang = "";
-			string autocomplete = "";
+			string autocomplete_word_list = "";
             switch (Language)
             {
                 case ILELanguage.RPG:
                     lang = "RPG.xml";
-					autocomplete = "RPG.TXT";
+					autocomplete_word_list = "RPG.TXT";
                     break;
                 case ILELanguage.SQL:
                     lang = "SQL.xml";
                     break;
                 case ILELanguage.CPP:
                     lang = "CPP.xml";
-					autocomplete = "CPP.TXT";
+					autocomplete_word_list = "CPP.TXT";
 					break;
                 case ILELanguage.CL:
                     lang = "CL.xml";
-					autocomplete = "CL.TXT";
+					autocomplete_word_list = "CL.TXT";
 					break;
                 case ILELanguage.COBOL:
                     lang = "COBOL.xml";
@@ -118,101 +117,32 @@ namespace ILEditor.UserTools
             host.Dock = DockStyle.Fill;
             host.Child = textEditor;
             this.Controls.Add(host);
-            textEditor.TextArea.TextEntered += textEditor_TextArea_TextEntered;
 
-			loadDefaultAutocompleteList(autocomplete);
+			AutocompleteSetInitialLoad(autocomplete_word_list, textEditor.Text);
         }
 
-		void loadDefaultAutocompleteList(String resourceName)
+		void AutocompleteSetInitialLoad(String autocomplete_word_list, string editor_text )
 		{
-			String[] lines = File.ReadAllLines(Program.SYNTAXDIR + resourceName);
+			//From Resources files
+			String[] lines = File.ReadAllLines(Program.SYNTAXDIR + autocomplete_word_list);
 			foreach (String line in lines)
 			{
 				String[] parts = line.Split('|');
-				autocompleDefaultList.Add(parts[0]);
+				autocompleteSet.Add(parts[0]);
 			}
-		}
-
-        void textEditor_TextArea_TextEntered(object sender, TextCompositionEventArgs e)
-		{
-			var match = Regex.Match(e.Text, this.word_pattern);
-			if (match.Success)
+			//From Editor Text
+			foreach (Match match in Regex.Matches(editor_text, this.word_pattern, RegexOptions.IgnoreCase))
 			{
-				word_builder.Append(e.Text);
-			}
-			else
-			{
-				string word = word_builder.ToString();
-				if (word.Length > 0)
+				string cur_word_upper = match.Value.ToUpper();
+				if (autocompleteSet.Contains(cur_word_upper))
 				{
+					autocompleteSet.Remove(cur_word_upper);
 				}
-				resetWordBuilder();
+				autocompleteSet.Add(match.Value);
 			}
 
-			DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
-			string line_text_to_cursor = textEditor.Document.GetText(line.Offset, (textEditor.CaretOffset-line.Offset));
-			List<string> words_in_line = getWordsList(line_text_to_cursor);
-			if (words_in_line.Count == 0) return;
-			string lastWord = getWordsList(line_text_to_cursor).Last<string>();
-			// Open code completion after the user has pressed dot:
-			completionWindow = new CompletionWindow(textEditor.TextArea);
-			IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-			
-			HashSet<string> set = new HashSet<string>();
-			
-			foreach (string word in getWordsList(textEditor.Text))
-			{
-				string uppercased_word = word.ToUpper();
-				if (autocompleDefaultList.Contains(uppercased_word))
-				{
-					autocompleDefaultList.Remove(uppercased_word);
-				}
-				set.Add(word);
-			}
-			foreach (String word in autocompleDefaultList)
-			{
-				set.Add(word);
-			}
-			string[] result = new string[set.Count];
-			set.CopyTo(result);
-			
-			data.Clear();
-			Array.Sort(result);
-
-			foreach (var word in result)
-			{
-				String trimmed_word = word.Trim();
-				if ((lastWord.Length > 0) && (trimmed_word.StartsWith(lastWord,StringComparison.OrdinalIgnoreCase) && (!trimmed_word.Equals(lastWord,StringComparison.OrdinalIgnoreCase))))
-				{
-					data.Add(new AutoCompleteData(trimmed_word, trimmed_word, this));
-				}
-			}
-			if (data.Any())
-			{
-				completionWindow.Show();
-				
-				completionWindow.Closed += delegate
-				{
-					completionWindow = null;
-				};
-			}
 		}
-
-		public void resetWordBuilder()
-		{
-			word_builder.Clear();
-		}
-
-		private List<string> getWordsList(String text)
-		{
-			List<string> results = new List<string>();
-
-			
-			foreach (Match match in Regex.Matches(text, this.word_pattern, RegexOptions.IgnoreCase))
-				results.Add(match.Value);
-			return results;
-		}
-
+		
         public string GetText()
         {
             return textEditor.Text;
@@ -236,17 +166,66 @@ namespace ILEditor.UserTools
             }
         }
 
-        private void TextEditor_TextChanged(object sender, EventArgs e)
-        {
-            if (!this.Parent.Text.EndsWith("*"))
-            {
-                this.Parent.Text += "*";
-            }
+		private void TextEditor_TextChanged(object sender, EventArgs e)
+		{
+			if (!this.Parent.Text.EndsWith("*"))
+			{
+				this.Parent.Text += "*";
+			}
 
-            DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
-            int col = textEditor.CaretOffset - line.Offset;
-            Editor.TheEditor.SetStatus(line.LineNumber.ToString() + ", " + col.ToString());
-        }
+
+			DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+			int col = textEditor.CaretOffset - line.Offset;
+			Editor.TheEditor.SetStatus(line.LineNumber.ToString() + ", " + col.ToString());
+
+
+			int begin = TextUtilities.GetNextCaretPosition(textEditor.Document, textEditor.CaretOffset, System.Windows.Documents.LogicalDirection.Backward, CaretPositioningMode.WordStart);
+			int end = textEditor.CaretOffset;
+			string cur_word = textEditor.Document.GetText(begin, (end - begin));
+		
+			string cur_word_upper = cur_word.ToUpper();
+			//To account for spaces, newlines et al...
+			if (cur_word.Length > 0)
+			{
+				//If the word was previously loades in uppercase delete an use our version
+				if (autocompleteSet.Contains(cur_word_upper))
+				{
+					autocompleteSet.Remove(cur_word_upper);
+				}
+				//Add new words to our set
+				autocompleteSet.Add(cur_word);
+			}
+
+			completionWindow = new CompletionWindow(textEditor.TextArea);
+			IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+
+
+			string[] result = new string[autocompleteSet.Count];
+			autocompleteSet.CopyTo(result);
+
+			data.Clear();
+			Array.Sort(result);
+
+			foreach (var word in result)
+			{
+				String trimmed_word = word.Trim();
+				if ((cur_word.Length > 0) &&
+					(trimmed_word.StartsWith(cur_word, StringComparison.OrdinalIgnoreCase) &&
+					(!trimmed_word.Equals(cur_word, StringComparison.OrdinalIgnoreCase))))
+				{
+					data.Add(new AutoCompleteData(trimmed_word, trimmed_word));
+				}
+			}
+			if (data.Any())
+			{
+				completionWindow.Show();
+
+				completionWindow.Closed += delegate
+				{
+					completionWindow = null;
+				};
+			}
+		}
         
         #region RPG
 
