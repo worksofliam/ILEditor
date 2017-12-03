@@ -129,10 +129,8 @@ namespace ILEditor.Classes
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Idle", true);
 
-            if( SoftwareKey == null)
-            {
+            if (SoftwareKey == null)
                 SoftwareKey = Registry.CurrentUser.CreateSubKey("Idle");
-            }
 
             byte[] valBytes = Encoding.ASCII.GetBytes(ValuePlain);
 
@@ -158,10 +156,8 @@ namespace ILEditor.Classes
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Idle", true);
 
-            if( SoftwareKey == null)
-            {
+            if (SoftwareKey == null)
                 SoftwareKey = Registry.CurrentUser.CreateSubKey("Idle");
-            }
 
             byte[] entropy = SoftwareKey.GetValue("passkey") as byte[];
 
