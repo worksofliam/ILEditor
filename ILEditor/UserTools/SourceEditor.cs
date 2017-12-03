@@ -55,6 +55,7 @@ namespace ILEditor.UserTools
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
 
             textEditor.TextChanged += TextEditor_TextChanged;
+            textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
 
             textEditor.Options.ConvertTabsToSpaces = true;
             textEditor.Options.EnableTextDragDrop = false;
@@ -109,6 +110,8 @@ namespace ILEditor.UserTools
             this.Controls.Add(host);
         }
 
+
+
         public string GetText()
         {
             return textEditor.Text;
@@ -139,11 +142,18 @@ namespace ILEditor.UserTools
                 this.Parent.Text += "*";
             }
 
+
+        }
+
+
+        private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
+        {
             DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
             int col = textEditor.CaretOffset - line.Offset;
-            Editor.TheEditor.SetStatus(line.LineNumber.ToString() + ", " + col.ToString());
+            Editor.TheEditor.SetStatus($"Ln: {line.LineNumber}    Col: {col}");
         }
-        
+
+
         #region RPG
 
         public void ConvertSelectedRPG()
