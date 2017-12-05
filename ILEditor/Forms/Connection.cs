@@ -32,6 +32,9 @@ namespace ILEditor.Forms
             show_spaces.SelectedItem = IBMi.CurrentSystem.GetValue("SHOW_SPACES");
             highlight_line.SelectedItem = IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE");
 
+            prntLib.Text = IBMi.CurrentSystem.GetValue("printerLib");
+            prntObj.Text = IBMi.CurrentSystem.GetValue("printerObj");
+
             validACS.Checked = (File.ReadAllText(Program.ACSPATH) != "false");
         }
 
@@ -48,6 +51,9 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
             IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.SelectedItem.ToString());
+
+            IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
+            IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);
             this.Close();
         }
 

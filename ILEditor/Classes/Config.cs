@@ -57,6 +57,9 @@ namespace ILEditor.Classes
             CheckExist("curlib", "SYSTOOLS");
             CheckExist("useuserlibl", "false");
 
+            CheckExist("printerLib", "");
+            CheckExist("printerObj", "");
+
             CheckExist("TREE_LIST", "");
             CheckExist("FONT", "Consolas");
             CheckExist("ZOOM", 12.75f.ToString());

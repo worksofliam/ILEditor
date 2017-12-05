@@ -22,11 +22,13 @@ namespace ILEditor.UserTools
 
         public void RefreshList()
         {
-            new Thread((ThreadStart)delegate
+            string Lib = IBMi.CurrentSystem.GetValue("printerLib"), Obj = IBMi.CurrentSystem.GetValue("printerObj");
+
+            Thread spoolThread = new Thread((ThreadStart)delegate
             {
                 ListViewItem curItem;
                 List<ListViewItem> Items = new List<ListViewItem>();
-                SpoolFile[] Listing = IBMiUtils.GetSpoolListing();
+                SpoolFile[] Listing = IBMiUtils.GetSpoolListing(Lib, Obj);
 
                 if (Listing != null)
                 {
@@ -41,13 +43,22 @@ namespace ILEditor.UserTools
                 {
                     Items.Add(new ListViewItem("No spool files found."));
                 }
-                
+
                 this.Invoke((MethodInvoker)delegate
                 {
                     spoolList.Items.Clear();
                     spoolList.Items.AddRange(Items.ToArray());
                 });
-            }).Start();
+            });
+
+            if (Lib == "" || Obj == "")
+            {
+                MessageBox.Show("You must setup the Printer Queue in the Connection Setup for the spool file listing to work.", "Spool Listing", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                spoolThread.Start();
+            }
         }
 
         private void spoolList_DoubleClick(object sender, EventArgs e)
