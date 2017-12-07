@@ -194,6 +194,12 @@
     <Compile Include="Forms\ObjectInformation.Designer.cs">
       <DependentUpon>ObjectInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FileSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileSelect.Designer.cs">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OpenMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -372,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ObjectInformation.resx">
       <DependentUpon>ObjectInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileSelect.resx">
+      <DependentUpon>FileSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>

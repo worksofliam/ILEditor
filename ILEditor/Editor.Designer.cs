@@ -54,6 +54,7 @@
             this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cLFormatterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceProgramGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,7 +266,8 @@
             this.languageToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rPGConversionToolStripMenuItem,
             this.cLFormatterToolStripMenuItem,
-            this.serviceProgramGeneratorToolStripMenuItem});
+            this.serviceProgramGeneratorToolStripMenuItem,
+            this.generateSQLToolStripMenuItem});
             this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
             this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.languageToolsToolStripMenuItem.Text = "Language Tools";
@@ -294,6 +296,13 @@
             this.serviceProgramGeneratorToolStripMenuItem.Name = "serviceProgramGeneratorToolStripMenuItem";
             this.serviceProgramGeneratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.serviceProgramGeneratorToolStripMenuItem.Text = "Service Program Generator";
+            // 
+            // generateSQLToolStripMenuItem
+            // 
+            this.generateSQLToolStripMenuItem.Name = "generateSQLToolStripMenuItem";
+            this.generateSQLToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.generateSQLToolStripMenuItem.Text = "Generate SQL";
+            this.generateSQLToolStripMenuItem.Click += new System.EventHandler(this.generateSQLToolStripMenuItem_Click);
             // 
             // quickMemberSearchToolStripMenuItem
             // 
@@ -609,6 +618,7 @@
         private System.Windows.Forms.ToolStripMenuItem compareMembersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sPFPushToolStripMenuItem;
         private System.Windows.Forms.ImageList tabImageList;
+        private System.Windows.Forms.ToolStripMenuItem generateSQLToolStripMenuItem;
     }
 }
 

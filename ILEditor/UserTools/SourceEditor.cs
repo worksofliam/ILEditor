@@ -109,8 +109,11 @@ namespace ILEditor.UserTools
             host.Child = textEditor;
             this.Controls.Add(host);
         }
-
-
+        
+        public void SetReadOnly(bool ReadOnly)
+        {
+            textEditor.IsReadOnly = ReadOnly;
+        }
 
         public string GetText()
         {
@@ -144,8 +147,7 @@ namespace ILEditor.UserTools
 
 
         }
-
-
+        
         private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
         {
             DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);

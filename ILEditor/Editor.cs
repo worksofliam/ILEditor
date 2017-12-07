@@ -191,6 +191,27 @@ namespace ILEditor
             }
             new MemberCompareSelect(lib, spf, mbr).ShowDialog();
         }
+        
+        private void generateSQLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileSelect SelectFile = new FileSelect();
+            SelectFile.ShowDialog();
+
+            if (SelectFile.Success)
+            {
+                new Thread((ThreadStart)delegate {
+                    string resultFile = IBMiUtils.DownloadMember("QTEMP", "Q_GENSQL", "Q_GENSQL", new[] { SelectFile.getCommand() }, "SQL");
+
+                    if (resultFile != "")
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, "QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL", false), GetBoundLangType("SQL"));
+                        });
+                    }
+                }).Start();
+            }
+        }
         #endregion
 
         #region Compile
@@ -357,6 +378,7 @@ namespace ILEditor
             tabPage.ImageIndex = 0;
             tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
+            srcEdit.SetReadOnly(!MemberInfo.IsEditable());
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
             tabPage.Tag = MemberInfo;
@@ -455,10 +477,10 @@ namespace ILEditor
                     }
 
                 }
-            }
-            else
-            {
-                MessageBox.Show("This file is readonly.");
+                else
+                {
+                    MessageBox.Show("This file is readonly.");
+                }
             }
         }
 
