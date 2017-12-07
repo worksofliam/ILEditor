@@ -224,6 +224,12 @@
     <Compile Include="Forms\QuickMemberSearch.Designer.cs">
       <DependentUpon>QuickMemberSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SaveAs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaveAs.Designer.cs">
+      <DependentUpon>SaveAs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ServiceGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -390,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\QuickMemberSearch.resx">
       <DependentUpon>QuickMemberSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaveAs.resx">
+      <DependentUpon>SaveAs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ServiceGenerator.resx">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>

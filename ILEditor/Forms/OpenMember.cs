@@ -40,5 +40,10 @@ namespace ILEditor.Forms
             else
                 MessageBox.Show("Member information not valid.");
         }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -430,6 +430,48 @@ namespace ILEditor
             }
         }
 
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                if (!editortabs.TabPages[editortabs.SelectedIndex].Text.EndsWith("*"))
+                {
+                    SaveAs SaveAsWindow = new SaveAs();
+                    SaveAsWindow.ShowDialog();
+                    if (SaveAsWindow.Success)
+                    {
+                        Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                        if (!MemberInfo._IsBeingSaved)
+                        {
+                            MemberInfo._IsBeingSaved = true;
+
+                            SetStatus("Saving " + SaveAsWindow.Mbr + "..");
+                            SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                            Thread gothread = new Thread((ThreadStart)delegate
+                            {
+                                bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
+                                if (UploadResult == false)
+                                    MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                                });
+
+                                MemberInfo._IsBeingSaved = false;
+                            });
+
+                            gothread.Start();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must save the source before you can Save-As.");
+                }
+            }
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (editortabs.SelectedTab.Tag != null)
