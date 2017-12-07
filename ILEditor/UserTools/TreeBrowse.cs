@@ -127,7 +127,7 @@ namespace ILEditor.UserTools
                     {
                         foreach (Member member in members)
                         {
-                            mbr = new TreeNode(member.GetMember() + "." + member.GetExtension().ToLower() + (member.GetText() == "" ? "" : " - " + member.GetText()));
+                            mbr = new TreeNode(member.GetMember() + (member.GetExtension() == "" ? "" : "." + member.GetExtension().ToLower()) + (member.GetText() == "" ? "" : " - " + member.GetText()));
                             mbr.Tag = member;
                             mbr.ImageIndex = 3;
                             mbr.SelectedImageIndex = mbr.ImageIndex;
