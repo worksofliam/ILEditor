@@ -19,6 +19,8 @@ using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Search;
 using FindReplace;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace ILEditor.UserTools
 {
@@ -85,19 +87,22 @@ namespace ILEditor.UserTools
             switch (Language)
             {
                 case ILELanguage.RPG:
-                    lang += "RPG.xml";
+                    lang += "RPG";
                     break;
                 case ILELanguage.SQL:
-                    lang += "SQL.xml";
+                    lang += "SQL";
                     break;
                 case ILELanguage.CPP:
-                    lang += "CPP.xml";
+                    lang += "CPP";
                     break;
                 case ILELanguage.CL:
-                    lang += "CL.xml";
+                    lang += "CL";
                     break;
                 case ILELanguage.COBOL:
-                    lang += "COBOL.xml";
+                    lang += "COBOL";
+                    break;
+                case ILELanguage.None:
+                    lang = "";
                     break;
             }
 
@@ -107,15 +112,10 @@ namespace ILEditor.UserTools
                 textEditor.Foreground = System.Windows.Media.Brushes.White;
             }
 
-            if (File.Exists(Program.SYNTAXDIR + lang))
-            {
-                Stream xshd_stream = File.OpenRead(Program.SYNTAXDIR + lang);
-                XmlTextReader xshd_reader = new XmlTextReader(xshd_stream);
-                // Apply the new syntax highlighting definition.
-                textEditor.SyntaxHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.HighlightingLoader.Load(xshd_reader, ICSharpCode.AvalonEdit.Highlighting.HighlightingManager.Instance);
-                xshd_reader.Close();
-                xshd_stream.Close();
-            }
+            if (lang != "")
+                using (Stream s = new MemoryStream(Encoding.ASCII.GetBytes(Properties.Resources.ResourceManager.GetString(lang))))
+                    using (XmlTextReader reader = new XmlTextReader(s))
+                        textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
 
             ElementHost host = new ElementHost();
             host.Dock = DockStyle.Fill;

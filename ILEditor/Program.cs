@@ -16,7 +16,6 @@ namespace ILEditor
         //Directories
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
         public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
-        public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor\langs\";
 
         //Config
         public static Config Config;
@@ -38,30 +37,6 @@ namespace ILEditor
 
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
-
-            if (Config.GetValue("version") != getVersion())
-            {
-                //Update any files due to ILEditor upgrade
-                Directory.Delete(SYNTAXDIR, true);
-
-                Config.SetValue("version", getVersion());
-            }
-
-            if (!Directory.Exists(SYNTAXDIR))
-            {
-                Directory.CreateDirectory(SYNTAXDIR);
-                File.WriteAllText(Program.SYNTAXDIR + "lightRPG.xml", Properties.Resources.lightRPG);
-                File.WriteAllText(Program.SYNTAXDIR + "lightCPP.xml", Properties.Resources.lightCPP);
-                File.WriteAllText(Program.SYNTAXDIR + "lightCOBOL.xml", Properties.Resources.lightCOBOL);
-                File.WriteAllText(Program.SYNTAXDIR + "lightCL.xml", Properties.Resources.lightCL);
-                File.WriteAllText(Program.SYNTAXDIR + "lightSQL.xml", Properties.Resources.lightSQL);
-
-                File.WriteAllText(Program.SYNTAXDIR + "darkRPG.xml", Properties.Resources.darkRPG);
-                File.WriteAllText(Program.SYNTAXDIR + "darkCPP.xml", Properties.Resources.darkCPP);
-                File.WriteAllText(Program.SYNTAXDIR + "darkCOBOL.xml", Properties.Resources.darkCOBOL);
-                File.WriteAllText(Program.SYNTAXDIR + "darkCL.xml", Properties.Resources.darkCL);
-                File.WriteAllText(Program.SYNTAXDIR + "darkSQL.xml", Properties.Resources.darkSQL);
-            }
 
             Application.Run(Selector);
             if (Selector.SystemSelected)
