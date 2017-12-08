@@ -500,15 +500,20 @@
     <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
-    <Content Include="Resources\Highlighting\CL.xml">
+    <Content Include="Resources\Highlighting\Dark\darkCL.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resources\Highlighting\COBOL.xml" />
-    <Content Include="Resources\Highlighting\CPP.xml">
+    <Content Include="Resources\Highlighting\Dark\darkCOBOL.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkCPP.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resources\Highlighting\RPG.xml" />
-    <Content Include="Resources\Highlighting\SQL.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkRPG.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkSQL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCOBOL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCPP.xml" />
+    <None Include="Resources\Highlighting\Light\lightRPG.xml" />
+    <None Include="Resources\Highlighting\Light\lightSQL.xml" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>

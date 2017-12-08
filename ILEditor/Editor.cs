@@ -81,7 +81,7 @@ namespace ILEditor
         
         private void start5250EmulatorACSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path = File.ReadAllText(Program.ACSPATH);
+            string path = Program.Config.GetValue("acspath");
             if (path == "false")
                 MessageBox.Show("Please setup the ACS path in the Connection Setup.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else

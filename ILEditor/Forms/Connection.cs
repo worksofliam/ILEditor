@@ -35,7 +35,8 @@ namespace ILEditor.Forms
             prntLib.Text = IBMi.CurrentSystem.GetValue("printerLib");
             prntObj.Text = IBMi.CurrentSystem.GetValue("printerObj");
 
-            validACS.Checked = (File.ReadAllText(Program.ACSPATH) != "false");
+            validACS.Checked = (Program.Config.GetValue("acspath") != "false");
+            darkMode.Checked = (Program.Config.GetValue("darkmode") == "true");
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -54,6 +55,8 @@ namespace ILEditor.Forms
 
             IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
             IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);
+
+            Program.Config.SetValue("darkmode", darkMode.Checked.ToString().ToLower());
             this.Close();
         }
 
@@ -66,7 +69,7 @@ namespace ILEditor.Forms
             validACS.Checked = File.Exists(openFile.FileName);
             if (validACS.Checked)
             {
-                File.WriteAllText(Program.ACSPATH, openFile.FileName);
+                Program.Config.SetValue("acspath", openFile.FileName);
             }
         }
     }

@@ -151,19 +151,34 @@
   <data name="CPP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AutoComplete\CPP.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="RPGSyntax" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Highlighting\RPG.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="darkCL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Dark\darkCL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SQLSyntax" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Highlighting\SQL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="darkCOBOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Dark\darkCOBOL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="CLSyntax" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Highlighting\CL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="darkCPP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Dark\darkCPP.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="CPPSyntax" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Highlighting\CPP.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="darkRPG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Dark\darkRPG.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="COBOLSyntax" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Highlighting\COBOL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="darkSQL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Dark\darkSQL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="lightCL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Light\lightCL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="lightCOBOL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Light\lightCOBOL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="lightCPP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Light\lightCPP.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="lightRPG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Light\lightRPG.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="lightSQL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Highlighting\Light\lightSQL.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

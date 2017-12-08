@@ -75,23 +75,36 @@ namespace ILEditor.UserTools
             SearchReplacePanel.Install(textEditor);
 
             string lang = "";
+            bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
+
+            if (DarkMode)
+                lang += "dark";
+            else
+                lang += "light";
+
             switch (Language)
             {
                 case ILELanguage.RPG:
-                    lang = "RPG.xml";
+                    lang += "RPG.xml";
                     break;
                 case ILELanguage.SQL:
-                    lang = "SQL.xml";
+                    lang += "SQL.xml";
                     break;
                 case ILELanguage.CPP:
-                    lang = "CPP.xml";
+                    lang += "CPP.xml";
                     break;
                 case ILELanguage.CL:
-                    lang = "CL.xml";
+                    lang += "CL.xml";
                     break;
                 case ILELanguage.COBOL:
-                    lang = "COBOL.xml";
+                    lang += "COBOL.xml";
                     break;
+            }
+
+            if (DarkMode)
+            {
+                textEditor.Background = System.Windows.Media.Brushes.Black;
+                textEditor.Foreground = System.Windows.Media.Brushes.White;
             }
 
             if (File.Exists(Program.SYNTAXDIR + lang))

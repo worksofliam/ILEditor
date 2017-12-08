@@ -53,20 +53,22 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.prntLib = new System.Windows.Forms.TextBox();
-            this.prntObj = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.prntLib = new System.Windows.Forms.TextBox();
+            this.prntObj = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.darkMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // save
@@ -333,54 +335,6 @@
             this.tabPage3.Text = "Spool Listing";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.findACS);
-            this.tabPage4.Controls.Add(this.label8);
-            this.tabPage4.Controls.Add(this.validACS);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(297, 160);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "ILEditor";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(38, 13);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Library";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 44);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 13);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Object";
-            // 
-            // prntLib
-            // 
-            this.prntLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.prntLib.Location = new System.Drawing.Point(175, 19);
-            this.prntLib.MaxLength = 10;
-            this.prntLib.Name = "prntLib";
-            this.prntLib.Size = new System.Drawing.Size(100, 20);
-            this.prntLib.TabIndex = 3;
-            // 
-            // prntObj
-            // 
-            this.prntObj.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.prntObj.Location = new System.Drawing.Point(175, 41);
-            this.prntObj.MaxLength = 10;
-            this.prntObj.Name = "prntObj";
-            this.prntObj.Size = new System.Drawing.Size(100, 20);
-            this.prntObj.TabIndex = 4;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label10);
@@ -404,6 +358,75 @@
             this.label10.TabIndex = 5;
             this.label10.Text = "Will only show spool files for current user";
             // 
+            // prntLib
+            // 
+            this.prntLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.prntLib.Location = new System.Drawing.Point(175, 19);
+            this.prntLib.MaxLength = 10;
+            this.prntLib.Name = "prntLib";
+            this.prntLib.Size = new System.Drawing.Size(100, 20);
+            this.prntLib.TabIndex = 3;
+            // 
+            // prntObj
+            // 
+            this.prntObj.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.prntObj.Location = new System.Drawing.Point(175, 41);
+            this.prntObj.MaxLength = 10;
+            this.prntObj.Name = "prntObj";
+            this.prntObj.Size = new System.Drawing.Size(100, 20);
+            this.prntObj.TabIndex = 4;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Library";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 44);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Object";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.darkMode);
+            this.tabPage4.Controls.Add(this.label13);
+            this.tabPage4.Controls.Add(this.findACS);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.validACS);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(297, 160);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "ILEditor";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 34);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(60, 13);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "Dark Mode";
+            // 
+            // darkMode
+            // 
+            this.darkMode.AutoSize = true;
+            this.darkMode.Location = new System.Drawing.Point(159, 33);
+            this.darkMode.Name = "darkMode";
+            this.darkMode.Size = new System.Drawing.Size(101, 17);
+            this.darkMode.TabIndex = 4;
+            this.darkMode.Text = "Use Dark Mode";
+            this.darkMode.UseVisualStyleBackColor = true;
+            // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,10 +447,10 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -465,5 +488,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox darkMode;
     }
 }

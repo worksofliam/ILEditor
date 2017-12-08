@@ -65,6 +65,7 @@ namespace ILEditor.Forms
             {
                 ConfigPath = Program.SYSTEMSDIR + @"\" + systemlist.SelectedItems[0].Text;
                 IBMi.CurrentSystem = new Config(ConfigPath);
+                IBMi.CurrentSystem.DoSystemDefaults();
                 SystemSelected = true;
                 this.Close();
             }

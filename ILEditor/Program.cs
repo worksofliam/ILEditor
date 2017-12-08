@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.IO;
 using ILEditor.Forms;
 using ILEditor.Classes;
+using System.Deployment.Application;
+using System.Reflection;
 
 namespace ILEditor
 {
@@ -16,8 +18,8 @@ namespace ILEditor
         public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
         public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor\langs\";
 
-        //Files
-        public static readonly string ACSPATH = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor\acspath";
+        //Config
+        public static Config Config;
 
         /// The main entry point for the application.
         /// </summary>
@@ -30,28 +32,36 @@ namespace ILEditor
             HostSelect Selector = new HostSelect();
 
             Application.Run(new Splash());
-            
+
+            Config = new Config(SOURCEDIR + @"\config");
+            Config.DoEditorDefaults();
+
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
-            Directory.CreateDirectory(SYNTAXDIR);
 
-            if (!File.Exists(Program.SYNTAXDIR + "RPG.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
+            if (Config.GetValue("version") != getVersion())
+            {
+                //Update any files due to ILEditor upgrade
+                Directory.Delete(SYNTAXDIR, true);
 
-            if (!File.Exists(Program.SYNTAXDIR + "SQL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
+                Config.SetValue("version", getVersion());
+            }
 
-            if (!File.Exists(Program.SYNTAXDIR + "CPP.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
+            if (!Directory.Exists(SYNTAXDIR))
+            {
+                Directory.CreateDirectory(SYNTAXDIR);
+                File.WriteAllText(Program.SYNTAXDIR + "lightRPG.xml", Properties.Resources.lightRPG);
+                File.WriteAllText(Program.SYNTAXDIR + "lightCPP.xml", Properties.Resources.lightCPP);
+                File.WriteAllText(Program.SYNTAXDIR + "lightCOBOL.xml", Properties.Resources.lightCOBOL);
+                File.WriteAllText(Program.SYNTAXDIR + "lightCL.xml", Properties.Resources.lightCL);
+                File.WriteAllText(Program.SYNTAXDIR + "lightSQL.xml", Properties.Resources.lightSQL);
 
-            if (!File.Exists(Program.SYNTAXDIR + "CL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
-
-            if (!File.Exists(Program.SYNTAXDIR + "COBOL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
-
-            if (!File.Exists(ACSPATH))
-                File.WriteAllText(ACSPATH, "false");
+                File.WriteAllText(Program.SYNTAXDIR + "darkRPG.xml", Properties.Resources.darkRPG);
+                File.WriteAllText(Program.SYNTAXDIR + "darkCPP.xml", Properties.Resources.darkCPP);
+                File.WriteAllText(Program.SYNTAXDIR + "darkCOBOL.xml", Properties.Resources.darkCOBOL);
+                File.WriteAllText(Program.SYNTAXDIR + "darkCL.xml", Properties.Resources.darkCL);
+                File.WriteAllText(Program.SYNTAXDIR + "darkSQL.xml", Properties.Resources.darkSQL);
+            }
 
             Application.Run(Selector);
             if (Selector.SystemSelected)
@@ -64,6 +74,11 @@ namespace ILEditor
 
                 Application.Run(new Editor());
             }
+        }
+
+        static String getVersion()
+        {
+            return System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
         }
     }
 }
