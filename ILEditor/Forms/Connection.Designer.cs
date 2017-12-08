@@ -60,8 +60,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
             this.darkMode = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -139,7 +139,8 @@
             this.selectedFont.Items.AddRange(new object[] {
             "Consolas",
             "Courier New",
-            "Lucida Console"});
+            "Lucida Console",
+            "Lucida Sans Typewriter"});
             this.selectedFont.Location = new System.Drawing.Point(154, 6);
             this.selectedFont.Name = "selectedFont";
             this.selectedFont.Size = new System.Drawing.Size(135, 21);
@@ -408,15 +409,6 @@
             this.tabPage4.Text = "ILEditor";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 34);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(60, 13);
-            this.label13.TabIndex = 3;
-            this.label13.Text = "Dark Mode";
-            // 
             // darkMode
             // 
             this.darkMode.AutoSize = true;
@@ -426,6 +418,15 @@
             this.darkMode.TabIndex = 4;
             this.darkMode.Text = "Use Dark Mode";
             this.darkMode.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 34);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(60, 13);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "Dark Mode";
             // 
             // Connection
             // 

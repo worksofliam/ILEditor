@@ -1,7 +1,7 @@
 ﻿<SyntaxDefinition name="CLLE"
         xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="Fuchsia" />
-  <Color name="String" foreground="Fuchsia" />
+  <Color name="Comment" foreground="#F561E0" />
+  <Color name="String" foreground="#F561E0" />
 
   <!-- This is the main ruleset. -->
   <RuleSet ignoreCase="true">
@@ -18,7 +18,7 @@
     </Span>
 
     <!-- Digits -->
-    <Rule foreground="Blue">
+    <Rule foreground="#0565FA">
       \b0[xX][0-9a-fA-F]+  # hex number
       |    \b
       (    \d+(\.[0-9]+)?   #number with optional floating point
@@ -31,7 +31,7 @@
       (\w+)
     </Rule>
     
-    <Rule foreground="Blue">
+    <Rule foreground="#0565FA">
       \B[\%\&amp;]\w+
     </Rule>
 

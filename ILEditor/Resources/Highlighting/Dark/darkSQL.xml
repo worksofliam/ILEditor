@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <SyntaxDefinition name="sql" extensions=".sql"
                   xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="String" foreground="Fuchsia" exampleText="string text = &quot;Hello, World!&quot;"/>
-  <Color name="String2" foreground="Fuchsia" exampleText="string text = &quot;Hello, World!&quot;"/>
-  <Color name="Comment" foreground="Fuchsia" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="String" foreground="#FF71EC" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="String2" foreground="#FF71EC" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="Comment" foreground="#FF71EC" exampleText="string text = &quot;Hello, World!&quot;"/>
   <Color name="Punctuation" foreground="Orange" exampleText="string text = &quot;Hello, World!&quot;"/>
   <RuleSet  ignoreCase="true">
     <Span color="String" multiline="true" >

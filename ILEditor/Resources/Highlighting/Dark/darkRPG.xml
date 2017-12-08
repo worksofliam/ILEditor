@@ -1,7 +1,7 @@
 ﻿<SyntaxDefinition name="RPGLE"
         xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="#00B700" />
-  <Color name="String" foreground="#00B700" />
+  <Color name="Comment" foreground="#4FB548" />
+  <Color name="String" foreground="#4FB548" />
   <Color name="ESQL" foreground="LightBlue" />
 
   <!-- This is the main ruleset. -->
@@ -35,7 +35,7 @@
       <Word>IND</Word>
     </Keywords>
 
-    <Keywords foreground="#C200FF">
+    <Keywords foreground="#C26DFF">
       <Word>ACQ</Word>
       <Word>ADD</Word>
       <Word>ADDDUR</Word>
@@ -150,7 +150,7 @@
       <Word>Z-SUB</Word>
     </Keywords>
 
-    <Keywords foreground="#EF0000">
+    <Keywords foreground="#ED444A">
       <Word>DCL-S</Word>
       <Word>DCL-C</Word>
       <Word>DCL-DS</Word>
@@ -168,7 +168,7 @@
     </Keywords>
 
     <!-- Digits -->
-    <Rule foreground="Green">
+    <Rule foreground="LightGreen">
       \b0[xX][0-9a-fA-F]+  # hex number
       |    \b
       (    \d+(\.[0-9]+)?   #number with optional floating point
@@ -183,12 +183,12 @@
     </Rule>
     
     <!-- Directives -->
-    <Rule foreground="Blue">
+    <Rule foreground="#5878D8">
       \/\b(free|end-free|copy|include|set|restore|title|define|undefine|eof|if|elseif|else|endif)\b
     </Rule>
 
     <!-- BIFs -->
-    <Rule foreground="#1342DB">
+    <Rule foreground="#5878D8">
       \B\%\w+
     </Rule>
 

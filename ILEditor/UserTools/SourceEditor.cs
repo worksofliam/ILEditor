@@ -21,6 +21,7 @@ using ICSharpCode.AvalonEdit.Search;
 using FindReplace;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
+using System.Windows.Media;
 
 namespace ILEditor.UserTools
 {
@@ -108,7 +109,7 @@ namespace ILEditor.UserTools
 
             if (DarkMode)
             {
-                textEditor.Background = System.Windows.Media.Brushes.Black;
+                textEditor.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#1E1E1E");
                 textEditor.Foreground = System.Windows.Media.Brushes.White;
             }
 

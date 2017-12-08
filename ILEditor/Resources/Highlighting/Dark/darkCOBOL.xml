@@ -7,7 +7,7 @@
     <Span color="Comment" begin="/" />
     <Span color="Comment" begin="\*" />
     
-    <Keywords foreground="DarkBlue">
+    <Keywords foreground="#829BE5">
       <Word>access</Word>
       <Word>acquire</Word>
       <Word>actual</Word>
@@ -523,7 +523,7 @@
       <Word>zeroes</Word>
     </Keywords>
 
-    <Keywords foreground="DarkBlue">
+    <Keywords foreground="#829BE5" fontWeight="bold">
       <Word>accept</Word>
       <Word>add</Word>
       <Word>alter</Word>
@@ -634,7 +634,7 @@
       <Word>write</Word>
     </Keywords>
 
-    <Keywords foreground="Brown">
+    <Keywords foreground="#FFAA3E">
       <Word>configuration</Word>
       <Word>data</Word>
       <Word>declaratives</Word>
@@ -661,7 +661,7 @@
     </Keywords>
 
     <!-- Digits -->
-    <Rule foreground="Red">
+    <Rule foreground="#ED444A">
       \b0[xX][0-9a-fA-F]+  # hex number
       |    \b
       (    \d+(\.[0-9]+)?   #number with optional floating point
