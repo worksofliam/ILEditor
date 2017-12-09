@@ -37,6 +37,7 @@ namespace ILEditor.Forms
 
             validACS.Checked = (Program.Config.GetValue("acspath") != "false");
             darkMode.Checked = (Program.Config.GetValue("darkmode") == "true");
+            toolbarSide.SelectedItem = (Program.Config.GetValue("toolbarSide"));
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -56,7 +57,9 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
             IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);
 
+            //ACS value is handled differently (findACS_Click)
             Program.Config.SetValue("darkmode", darkMode.Checked.ToString().ToLower());
+            Program.Config.SetValue("toolbarSide", toolbarSide.SelectedItem.ToString());
             this.Close();
         }
 

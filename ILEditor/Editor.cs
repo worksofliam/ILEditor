@@ -20,6 +20,9 @@ namespace ILEditor
     {
         public static Editor TheEditor;
 
+        private TabControl editortabs;
+        private TabControl usercontrol;
+
         private Boolean IsSourceTab = false;
         private int RightClickedTab = -1;
 
@@ -28,9 +31,56 @@ namespace ILEditor
             InitializeComponent();
             TheEditor = this;
 
-            editortabs.ImageList = tabImageList;
+            SetUpPanels();
+            
             this.Text += " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             MemberCache.Import();
+        }
+
+        private void SetUpPanels()
+        {
+            this.editortabs = new TabControl();
+            this.usercontrol = new TabControl();
+            editortabs.ImageList = tabImageList;
+
+            // 
+            // editortabs
+            // 
+            this.editortabs.Dock = DockStyle.Fill;
+            this.editortabs.HotTrack = true;
+            this.editortabs.ItemSize = new Size(0, 25);
+            this.editortabs.Location = new Point(0, 0);
+            this.editortabs.Name = "editortabs";
+            this.editortabs.SelectedIndex = 0;
+            this.editortabs.Size = new Size(591, 531);
+            this.editortabs.TabIndex = 0;
+            this.editortabs.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
+
+            // 
+            // usercontrol
+            // 
+            this.usercontrol.Dock = DockStyle.Fill;
+            this.usercontrol.ItemSize = new Size(0, 25);
+            this.usercontrol.Location = new Point(0, 0);
+            this.usercontrol.Name = "usercontrol";
+            this.usercontrol.SelectedIndex = 0;
+            this.usercontrol.Size = new Size(238, 531);
+            this.usercontrol.TabIndex = 0;
+            this.usercontrol.MouseClick += new MouseEventHandler(this.usercontrol_MouseClick);
+
+            string side = Program.Config.GetValue("toolbarSide");
+            if (side == "Right")
+            {
+                this.splitContainer1.Panel1.Controls.Add(editortabs);
+                this.splitContainer1.Panel2.Controls.Add(usercontrol);
+                this.splitContainer1.SplitterDistance = 591;
+            }
+            else
+            {
+                this.splitContainer1.Panel1.Controls.Add(usercontrol);
+                this.splitContainer1.Panel2.Controls.Add(editortabs);
+                this.splitContainer1.SplitterDistance = 166;
+            }
         }
         
         private void Editor_Load(object sender, EventArgs e)
