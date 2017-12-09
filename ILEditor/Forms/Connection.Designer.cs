@@ -73,7 +73,7 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(218, 192);
+            this.save.Location = new System.Drawing.Point(282, 243);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 13;
@@ -101,7 +101,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(154, 58);
+            this.pass.Location = new System.Drawing.Point(218, 58);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -110,7 +110,7 @@
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(154, 32);
+            this.user.Location = new System.Drawing.Point(218, 32);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -127,7 +127,7 @@
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(154, 6);
+            this.host.Location = new System.Drawing.Point(218, 6);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
             this.host.TabIndex = 7;
@@ -141,7 +141,7 @@
             "Courier New",
             "Lucida Console",
             "Lucida Sans Typewriter"});
-            this.selectedFont.Location = new System.Drawing.Point(154, 6);
+            this.selectedFont.Location = new System.Drawing.Point(220, 6);
             this.selectedFont.Name = "selectedFont";
             this.selectedFont.Size = new System.Drawing.Size(135, 21);
             this.selectedFont.TabIndex = 9;
@@ -198,7 +198,7 @@
             this.highlight_line.Items.AddRange(new object[] {
             "true",
             "false"});
-            this.highlight_line.Location = new System.Drawing.Point(154, 110);
+            this.highlight_line.Location = new System.Drawing.Point(220, 110);
             this.highlight_line.Name = "highlight_line";
             this.highlight_line.Size = new System.Drawing.Size(135, 21);
             this.highlight_line.TabIndex = 3;
@@ -210,14 +210,14 @@
             this.show_spaces.Items.AddRange(new object[] {
             "true",
             "false"});
-            this.show_spaces.Location = new System.Drawing.Point(154, 83);
+            this.show_spaces.Location = new System.Drawing.Point(220, 83);
             this.show_spaces.Name = "show_spaces";
             this.show_spaces.Size = new System.Drawing.Size(135, 21);
             this.show_spaces.TabIndex = 2;
             // 
             // indent_size
             // 
-            this.indent_size.Location = new System.Drawing.Point(154, 57);
+            this.indent_size.Location = new System.Drawing.Point(220, 57);
             this.indent_size.Maximum = new decimal(new int[] {
             12,
             0,
@@ -239,7 +239,7 @@
             // 
             // cur_size
             // 
-            this.cur_size.Location = new System.Drawing.Point(154, 32);
+            this.cur_size.Location = new System.Drawing.Point(220, 32);
             this.cur_size.MaxLength = 10;
             this.cur_size.Name = "cur_size";
             this.cur_size.ReadOnly = true;
@@ -248,7 +248,7 @@
             // 
             // findACS
             // 
-            this.findACS.Location = new System.Drawing.Point(214, 6);
+            this.findACS.Location = new System.Drawing.Point(278, 6);
             this.findACS.Name = "findACS";
             this.findACS.Size = new System.Drawing.Size(75, 23);
             this.findACS.TabIndex = 2;
@@ -269,7 +269,7 @@
             // 
             this.validACS.AutoSize = true;
             this.validACS.Enabled = false;
-            this.validACS.Location = new System.Drawing.Point(159, 10);
+            this.validACS.Location = new System.Drawing.Point(223, 10);
             this.validACS.Name = "validACS";
             this.validACS.Size = new System.Drawing.Size(49, 17);
             this.validACS.TabIndex = 0;
@@ -286,7 +286,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(305, 186);
+            this.tabControl1.Size = new System.Drawing.Size(369, 237);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 17;
             // 
@@ -301,7 +301,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(297, 160);
+            this.tabPage1.Size = new System.Drawing.Size(361, 211);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -321,7 +321,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(297, 160);
+            this.tabPage2.Size = new System.Drawing.Size(361, 211);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Editor";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -331,7 +331,7 @@
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(297, 160);
+            this.tabPage3.Size = new System.Drawing.Size(361, 211);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Spool Listing";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -345,7 +345,7 @@
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Location = new System.Drawing.Point(8, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(281, 88);
+            this.groupBox1.Size = new System.Drawing.Size(345, 88);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Queue";
@@ -362,7 +362,7 @@
             // prntLib
             // 
             this.prntLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.prntLib.Location = new System.Drawing.Point(175, 19);
+            this.prntLib.Location = new System.Drawing.Point(239, 19);
             this.prntLib.MaxLength = 10;
             this.prntLib.Name = "prntLib";
             this.prntLib.Size = new System.Drawing.Size(100, 20);
@@ -371,7 +371,7 @@
             // prntObj
             // 
             this.prntObj.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.prntObj.Location = new System.Drawing.Point(175, 41);
+            this.prntObj.Location = new System.Drawing.Point(239, 41);
             this.prntObj.MaxLength = 10;
             this.prntObj.Name = "prntObj";
             this.prntObj.Size = new System.Drawing.Size(100, 20);
@@ -404,7 +404,7 @@
             this.tabPage4.Controls.Add(this.validACS);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(297, 160);
+            this.tabPage4.Size = new System.Drawing.Size(361, 211);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ILEditor";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -412,7 +412,7 @@
             // darkMode
             // 
             this.darkMode.AutoSize = true;
-            this.darkMode.Location = new System.Drawing.Point(159, 33);
+            this.darkMode.Location = new System.Drawing.Point(223, 33);
             this.darkMode.Name = "darkMode";
             this.darkMode.Size = new System.Drawing.Size(101, 17);
             this.darkMode.TabIndex = 4;
@@ -432,7 +432,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 225);
+            this.ClientSize = new System.Drawing.Size(369, 278);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
