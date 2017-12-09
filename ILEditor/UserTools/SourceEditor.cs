@@ -137,10 +137,13 @@ namespace ILEditor.UserTools
         public void GotoLine(int line, int col)
         {
             line++; col++;
-            int pos = textEditor.Document.GetOffset(line, col);
-            textEditor.ScrollToLine(line);
-            textEditor.CaretOffset = pos;
-            textEditor.Focus();
+            if (line > 0)
+            {
+                int pos = textEditor.Document.GetOffset(line, col);
+                textEditor.ScrollToLine(line);
+                textEditor.CaretOffset = pos;
+                textEditor.Focus();
+            }
         }
 
         public void Zoom(float change)
