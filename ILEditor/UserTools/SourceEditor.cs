@@ -77,6 +77,8 @@ namespace ILEditor.UserTools
             //SearchPanel.Install(textEditor);
             SearchReplacePanel.Install(textEditor);
 
+            Classes.AvalonEdit.LineNumberCommandMargin.LineNumberMarginWithCommands.Install(textEditor);
+
             string lang = "";
             bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
 
