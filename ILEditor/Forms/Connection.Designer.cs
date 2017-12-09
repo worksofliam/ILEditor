@@ -348,7 +348,7 @@
             this.groupBox1.Size = new System.Drawing.Size(281, 88);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Printer Queue";
+            this.groupBox1.Text = "Output Queue";
             // 
             // label10
             // 
