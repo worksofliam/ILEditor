@@ -64,6 +64,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -399,6 +400,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label15);
             this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.toolbarSide);
             this.tabPage4.Controls.Add(this.darkMode);
@@ -452,6 +454,15 @@
             this.label14.Size = new System.Drawing.Size(65, 13);
             this.label14.TabIndex = 11;
             this.label14.Text = "Toolbar side";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 186);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(193, 13);
+            this.label15.TabIndex = 12;
+            this.label15.Text = "Some of these settings require a restart.";
             // 
             // Connection
             // 
@@ -518,5 +529,6 @@
         private System.Windows.Forms.CheckBox darkMode;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox toolbarSide;
+        private System.Windows.Forms.Label label15;
     }
 }

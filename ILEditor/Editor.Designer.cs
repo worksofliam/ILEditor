@@ -382,7 +382,7 @@
             // 
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(833, 531);
-            this.splitContainer1.SplitterDistance = 166;
+            this.splitContainer1.SplitterDistance = 450;
             this.splitContainer1.TabIndex = 2;
             // 
             // toolstabrightclick
