@@ -7,7 +7,7 @@
     <ProjectGuid>{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ILEditor</RootNamespace>
-    <AssemblyName>Idle</AssemblyName>
+    <AssemblyName>ILEditor</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,14 +22,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://worksofbarry.com/idle/installer/</InstallUrl>
-    <UpdateUrl>http://worksofbarry.com/idle/installer/</UpdateUrl>
+    <InstallUrl>http://worksofbarry.com/ileditor/installer/</InstallUrl>
+    <UpdateUrl>http://worksofbarry.com/ileditor/installer/</UpdateUrl>
     <TargetCulture>en-GB</TargetCulture>
-    <ProductName>Idle</ProductName>
+    <ProductName>ILEditor</ProductName>
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>46</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -194,6 +194,12 @@
     <Compile Include="Forms\ObjectInformation.Designer.cs">
       <DependentUpon>ObjectInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FileSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileSelect.Designer.cs">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OpenMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +223,12 @@
     </Compile>
     <Compile Include="Forms\QuickMemberSearch.Designer.cs">
       <DependentUpon>QuickMemberSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SaveAs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaveAs.Designer.cs">
+      <DependentUpon>SaveAs.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ServiceGenerator.cs">
       <SubType>Form</SubType>
@@ -373,6 +385,9 @@
     <EmbeddedResource Include="Forms\ObjectInformation.resx">
       <DependentUpon>ObjectInformation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileSelect.resx">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
     </EmbeddedResource>
@@ -381,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\QuickMemberSearch.resx">
       <DependentUpon>QuickMemberSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaveAs.resx">
+      <DependentUpon>SaveAs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ServiceGenerator.resx">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>
@@ -482,15 +500,20 @@
     <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OpenMember.html" />
-    <Content Include="Resources\Highlighting\CL.xml">
+    <Content Include="Resources\Highlighting\Dark\darkCL.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resources\Highlighting\COBOL.xml" />
-    <Content Include="Resources\Highlighting\CPP.xml">
+    <Content Include="Resources\Highlighting\Dark\darkCOBOL.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkCPP.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resources\Highlighting\RPG.xml" />
-    <Content Include="Resources\Highlighting\SQL.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkRPG.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkSQL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCOBOL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCPP.xml" />
+    <None Include="Resources\Highlighting\Light\lightRPG.xml" />
+    <None Include="Resources\Highlighting\Light\lightSQL.xml" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>

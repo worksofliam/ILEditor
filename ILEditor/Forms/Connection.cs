@@ -32,7 +32,11 @@ namespace ILEditor.Forms
             show_spaces.SelectedItem = IBMi.CurrentSystem.GetValue("SHOW_SPACES");
             highlight_line.SelectedItem = IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE");
 
-            validACS.Checked = (File.ReadAllText(Program.ACSPATH) != "false");
+            prntLib.Text = IBMi.CurrentSystem.GetValue("printerLib");
+            prntObj.Text = IBMi.CurrentSystem.GetValue("printerObj");
+
+            validACS.Checked = (Program.Config.GetValue("acspath") != "false");
+            darkMode.Checked = (Program.Config.GetValue("darkmode") == "true");
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -48,6 +52,11 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
             IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.SelectedItem.ToString());
+
+            IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
+            IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);
+
+            Program.Config.SetValue("darkmode", darkMode.Checked.ToString().ToLower());
             this.Close();
         }
 
@@ -60,7 +69,7 @@ namespace ILEditor.Forms
             validACS.Checked = File.Exists(openFile.FileName);
             if (validACS.Checked)
             {
-                File.WriteAllText(Program.ACSPATH, openFile.FileName);
+                Program.Config.SetValue("acspath", openFile.FileName);
             }
         }
     }

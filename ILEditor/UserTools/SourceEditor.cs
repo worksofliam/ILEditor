@@ -19,6 +19,9 @@ using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Search;
 using FindReplace;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using ICSharpCode.AvalonEdit.Highlighting;
+using System.Windows.Media;
 
 namespace ILEditor.UserTools
 {
@@ -55,6 +58,7 @@ namespace ILEditor.UserTools
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
 
             textEditor.TextChanged += TextEditor_TextChanged;
+            textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
 
             textEditor.Options.ConvertTabsToSpaces = true;
             textEditor.Options.EnableTextDragDrop = false;
@@ -74,39 +78,55 @@ namespace ILEditor.UserTools
             SearchReplacePanel.Install(textEditor);
 
             string lang = "";
+            bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
+
+            if (DarkMode)
+                lang += "dark";
+            else
+                lang += "light";
+
             switch (Language)
             {
                 case ILELanguage.RPG:
-                    lang = "RPG.xml";
+                    lang += "RPG";
                     break;
                 case ILELanguage.SQL:
-                    lang = "SQL.xml";
+                    lang += "SQL";
                     break;
                 case ILELanguage.CPP:
-                    lang = "CPP.xml";
+                    lang += "CPP";
                     break;
                 case ILELanguage.CL:
-                    lang = "CL.xml";
+                    lang += "CL";
                     break;
                 case ILELanguage.COBOL:
-                    lang = "COBOL.xml";
+                    lang += "COBOL";
+                    break;
+                case ILELanguage.None:
+                    lang = "";
                     break;
             }
 
-            if (File.Exists(Program.SYNTAXDIR + lang))
+            if (DarkMode)
             {
-                Stream xshd_stream = File.OpenRead(Program.SYNTAXDIR + lang);
-                XmlTextReader xshd_reader = new XmlTextReader(xshd_stream);
-                // Apply the new syntax highlighting definition.
-                textEditor.SyntaxHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.HighlightingLoader.Load(xshd_reader, ICSharpCode.AvalonEdit.Highlighting.HighlightingManager.Instance);
-                xshd_reader.Close();
-                xshd_stream.Close();
+                textEditor.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#1E1E1E");
+                textEditor.Foreground = System.Windows.Media.Brushes.White;
             }
+
+            if (lang != "")
+                using (Stream s = new MemoryStream(Encoding.ASCII.GetBytes(Properties.Resources.ResourceManager.GetString(lang))))
+                    using (XmlTextReader reader = new XmlTextReader(s))
+                        textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
 
             ElementHost host = new ElementHost();
             host.Dock = DockStyle.Fill;
             host.Child = textEditor;
             this.Controls.Add(host);
+        }
+        
+        public void SetReadOnly(bool ReadOnly)
+        {
+            textEditor.IsReadOnly = ReadOnly;
         }
 
         public string GetText()
@@ -139,11 +159,17 @@ namespace ILEditor.UserTools
                 this.Parent.Text += "*";
             }
 
-            DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
-            int col = textEditor.CaretOffset - line.Offset;
-            Editor.TheEditor.SetStatus(line.LineNumber.ToString() + ", " + col.ToString());
+
         }
         
+        private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
+        {
+            DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+            int col = textEditor.CaretOffset - line.Offset;
+            Editor.TheEditor.SetStatus($"Ln: {line.LineNumber}    Col: {col}");
+        }
+
+
         #region RPG
 
         public void ConvertSelectedRPG()

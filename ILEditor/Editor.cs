@@ -81,7 +81,7 @@ namespace ILEditor
         
         private void start5250EmulatorACSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path = File.ReadAllText(Program.ACSPATH);
+            string path = Program.Config.GetValue("acspath");
             if (path == "false")
                 MessageBox.Show("Please setup the ACS path in the Connection Setup.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
@@ -190,6 +190,27 @@ namespace ILEditor
                 }
             }
             new MemberCompareSelect(lib, spf, mbr).ShowDialog();
+        }
+        
+        private void generateSQLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileSelect SelectFile = new FileSelect();
+            SelectFile.ShowDialog();
+
+            if (SelectFile.Success)
+            {
+                new Thread((ThreadStart)delegate {
+                    string resultFile = IBMiUtils.DownloadMember("QTEMP", "Q_GENSQL", "Q_GENSQL", new[] { SelectFile.getCommand() }, "SQL");
+
+                    if (resultFile != "")
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, "QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL", false), GetBoundLangType("SQL"));
+                        });
+                    }
+                }).Start();
+            }
         }
         #endregion
 
@@ -357,6 +378,7 @@ namespace ILEditor
             tabPage.ImageIndex = 0;
             tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
+            srcEdit.SetReadOnly(!MemberInfo.IsEditable());
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
             tabPage.Tag = MemberInfo;
@@ -408,6 +430,48 @@ namespace ILEditor
             }
         }
 
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editortabs.SelectedTab.Tag != null)
+            {
+                if (!editortabs.TabPages[editortabs.SelectedIndex].Text.EndsWith("*"))
+                {
+                    SaveAs SaveAsWindow = new SaveAs();
+                    SaveAsWindow.ShowDialog();
+                    if (SaveAsWindow.Success)
+                    {
+                        Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                        if (!MemberInfo._IsBeingSaved)
+                        {
+                            MemberInfo._IsBeingSaved = true;
+
+                            SetStatus("Saving " + SaveAsWindow.Mbr + "..");
+                            SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                            Thread gothread = new Thread((ThreadStart)delegate
+                            {
+                                bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
+                                if (UploadResult == false)
+                                    MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                                });
+
+                                MemberInfo._IsBeingSaved = false;
+                            });
+
+                            gothread.Start();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must save the source before you can Save-As.");
+                }
+            }
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (editortabs.SelectedTab.Tag != null)
@@ -455,10 +519,10 @@ namespace ILEditor
                     }
 
                 }
-            }
-            else
-            {
-                MessageBox.Show("This file is readonly.");
+                else
+                {
+                    MessageBox.Show("This file is readonly.");
+                }
             }
         }
 

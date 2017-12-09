@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.IO;
 using ILEditor.Forms;
 using ILEditor.Classes;
+using System.Deployment.Application;
+using System.Reflection;
 
 namespace ILEditor
 {
@@ -13,11 +15,10 @@ namespace ILEditor
     {
         //Directories
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
-        public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle";
-        public static readonly string SYNTAXDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\langs\";
+        public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
 
-        //Files
-        public static readonly string ACSPATH = Environment.GetEnvironmentVariable("APPDATA") + @"\idle\acspath";
+        //Config
+        public static Config Config;
 
         /// The main entry point for the application.
         /// </summary>
@@ -30,40 +31,29 @@ namespace ILEditor
             HostSelect Selector = new HostSelect();
 
             Application.Run(new Splash());
-            
+
+            Config = new Config(SOURCEDIR + @"\config");
+            Config.DoEditorDefaults();
+
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
-            Directory.CreateDirectory(SYNTAXDIR);
-
-            if (!File.Exists(Program.SYNTAXDIR + "RPG.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "RPG.xml", Properties.Resources.RPGSyntax);
-
-            if (!File.Exists(Program.SYNTAXDIR + "SQL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "SQL.xml", Properties.Resources.SQLSyntax);
-
-            if (!File.Exists(Program.SYNTAXDIR + "CPP.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "CPP.xml", Properties.Resources.CPPSyntax);
-
-            if (!File.Exists(Program.SYNTAXDIR + "CL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "CL.xml", Properties.Resources.CLSyntax);
-
-            if (!File.Exists(Program.SYNTAXDIR + "COBOL.xml"))
-                File.WriteAllText(Program.SYNTAXDIR + "COBOL.xml", Properties.Resources.COBOLSyntax);
-
-            if (!File.Exists(ACSPATH))
-                File.WriteAllText(ACSPATH, "false");
 
             Application.Run(Selector);
             if (Selector.SystemSelected)
             {
                 if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
                 {
-                    MessageBox.Show("Idle has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     new Connection().ShowDialog();
                 }
 
                 Application.Run(new Editor());
             }
+        }
+
+        static String getVersion()
+        {
+            return System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
         }
     }
 }

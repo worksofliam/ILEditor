@@ -161,13 +161,13 @@ namespace ILEditor.Forms
 
         private void UpdateEnables()
         {
-            Boolean UseIdleLibl = !userLibl.Checked;
+            Boolean UseILEditorLibl = !userLibl.Checked;
 
-            listBox1.Enabled = UseIdleLibl;
-            textBox1.Enabled = UseIdleLibl;
-            textBox2.Enabled = UseIdleLibl;
-            button3.Enabled = UseIdleLibl;
-            button4.Enabled = UseIdleLibl;
+            listBox1.Enabled = UseILEditorLibl;
+            textBox1.Enabled = UseILEditorLibl;
+            textBox2.Enabled = UseILEditorLibl;
+            button3.Enabled = UseILEditorLibl;
+            button4.Enabled = UseILEditorLibl;
         }
 
         private void button4_Click(object sender, EventArgs e)

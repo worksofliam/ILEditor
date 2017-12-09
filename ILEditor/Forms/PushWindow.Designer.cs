@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Deleting remote members", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Creating remote members", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Adding remote members", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Uploading local members", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PushWindow));
             this.label2 = new System.Windows.Forms.Label();
@@ -113,7 +113,7 @@
             // 
             listViewGroup1.Header = "Deleting remote members";
             listViewGroup1.Name = null;
-            listViewGroup2.Header = "Creating remote members";
+            listViewGroup2.Header = "Adding remote members";
             listViewGroup2.Name = null;
             listViewGroup3.Header = "Uploading local members";
             listViewGroup3.Name = null;

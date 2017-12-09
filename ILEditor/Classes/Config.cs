@@ -14,12 +14,6 @@ namespace ILEditor.Classes
         private string ConfigLocation;
         private Dictionary<string, string> Data;
 
-        private void CheckExist(string key, string value)
-        {
-            if (!Data.ContainsKey(key))
-                SetValue(key, value);
-        }
-
         public Config(string Location)
         {
             ConfigLocation = Location;
@@ -48,6 +42,24 @@ namespace ILEditor.Classes
                 }
             }
 
+            SaveConfig();
+        }
+
+        public void CheckExist(string key, string value)
+        {
+            if (!Data.ContainsKey(key))
+                SetValue(key, value);
+        }
+
+        public void DoEditorDefaults()
+        {
+            CheckExist("version", "0");
+            CheckExist("acspath", "false");
+            CheckExist("darkmode", "false");
+        }
+
+        public void DoSystemDefaults()
+        {
             CheckExist("system", "system");
             CheckExist("username", "myuser");
             CheckExist("password", "mypass");
@@ -56,6 +68,9 @@ namespace ILEditor.Classes
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
             CheckExist("useuserlibl", "false");
+
+            CheckExist("printerLib", "");
+            CheckExist("printerObj", "");
 
             CheckExist("TREE_LIST", "");
             CheckExist("FONT", "Consolas");
@@ -90,8 +105,6 @@ namespace ILEditor.Classes
             CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
 
             CheckExist("LIBSAVE", "");
-
-            SaveConfig();
         }
 
         public void SaveConfig()
@@ -127,7 +140,11 @@ namespace ILEditor.Classes
     {
         public static string Encode(string ValuePlain)
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Idle", true);
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("ILEditor", true);
+
+            if (SoftwareKey == null)
+                SoftwareKey = Registry.CurrentUser.CreateSubKey("ILEditor");
+
             byte[] valBytes = Encoding.ASCII.GetBytes(ValuePlain);
 
             // Generate additional entropy (will be used as the Initialization vector)
@@ -150,7 +167,11 @@ namespace ILEditor.Classes
 
         public static string Decode(string ValueBase64)
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Idle", true);
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("ILEditor", true);
+
+            if (SoftwareKey == null)
+                SoftwareKey = Registry.CurrentUser.CreateSubKey("ILEditor");
+
             byte[] entropy = SoftwareKey.GetValue("passkey") as byte[];
 
             if (entropy != null)
