@@ -30,7 +30,7 @@ namespace ILEditor
             
             HostSelect Selector = new HostSelect();
 
-            Application.Run(new Splash());
+            //Application.Run(new Splash());
 
             Config = new Config(SOURCEDIR + @"\config");
             Config.DoEditorDefaults();
