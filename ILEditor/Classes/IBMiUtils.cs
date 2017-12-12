@@ -159,16 +159,15 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
             commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS order by MBNAME) WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/" + Obj + " AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS order by MBNAME) WITH DATA') COMMIT(*NONE)");
 
             Editor.TheEditor.SetStatus("Fetching members for " + Lib + "/" + Obj + "...");
-            string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
+            string file = DownloadMember("QTEMP", Obj, Obj, commands.ToArray());
 
             string Line, Object, Name, Desc, Type, RcdLen;
 
             if (file != "")
             {
-
                 Member NewMember;
                 foreach(string RealLine in File.ReadAllLines(file))
                 {

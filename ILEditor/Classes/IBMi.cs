@@ -12,25 +12,8 @@ namespace ILEditor.Classes
     class IBMi
     {
         public static Config CurrentSystem;
-
-        readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
-        {
-            { "425", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions." },
-            { "426", "Connection closed; transfer aborted." },
-            { "530", "Configuration username and password incorrect." }
-        };
-
-        private static Boolean _NotConnected = false;
-        private static Boolean FTPFirewallIssue = false;
-        private static string _Failed = "";
-
-        private static Boolean _getList = false;
-        private static List<string> _list = new List<string>();
-
-        public static string[] GetListing()
-        {
-            return _list.ToArray();
-        }
+        public static Boolean _NotConnected = false;
+        public static Boolean FTPFirewallIssue = false;
 
         public static Boolean RunCommands(string[] list)
         {
@@ -60,7 +43,9 @@ namespace ILEditor.Classes
             lines.Add("quit");
 
             File.WriteAllLines(tempfile, lines.ToArray());
-            result = RunFTP(tempfile);
+
+            FTPProcess ftp = new FTPProcess();
+            result = ftp.RunFTP(tempfile);
             try
             {
                 File.Delete(tempfile);
@@ -68,16 +53,41 @@ namespace ILEditor.Classes
 
             return result;
         }
+        
+    }
 
-        private static Boolean RunFTP(string FileLoc)
+    class FTPProcess
+    {
+        public FTPProcess()
+        {
+        }
+
+        readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
+        {
+            { "425", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions." },
+            { "426", "Connection closed; transfer aborted." },
+            { "530", "Configuration username and password incorrect." }
+        };
+
+        private string _Failed = "";
+
+        private Boolean _getList = false;
+        private List<string> _list = new List<string>();
+
+        public string[] GetListing()
+        {
+            return _list.ToArray();
+        }
+
+        public Boolean RunFTP(string FileLoc)
         {
             _list.Clear();
-            _NotConnected = false;
+            IBMi._NotConnected = false;
             _Failed = "";
 
             Process process = new Process();
             process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = "/c FTP -n -s:\"" + FileLoc + "\" " + CurrentSystem.GetValue("system");
+            process.StartInfo.Arguments = "/c FTP -n -s:\"" + FileLoc + "\" " + IBMi.CurrentSystem.GetValue("system");
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardOutput = true;
@@ -91,12 +101,12 @@ namespace ILEditor.Classes
             process.BeginErrorReadLine();
             process.WaitForExit();
 
-            if (FTPFirewallIssue)
+            if (IBMi.FTPFirewallIssue)
                 _Failed = "425";
 
-            if (_NotConnected)
+            if (IBMi._NotConnected)
             {
-                MessageBox.Show("Not able to connect to " + CurrentSystem.GetValue("system"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Not able to connect to " + IBMi.CurrentSystem.GetValue("system"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (_Failed != "")
             {
@@ -104,10 +114,10 @@ namespace ILEditor.Classes
                     MessageBox.Show(FTPCodeMessages[_Failed], "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
-            return _Failed != "" || _NotConnected;
+            return _Failed != "" || IBMi._NotConnected;
         }
 
-        private static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
             string code = "";
             if (outLine.Data != null)
@@ -116,7 +126,7 @@ namespace ILEditor.Classes
                 {
                     if (outLine.Data.Trim() == "Not connected.")
                     {
-                        _NotConnected = true;
+                        IBMi._NotConnected = true;
                     }
                     else
                     {
@@ -125,7 +135,7 @@ namespace ILEditor.Classes
                         switch (code)
                         {
                             case "200":
-                                FTPFirewallIssue = true;
+                                IBMi.FTPFirewallIssue = true;
                                 break;
 
                             case "125":
@@ -142,7 +152,7 @@ namespace ILEditor.Classes
                                 //_output.Add("> " + outLine.Data.Substring(4));
                                 break;
                             default:
-                                FTPFirewallIssue = false;
+                                IBMi.FTPFirewallIssue = false;
                                 if (_getList) _list.Add(outLine.Data);
                                 break;
                         }
