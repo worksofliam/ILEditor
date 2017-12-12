@@ -310,9 +310,9 @@ namespace ILEditor
 
         private void compileCurrentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabsleft.SelectedTab.Tag != null)
+            if (LastEditing != null)
             {
-                Member MemberInfo = (Member)editortabsleft.SelectedTab.Tag;
+                Member MemberInfo = (Member)LastEditing.Tag;
                 new Thread((ThreadStart)delegate
                 {
                     IBMiUtils.CompileMember(MemberInfo);
@@ -323,9 +323,9 @@ namespace ILEditor
         private void compileAnyHandle(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
-            if (editortabsleft.SelectedTab.Tag != null)
+            if (LastEditing.Tag != null)
             {
-                Member MemberInfo = (Member)editortabsleft.SelectedTab.Tag;
+                Member MemberInfo = (Member)LastEditing.Tag;
                 new Thread((ThreadStart)delegate
                 {
                     IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
@@ -341,7 +341,7 @@ namespace ILEditor
             List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
             if (editortabsleft.SelectedTab.Tag != null)
             {
-                Member MemberInfo = (Member)editortabsleft.SelectedTab.Tag;
+                Member MemberInfo = (Member)LastEditing.Tag;
                 string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
                 foreach (string Item in Items)
                 {
