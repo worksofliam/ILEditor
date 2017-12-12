@@ -46,7 +46,6 @@ namespace ILEditor
             this.editortabsleft = new TabControlExtra();
             this.editortabsright = new TabControlExtra();
             this.usercontrol = new TabControlExtra();
-            editortabsleft.ImageList = tabImageList;
 
             editortabs.Dock = DockStyle.Fill;
 
@@ -65,6 +64,7 @@ namespace ILEditor
             this.editortabsleft.Name = "editortabsleft";
             this.editortabsleft.SelectedIndex = 0;
             this.editortabsleft.TabIndex = 0;
+            this.editortabsleft.ImageList = tabImageList;
             this.editortabsleft.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
             this.editortabsleft.ControlAdded += Editortabsleft_ControlAdded;
             this.editortabsleft.TabClosed += Editortabsleft_TabClosed;
@@ -84,8 +84,10 @@ namespace ILEditor
             this.editortabsright.Name = "editortabsright";
             this.editortabsright.SelectedIndex = 0;
             this.editortabsright.TabIndex = 0;
+            this.editortabsright.ImageList = tabImageList;
             this.editortabsright.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
             this.editortabsright.ControlAdded += Editortabsleft_ControlAdded;
+            this.editortabsright.TabClosed += Editortabsleft_TabClosed;
 
             // 
             // usercontrol
@@ -574,21 +576,24 @@ namespace ILEditor
         {
             Control fromTabs = sender as Control;
             OpenTab.TAB_SIDE side = OpenTab.TAB_SIDE.None;
+            TabControlExtra Tab = null;
             switch (fromTabs.Name)
             {
                 case "editortabsleft":
                     side = OpenTab.TAB_SIDE.Left;
+                    Tab = editortabsleft;
                     break;
                 case "editortabsright":
                     side = OpenTab.TAB_SIDE.Right;
+                    Tab = editortabsright;
                     break;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                for (int ix = 0; ix < editortabsleft.TabCount; ++ix)
+                for (int ix = 0; ix < Tab.TabCount; ++ix)
                 {
-                    if (editortabsleft.GetTabRect(ix).Contains(e.Location))
+                    if (Tab.GetTabRect(ix).Contains(e.Location))
                     {
                         RightClickedTab = new OpenTab(side, ix);
                         toolstabrightclick.Show(Cursor.Position);
