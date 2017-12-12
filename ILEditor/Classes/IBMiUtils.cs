@@ -263,7 +263,7 @@ namespace ILEditor.Classes
             if (command.Trim() != "")
             {
                 if (TrueCmd != "") command = TrueCmd;
-                Editor.TheEditor.SetStatus("Compiling with " + command + "...");
+                Editor.TheEditor.SetStatus("Compiling " + MemberInfo.GetMember() + " with " + command + "...");
                 command = IBMi.CurrentSystem.GetValue(command);
                 if (command.Trim() != "")
                 {
