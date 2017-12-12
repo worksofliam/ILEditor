@@ -20,8 +20,8 @@ namespace ILEditor
     {
         public static Editor TheEditor;
 
-        private TabControl editortabs;
-        private TabControl usercontrol;
+        private TabControlExtra editortabs;
+        private TabControlExtra usercontrol;
 
         private Boolean IsSourceTab = false;
         private int RightClickedTab = -1;
@@ -39,32 +39,41 @@ namespace ILEditor
 
         private void SetUpPanels()
         {
-            this.editortabs = new TabControl();
-            this.usercontrol = new TabControl();
+            this.editortabs = new TabControlExtra();
+            this.usercontrol = new TabControlExtra();
             editortabs.ImageList = tabImageList;
 
             // 
             // editortabs
             // 
+            this.editortabs.DisplayStyleProvider.TabColorSelected1 = Color.White;
+            this.editortabs.DisplayStyleProvider.TabColorUnSelected1 = Color.White;
+            this.editortabs.DisplayStyleProvider.TabColorFocused1 = Color.White;
+
+            this.editortabs.DisplayStyleProvider.CloserColorSelectedActive = Color.Black;
+            this.editortabs.DisplayStyleProvider.ShowTabCloser = true;
+            this.editortabs.DisplayStyleProvider.HotTrack = true;
             this.editortabs.Dock = DockStyle.Fill;
-            this.editortabs.HotTrack = true;
-            this.editortabs.ItemSize = new Size(0, 25);
-            this.editortabs.Location = new Point(0, 0);
+            this.editortabs.ItemSize = new Size(0, 20);
             this.editortabs.Name = "editortabs";
             this.editortabs.SelectedIndex = 0;
-            this.editortabs.Size = new Size(591, 531);
             this.editortabs.TabIndex = 0;
             this.editortabs.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
 
             // 
             // usercontrol
             // 
+            this.usercontrol.DisplayStyleProvider.TabColorSelected1 = Color.White;
+            this.usercontrol.DisplayStyleProvider.TabColorUnSelected1 = Color.White;
+            this.usercontrol.DisplayStyleProvider.TabColorFocused1 = Color.White;
+
+            this.usercontrol.DisplayStyleProvider.CloserColorSelectedActive = Color.Black;
+            this.usercontrol.DisplayStyleProvider.ShowTabCloser = true;
+            this.usercontrol.DisplayStyleProvider.HotTrack = true;
             this.usercontrol.Dock = DockStyle.Fill;
-            this.usercontrol.ItemSize = new Size(0, 25);
-            this.usercontrol.Location = new Point(0, 0);
+            this.usercontrol.ItemSize = new Size(0, 20);
             this.usercontrol.Name = "usercontrol";
             this.usercontrol.SelectedIndex = 0;
-            this.usercontrol.Size = new Size(238, 531);
             this.usercontrol.TabIndex = 0;
             this.usercontrol.MouseClick += new MouseEventHandler(this.usercontrol_MouseClick);
 
