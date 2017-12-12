@@ -658,20 +658,14 @@ namespace ILEditor
         
         private void zoomInButton_Click(object sender, EventArgs e)
         {
-            if (editortabsleft.SelectedTab.Tag != null)
-            {
-                SourceEditor sourceCode = (SourceEditor)editortabsleft.SelectedTab.Controls[0];
-                sourceCode.Zoom(+1f);
-            }
+            if (LastEditing != null)
+                LastEditing.Zoom(+1f);
         }
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
-            if (editortabsleft.SelectedTab.Tag != null)
-            {
-                SourceEditor sourceCode = (SourceEditor)editortabsleft.SelectedTab.Controls[0];
-                sourceCode.Zoom(-1f);
-            }
+            if (LastEditing != null)
+                LastEditing.Zoom(-1f);
         }
         #endregion
         
