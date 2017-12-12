@@ -20,11 +20,14 @@ namespace ILEditor
     {
         public static Editor TheEditor;
 
-        private TabControlExtra editortabs;
-        private TabControlExtra usercontrol;
+        public SourceEditor LastEditing;
 
-        private Boolean IsSourceTab = false;
-        private int RightClickedTab = -1;
+        private TabControlExtra editortabsleft;
+        private TabControlExtra editortabsright;
+        private TabControlExtra usercontrol;
+        private SplitContainer editortabs;
+
+        private OpenTab RightClickedTab = null;
 
         public Editor()
         {
@@ -39,26 +42,50 @@ namespace ILEditor
 
         private void SetUpPanels()
         {
-            this.editortabs = new TabControlExtra();
+            editortabs = new SplitContainer();
+            this.editortabsleft = new TabControlExtra();
+            this.editortabsright = new TabControlExtra();
             this.usercontrol = new TabControlExtra();
-            editortabs.ImageList = tabImageList;
+            editortabsleft.ImageList = tabImageList;
+
+            editortabs.Dock = DockStyle.Fill;
 
             // 
-            // editortabs
+            // editortabsleft
             // 
-            this.editortabs.DisplayStyleProvider.TabColorSelected1 = Color.White;
-            this.editortabs.DisplayStyleProvider.TabColorUnSelected1 = Color.White;
-            this.editortabs.DisplayStyleProvider.TabColorFocused1 = Color.White;
+            this.editortabsleft.DisplayStyleProvider.TabColorSelected1 = Color.White;
+            this.editortabsleft.DisplayStyleProvider.TabColorUnSelected1 = Color.White;
+            this.editortabsleft.DisplayStyleProvider.TabColorFocused1 = Color.White;
 
-            this.editortabs.DisplayStyleProvider.CloserColorSelectedActive = Color.Black;
-            this.editortabs.DisplayStyleProvider.ShowTabCloser = true;
-            this.editortabs.DisplayStyleProvider.HotTrack = true;
-            this.editortabs.Dock = DockStyle.Fill;
-            this.editortabs.ItemSize = new Size(0, 20);
-            this.editortabs.Name = "editortabs";
-            this.editortabs.SelectedIndex = 0;
-            this.editortabs.TabIndex = 0;
-            this.editortabs.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
+            this.editortabsleft.DisplayStyleProvider.CloserColorSelectedActive = Color.Black;
+            this.editortabsleft.DisplayStyleProvider.ShowTabCloser = true;
+            this.editortabsleft.DisplayStyleProvider.HotTrack = true;
+            this.editortabsleft.Dock = DockStyle.Fill;
+            this.editortabsleft.ItemSize = new Size(0, 20);
+            this.editortabsleft.Name = "editortabsleft";
+            this.editortabsleft.SelectedIndex = 0;
+            this.editortabsleft.TabIndex = 0;
+            this.editortabsleft.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
+            this.editortabsleft.ControlAdded += Editortabsleft_ControlAdded;
+            this.editortabsleft.TabClosed += Editortabsleft_TabClosed;
+
+            // 
+            // editortabsright
+            // 
+            this.editortabsright.DisplayStyleProvider.TabColorSelected1 = Color.White;
+            this.editortabsright.DisplayStyleProvider.TabColorUnSelected1 = Color.White;
+            this.editortabsright.DisplayStyleProvider.TabColorFocused1 = Color.White;
+
+            this.editortabsright.DisplayStyleProvider.CloserColorSelectedActive = Color.Black;
+            this.editortabsright.DisplayStyleProvider.ShowTabCloser = true;
+            this.editortabsright.DisplayStyleProvider.HotTrack = true;
+            this.editortabsright.Dock = DockStyle.Fill;
+            this.editortabsright.ItemSize = new Size(0, 20);
+            this.editortabsright.Name = "editortabsright";
+            this.editortabsright.SelectedIndex = 0;
+            this.editortabsright.TabIndex = 0;
+            this.editortabsright.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
+            this.editortabsright.ControlAdded += Editortabsleft_ControlAdded;
 
             // 
             // usercontrol
@@ -75,7 +102,10 @@ namespace ILEditor
             this.usercontrol.Name = "usercontrol";
             this.usercontrol.SelectedIndex = 0;
             this.usercontrol.TabIndex = 0;
-            this.usercontrol.MouseClick += new MouseEventHandler(this.usercontrol_MouseClick);
+
+            editortabs.Panel1.Controls.Add(editortabsleft);
+            editortabs.Panel2.Controls.Add(editortabsright);
+            editortabs.Panel2Collapsed = true;
 
             string side = Program.Config.GetValue("toolbarSide");
             if (side == "Right")
@@ -91,7 +121,17 @@ namespace ILEditor
                 this.splitContainer1.SplitterDistance = 166;
             }
         }
-        
+
+        private void Editortabsleft_TabClosed(object sender, TabControlEventArgs e)
+        {
+            FixEditorSplitters();
+        }
+
+        private void Editortabsleft_ControlAdded(object sender, ControlEventArgs e)
+        {
+            FixEditorSplitters();
+        }
+
         private void Editor_Load(object sender, EventArgs e)
         {
             AddTool("Toolbox", new UserToolList());
@@ -106,7 +146,7 @@ namespace ILEditor
             WelcomeScrn.BringToFront();
             WelcomeScrn.Dock = DockStyle.Fill;
             tabPage.Controls.Add(WelcomeScrn);
-            editortabs.TabPages.Add(tabPage);
+            editortabsleft.TabPages.Add(tabPage);
         }
 
         #region MemberInfo
@@ -178,34 +218,28 @@ namespace ILEditor
         
         private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedIndex >= 0)
+            if (this.LastEditing.Tag != null)
             {
-                if (editortabs.SelectedTab.Tag != null)
+                Member MemberInfo = (Member)this.LastEditing.Tag;
+                ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
+                if (Language == ILELanguage.RPG)
                 {
-                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                    ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
-                    if (Language == ILELanguage.RPG)
-                    {
-                        SetStatus("Converting RPG in " + MemberInfo.GetMember());
-                        GetTabEditor(editortabs.SelectedIndex).ConvertSelectedRPG();
-                    }
+                    SetStatus("Converting RPG in " + MemberInfo.GetMember());
+                    LastEditing.ConvertSelectedRPG();
                 }
             }
         }
         
         private void cLFormatterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedIndex >= 0)
+            if (this.LastEditing.Tag != null)
             {
-                if (editortabs.SelectedTab.Tag != null)
+                Member MemberInfo = (Member)this.LastEditing.Tag;
+                ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
+                if (Language == ILELanguage.CL)
                 {
-                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                    ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
-                    if (Language == ILELanguage.CL)
-                    {
-                        SetStatus("Formatting CL in " + MemberInfo.GetMember());
-                        GetTabEditor(editortabs.SelectedIndex).FormatCL();
-                    }
+                    SetStatus("Formatting CL in " + MemberInfo.GetMember());
+                    LastEditing.FormatCL();
                 }
             }
         }
@@ -238,15 +272,12 @@ namespace ILEditor
         private void compareMembersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string lib = "", spf = "", mbr = "";
-            if (editortabs.SelectedIndex >= 0)
+            if (this.LastEditing.Tag != null)
             {
-                if (editortabs.SelectedTab.Tag != null)
-                {
-                    Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                    lib = MemberInfo.GetLibrary();
-                    spf = MemberInfo.GetObject();
-                    mbr = MemberInfo.GetMember();
-                }
+                Member MemberInfo = (Member)this.LastEditing.Tag;
+                lib = MemberInfo.GetLibrary();
+                spf = MemberInfo.GetObject();
+                mbr = MemberInfo.GetMember();
             }
             new MemberCompareSelect(lib, spf, mbr).ShowDialog();
         }
@@ -277,9 +308,9 @@ namespace ILEditor
 
         private void compileCurrentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabsleft.SelectedTab.Tag != null)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                Member MemberInfo = (Member)editortabsleft.SelectedTab.Tag;
                 new Thread((ThreadStart)delegate
                 {
                     IBMiUtils.CompileMember(MemberInfo);
@@ -290,9 +321,9 @@ namespace ILEditor
         private void compileAnyHandle(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabsleft.SelectedTab.Tag != null)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                Member MemberInfo = (Member)editortabsleft.SelectedTab.Tag;
                 new Thread((ThreadStart)delegate
                 {
                     IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
@@ -302,13 +333,13 @@ namespace ILEditor
 
         private void compileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab == null) return;
+            if (editortabsleft.SelectedTab == null) return;
 
             otherForTypeToolStripMenuItem.DropDownItems.Clear();
             List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabsleft.SelectedTab.Tag != null)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
+                Member MemberInfo = (Member)editortabsleft.SelectedTab.Tag;
                 string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
                 foreach (string Item in Items)
                 {
@@ -326,72 +357,79 @@ namespace ILEditor
         #region Editor
         public TabPage GetCurrentTab()
         {
-            return editortabs.SelectedTab;
+            return editortabsleft.SelectedTab;
         }
 
-        public int EditorContains(string Page)
+        public OpenTab EditorContains(string Page)
         {
-            for (int i = 0; i < editortabs.TabPages.Count; i++)
+            OpenTab result = null;
+
+            for (int i = 0; i < editortabsleft.TabPages.Count; i++)
             {
-                if (editortabs.TabPages[i].Text.StartsWith(Page))
-                    return i;
+                if (editortabsleft.TabPages[i].Text.StartsWith(Page))
+                    result = new OpenTab(OpenTab.TAB_SIDE.Left, i);
             }
 
-            return -1;
+            for (int i = 0; i < editortabsright.TabPages.Count; i++)
+            {
+                if (editortabsleft.TabPages[i].Text.StartsWith(Page))
+                    result = new OpenTab(OpenTab.TAB_SIDE.Left, i);
+            }
+
+            return result;
         }
 
-        public void SwitchToTab(int index)
+        public void SwitchToTab(OpenTab.TAB_SIDE side, int index)
         {
-            editortabs.SelectTab(index);
+            switch (side)
+            {
+                case OpenTab.TAB_SIDE.Left:
+                    editortabsleft.SelectTab(index);
+                    break;
+                case OpenTab.TAB_SIDE.Right:
+                    editortabsright.SelectTab(index);
+                    break;
+            }
         }
 
-        public SourceEditor GetTabEditor(int index)
+        public SourceEditor GetTabEditor(OpenTab Tab)
         {
-            if (editortabs.TabPages[index].Tag != null)
+            switch (Tab.getSide())
             {
-                return (SourceEditor)editortabs.TabPages[index].Controls[0];
+                case OpenTab.TAB_SIDE.Left:
+                    return (SourceEditor)editortabsleft.TabPages[Tab.getIndex()].Controls[0];
+                case OpenTab.TAB_SIDE.Right:
+                    return (SourceEditor)editortabsright.TabPages[Tab.getIndex()].Controls[0];
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public static void OpenMember(Member member)
         {
             string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
-            int TabIndex = TheEditor.EditorContains(TabText);
-            if (TabIndex == -1)
-            {
-                Thread gothread = new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
+            Thread gothread = new Thread((ThreadStart)delegate {
+                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
 
-                    if (resultFile != "")
+                if (resultFile != "")
+                {
+                    member._Local = resultFile;
+                    TheEditor.Invoke((MethodInvoker)delegate
                     {
-                        member._Local = resultFile;
-                        TheEditor.Invoke((MethodInvoker)delegate
-                        {
-                            TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
-                        });
-                    }
-                    else
-                    {
-                        MessageBox.Show("Unable to download member " + member.GetLibrary() + "/" + member.GetObject() + "." + member.GetMember() + ". Please check it exists and that you have access to the remote system.");
-                    }
+                        TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Unable to download member " + member.GetLibrary() + "/" + member.GetObject() + "." + member.GetMember() + ". Please check it exists and that you have access to the remote system.");
+                }
 
-                });
-                gothread.Start();
-            }
-            else
-            {
-                TheEditor.SwitchToTab(TabIndex);
-            }
+            });
+            gothread.Start();
         }
 
         public void AddSpoolFile(string pageName, string Local)
         {
             pageName += " Spool";
-            int currentTab = EditorContains(pageName);
 
             TabPage tabPage = new TabPage(pageName);
             tabPage.ImageIndex = 2;
@@ -399,19 +437,29 @@ namespace ILEditor
             SpoolFile.BringToFront();
             SpoolFile.Dock = DockStyle.Fill;
             tabPage.Controls.Add(SpoolFile);
-            editortabs.TabPages.Add(tabPage);
+            editortabsleft.TabPages.Add(tabPage);
 
-            SwitchToTab(editortabs.TabPages.Count - 1);
+            SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
         }
 
         public void AddBindingList(string Lib, string Obj)
         {
             string pageName = Lib + "/" + Obj + " Binding Directory";
-            int currentTab = EditorContains(pageName);
+            OpenTab currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
-            if (currentTab >= 0)
-                editortabs.TabPages.RemoveAt(currentTab);
+            if (currentTab != null)
+            {
+                switch (currentTab.getSide())
+                {
+                    case OpenTab.TAB_SIDE.Left:
+                        editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                        break;
+                    case OpenTab.TAB_SIDE.Right:
+                        editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                        break;
+                }
+            }
 
             TabPage tabPage = new TabPage(pageName);
             tabPage.ImageIndex = 1;
@@ -419,19 +467,48 @@ namespace ILEditor
             bnddirlist.BringToFront();
             bnddirlist.Dock = DockStyle.Fill;
             tabPage.Controls.Add(bnddirlist);
-            editortabs.TabPages.Add(tabPage);
+            editortabsleft.TabPages.Add(tabPage);
 
-            SwitchToTab(editortabs.TabPages.Count - 1);
+            SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
+        }
+        
+        private void moveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switch (RightClickedTab.getSide())
+            {
+                case OpenTab.TAB_SIDE.Left:
+                    editortabsright.TabPages.Add(editortabsleft.TabPages[RightClickedTab.getIndex()]);
+                    break;
+                case OpenTab.TAB_SIDE.Right:
+                    editortabsleft.TabPages.Add(editortabsright.TabPages[RightClickedTab.getIndex()]);
+                    break;
+            }
+        }
+
+        public void FixEditorSplitters()
+        {
+            editortabs.Panel1Collapsed = (editortabsleft.TabPages.Count == 0);
+            editortabs.Panel2Collapsed = (editortabsright.TabPages.Count == 0);
         }
 
         private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
-            int currentTab = EditorContains(pageName);
+            OpenTab currentTab = EditorContains(pageName);
 
             //Close tab if it already exists.
-            if (currentTab >= 0)
-                editortabs.TabPages.RemoveAt(currentTab);
+            if (currentTab != null)
+            {
+                switch (currentTab.getSide())
+                {
+                    case OpenTab.TAB_SIDE.Left:
+                        editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                        break;
+                    case OpenTab.TAB_SIDE.Right:
+                        editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                        break;
+                }
+            }
 
             TabPage tabPage = new TabPage(pageName);
             tabPage.ImageIndex = 0;
@@ -440,11 +517,13 @@ namespace ILEditor
             srcEdit.SetReadOnly(!MemberInfo.IsEditable());
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
+            srcEdit.Tag = MemberInfo;
+
             tabPage.Tag = MemberInfo;
             tabPage.Controls.Add(srcEdit);
-            editortabs.TabPages.Add(tabPage);
+            editortabsleft.TabPages.Add(tabPage);
 
-            SwitchToTab(editortabs.TabPages.Count - 1);
+            SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
         }
         
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)
@@ -454,7 +533,8 @@ namespace ILEditor
             if (newMemberForm.created)
             {
                 new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, null, newMemberForm._type);
+
+                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, null, (newMemberForm._type == "*NONE" ? "" : newMemberForm._type));
 
                     if (resultFile != "")
                     {
@@ -473,128 +553,44 @@ namespace ILEditor
         {
             new OpenMember().ShowDialog();
         }
-        
-        private void closeMemberToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (editortabs.SelectedIndex >= 0)
-            {
-                if (editortabs.TabPages[editortabs.SelectedIndex].Text.EndsWith("*"))
-                {
-                    MessageBox.Show("Cannot close this member because there are unsaved changes.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    editortabs.TabPages.RemoveAt(editortabs.SelectedIndex);
-                }
-            }
-        }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (this.LastEditing != null)
             {
-                if (!editortabs.TabPages[editortabs.SelectedIndex].Text.EndsWith("*"))
-                {
-                    SaveAs SaveAsWindow = new SaveAs();
-                    SaveAsWindow.ShowDialog();
-                    if (SaveAsWindow.Success)
-                    {
-                        Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                        if (!MemberInfo._IsBeingSaved)
-                        {
-                            MemberInfo._IsBeingSaved = true;
-
-                            SetStatus("Saving " + SaveAsWindow.Mbr + "..");
-                            SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
-                            Thread gothread = new Thread((ThreadStart)delegate
-                            {
-                                bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
-                                if (UploadResult == false)
-                                    MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
-
-                                this.Invoke((MethodInvoker)delegate
-                                {
-                                    SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
-                                });
-
-                                MemberInfo._IsBeingSaved = false;
-                            });
-
-                            gothread.Start();
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("You must save the source before you can Save-As.");
-                }
+                this.LastEditing.SaveAs();
             }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (this.LastEditing != null)
             {
-                Member MemberInfo = (Member)editortabs.SelectedTab.Tag;
-                if (MemberInfo.IsEditable())
-                {
-                    if (!MemberInfo._IsBeingSaved)
-                    {
-                        MemberInfo._IsBeingSaved = true;
-
-                        SetStatus("Saving " + MemberInfo.GetMember() + "..");
-                        SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
-                        Thread gothread = new Thread((ThreadStart)delegate
-                        {
-
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                File.WriteAllText(MemberInfo.GetLocalFile(), sourceCode.GetText());
-                            });
-                            bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
-                            if (UploadResult == false)
-                            {
-                                MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
-                            }
-                            else
-                            {
-
-                                this.Invoke((MethodInvoker)delegate
-                                {
-                                    if (editortabs.SelectedTab.Text.EndsWith("*"))
-                                        editortabs.SelectedTab.Text = editortabs.SelectedTab.Text.Substring(0, editortabs.SelectedTab.Text.Length - 1);
-                                });
-                            }
-
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
-                            });
-                            
-                            MemberInfo._IsBeingSaved = false;
-                        });
-
-                        gothread.Start();
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("This file is readonly.");
-                }
+                this.LastEditing.Save();
             }
         }
 
         private void editortabs_MouseClick(object sender, MouseEventArgs e)
         {
+            Control fromTabs = sender as Control;
+            OpenTab.TAB_SIDE side = OpenTab.TAB_SIDE.None;
+            switch (fromTabs.Name)
+            {
+                case "editortabsleft":
+                    side = OpenTab.TAB_SIDE.Left;
+                    break;
+                case "editortabsright":
+                    side = OpenTab.TAB_SIDE.Right;
+                    break;
+            }
+
             if (e.Button == MouseButtons.Right)
             {
-                for (int ix = 0; ix < editortabs.TabCount; ++ix)
+                for (int ix = 0; ix < editortabsleft.TabCount; ++ix)
                 {
-                    if (editortabs.GetTabRect(ix).Contains(e.Location))
+                    if (editortabsleft.GetTabRect(ix).Contains(e.Location))
                     {
-                        RightClickedTab = ix;
-                        IsSourceTab = true;
+                        RightClickedTab = new OpenTab(side, ix);
                         toolstabrightclick.Show(Cursor.Position);
                         break;
                     }
@@ -632,23 +628,6 @@ namespace ILEditor
                 usercontrol.SelectedIndex = usercontrol.TabPages.Count - 1;
             });
         }
-
-        private void usercontrol_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                for (int ix = 0; ix < usercontrol.TabCount; ++ix)
-                {
-                    if (usercontrol.GetTabRect(ix).Contains(e.Location))
-                    {
-                        RightClickedTab = ix;
-                        IsSourceTab = false;
-                        toolstabrightclick.Show(Cursor.Position);
-                        break;
-                    }
-                }
-            }
-        }
         #endregion
 
         #region Toolbar
@@ -674,31 +653,23 @@ namespace ILEditor
         
         private void zoomInButton_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabsleft.SelectedTab.Tag != null)
             {
-                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                SourceEditor sourceCode = (SourceEditor)editortabsleft.SelectedTab.Controls[0];
                 sourceCode.Zoom(+1f);
             }
         }
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
-            if (editortabs.SelectedTab.Tag != null)
+            if (editortabsleft.SelectedTab.Tag != null)
             {
-                SourceEditor sourceCode = (SourceEditor)editortabs.SelectedTab.Controls[0];
+                SourceEditor sourceCode = (SourceEditor)editortabsleft.SelectedTab.Controls[0];
                 sourceCode.Zoom(-1f);
             }
         }
         #endregion
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (IsSourceTab)
-                editortabs.TabPages.RemoveAt(RightClickedTab);
-            else
-                usercontrol.TabPages.RemoveAt(RightClickedTab);
-        }
-
+        
         public void SetStatus(string Text)
         {
             statusLabel.Text = Text;
@@ -713,5 +684,24 @@ namespace ILEditor
         {
             MemberCache.Export();
         }
+    }
+
+    public class OpenTab
+    {
+        public enum TAB_SIDE
+        {
+            None, Left, Right
+        }
+
+        private TAB_SIDE _Side;
+        private int _Index;
+        public OpenTab(TAB_SIDE side, int tabindex)
+        {
+            this._Side = side;
+            this._Index = tabindex;
+        }
+
+        public TAB_SIDE getSide() => this._Side;
+        public int getIndex() => this._Index;
     }
 }

@@ -22,6 +22,7 @@ using FindReplace;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
 using System.Windows.Media;
+using ILEditor.Forms;
 
 namespace ILEditor.UserTools
 {
@@ -59,6 +60,7 @@ namespace ILEditor.UserTools
 
             textEditor.TextChanged += TextEditor_TextChanged;
             textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
+            textEditor.GotFocus += TextEditor_GotFocus;
 
             textEditor.Options.ConvertTabsToSpaces = true;
             textEditor.Options.EnableTextDragDrop = false;
@@ -123,7 +125,7 @@ namespace ILEditor.UserTools
             host.Child = textEditor;
             this.Controls.Add(host);
         }
-        
+
         public void SetReadOnly(bool ReadOnly)
         {
             textEditor.IsReadOnly = ReadOnly;
@@ -155,14 +157,17 @@ namespace ILEditor.UserTools
             }
         }
 
+        private Control GetParent()
+        {
+            return this.Parent;
+        }
+
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
-            if (!this.Parent.Text.EndsWith("*"))
+            if (!GetParent().Text.EndsWith("*"))
             {
-                this.Parent.Text += "*";
+                GetParent().Text += "*";
             }
-
-
         }
         
         private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
@@ -172,6 +177,98 @@ namespace ILEditor.UserTools
             Editor.TheEditor.SetStatus($"Ln: {line.LineNumber}    Col: {col}");
         }
 
+        private void TextEditor_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Editor.TheEditor.LastEditing = this;
+        }
+
+        public void SaveAs()
+        {
+            if (!GetParent().Text.EndsWith("*"))
+            {
+                SaveAs SaveAsWindow = new SaveAs();
+                SaveAsWindow.ShowDialog();
+                if (SaveAsWindow.Success)
+                {
+                    Member MemberInfo = (Member)this.Tag;
+                    if (!MemberInfo._IsBeingSaved)
+                    {
+                        MemberInfo._IsBeingSaved = true;
+
+                        Editor.TheEditor.SetStatus("Saving " + SaveAsWindow.Mbr + "..");
+                        Thread gothread = new Thread((ThreadStart)delegate
+                        {
+                            bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
+                            if (UploadResult == false)
+                                MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                Editor.TheEditor.SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                            });
+
+                            MemberInfo._IsBeingSaved = false;
+                        });
+
+                        gothread.Start();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("You must save the source before you can Save-As.");
+            }
+        }
+
+        public void Save()
+        {
+            Member MemberInfo = (Member)this.Tag;
+            if (MemberInfo.IsEditable())
+            {
+                if (!MemberInfo._IsBeingSaved)
+                {
+                    MemberInfo._IsBeingSaved = true;
+
+                    Editor.TheEditor.SetStatus("Saving " + MemberInfo.GetMember() + "..");
+                    Thread gothread = new Thread((ThreadStart)delegate
+                    {
+
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText());
+                        });
+                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
+                        if (UploadResult == false)
+                        {
+                            MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
+                        }
+                        else
+                        {
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                if (GetParent().Text.EndsWith("*"))
+                                    GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
+                            });
+                        }
+
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            Editor.TheEditor.SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
+                        });
+
+                        MemberInfo._IsBeingSaved = false;
+                    });
+
+                    gothread.Start();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("This file is readonly.");
+            }
+        }
 
         #region RPG
 
