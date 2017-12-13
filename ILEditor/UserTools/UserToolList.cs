@@ -60,7 +60,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
                         break;
                     default:
-                        Plugins.GetPlugin(Option).OnPluginSelected();
+                        Editor.TheEditor.AddControl(Plugins.GetPlugin(Option).OnPluginSelected());
                         break;
                 }
             }

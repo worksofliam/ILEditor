@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ILEditorPlugin;
+using System.Windows.Forms;
 
 namespace ILEditor.Classes
 {
@@ -53,6 +54,20 @@ namespace ILEditor.Classes
         public static IPlugin GetPlugin(string Name)
         {
             return Plugins.PluginList.Where(p => p.Name == Name).FirstOrDefault();
+        }
+
+        public static UserControl OnMemberOpening(string Lib, string Spf, string Mbr, string Ext)
+        {
+            UserControl result = null;
+
+            foreach (IPlugin Plugin in Plugins.PluginList)
+            {
+                result = Plugin.OnMemberOpening(Lib, Spf, Mbr, Ext);
+                if (result != null)
+                    return result;
+            }
+
+            return null;
         }
     }
 }

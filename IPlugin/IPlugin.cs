@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Forms;
 
 namespace ILEditorPlugin
 {
@@ -12,6 +8,7 @@ namespace ILEditorPlugin
         string DisplayName { get; }
 
         bool IsTool { get; }
-        void OnPluginSelected();
+        UserControl OnPluginSelected();
+        UserControl OnMemberOpening(string Lib, string Spf, string Mbr, string Ext);
     }
 }
