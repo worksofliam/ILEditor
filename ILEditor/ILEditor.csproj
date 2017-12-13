@@ -109,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AutoCompleteData.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml.cs">
+      <DependentUpon>LineNumberDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplayModel.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberMarginAdorner.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberMarginWithCommands.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\DiffMatchPatch.cs" />
@@ -122,6 +128,7 @@
     <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
+    <Compile Include="Classes\WPFHelpers\ViewModelBase.cs" />
     <Compile Include="Forms\CloneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -517,6 +524,10 @@
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
