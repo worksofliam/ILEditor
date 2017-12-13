@@ -19,6 +19,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         {
             this.listView = new LineNumbersListView();
             this.listView.Width = lineNumberDisplaySize.Width; // constrain width
+            this.AddVisualChild(this.listView); // this has to be there for events and interaction to work
             marginElement.LineNumbersChangedDelayedEvent += MarginElement_LineNumbersChangedDelayedEvent;
             marginElement.MaxLineNumberLengthChanged += MarginElement_MaxLineNumberLengthChanged;
 
