@@ -20,6 +20,10 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             this.listView = new LineNumbersListView();
             this.listView.Width = lineNumberDisplaySize.Width; // constrain width
             this.AddVisualChild(this.listView); // this has to be there for events and interaction to work
+            // update the adorner layer
+            AdornerLayer.GetAdornerLayer(marginElement).Update();
+
+            // setup events that we will need to use to modify our list of line numbers
             marginElement.LineNumbersChangedDelayedEvent += MarginElement_LineNumbersChangedDelayedEvent;
             marginElement.MaxLineNumberLengthChanged += MarginElement_MaxLineNumberLengthChanged;
 
@@ -47,8 +51,8 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                     });
                 }
 
-                // update the adorner layer
-                AdornerLayer.GetAdornerLayer(margin).Update();
+                
+                
             }
         }
 
