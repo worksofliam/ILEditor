@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ILEditor.Classes;
-using ILEditorPlugin;
 
 namespace ILEditor.UserTools
 {
@@ -19,24 +17,12 @@ namespace ILEditor.UserTools
             InitializeComponent();
         }
 
-        private void UserToolList_Load(object sender, EventArgs e)
-        {
-            ListViewItem PluginItem;
-            foreach(IPlugin Plugin in Plugins.GetTools())
-            {
-                PluginItem = new ListViewItem(Plugin.DisplayName, 8);
-                PluginItem.Tag = Plugin.Name;
-                toollist.Items.Add(PluginItem);
-            }
-        }
-
         private void toollist_DoubleClick(object sender, EventArgs e)
         {
             if (toollist.SelectedItems.Count == 1)
             {
                 ListViewItem selection = toollist.SelectedItems[0];
-                string Option = (String)selection.Tag;
-                switch (Option)
+                switch ((String)selection.Tag)
                 {
                     case "MBR":
                         Editor.TheEditor.AddTool("Member Browse", new MemberBrowse());
@@ -58,9 +44,6 @@ namespace ILEditor.UserTools
                         break;
                     case "SPL":
                         Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
-                        break;
-                    default:
-                        Editor.TheEditor.AddControl(Plugins.GetPlugin(Option).OnPluginSelected());
                         break;
                 }
             }

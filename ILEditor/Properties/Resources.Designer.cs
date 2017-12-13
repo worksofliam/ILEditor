@@ -140,8 +140,8 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;CLLE&quot;
         ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;#F561E0&quot; /&gt;
-        ///  &lt;Color name=&quot;String&quot; foreground=&quot;#F561E0&quot; /&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
         ///
         ///  &lt;!-- This is the main ruleset. --&gt;
         ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
@@ -154,7 +154,8 @@ namespace ILEditor.Properties {
         ///
         ///    &lt;Span color=&quot;Comment&quot; multiline=&quot;true&quot;&gt;
         ///      &lt;Begin&gt;/\*&lt;/Begin&gt;
-        ///      &lt;End&gt;\*/&lt;/End [rest of string was truncated]&quot;;.
+        ///      &lt;End&gt;\*/&lt;/End&gt;
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkCL {
             get {
@@ -172,7 +173,7 @@ namespace ILEditor.Properties {
         ///    &lt;Span color=&quot;Comment&quot; begin=&quot;/&quot; /&gt;
         ///    &lt;Span color=&quot;Comment&quot; begin=&quot;\*&quot; /&gt;
         ///    
-        ///    &lt;Keywords foreground=&quot;#829BE5&quot;&gt;
+        ///    &lt;Keywords foreground=&quot;DarkBlue&quot;&gt;
         ///      &lt;Word&gt;access&lt;/Word&gt;
         ///      &lt;Word&gt;acquire&lt;/Word&gt;
         ///      &lt;Word&gt;actual&lt;/Word&gt;
@@ -180,7 +181,7 @@ namespace ILEditor.Properties {
         ///      &lt;Word&gt;advancing&lt;/Word&gt;
         ///      &lt;Word&gt;after&lt;/Word&gt;
         ///      &lt;Word&gt;all&lt;/Word&gt;
-        ///      &lt;W [rest of string was truncated]&quot;;.
+        ///      &lt; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkCOBOL {
             get {
@@ -195,9 +196,9 @@ namespace ILEditor.Properties {
         ///&lt;SyntaxDefinition name=&quot;C++&quot; extensions=&quot;.c;.h;.cc;.cpp;.hpp&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
         ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
         ///	&lt;Color name=&quot;Character&quot; foreground=&quot;Fuchsia&quot; /&gt;
-        ///	&lt;Color name=&quot;String&quot; foreground=&quot;LightGreen&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;Fuchsia&quot; /&gt;
         ///	&lt;Color name=&quot;Preprocessor&quot; foreground=&quot;Green&quot; /&gt;
-        ///	&lt;Color name=&quot;Punc [rest of string was truncated]&quot;;.
+        ///	&lt;Color name=&quot;Punctua [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkCPP {
             get {
@@ -208,9 +209,9 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
         ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;#4FB548&quot; /&gt;
-        ///  &lt;Color name=&quot;String&quot; foreground=&quot;#4FB548&quot; /&gt;
-        ///  &lt;Color name=&quot;ESQL&quot; foreground=&quot;LightBlue&quot; /&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;ESQL&quot; foreground=&quot;Blue&quot; /&gt;
         ///
         ///  &lt;!-- This is the main ruleset. --&gt;
         ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
@@ -222,7 +223,7 @@ namespace ILEditor.Properties {
         ///      &lt;End&gt;&apos;&lt;/End&gt;
         ///    &lt;/Span&gt;
         ///    
-        ///    &lt;Spa [rest of string was truncated]&quot;;.
+        ///    &lt;Span color=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkRPG {
             get {
@@ -234,10 +235,10 @@ namespace ILEditor.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;SyntaxDefinition name=&quot;sql&quot; extensions=&quot;.sql&quot;
         ///                  xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///  &lt;Color name=&quot;String&quot; foreground=&quot;#FF71EC&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
-        ///  &lt;Color name=&quot;String2&quot; foreground=&quot;#FF71EC&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
-        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;#FF71EC&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
-        ///  &lt;Color name=&quot;Punctuation&quot; foreground=&quot;Orange&quot; ex [rest of string was truncated]&quot;;.
+        ///  &lt;Color name=&quot;String&quot; foreground=&quot;Olive&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;String2&quot; foreground=&quot;#993&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;string text = &amp;quot;Hello, World!&amp;quot;&quot;/&gt;
+        ///  &lt;Color name=&quot;Punctuation&quot; foreground=&quot;Red&quot; exampleText= [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkSQL {
             get {
