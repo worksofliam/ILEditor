@@ -7,11 +7,11 @@
              mc:Ignorable="d" 
              x:Name="meListView"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ListView ItemsSource="{Binding Path=LineNumbers, ElementName=meListView}">
-        <ListView.ItemTemplate>
+    <ItemsControl ItemsSource="{Binding Path=LineNumbers, ElementName=meListView}">
+        <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <local:LineNumberDisplay Model="{Binding}" />
             </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>
