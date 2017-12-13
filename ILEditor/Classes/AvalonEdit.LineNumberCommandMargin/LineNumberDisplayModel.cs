@@ -15,13 +15,6 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             set { this.SetValue(() => this.LineNumber, value); }
         }
 
-
-        public bool IsCommandMode
-        {
-            get { return this.GetValue(() => this.IsCommandMode); }
-            set { this.SetValue(() => this.IsCommandMode, value); }
-        }
-
         public string CommandText
         {
             get { return this.GetValue(() => this.CommandText); }

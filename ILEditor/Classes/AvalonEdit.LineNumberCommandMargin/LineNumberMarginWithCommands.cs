@@ -70,24 +70,30 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         }
 
 
-        Typeface typeface;
-        double emSize;
+        private int previousMaxLineNumberLength = -1;
+        private System.Windows.Size previousLineNumberDisplaySize; // only change this when line number length changes
 
+
+        private static System.Windows.Size recalculateLineNumberDisplayControlSize(int maxLineNumberLength,
+                                                                            System.Windows.Size availableSize)
+        {
+            var lineNumberDisplayExampleCtrl = new LineNumberDisplay();
+            lineNumberDisplayExampleCtrl.Model.LineNumber = Convert.ToInt32(new string('9', maxLineNumberLength));
+            lineNumberDisplayExampleCtrl.Measure(availableSize);
+            availableSize.Width = 1;
+            lineNumberDisplayExampleCtrl.Arrange(new Rect(availableSize));
+
+            return lineNumberDisplayExampleCtrl.RenderSize;
+        }
 
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
         {
-            typeface = this.CreateTypeface();
-            emSize = (double)GetValue(TextBlock.FontSizeProperty);
+            if( this.maxLineNumberLength != this.previousMaxLineNumberLength)
+            {
+                this.previousLineNumberDisplaySize = recalculateLineNumberDisplayControlSize(this.maxLineNumberLength, availableSize);
+            }
 
-            FormattedText text = new FormattedText(
-                new string('9', maxLineNumberLength),
-                System.Globalization.CultureInfo.CurrentCulture,
-                FlowDirection.LeftToRight,
-                typeface,
-                emSize,
-                (Brush)GetValue(Control.ForegroundProperty)
-            );
-            return new Size(text.Width, 0);
+            return new Size(this.previousLineNumberDisplaySize.Width, 0);
         }
 
 
@@ -110,7 +116,6 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            //lineNumbersChangedDelayTimer.Stop(); // if we have ticks going then stop it because we've rendered line numbers again
             this.uiLineInfoList.Clear();
             TextView textView = this.TextView;
             Size renderSize = this.RenderSize;
@@ -124,17 +129,8 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                     info.uiYPos = line.VisualTop - textView.VerticalOffset;
 
 
-                    FormattedText text = new FormattedText(
-                        info.Number.ToString(CultureInfo.CurrentCulture),
-                        CultureInfo.CurrentCulture,
-                        FlowDirection.LeftToRight,
-                        typeface, emSize, foreground
-                    );
-
                     info.uiTotalAvailableWidth = renderSize.Width;
-                    info.uiXPos = renderSize.Width - text.Width;
-
-                    //drawingContext.DrawText(text, new Point(info.uiXPos,info.uiYPos));
+                    info.uiXPos = 0;
 
                     this.uiLineInfoList.Add(info);
                 }
