@@ -17,16 +17,6 @@ using System.Windows.Data;
 
 namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 {
-    public static class Extensions
-    {
-        public static Typeface CreateTypeface(this FrameworkElement fe)
-        {
-            return new Typeface((FontFamily)fe.GetValue(TextBlock.FontFamilyProperty),
-                                (FontStyle)fe.GetValue(TextBlock.FontStyleProperty),
-                                (FontWeight)fe.GetValue(TextBlock.FontWeightProperty),
-                                (FontStretch)fe.GetValue(TextBlock.FontStretchProperty));
-        }
-    }
 
     // idea from: http://community.icsharpcode.net/forums/t/11706.aspx
     public class LineNumberMarginWithCommands : LineNumberMargin
@@ -38,7 +28,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
             me.Loaded += (_sender, args) =>
             {
-                var adorner1 = new LineNumberMarginAdorner(me);
+                var adorner1 = new LineNumberMarginAdorner(me, me.previousLineNumberDisplaySize);
                 // it's got to be displayed before adorning I think
                 // adorn it
                 AdornerLayer.GetAdornerLayer(me).Add(adorner1);
@@ -75,36 +65,47 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
 
         private static System.Windows.Size recalculateLineNumberDisplayControlSize(int maxLineNumberLength,
+                                                                            double lineHeight,
                                                                             System.Windows.Size availableSize)
         {
             var lineNumberDisplayExampleCtrl = new LineNumberDisplay();
+            lineNumberDisplayExampleCtrl.Model = new LineNumberDisplayModel();
+            lineNumberDisplayExampleCtrl.Model.ControlHeight = lineHeight;
             lineNumberDisplayExampleCtrl.Model.LineNumber = Convert.ToInt32(new string('9', maxLineNumberLength));
+            
             lineNumberDisplayExampleCtrl.Measure(availableSize);
             availableSize.Width = 1;
             lineNumberDisplayExampleCtrl.Arrange(new Rect(availableSize));
 
-            return lineNumberDisplayExampleCtrl.RenderSize;
+            return new System.Windows.Size(lineNumberDisplayExampleCtrl.ActualWidth, lineHeight);
         }
 
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
         {
             if( this.maxLineNumberLength != this.previousMaxLineNumberLength)
             {
-                this.previousLineNumberDisplaySize = recalculateLineNumberDisplayControlSize(this.maxLineNumberLength, availableSize);
+                double lineHeight = 1;
+                if(this.TextView != null && this.TextView.VisualLinesValid)
+                {
+                    lineHeight = this.TextView.VisualLines.First().Height;
+                }
+
+                this.previousLineNumberDisplaySize = recalculateLineNumberDisplayControlSize(this.maxLineNumberLength, lineHeight, availableSize);
+
+                if( this.MaxLineNumberLengthChanged != null)
+                {
+                    this.MaxLineNumberLengthChanged(this, new MaxLineNumberLengthChangedEventArgs
+                    {
+                        NewSize = this.previousLineNumberDisplaySize
+                    });
+                }
             }
 
             return new Size(this.previousLineNumberDisplaySize.Width, 0);
         }
 
 
-        public class LineInfo
-        {
-            public int Number { get; set; }
-            public double uiXPos { get; set; }
-            public double uiYPos { get; set; }
 
-            public double uiTotalAvailableWidth { get; set; }
-        }
 
         public List<LineInfo> uiLineInfoList { get; set; } = new List<LineInfo>();
 
@@ -114,23 +115,25 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
 
 
+        public event Action<object, MaxLineNumberLengthChangedEventArgs> MaxLineNumberLengthChanged;
+
+
+
         protected override void OnRender(DrawingContext drawingContext)
         {
             this.uiLineInfoList.Clear();
             TextView textView = this.TextView;
-            Size renderSize = this.RenderSize;
             if (textView != null && textView.VisualLinesValid)
             {
-                var foreground = (Brush)GetValue(Control.ForegroundProperty);
                 foreach (VisualLine line in textView.VisualLines)
                 {
                     var info = new LineInfo();
                     info.Number = line.FirstDocumentLine.LineNumber;
+                    /*
                     info.uiYPos = line.VisualTop - textView.VerticalOffset;
-
-
-                    info.uiTotalAvailableWidth = renderSize.Width;
                     info.uiXPos = 0;
+                    */
+                    info.RenderSize = previousLineNumberDisplaySize;
 
                     this.uiLineInfoList.Add(info);
                 }

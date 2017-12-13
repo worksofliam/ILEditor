@@ -37,8 +37,8 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         {
             InitializeComponent();
 
-            this.Model = new LineNumberDisplayModel();
-            this.Model.LineNumber = 99;
+            //this.Model = new LineNumberDisplayModel();
+            //this.Model.LineNumber = 99;
         }
 
 

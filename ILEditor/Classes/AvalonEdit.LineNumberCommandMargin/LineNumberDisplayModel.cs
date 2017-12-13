@@ -21,7 +21,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             set { this.SetValue(() => this.CommandText, value); }
         }
 
-
+        // each line number is a specific height
+        public double ControlHeight
+        {
+            get { return this.GetValue(() => this.ControlHeight); }
+            set { this.SetValue(() => this.ControlHeight, value); }
+        }
 
     }
 }

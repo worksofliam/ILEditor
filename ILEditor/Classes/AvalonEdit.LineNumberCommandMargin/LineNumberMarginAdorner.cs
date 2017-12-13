@@ -13,56 +13,37 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
     public class LineNumberMarginAdorner : Adorner
     {
 
-        public LineNumberMarginAdorner(LineNumberMarginWithCommands marginElement)
+        public LineNumberMarginAdorner(LineNumberMarginWithCommands marginElement,
+                                    System.Windows.Size lineNumberDisplaySize)
             : base(marginElement)
         {
+            this.listView = new LineNumbersListView();
+            this.listView.Width = lineNumberDisplaySize.Width; // constrain width
             marginElement.LineNumbersChangedDelayedEvent += MarginElement_LineNumbersChangedDelayedEvent;
+            marginElement.MaxLineNumberLengthChanged += MarginElement_MaxLineNumberLengthChanged;
 
         }
 
-        public class LineNumberDisplayControlInfo
+        private void MarginElement_MaxLineNumberLengthChanged(object sender, MaxLineNumberLengthChangedEventArgs args)
         {
-            public LineNumberMarginWithCommands.LineInfo LineInfo { get; set; }
-            public LineNumberDisplay Control { get; set; }
+            // width of list needs to change
+            this.listView.Width = args.NewSize.Width;
         }
 
-        private List<LineNumberDisplayControlInfo> Controls = new List<LineNumberDisplayControlInfo>();
-        private List<Visual> visualChildTracker = new List<Visual>();
-
-        private void ClearVisualChilds()
-        {
-            foreach (var _child in this.visualChildTracker.ToList())
-            {
-                this.visualChildTracker.Remove(_child);
-                this.RemoveVisualChild(_child);
-            }
-        }
-
-        private void AddVisualChildWithTracking(Visual _child)
-        {
-            this.AddVisualChild(_child);
-            this.visualChildTracker.Add(_child);
-        }
 
         private void MarginElement_LineNumbersChangedDelayedEvent(object sendor, EventArgs args)
         {
-            this.Controls.Clear();
-            this.ClearVisualChilds();
+            this.listView.LineNumbers.Clear();
             var margin = sendor as LineNumberMarginWithCommands;
             if (margin != null && margin.uiLineInfoList != null)
             {
                 foreach (var info in margin.uiLineInfoList)
                 {
-                    var ctrl = new LineNumberDisplayControlInfo
+                    this.listView.LineNumbers.Add(new LineNumberDisplayModel
                     {
-                        LineInfo = info
-                    };
-
-                    ctrl.Control = new LineNumberDisplay();
-                    ctrl.Control.Model.LineNumber = ctrl.LineInfo.Number;
-
-                    this.Controls.Add(ctrl);
-                    this.AddVisualChildWithTracking(ctrl.Control);
+                        LineNumber = info.Number,
+                        ControlHeight = info.RenderSize.Height
+                    });
                 }
 
                 // update the adorner layer
@@ -71,66 +52,36 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         }
 
 
+        private LineNumbersListView listView;
+
 
 
         protected override int VisualChildrenCount
         {
             get
             {
-                if (this.Controls.Any())
-                {
-                    return this.Controls.Count;
-                }
-                else
-                {
-                    return 0;
-                }
+                return 1;
             }
         }
 
         protected override Visual GetVisualChild(int index)
         {
-            return this.Controls[index].Control;
+            if (index != 0) throw new ArgumentOutOfRangeException();
+            return listView;
         }
 
 
         protected override Size MeasureOverride(Size constraint)
         {
-            if (this.Controls.Any())
-            {
-                var last = this.Controls.Last();
-                foreach (var ctrl in this.Controls)
-                {
-                    ctrl.Control.Measure(constraint);
-                }
-                return last.Control.DesiredSize;
-            }
-            else
-            {
-                return new Size(0, 0);
-            }
+            listView.Measure(constraint);
+            return listView.DesiredSize;
         }
 
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-
-            if (this.Controls.Any())
-            {
-                var last = this.Controls.Last();
-
-                foreach (var ctrl in this.Controls)
-                {
-                    ctrl.Control.Arrange(new Rect(new Point(0, ctrl.LineInfo.uiYPos), finalSize));
-                }
-
-                return new Size(last.Control.ActualWidth, last.Control.ActualHeight);
-            }
-            else
-            {
-                return new Size(0, 0);
-            }
-
+            listView.Arrange(new Rect(new Point(0, 0), finalSize));
+            return new Size(listView.ActualWidth, listView.ActualHeight);
         }
 
     }

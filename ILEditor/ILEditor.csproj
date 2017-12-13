@@ -109,12 +109,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AutoCompleteData.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineInfo.cs" />
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml.cs">
       <DependentUpon>LineNumberDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplayModel.cs" />
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberMarginAdorner.cs" />
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberMarginWithCommands.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumbersListView.xaml.cs">
+      <DependentUpon>LineNumbersListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\MaxLineNumberLengthChangedEventArgs.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\DiffMatchPatch.cs" />
@@ -527,6 +532,10 @@
     <Page Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumbersListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
