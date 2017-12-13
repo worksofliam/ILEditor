@@ -28,6 +28,8 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             marginElement.LineNumbersChangedDelayedEvent += MarginElement_LineNumbersChangedDelayedEvent;
             marginElement.MaxLineNumberLengthChanged += MarginElement_MaxLineNumberLengthChanged;
 
+            // need to initially populate line numbers that are already there
+            populateLineNumbers(marginElement.uiLineInfoList, this.listView.LineNumbers);
         }
 
         private void MarginElement_MaxLineNumberLengthChanged(object sender, MaxLineNumberLengthChangedEventArgs args)
