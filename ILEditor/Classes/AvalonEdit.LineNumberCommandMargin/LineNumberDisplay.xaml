@@ -7,6 +7,18 @@
              mc:Ignorable="d" 
              x:Name="lineNumberDisplayCtl"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Model.IsInView, ElementName=lineNumberDisplayCtl}" Value="false">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Model.IsInView, ElementName=lineNumberDisplayCtl}" Value="true">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
     <DockPanel Height="{Binding Path=Model.ControlHeight, Mode=TwoWay, ElementName=lineNumberDisplayCtl}">
         <TextBox DockPanel.Dock="Left"
                  MinWidth="25"

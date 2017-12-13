@@ -28,5 +28,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             set { this.SetValue(() => this.ControlHeight, value); }
         }
 
+
+        public bool IsInView
+        {
+            get { return this.GetValue(() => this.IsInView); }
+            set { this.SetValue(() => this.IsInView, value); }
+        }
+
     }
 }

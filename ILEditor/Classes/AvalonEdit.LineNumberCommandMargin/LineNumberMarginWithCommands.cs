@@ -71,6 +71,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             var lineNumberDisplayExampleCtrl = new LineNumberDisplay();
             lineNumberDisplayExampleCtrl.Model = new LineNumberDisplayModel();
             lineNumberDisplayExampleCtrl.Model.ControlHeight = lineHeight;
+            lineNumberDisplayExampleCtrl.Model.IsInView = true;
             lineNumberDisplayExampleCtrl.Model.LineNumber = Convert.ToInt32(new string('9', maxLineNumberLength));
             
             lineNumberDisplayExampleCtrl.Measure(availableSize);

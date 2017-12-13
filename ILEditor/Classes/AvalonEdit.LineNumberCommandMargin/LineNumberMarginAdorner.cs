@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,24 +37,50 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         }
 
 
+        private void populateLineNumbers(List<LineInfo> textLineInfoList,
+                                        ObservableCollection<LineNumberDisplayModel> visualLines)
+        {
+            // determine what needs to be created and what needs hidden
+            var nonExistantTextLines = from t in textLineInfoList
+                                       where !visualLines.Any(v => v.LineNumber == t.Number)
+                                       select t;
+
+            var visualsToHide = from v in visualLines
+                                where !textLineInfoList.Any(t => t.Number == v.LineNumber)
+                                select v;
+
+            var visualsToShow = from v in visualLines
+                                where textLineInfoList.Any(t => t.Number == v.LineNumber)
+                                select v;
+
+            // create 
+            foreach( var t in nonExistantTextLines)
+            {
+                visualLines.Add(new LineNumberDisplayModel
+                {
+                    IsInView = true,
+                    LineNumber = t.Number,
+                    ControlHeight = t.RenderSize.Height
+                });
+            }
+
+            // hide
+            foreach( var v in visualsToHide)
+            {
+                v.IsInView = false;
+            }
+
+            // show
+            foreach(var v in visualsToShow)
+            {
+                v.IsInView = true;
+            }
+        }
+
         private void MarginElement_LineNumbersChangedDelayedEvent(object sendor, EventArgs args)
         {
-            this.listView.LineNumbers.Clear();
             var margin = sendor as LineNumberMarginWithCommands;
-            if (margin != null && margin.uiLineInfoList != null)
-            {
-                foreach (var info in margin.uiLineInfoList)
-                {
-                    this.listView.LineNumbers.Add(new LineNumberDisplayModel
-                    {
-                        LineNumber = info.Number,
-                        ControlHeight = info.RenderSize.Height
-                    });
-                }
-
-                
-                
-            }
+            populateLineNumbers(margin.uiLineInfoList, this.listView.LineNumbers);
         }
 
 
