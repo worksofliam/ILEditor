@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ILEditor</RootNamespace>
     <AssemblyName>ILEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>ftp://ftp.worksofbarry.com/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -118,6 +119,7 @@
     <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
+    <Compile Include="Classes\Plugins.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\Member.cs" />
@@ -515,6 +517,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IPlugin\IPlugin.csproj">
+      <Project>{bcf99621-47de-4fc1-886e-597f8397d99e}</Project>
+      <Name>IPlugin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

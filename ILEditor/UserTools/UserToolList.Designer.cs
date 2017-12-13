@@ -44,6 +44,7 @@
             // toollist
             // 
             this.toollist.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.toollist.AutoArrange = false;
             this.toollist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toollist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             listViewItem1.Tag = "MBR";
@@ -83,6 +84,7 @@
             this.imageList1.Images.SetKeyName(5, "application_view_list.png");
             this.imageList1.Images.SetKeyName(6, "world.png");
             this.imageList1.Images.SetKeyName(7, "page.png");
+            this.imageList1.Images.SetKeyName(8, "bricks.png");
             // 
             // UserToolList
             // 
@@ -91,6 +93,7 @@
             this.Controls.Add(this.toollist);
             this.Name = "UserToolList";
             this.Size = new System.Drawing.Size(345, 334);
+            this.Load += new System.EventHandler(this.UserToolList_Load);
             this.ResumeLayout(false);
 
         }

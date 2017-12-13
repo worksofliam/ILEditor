@@ -493,39 +493,78 @@ namespace ILEditor
             editortabs.Panel2Collapsed = (editortabsright.TabPages.Count == 0);
         }
 
+        public void AddControl(UserControl Window)
+        {
+            if (Window != null)
+            {
+                string pageName = Window.Name;
+                OpenTab currentTab = EditorContains(pageName);
+
+                //Close tab if it already exists.
+                if (currentTab != null)
+                {
+                    switch (currentTab.getSide())
+                    {
+                        case OpenTab.TAB_SIDE.Left:
+                            editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                        case OpenTab.TAB_SIDE.Right:
+                            editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                    }
+                }
+
+                TabPage tabPage = new TabPage(pageName);
+                tabPage.ImageIndex = -1;
+                tabPage.Controls.Add(Window);
+                Window.Dock = DockStyle.Fill;
+
+                editortabsleft.TabPages.Add(tabPage);
+
+                SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
+            }
+        }
+
         private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
-            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
-            OpenTab currentTab = EditorContains(pageName);
-
-            //Close tab if it already exists.
-            if (currentTab != null)
+            UserControl PluginControl = Plugins.OnMemberOpening(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember(), MemberInfo.GetExtension());
+            if (PluginControl == null)
             {
-                switch (currentTab.getSide())
+                string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+                OpenTab currentTab = EditorContains(pageName);
+
+                //Close tab if it already exists.
+                if (currentTab != null)
                 {
-                    case OpenTab.TAB_SIDE.Left:
-                        editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
-                        break;
-                    case OpenTab.TAB_SIDE.Right:
-                        editortabsright.TabPages.RemoveAt(currentTab.getIndex());
-                        break;
+                    switch (currentTab.getSide())
+                    {
+                        case OpenTab.TAB_SIDE.Left:
+                            editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                        case OpenTab.TAB_SIDE.Right:
+                            editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                    }
                 }
+
+                TabPage tabPage = new TabPage(pageName);
+                tabPage.ImageIndex = 0;
+                tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+                SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
+                srcEdit.SetReadOnly(!MemberInfo.IsEditable());
+                srcEdit.BringToFront();
+                srcEdit.Dock = DockStyle.Fill;
+                srcEdit.Tag = MemberInfo;
+
+                tabPage.Controls.Add(srcEdit);
+                editortabsleft.TabPages.Add(tabPage);
+
+                SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
             }
-
-            TabPage tabPage = new TabPage(pageName);
-            tabPage.ImageIndex = 0;
-            tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
-            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
-            srcEdit.SetReadOnly(!MemberInfo.IsEditable());
-            srcEdit.BringToFront();
-            srcEdit.Dock = DockStyle.Fill;
-            srcEdit.Tag = MemberInfo;
-
-            tabPage.Tag = MemberInfo;
-            tabPage.Controls.Add(srcEdit);
-            editortabsleft.TabPages.Add(tabPage);
-
-            SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
+            else
+            {
+                AddControl(PluginControl);
+            }
         }
         
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)

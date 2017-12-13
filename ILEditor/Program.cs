@@ -15,6 +15,7 @@ namespace ILEditor
     {
         //Directories
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
+        public static readonly string PLUGINSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor\plugins";
         public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
         public static readonly string CONFIGDIR = SOURCEDIR + @"\config";
 
@@ -34,6 +35,7 @@ namespace ILEditor
             //Application.Run(new Splash());
 
             Directory.CreateDirectory(SYSTEMSDIR);
+            Directory.CreateDirectory(PLUGINSDIR);
             Directory.CreateDirectory(SOURCEDIR);
 
             Config = new Config(CONFIGDIR);
@@ -42,6 +44,8 @@ namespace ILEditor
             Application.Run(Selector);
             if (Selector.SystemSelected)
             {
+                Plugins.LoadPlugins(PLUGINSDIR);
+
                 if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
                 {
                     MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
