@@ -118,21 +118,41 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         public event Action<object, MaxLineNumberLengthChangedEventArgs> MaxLineNumberLengthChanged;
 
 
+        private bool doWeNeedToRedoLineNumberDisplay(IReadOnlyCollection<VisualLine> visualLines,
+                                                       List<LineInfo> linesDisplayed)
+        {
+            var firstVisual = visualLines.FirstOrDefault();
+            var lastVisual = visualLines.LastOrDefault();
+
+            var firstLine = linesDisplayed.FirstOrDefault();
+            var lastLine = linesDisplayed.LastOrDefault();
+
+            if(firstVisual?.FirstDocumentLine?.LineNumber == firstLine?.Number
+                && lastVisual?.FirstDocumentLine?.LineNumber == lastLine?.Number
+                )
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            this.uiLineInfoList.Clear();
+            
             TextView textView = this.TextView;
-            if (textView != null && textView.VisualLinesValid)
+            if (textView != null 
+                && textView.VisualLinesValid
+                && doWeNeedToRedoLineNumberDisplay(textView.VisualLines, this.uiLineInfoList)
+                )
             {
+
+                // repopulate the ui list
+                this.uiLineInfoList.Clear();
                 foreach (VisualLine line in textView.VisualLines)
                 {
                     var info = new LineInfo();
                     info.Number = line.FirstDocumentLine.LineNumber;
-                    /*
-                    info.uiYPos = line.VisualTop - textView.VerticalOffset;
-                    info.uiXPos = 0;
-                    */
                     info.RenderSize = previousLineNumberDisplaySize;
 
                     this.uiLineInfoList.Add(info);
