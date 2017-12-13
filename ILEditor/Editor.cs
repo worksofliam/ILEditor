@@ -520,8 +520,7 @@ namespace ILEditor
             srcEdit.BringToFront();
             srcEdit.Dock = DockStyle.Fill;
             srcEdit.Tag = MemberInfo;
-
-            tabPage.Tag = MemberInfo;
+            
             tabPage.Controls.Add(srcEdit);
             editortabsleft.TabPages.Add(tabPage);
 

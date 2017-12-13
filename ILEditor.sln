@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILEditor", "ILEditor\ILEditor.csproj", "{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPlugin", "IPlugin\IPlugin.csproj", "{BCF99621-47DE-4FC1-886E-597F8397D99E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCF99621-47DE-4FC1-886E-597F8397D99E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCF99621-47DE-4FC1-886E-597F8397D99E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCF99621-47DE-4FC1-886E-597F8397D99E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCF99621-47DE-4FC1-886E-597F8397D99E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
