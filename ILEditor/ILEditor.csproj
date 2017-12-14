@@ -519,9 +519,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IPlugin\IPlugin.csproj">
+    <ProjectReference Include="..\IPlugin\ILEditorPlugin.csproj">
       <Project>{bcf99621-47de-4fc1-886e-597f8397d99e}</Project>
-      <Name>IPlugin</Name>
+      <Name>ILEditorPlugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

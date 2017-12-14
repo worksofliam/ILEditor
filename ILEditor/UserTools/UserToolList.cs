@@ -22,7 +22,7 @@ namespace ILEditor.UserTools
         private void UserToolList_Load(object sender, EventArgs e)
         {
             ListViewItem PluginItem;
-            foreach(IPlugin Plugin in Plugins.GetTools())
+            foreach(Plugin Plugin in Plugins.GetTools())
             {
                 PluginItem = new ListViewItem(Plugin.DisplayName, 8);
                 PluginItem.Tag = Plugin.Name;

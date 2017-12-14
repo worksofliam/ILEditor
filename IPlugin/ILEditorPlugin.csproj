@@ -7,8 +7,8 @@
     <ProjectGuid>{BCF99621-47DE-4FC1-886E-597F8397D99E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IPlugin</RootNamespace>
-    <AssemblyName>IPlugin</AssemblyName>
+    <RootNamespace>ILEditorPlugin</RootNamespace>
+    <AssemblyName>ILEditorPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPlugin.cs" />
+    <Compile Include="ILEditorPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

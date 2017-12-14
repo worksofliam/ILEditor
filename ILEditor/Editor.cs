@@ -408,25 +408,29 @@ namespace ILEditor
 
         public static void OpenMember(Member member)
         {
-            string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
-            Thread gothread = new Thread((ThreadStart)delegate {
-                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
-
-                if (resultFile != "")
+            if (Plugins.OnMemberDownloading(member.GetLibrary(), member.GetObject(), member.GetMember(), member.GetExtension()) == false)
+            {
+                string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
+                Thread gothread = new Thread((ThreadStart)delegate
                 {
-                    member._Local = resultFile;
-                    TheEditor.Invoke((MethodInvoker)delegate
+                    string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
+
+                    if (resultFile != "")
                     {
-                        TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
-                    });
-                }
-                else
-                {
-                    MessageBox.Show("Unable to download member " + member.GetLibrary() + "/" + member.GetObject() + "." + member.GetMember() + ". Please check it exists and that you have access to the remote system.");
-                }
+                        member._Local = resultFile;
+                        TheEditor.Invoke((MethodInvoker)delegate
+                        {
+                            TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to download member " + member.GetLibrary() + "/" + member.GetObject() + "." + member.GetMember() + ". Please check it exists and that you have access to the remote system.");
+                    }
 
-            });
-            gothread.Start();
+                });
+                gothread.Start();
+            }
         }
 
         public void AddSpoolFile(string pageName, string Local)

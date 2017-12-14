@@ -12,11 +12,11 @@ namespace ILEditor.Classes
 {
     class Plugins
     {
-        public static List<IPlugin> PluginList { get; set; }
+        public static List<Plugin> PluginList { get; set; }
 
         public static void LoadPlugins(string Dir)
         {
-            PluginList = new List<IPlugin>();
+            PluginList = new List<Plugin>();
 
             //Load the DLLs from the Plugins directory
             if (Directory.Exists(Dir))
@@ -31,36 +31,61 @@ namespace ILEditor.Classes
                 }
             }
 
-            Type interfaceType = typeof(IPlugin);
+            Type interfaceType = typeof(Plugin);
             Assembly[] assem = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly Plugin in assem)
             {
                 foreach(Type type in Plugin.GetTypes())
                 {
-                    Type mytype = type.GetInterface("IPlugin");
+                    Type mytype = type.GetInterface("Plugin");
                     if (mytype != null)
                     {
-                        PluginList.Add((IPlugin)Activator.CreateInstance(type));
+                        PluginList.Add((Plugin)Activator.CreateInstance(type));
                     }
                 }
             }
+
+            foreach (Plugin Plugin in PluginList)
+            {
+                Plugin.Config = new Dictionary<string, string>()
+                {
+                    { "system", IBMi.CurrentSystem.GetValue("system") },
+                    { "username", IBMi.CurrentSystem.GetValue("username") },
+                    { "pluginDir", Program.PLUGINSDIR + @"\" + Plugin.Name }
+                };
+                Plugin.Initialize();
+            }
         }
 
-        public static IPlugin[] GetTools()
+        public static Plugin[] GetTools()
         {
             return Plugins.PluginList.Where(p => p.IsTool == true).ToArray();
         }
 
-        public static IPlugin GetPlugin(string Name)
+        public static Plugin GetPlugin(string Name)
         {
             return Plugins.PluginList.Where(p => p.Name == Name).FirstOrDefault();
+        }
+
+        public static bool OnMemberDownloading(string Lib, string Spf, string Mbr, string Ext)
+        {
+            bool result;
+
+            foreach (Plugin Plugin in Plugins.PluginList)
+            {
+                result = Plugin.OnMemberDownloading(Lib, Spf, Mbr, Ext);
+                if (result == true)
+                    return true;
+            }
+
+            return false;
         }
 
         public static UserControl OnMemberOpening(string Lib, string Spf, string Mbr, string Ext)
         {
             UserControl result = null;
 
-            foreach (IPlugin Plugin in Plugins.PluginList)
+            foreach (Plugin Plugin in Plugins.PluginList)
             {
                 result = Plugin.OnMemberOpening(Lib, Spf, Mbr, Ext);
                 if (result != null)
