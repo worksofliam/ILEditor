@@ -174,7 +174,7 @@ namespace ILEditor.UserTools
         {
             DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
             int col = textEditor.CaretOffset - line.Offset;
-            Editor.TheEditor.SetStatus($"Ln: {line.LineNumber}    Col: {col}");
+            Editor.TheEditor.SetColumnLabel($"Ln: {line.LineNumber} Col: {col}");
         }
 
         private void TextEditor_GotFocus(object sender, System.Windows.RoutedEventArgs e)
@@ -240,11 +240,10 @@ namespace ILEditor.UserTools
                         bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
                         if (UploadResult == false)
                         {
-                            MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
+                            //MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
                         }
                         else
                         {
-
                             this.Invoke((MethodInvoker)delegate
                             {
                                 if (GetParent().Text.EndsWith("*"))

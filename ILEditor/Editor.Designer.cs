@@ -62,6 +62,7 @@
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.columnLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolstabrightclick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -344,7 +345,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel});
+            this.statusLabel,
+            this.columnLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 580);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(833, 22);
@@ -353,9 +355,17 @@
             // 
             // statusLabel
             // 
+            this.statusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(16, 17);
             this.statusLabel.Text = "...";
+            // 
+            // columnLabel
+            // 
+            this.columnLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.columnLabel.Name = "columnLabel";
+            this.columnLabel.Size = new System.Drawing.Size(16, 17);
+            this.columnLabel.Text = "...";
             // 
             // splitContainer1
             // 
@@ -586,6 +596,7 @@
         private System.Windows.Forms.ToolStripMenuItem generateSQLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel columnLabel;
     }
 }
 

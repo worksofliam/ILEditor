@@ -184,7 +184,7 @@ namespace ILEditor
         {
             string path = Program.Config.GetValue("acspath");
             if (path == "false")
-                MessageBox.Show("Please setup the ACS path in the Connection Setup.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Please setup the ACS path in the Connection Settings.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
             {
                 try
@@ -672,6 +672,11 @@ namespace ILEditor
         public void SetStatus(string Text)
         {
             statusLabel.Text = Text;
+        }
+
+        public void SetColumnLabel(string Text)
+        {
+            columnLabel.Text = Text;
         }
 
         private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e)
