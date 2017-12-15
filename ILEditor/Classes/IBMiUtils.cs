@@ -271,14 +271,20 @@ namespace ILEditor.Classes
                     command = command.Replace("&OPENSPF", MemberInfo.GetObject());
                     command = command.Replace("&OPENMBR", MemberInfo.GetMember());
                     command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
-                    
-                    IBMi.RunCommands(new string[] { "QUOTE RCMD " + command });
-                    if (command.ToUpper().Contains("*EVENTF"))
+
+                    if (IBMi.RunCommands(new string[] { "QUOTE RCMD " + command }))
                     {
-                        Editor.TheEditor.SetStatus("Fetching errors..");
-                        Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                        if (command.ToUpper().Contains("*EVENTF"))
+                        {
+                            Editor.TheEditor.SetStatus("Fetching errors..");
+                            Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                        }
+                        Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
                     }
-                    Editor.TheEditor.SetStatus("Compile finished.");
+                    else
+                    {
+                        Editor.TheEditor.SetStatus("Compile finished successfully.");
+                    }
                 }
             }
 
