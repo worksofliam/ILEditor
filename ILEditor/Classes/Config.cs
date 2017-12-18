@@ -56,6 +56,7 @@ namespace ILEditor.Classes
             CheckExist("version", "0");
             CheckExist("acspath", "false");
             CheckExist("darkmode", "false");
+            CheckExist("toolbarSide", "Right");
         }
 
         public void DoSystemDefaults()

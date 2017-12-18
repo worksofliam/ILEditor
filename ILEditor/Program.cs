@@ -16,6 +16,7 @@ namespace ILEditor
         //Directories
         public static readonly string SYSTEMSDIR = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
         public static readonly string SOURCEDIR = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
+        public static readonly string CONFIGDIR = SOURCEDIR + @"\config";
 
         //Config
         public static Config Config;
@@ -27,16 +28,16 @@ namespace ILEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             HostSelect Selector = new HostSelect();
 
-            Application.Run(new Splash());
-
-            Config = new Config(SOURCEDIR + @"\config");
-            Config.DoEditorDefaults();
+            //Application.Run(new Splash());
 
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
+
+            Config = new Config(CONFIGDIR);
+            Config.DoEditorDefaults();
 
             Application.Run(Selector);
             if (Selector.SystemSelected)

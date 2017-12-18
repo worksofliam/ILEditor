@@ -159,16 +159,15 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
             commands.Add("QUOTE RCMD DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
-            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS order by MBNAME) WITH DATA') COMMIT(*NONE)");
+            commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/" + Obj + " AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS order by MBNAME) WITH DATA') COMMIT(*NONE)");
 
             Editor.TheEditor.SetStatus("Fetching members for " + Lib + "/" + Obj + "...");
-            string file = DownloadMember("QTEMP", "DATA", "DATA", commands.ToArray());
+            string file = DownloadMember("QTEMP", Obj, Obj, commands.ToArray());
 
             string Line, Object, Name, Desc, Type, RcdLen;
 
             if (file != "")
             {
-
                 Member NewMember;
                 foreach(string RealLine in File.ReadAllLines(file))
                 {
@@ -264,7 +263,7 @@ namespace ILEditor.Classes
             if (command.Trim() != "")
             {
                 if (TrueCmd != "") command = TrueCmd;
-                Editor.TheEditor.SetStatus("Compiling with " + command + "...");
+                Editor.TheEditor.SetStatus("Compiling " + MemberInfo.GetMember() + " with " + command + "...");
                 command = IBMi.CurrentSystem.GetValue(command);
                 if (command.Trim() != "")
                 {
@@ -272,14 +271,20 @@ namespace ILEditor.Classes
                     command = command.Replace("&OPENSPF", MemberInfo.GetObject());
                     command = command.Replace("&OPENMBR", MemberInfo.GetMember());
                     command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
-                    
-                    IBMi.RunCommands(new string[] { "QUOTE RCMD " + command });
-                    if (command.ToUpper().Contains("*EVENTF"))
+
+                    if (IBMi.RunCommands(new string[] { "QUOTE RCMD " + command }))
                     {
-                        Editor.TheEditor.SetStatus("Fetching errors..");
-                        Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                        if (command.ToUpper().Contains("*EVENTF"))
+                        {
+                            Editor.TheEditor.SetStatus("Fetching errors..");
+                            Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                        }
+                        Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
                     }
-                    Editor.TheEditor.SetStatus("Compile finished.");
+                    else
+                    {
+                        Editor.TheEditor.SetStatus("Compile finished successfully.");
+                    }
                 }
             }
 
