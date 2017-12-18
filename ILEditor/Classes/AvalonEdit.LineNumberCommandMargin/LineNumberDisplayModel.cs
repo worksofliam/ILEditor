@@ -35,5 +35,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             set { this.SetValue(() => this.IsInView, value); }
         }
 
+        // this decided wether to show textbox or label for command
+        public bool IsCommandEntryVisible
+        {
+            get { return this.GetValue(() => this.IsCommandEntryVisible); }
+            set { this.SetValue(() => this.IsCommandEntryVisible, value); }
+        }
+
     }
 }

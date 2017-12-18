@@ -21,6 +21,15 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
     // idea from: http://community.icsharpcode.net/forums/t/11706.aspx
     public class LineNumberMarginWithCommands : LineNumberMargin
     {
+        private double lineNumberListViewWidth = 0;
+        public void UpdateLineNumberListWidthFromAdorner( double width)
+        {
+            if( width != lineNumberListViewWidth)
+            {
+                this.lineNumberListViewWidth = width;
+                this.InvalidateMeasure();
+            }
+        }
 
         public static void Install(TextEditor _editor)
         {
@@ -28,9 +37,14 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
             me.Loaded += (_sender, args) =>
             {
-                var adorner1 = new LineNumberMarginAdorner(me, me.previousLineNumberDisplaySize);
+                var adorner1 = new LineNumberMarginAdorner(me);
                 // it's got to be displayed before adorning I think
                 // adorn it
+                adorner1.LineNumberListViewWidthChanged += (_sender2, _args2) =>
+                {
+                    me.UpdateLineNumberListWidthFromAdorner(_args2.Width);
+                };
+
                 AdornerLayer.GetAdornerLayer(me).Add(adorner1);
             };
 
@@ -59,50 +73,18 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         }
 
+        private double lineHeight = 1;
 
-        private int previousMaxLineNumberLength = -1;
-        private System.Windows.Size previousLineNumberDisplaySize; // only change this when line number length changes
-
-
-        private static System.Windows.Size recalculateLineNumberDisplayControlSize(int maxLineNumberLength,
-                                                                            double lineHeight,
-                                                                            System.Windows.Size availableSize)
-        {
-            var lineNumberDisplayExampleCtrl = new LineNumberDisplay();
-            lineNumberDisplayExampleCtrl.Model = new LineNumberDisplayModel();
-            lineNumberDisplayExampleCtrl.Model.ControlHeight = lineHeight;
-            lineNumberDisplayExampleCtrl.Model.IsInView = true;
-            lineNumberDisplayExampleCtrl.Model.LineNumber = Convert.ToInt32(new string('9', maxLineNumberLength));
-            
-            lineNumberDisplayExampleCtrl.Measure(availableSize);
-            availableSize.Width = 1;
-            lineNumberDisplayExampleCtrl.Arrange(new Rect(availableSize));
-
-            return new System.Windows.Size(lineNumberDisplayExampleCtrl.ActualWidth, lineHeight);
-        }
+        // need to determine widest visible control
 
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
         {
-            if( this.maxLineNumberLength != this.previousMaxLineNumberLength)
+            if (this.TextView != null && this.TextView.VisualLinesValid)
             {
-                double lineHeight = 1;
-                if(this.TextView != null && this.TextView.VisualLinesValid)
-                {
-                    lineHeight = this.TextView.VisualLines.First().Height;
-                }
-
-                this.previousLineNumberDisplaySize = recalculateLineNumberDisplayControlSize(this.maxLineNumberLength, lineHeight, availableSize);
-
-                if( this.MaxLineNumberLengthChanged != null)
-                {
-                    this.MaxLineNumberLengthChanged(this, new MaxLineNumberLengthChangedEventArgs
-                    {
-                        NewSize = this.previousLineNumberDisplaySize
-                    });
-                }
+                lineHeight = this.TextView.VisualLines.First().Height;
             }
 
-            return new Size(this.previousLineNumberDisplaySize.Width, 0);
+            return new Size(this.lineNumberListViewWidth, 0);
         }
 
 
@@ -113,11 +95,6 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         // do a delayed event when the line info list is updated
         public event Action<object, EventArgs> LineNumbersChangedDelayedEvent;
-
-
-
-        public event Action<object, MaxLineNumberLengthChangedEventArgs> MaxLineNumberLengthChanged;
-
 
         private bool doWeNeedToRedoLineNumberDisplay(IReadOnlyCollection<VisualLine> visualLines,
                                                        List<LineInfo> linesDisplayed)
@@ -154,7 +131,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                 {
                     var info = new LineInfo();
                     info.Number = line.FirstDocumentLine.LineNumber;
-                    info.RenderSize = previousLineNumberDisplaySize;
+                    info.LineHeight = this.lineHeight;
 
                     this.uiLineInfoList.Add(info);
                 }

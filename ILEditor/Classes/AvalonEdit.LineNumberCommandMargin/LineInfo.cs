@@ -9,7 +9,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
     public class LineInfo
     {
         public int Number { get; set; }
-        public System.Windows.Size RenderSize { get; set; }
+        public double LineHeight { get; set; }
 
         
     }
