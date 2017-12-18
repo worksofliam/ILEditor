@@ -53,7 +53,7 @@ namespace ILEditor.UserTools
 
             if (Lib == "" || Obj == "")
             {
-                MessageBox.Show("You must setup the Output Queue in the Connection Setup for the spool file listing to work.", "Spool Listing", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("You must setup the Output Queue in the Connection Settings for the spool file listing to work.", "Spool Listing", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
             {

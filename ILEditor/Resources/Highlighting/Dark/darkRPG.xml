@@ -177,11 +177,6 @@
       ([eE][+-]?[0-9]+)? # optional exponent
     </Rule>
     
-    <!-- Fixed spcs -->
-    <Rule foreground="Red">
-      ^.{5}[HFDICOP]
-    </Rule>
-    
     <!-- Directives -->
     <Rule foreground="#5878D8">
       \/\b(free|end-free|copy|include|set|restore|title|define|undefine|eof|if|elseif|else|endif)\b

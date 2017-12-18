@@ -1,24 +1,29 @@
 # [ILEditor](http://worksofbarry.com/ileditor/)
 
-![Welcome Screen](https://i.imgur.com/oIzFcDD.png)
+![Welcome Screen](https://i.imgur.com/6qgZnSG.png)
 
 ILEditor is an editor for development of ILE applications on IBM i. ILEditor will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
 
 ## Features
 
-* Easy UI
 * Source member editing (+ browsing & diff view)
-* Inline compiling
-* Inline error listing
+* Inline compiling & error listing
 * Multiple system configurations
-* Basic RPG fixed-to-free
+* Basic RPG fixed-to-free & CL Formatting
 * ILE syntax highlighting
 * Store members locally & search locally
+* Integrated spool file listing
+* Light and dark modes (dark mode in the image above)
 
 ## Installation
 
-* You'll be able to install from the ClickOnce installer, which will also prompt you when an update is available. [Download here](http://worksofbarry.com/ileditor/installer/setup.exe).
+* You can install from the ClickOnce installer which will also prompt you when an update is available. [Download here](http://worksofbarry.com/ileditor/installer/setup.exe).
 * Build from source. Clone from GitHub, open the project into Visual Studio and build from there.
+
+## Libraries used
+
+* [AvalonEdit](https://github.com/icsharpcode/AvalonEdit)
+* [tabcontrol-extra](https://github.com/tradewright/tabcontrol-extra)
 
 ## Notes
 

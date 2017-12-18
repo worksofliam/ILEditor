@@ -62,6 +62,9 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.toolbarSide = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -397,6 +400,9 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label15);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Controls.Add(this.toolbarSide);
             this.tabPage4.Controls.Add(this.darkMode);
             this.tabPage4.Controls.Add(this.label13);
             this.tabPage4.Controls.Add(this.findACS);
@@ -427,6 +433,36 @@
             this.label13.Size = new System.Drawing.Size(60, 13);
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
+            // 
+            // toolbarSide
+            // 
+            this.toolbarSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolbarSide.FormattingEnabled = true;
+            this.toolbarSide.Items.AddRange(new object[] {
+            "Right",
+            "Left"});
+            this.toolbarSide.Location = new System.Drawing.Point(223, 56);
+            this.toolbarSide.Name = "toolbarSide";
+            this.toolbarSide.Size = new System.Drawing.Size(130, 21);
+            this.toolbarSide.TabIndex = 10;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 59);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 13);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Toolbar side";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 186);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(193, 13);
+            this.label15.TabIndex = 12;
+            this.label15.Text = "Some of these settings require a restart.";
             // 
             // Connection
             // 
@@ -491,5 +527,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox darkMode;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox toolbarSide;
+        private System.Windows.Forms.Label label15;
     }
 }

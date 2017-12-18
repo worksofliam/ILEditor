@@ -105,12 +105,12 @@ namespace ILEditor.UserTools
 
         private void onSelectError(string File, int Line, int Col, string ErrorText)
         {
-            int index = Editor.TheEditor.EditorContains(File);
+            OpenTab theTab = Editor.TheEditor.EditorContains(File);
 
-            if (index >= 0)
+            if (theTab != null)
             {
-                Editor.TheEditor.SwitchToTab(index);
-                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(index);
+                Editor.TheEditor.SwitchToTab(theTab.getSide(), theTab.getIndex());
+                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(theTab);
 
                 SourceEditor.Focus();
                 SourceEditor.GotoLine(Line, Col);
