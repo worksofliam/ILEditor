@@ -688,6 +688,18 @@ namespace ILEditor
         {
             MemberCache.Export();
         }
+
+        #region Help
+        private void sendFeedbackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Please send any feedback for ILEditor to feedback@worksofbarry.com.", "Feedback", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void aboutILEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new About().ShowDialog();
+        }
+        #endregion
     }
 
     public class OpenTab

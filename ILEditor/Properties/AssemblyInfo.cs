@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Works Of Barry")]
 [assembly: AssemblyProduct("ILEditor")]
-[assembly: AssemblyCopyright("Works Of Barry ©  2017")]
+[assembly: AssemblyCopyright("Works Of Barry © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
