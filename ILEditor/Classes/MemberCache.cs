@@ -64,7 +64,10 @@ namespace ILEditor.Classes
 
         public static string GetType(string Member)
         {
-            return MemberList[Member];
+            if (MemberList.ContainsKey(Member))
+                return MemberList[Member];
+            else
+                return "";
         }
     }
 }
