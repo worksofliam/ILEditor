@@ -17,6 +17,7 @@ namespace ILEditor.Classes
             { "426", "Connection closed; transfer aborted. The file may be locked." },
             { "426T", "Member was saved but characters have been truncated as record length has been reached." },
             { "426L", "Member was not saved due to a possible lock." },
+            { "426F", "Member was not found. Perhaps it was deleted." },
             { "530", "Configuration username and password incorrect." }
         };
 
@@ -75,6 +76,7 @@ namespace ILEditor.Classes
         private bool _Truncated = false;
         private bool _Locked = false;
         private bool _NotCreated = false;
+        private bool _NotFound = false;
 
         private Boolean _getList = false;
         private List<string> _list = new List<string>();
@@ -120,6 +122,8 @@ namespace ILEditor.Classes
                     _Failed = "426L";
                 else if (_NotCreated)
                     _Failed = "550NC";
+                else if (_NotFound)
+                    _Failed = "426F";
 
                 if (IBMi.FTPCodeMessages.ContainsKey(_Failed))
                     MessageBox.Show(IBMi.FTPCodeMessages[_Failed], "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -169,6 +173,9 @@ namespace ILEditor.Classes
                                             _Truncated = true;
                                         else if (message.Contains("Unable to open or create"))
                                             _Locked = true;
+                                        else if (message.Contains("not found"))
+                                            _NotFound = true;
+                                        
                                         break;
                                     case "550":
                                         if (message.Contains("not created in"))
