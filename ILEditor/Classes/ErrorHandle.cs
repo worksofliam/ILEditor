@@ -117,6 +117,18 @@ namespace ILEditor.Classes
                         break;
                 }
             }
+
+            if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+            {
+                string JobLog = IBMiUtils.GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
+                _FileID = -1;
+                _FileIDs.Add(_FileID, "Job Log");
+                _Errors.Add(_FileID, new List<LineError>());
+                foreach (string Line in File.ReadAllLines(JobLog))
+                {
+                    _Errors[_FileID].Add(new LineError(50, 0, 0, Line, ""));
+                }
+            }
         }
 
         public static int[] getFileIDs()

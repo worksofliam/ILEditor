@@ -256,7 +256,8 @@ namespace ILEditor.Classes
 
         public static Boolean CompileMember(Member MemberInfo, string TrueCmd = "")
         {
-            string type, command;
+            List<string> commands = new List<string>();
+            string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
 
             type = MemberInfo.GetExtension();
             command = IBMi.CurrentSystem.GetValue("DFT_" + type);
@@ -272,7 +273,14 @@ namespace ILEditor.Classes
                     command = command.Replace("&OPENMBR", MemberInfo.GetMember());
                     command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
 
-                    if (IBMi.RunCommands(new string[] { "QUOTE RCMD " + command }))
+                    commands.Add("QUOTE RCMD " + command);
+                    if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+                    {
+                        commands.Add("QUOTE RCMD RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
+                        commands.Add("recv \"/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr\" \"" + filetemp + "\"");
+                    }
+
+                    if (IBMi.RunCommands(commands.ToArray()))
                     {
                         if (command.ToUpper().Contains("*EVENTF"))
                         {

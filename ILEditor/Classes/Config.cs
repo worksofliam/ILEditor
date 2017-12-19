@@ -72,6 +72,7 @@ namespace ILEditor.Classes
 
             CheckExist("printerLib", "");
             CheckExist("printerObj", "");
+            CheckExist("fetchJobLog", "false");
 
             CheckExist("TREE_LIST", "");
             CheckExist("FONT", "Consolas");

@@ -60,11 +60,13 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.toolbarSide = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.fetchJobLog = new System.Windows.Forms.CheckBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -295,6 +297,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.fetchJobLog);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.pass);
             this.tabPage1.Controls.Add(this.label2);
@@ -415,6 +419,36 @@
             this.tabPage4.Text = "ILEditor";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 186);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(193, 13);
+            this.label15.TabIndex = 12;
+            this.label15.Text = "Some of these settings require a restart.";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 59);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 13);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Toolbar side";
+            // 
+            // toolbarSide
+            // 
+            this.toolbarSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolbarSide.FormattingEnabled = true;
+            this.toolbarSide.Items.AddRange(new object[] {
+            "Right",
+            "Left"});
+            this.toolbarSide.Location = new System.Drawing.Point(223, 56);
+            this.toolbarSide.Name = "toolbarSide";
+            this.toolbarSide.Size = new System.Drawing.Size(130, 21);
+            this.toolbarSide.TabIndex = 10;
+            // 
             // darkMode
             // 
             this.darkMode.AutoSize = true;
@@ -434,35 +468,24 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // toolbarSide
+            // fetchJobLog
             // 
-            this.toolbarSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolbarSide.FormattingEnabled = true;
-            this.toolbarSide.Items.AddRange(new object[] {
-            "Right",
-            "Left"});
-            this.toolbarSide.Location = new System.Drawing.Point(223, 56);
-            this.toolbarSide.Name = "toolbarSide";
-            this.toolbarSide.Size = new System.Drawing.Size(130, 21);
-            this.toolbarSide.TabIndex = 10;
+            this.fetchJobLog.AutoSize = true;
+            this.fetchJobLog.Location = new System.Drawing.Point(259, 98);
+            this.fetchJobLog.Name = "fetchJobLog";
+            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
+            this.fetchJobLog.TabIndex = 13;
+            this.fetchJobLog.Text = "Fetch Job Log";
+            this.fetchJobLog.UseVisualStyleBackColor = true;
             // 
-            // label14
+            // label16
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 59);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Toolbar side";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(8, 186);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(193, 13);
-            this.label15.TabIndex = 12;
-            this.label15.Text = "Some of these settings require a restart.";
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 99);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(130, 13);
+            this.label16.TabIndex = 14;
+            this.label16.Text = "Show Job Log on Compile";
             // 
             // Connection
             // 
@@ -530,5 +553,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox toolbarSide;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox fetchJobLog;
+        private System.Windows.Forms.Label label16;
     }
 }

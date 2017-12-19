@@ -56,8 +56,11 @@ namespace ILEditor.UserTools
                             if (error.getSev() >= 20)
                             {
                                 totalErrors += 1;
-                                curErr = curNode.Nodes.Add(error.getCode() + ": " + error.getData().Trim() + " (" + error.getLine().ToString() + ")");
-                                curErr.Tag = error.getLine().ToString() + ',' + error.getColumn().ToString();
+                                curErr = curNode.Nodes.Add((error.getCode() == "" ? "" : error.getCode() + ": ") + error.getData().Trim() + " (" + error.getLine().ToString() + ")");
+
+                                if (error.getCode() != "")
+                                    curErr.Tag = error.getLine().ToString() + ',' + error.getColumn().ToString();
+
                                 curErr.ImageIndex = 1;
                                 curErr.SelectedImageIndex = 1;
                             }
@@ -86,7 +89,6 @@ namespace ILEditor.UserTools
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-
             if (e.Node.Tag == null) { }
             else
             {

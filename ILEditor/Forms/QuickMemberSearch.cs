@@ -84,13 +84,16 @@ namespace ILEditor.Forms
 
         private void SelectMember(string Member)
         {
-            string type = MemberCache.GetType(Member);
-            string[] data = Member.Split(new char[] { '/', '.' }, StringSplitOptions.RemoveEmptyEntries);
+            if (Member != "")
+            {
+                string type = MemberCache.GetType(Member);
+                string[] data = Member.Split(new char[] { '/', '.' }, StringSplitOptions.RemoveEmptyEntries);
 
-            Member openMember = new Classes.Member("", data[0], data[1], data[2], type);
-            Editor.OpenMember(openMember);
+                Member openMember = new Classes.Member("", data[0], data[1], data[2], type);
+                Editor.OpenMember(openMember);
 
-            this.Close();
+                this.Close();
+            }
         }
     }
 }

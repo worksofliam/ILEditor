@@ -26,6 +26,8 @@ namespace ILEditor.Forms
             password = Password.Decode(password);
             pass.Text = password;
 
+            fetchJobLog.Checked = (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true");
+
             selectedFont.SelectedItem = IBMi.CurrentSystem.GetValue("FONT");
             cur_size.Text = IBMi.CurrentSystem.GetValue("ZOOM");
             indent_size.Value = decimal.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
@@ -48,6 +50,7 @@ namespace ILEditor.Forms
             password = pass.Text.Trim();
             password = Password.Encode(password);
             IBMi.CurrentSystem.SetValue("password", password);
+            IBMi.CurrentSystem.SetValue("fetchJobLog", fetchJobLog.Checked.ToString().ToLower());
 
             IBMi.CurrentSystem.SetValue("FONT", selectedFont.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
