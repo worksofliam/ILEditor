@@ -269,6 +269,59 @@ namespace ILEditor.UserTools
             }
         }
 
+        public void CommentOutSelected()
+        {
+            if (textEditor.SelectionLength == 0)
+            {
+                DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+                textEditor.Select(line.Offset, line.Length);
+            }
+
+            string[] lines = textEditor.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+            int index = 0;
+            switch (Language)
+            {
+                case ILELanguage.RPG:
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Trim() != "")
+                        {
+                            index = GetSpaces(lines[i]);
+                            lines[i] = lines[i].Insert(index, "//");
+                        }
+                    }
+                    textEditor.SelectedText = String.Join(Environment.NewLine, lines);
+                    break;
+
+                case ILELanguage.CL:
+                case ILELanguage.CPP:
+                    if (lines.Length == 1 && Language != ILELanguage.CL)
+                    {
+                        index = GetSpaces(lines[0]);
+                        lines[0] = lines[0].Insert(index, "//");
+                    }
+                    else
+                    {
+                        lines[0] = "/*" + lines[0];
+                        lines[lines.Length - 1] = lines[lines.Length - 1] + "*/";
+                    }
+                    textEditor.SelectedText = String.Join(Environment.NewLine, lines);
+                    break;
+            }
+        }
+
+        private int GetSpaces(string line)
+        {
+            int index = 0;
+            foreach(char c in line.ToCharArray())
+            {
+                if (c == ' ') index++;
+                else break;
+            }
+            return index;
+        }
+
         #region RPG
 
         public void ConvertSelectedRPG()

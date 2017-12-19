@@ -304,6 +304,14 @@ namespace ILEditor
                 }).Start();
             }
         }
+        
+        private void quickCommentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+            {
+                LastEditing.CommentOutSelected();
+            }
+        }
         #endregion
 
         #region Compile

@@ -57,6 +57,7 @@
             this.generateSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -226,7 +227,8 @@
             this.localCopiesToolStripMenuItem,
             this.languageToolsToolStripMenuItem,
             this.quickMemberSearchToolStripMenuItem,
-            this.compareMembersToolStripMenuItem});
+            this.compareMembersToolStripMenuItem,
+            this.quickCommentToolStripMenuItem});
             this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
             this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.sourceToolStripMenuItem.Text = "Source";
@@ -320,6 +322,14 @@
             this.compareMembersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.compareMembersToolStripMenuItem.Text = "Compare Members";
             this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
+            // 
+            // quickCommentToolStripMenuItem
+            // 
+            this.quickCommentToolStripMenuItem.Name = "quickCommentToolStripMenuItem";
+            this.quickCommentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.quickCommentToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.quickCommentToolStripMenuItem.Text = "Quick Comment";
+            this.quickCommentToolStripMenuItem.Click += new System.EventHandler(this.quickCommentToolStripMenuItem_Click);
             // 
             // compileToolStripMenuItem
             // 
@@ -627,6 +637,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendFeedbackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutILEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
     }
 }
 
