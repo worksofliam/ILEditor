@@ -164,9 +164,12 @@ namespace ILEditor.UserTools
 
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
-            if (!GetParent().Text.EndsWith("*"))
+            if (GetParent() != null)
             {
-                GetParent().Text += "*";
+                if (!GetParent().Text.EndsWith("*"))
+                {
+                    GetParent().Text += "*";
+                }
             }
         }
         

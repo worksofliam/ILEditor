@@ -126,6 +126,7 @@ namespace ILEditor
 
         private void Editortabsleft_TabClosed(object sender, TabControlEventArgs e)
         {
+            e.TabPage.Dispose();
             FixEditorSplitters();
         }
 

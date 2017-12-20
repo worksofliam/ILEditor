@@ -93,6 +93,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
@@ -101,6 +102,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(833, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -406,6 +408,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.Color.White;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -513,6 +516,7 @@
             // 
             // tool_bar
             // 
+            this.tool_bar.BackColor = System.Drawing.Color.White;
             this.tool_bar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newButton,
             this.saveButton,
@@ -525,6 +529,7 @@
             this.zoomOutButton});
             this.tool_bar.Location = new System.Drawing.Point(0, 24);
             this.tool_bar.Name = "tool_bar";
+            this.tool_bar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.tool_bar.Size = new System.Drawing.Size(833, 25);
             this.tool_bar.TabIndex = 3;
             this.tool_bar.Text = "toolStrip1";
