@@ -29,7 +29,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>57</ApplicationRevision>
+    <ApplicationRevision>58</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -519,6 +519,16 @@
     <None Include="Resources\Highlighting\Light\lightCPP.xml" />
     <None Include="Resources\Highlighting\Light\lightRPG.xml" />
     <None Include="Resources\Highlighting\Light\lightSQL.xml" />
+    <None Include="Resources\NewIcons\edit.png" />
+    <None Include="Resources\NewIcons\save.png" />
+    <None Include="Resources\NewIcons\compile.png" />
+    <None Include="Resources\NewIcons\zoom-in.png" />
+    <None Include="Resources\NewIcons\zoom-out.png" />
+    <None Include="Resources\NewIcons\notebook.png" />
+    <None Include="Resources\NewIcons\folder.png" />
+    <None Include="Resources\NewIcons\search.png" />
+    <None Include="Resources\NewIcons\refresh.png" />
+    <None Include="Resources\NewIcons\filedelete.png" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>

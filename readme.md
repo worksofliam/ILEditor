@@ -22,6 +22,7 @@ ILEditor is an editor for development of ILE applications on IBM i. ILEditor wil
 
 ## Libraries used
 
+* [flaticon](https://www.flaticon.com/authors/simpleicon)
 * [AvalonEdit](https://github.com/icsharpcode/AvalonEdit)
 * [tabcontrol-extra](https://github.com/tradewright/tabcontrol-extra)
 

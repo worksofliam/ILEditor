@@ -102,7 +102,6 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(833, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -450,7 +449,7 @@
             // newButton
             // 
             this.newButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newButton.Image = ((System.Drawing.Image)(resources.GetObject("newButton.Image")));
+            this.newButton.Image = global::ILEditor.Properties.Resources.edit;
             this.newButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newButton.Name = "newButton";
             this.newButton.Size = new System.Drawing.Size(23, 22);
@@ -460,7 +459,7 @@
             // saveButton
             // 
             this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
+            this.saveButton.Image = global::ILEditor.Properties.Resources.save;
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(23, 22);
@@ -481,7 +480,7 @@
             // compileButton
             // 
             this.compileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.compileButton.Image = ((System.Drawing.Image)(resources.GetObject("compileButton.Image")));
+            this.compileButton.Image = global::ILEditor.Properties.Resources.compile;
             this.compileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(23, 22);
@@ -496,7 +495,7 @@
             // zoomInButton
             // 
             this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomInButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomInButton.Image")));
+            this.zoomInButton.Image = global::ILEditor.Properties.Resources.zoom_in;
             this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(23, 22);
@@ -507,7 +506,7 @@
             // zoomOutButton
             // 
             this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomOutButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomOutButton.Image")));
+            this.zoomOutButton.Image = global::ILEditor.Properties.Resources.zoom_out;
             this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
@@ -529,7 +528,6 @@
             this.zoomOutButton});
             this.tool_bar.Location = new System.Drawing.Point(0, 24);
             this.tool_bar.Name = "tool_bar";
-            this.tool_bar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.tool_bar.Size = new System.Drawing.Size(833, 25);
             this.tool_bar.TabIndex = 3;
             this.tool_bar.Text = "toolStrip1";
@@ -553,9 +551,9 @@
             // 
             this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "script.png");
-            this.tabImageList.Images.SetKeyName(1, "book.png");
-            this.tabImageList.Images.SetKeyName(2, "page.png");
+            this.tabImageList.Images.SetKeyName(0, "edit.png");
+            this.tabImageList.Images.SetKeyName(1, "notebook.png");
+            this.tabImageList.Images.SetKeyName(2, "file.png");
             this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
             // Editor

@@ -56,10 +56,10 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "information.png");
-            this.imageList1.Images.SetKeyName(1, "bricks.png");
-            this.imageList1.Images.SetKeyName(2, "folder_page.png");
-            this.imageList1.Images.SetKeyName(3, "script.png");
+            this.imageList1.Images.SetKeyName(0, "info.png");
+            this.imageList1.Images.SetKeyName(1, "cubedark.png");
+            this.imageList1.Images.SetKeyName(2, "folder.png");
+            this.imageList1.Images.SetKeyName(3, "edit.png");
             // 
             // addSpf
             // 
@@ -75,7 +75,7 @@
             // 
             // toolStripButton1
             // 
-            this.toolStripButton1.Image = global::ILEditor.Properties.Resources.script_add;
+            this.toolStripButton1.Image = global::ILEditor.Properties.Resources.folder;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(71, 22);

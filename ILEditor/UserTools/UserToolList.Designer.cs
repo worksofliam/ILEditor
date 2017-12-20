@@ -75,14 +75,14 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "script_go.png");
+            this.imageList1.Images.SetKeyName(0, "edit.png");
             this.imageList1.Images.SetKeyName(1, "application_error.png");
-            this.imageList1.Images.SetKeyName(2, "computer_edit.png");
-            this.imageList1.Images.SetKeyName(3, "table_edit.png");
-            this.imageList1.Images.SetKeyName(4, "application_go.png");
-            this.imageList1.Images.SetKeyName(5, "application_view_list.png");
-            this.imageList1.Images.SetKeyName(6, "world.png");
-            this.imageList1.Images.SetKeyName(7, "page.png");
+            this.imageList1.Images.SetKeyName(2, "settings.png");
+            this.imageList1.Images.SetKeyName(3, "books.png");
+            this.imageList1.Images.SetKeyName(4, "ux-design.png");
+            this.imageList1.Images.SetKeyName(5, "browser.png");
+            this.imageList1.Images.SetKeyName(6, "folder.png");
+            this.imageList1.Images.SetKeyName(7, "file.png");
             // 
             // UserToolList
             // 
