@@ -311,6 +311,18 @@ namespace ILEditor.UserTools
                     }
                     textEditor.SelectedText = String.Join(Environment.NewLine, lines);
                     break;
+
+                case ILELanguage.SQL:
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Trim() != "")
+                        {
+                            index = GetSpaces(lines[i]);
+                            lines[i] = lines[i].Insert(index, "--");
+                        }
+                    }
+                    textEditor.SelectedText = String.Join(Environment.NewLine, lines);
+                    break;
             }
         }
 
