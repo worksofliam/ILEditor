@@ -35,6 +35,75 @@
       <Word>IND</Word>
     </Keywords>
 
+    <Keywords foreground="Brown">
+      <Word>ACTGRP</Word>
+      <Word>ALTSEQ</Word>
+      <Word>ALWNULL</Word>
+      <Word>AUT</Word>
+      <Word>BNDDIR</Word>
+      <Word>CCSID</Word>
+      <Word>COPYNEST</Word>
+      <Word>COPYRIGHT</Word>
+      <Word>CURSYM</Word>
+      <Word>CVTOPT</Word>
+      <Word>DATEDIT</Word>
+      <Word>DATFMT</Word>
+      <Word>DEBUG</Word>
+      <Word>DECEDIT</Word>
+      <Word>DFTACTGRP</Word>
+      <Word>DFTNAME</Word>
+      <Word>ENBPFRCOL</Word>
+      <Word>EXPROPTS</Word>
+      <Word>EXTBININT</Word>
+      <Word>FIXNBR</Word>
+      <Word>FLTDIV</Word>
+      <Word>FORMSALIGN</Word>
+      <Word>FTRANS</Word>
+      <Word>GENLVL</Word>
+      <Word>INDENT</Word>
+      <Word>INTPREC</Word>
+      <Word>LANGID</Word>
+      <Word>NOMAIN</Word>
+      <Word>OPENOPT</Word>
+      <Word>OPTIMIZE</Word>
+      <Word>OPTION</Word>
+      <Word>PRFDTA</Word>
+      <Word>SRTSEQ</Word>
+      <Word>TEXT</Word>
+      <Word>THREAD</Word>
+      <Word>TIMFMT</Word>
+      <Word>TRUNCNBR</Word>
+      <Word>USRPRF</Word>
+      <Word>ExtPgm</Word>
+      <Word>extproc</Word>
+      <Word>value</Word>
+      <Word>options</Word>
+      <Word>import</Word>
+      <Word>inz</Word>
+      <Word>const</Word>
+      <Word>qualified</Word>
+      <Word>dim</Word>
+      <Word>like</Word>
+      <Word>likeds</Word>
+      <Word>likerec</Word>
+      <Word>extname</Word>
+      <Word>ext</Word>
+      <Word>pos</Word>
+      <Word>overlay</Word>
+      <Word>extdesc</Word>
+      <Word>workstn</Word>
+      <Word>usage</Word>
+      <Word>keyed</Word>
+      <Word>disk</Word>
+      <Word>printer</Word>
+      <Word>seq</Word>
+      <Word>special</Word>
+      <Word>to</Word>
+      <Word>downto</Word>
+      <Word>export</Word>
+      <Word>handler</Word>
+    </Keywords>
+
     <Keywords foreground="Purple">
       <Word>ACQ</Word>
       <Word>ADD</Word>
