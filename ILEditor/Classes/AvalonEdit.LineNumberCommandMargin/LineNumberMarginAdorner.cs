@@ -20,10 +20,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             this.listView = new LineNumbersListView();
             this.AddVisualChild(this.listView); // this has to be there for events and interaction to work
 
-            this.listView.Loaded += (_sender, _args) =>
+            this.listView.SizeChanged += (_sender, _args) =>
             {
                 trackListViewWidth();
             };
+
+
             // update the adorner layer
             AdornerLayer.GetAdornerLayer(marginElement).Update();
 
@@ -130,7 +132,6 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         protected override Size MeasureOverride(Size constraint)
         {
             listView.Measure(constraint);
-            trackListViewWidth();
 
             return listView.DesiredSize;
         }
