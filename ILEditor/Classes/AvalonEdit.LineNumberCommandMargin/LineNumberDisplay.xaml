@@ -9,10 +9,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Style>
         <Style TargetType="UserControl">
+            <Setter Property="Visibility" Value="Collapsed" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Model.IsInView, ElementName=lineNumberDisplayCtl}" Value="false">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Model.IsInView, ElementName=lineNumberDisplayCtl}" Value="true">
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
@@ -23,12 +21,47 @@
         <TextBox DockPanel.Dock="Left"
                  MinWidth="25"
                 Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
-                 Name="lineNumberTextBox"
+                 Name="lineNumberCommandTextBox"
+                 KeyDown="lineNumberCommandTextBox_KeyDown"
                  >
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Model.IsCommandEntryVisible, ElementName=lineNumberDisplayCtl}" Value="true">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
         </TextBox>
+
+        <TextBlock DockPanel.Dock="Left"
+                   MinWidth="25"
+                   Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
+                   Name="lineNumberCommandTextBlock"
+                   >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=Model.HasCommandText, ElementName=lineNumberDisplayCtl}" Value="true" />
+                                <Condition Binding="{Binding Path=Model.IsCommandEntryVisible, ElementName=lineNumberDisplayCtl}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        
         <TextBlock  DockPanel.Dock="Left"
                     Text="{Binding Path=Model.LineNumber, ElementName=lineNumberDisplayCtl}" 
                    Name="lineNumberTextBlock" 
+                    TextAlignment="Right"
+                    MouseEnter="lineNumberTextBlock_MouseEnter"
                    >
         </TextBlock>
 

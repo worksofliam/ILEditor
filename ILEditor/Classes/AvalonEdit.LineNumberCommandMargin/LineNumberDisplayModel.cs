@@ -18,7 +18,18 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         public string CommandText
         {
             get { return this.GetValue(() => this.CommandText); }
-            set { this.SetValue(() => this.CommandText, value); }
+            set {
+                this.SetValue(() => this.CommandText, value);
+                OnPropertyChanged(nameof(HasCommandText));
+            }
+        }
+
+        public bool HasCommandText
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(CommandText);
+            }
         }
 
         // each line number is a specific height
