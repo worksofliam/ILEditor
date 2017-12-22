@@ -21,15 +21,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
     // idea from: http://community.icsharpcode.net/forums/t/11706.aspx
     public class LineNumberMarginWithCommands : LineNumberMargin
     {
-        private double lineNumberListViewWidth = 0;
-        public void UpdateLineNumberListWidthFromAdorner( double width)
-        {
-            if( width != lineNumberListViewWidth)
-            {
-                this.lineNumberListViewWidth = width;
-                this.InvalidateMeasure();
-            }
-        }
+
 
         public static void Install(TextEditor _editor)
         {
@@ -75,7 +67,17 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         private double lineHeight = 1;
 
-        // need to determine widest visible control
+        private double lineNumberListViewWidth = 0;
+        public void UpdateLineNumberListWidthFromAdorner(double width)
+        {
+            if (width != lineNumberListViewWidth)
+            {
+                this.lineNumberListViewWidth = width;
+                this.InvalidateMeasure();
+            }
+        }
+
+
 
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
         {
