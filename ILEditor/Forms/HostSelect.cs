@@ -20,6 +20,8 @@ namespace ILEditor.Forms
             InitializeComponent();
             SystemSelected = false;
             LoadListView();
+
+            this.BringToFront();
         }
 
         private void LoadListView()

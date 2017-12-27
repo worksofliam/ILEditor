@@ -89,7 +89,6 @@
             this.Name = "HostSelect";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Host Select";
-            this.TopMost = true;
             this.ResumeLayout(false);
 
         }
