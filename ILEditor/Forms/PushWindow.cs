@@ -19,22 +19,27 @@ namespace ILEditor.Forms
             InitializeComponent();
         }
 
+        Dictionary<string, int> CreateSPFs = new Dictionary<string, int>();
         Dictionary<string, string> CreateMembers = new Dictionary<string, string>();
         List<string> DeleteMembers = new List<string>();
         Dictionary<string, string> UploadMembers = new Dictionary<string, string>();
         private void fetch_Click(object sender, EventArgs e)
         {
-            string LocalSPF = IBMiUtils.GetLocalDir(lib.Text, spf.Text);
+            string LocalLIB = IBMiUtils.GetLocalDir(lib.Text);
 
-            string[] Files = Directory.GetFiles(LocalSPF);
-            string Name, Ext, LocalMember;
+            string[] Dirs = Directory.GetDirectories(LocalLIB);
+            string Name, Ext, LocalMember, SPF;
 
-            if (Files.Length > 0)
+            foreach (string Dir in Dirs)
             {
-                Member[] MemberList = IBMiUtils.GetMemberList(lib.Text, spf.Text);
-                foreach (string FilePath in Files)
+                SPF = Path.GetFileName(Dir);
+                Member[] MemberList = IBMiUtils.GetMemberList(lib.Text, SPF);
+                if (MemberList == null)
+                    CreateSPFs.Add(SPF, 112);
+
+                foreach (string FilePath in Directory.GetFiles(Dir))
                 {
-                    Name = Path.GetFileNameWithoutExtension(FilePath);
+                    Name = SPF + '/' + Path.GetFileNameWithoutExtension(FilePath);
                     Ext = Path.GetExtension(FilePath).TrimStart('.');
 
                     if (MemberList == null)
@@ -43,7 +48,7 @@ namespace ILEditor.Forms
                     }
                     else
                     {
-                        if (MemberList.Where(x => x.GetMember() == Name).Count() == 0)
+                        if (MemberList.Where(x => (x.GetObject() + '/' + x.GetMember()) == Name).Count() == 0)
                         {
                             CreateMembers.Add(Name, Ext);
                         }
@@ -59,36 +64,35 @@ namespace ILEditor.Forms
                         LocalMember = IBMiUtils.GetLocalFile(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember(), MemberInfo.GetExtension());
                         if (!File.Exists(LocalMember))
                         {
-                            DeleteMembers.Add(MemberInfo.GetMember());
+                            DeleteMembers.Add(MemberInfo.GetObject() + "/" + MemberInfo.GetMember());
                         }
                     }
                 }
-
-                ListViewItem item;
-                foreach (string MemberName in DeleteMembers)
-                {
-                    memberLog.Items.Add(new ListViewItem(MemberName, memberLog.Groups[0]));
-                }
-                
-                foreach (var MemberInfo in CreateMembers)
-                {
-                    memberLog.Items.Add(new ListViewItem(MemberInfo.Key + "." + MemberInfo.Value, memberLog.Groups[1]));
-                }
-                
-                foreach (var MemberName in UploadMembers)
-                {
-                    memberLog.Items.Add(new ListViewItem(MemberName.Key, memberLog.Groups[2]));
-                }
-
-                pushButton.Enabled = true;
-                fetch.Enabled = false;
-                lib.Enabled = false;
-                spf.Enabled = false;
             }
-            else
+
+            foreach (var SPFInfo in CreateSPFs)
             {
-                memberLog.Items.Add("No local members found.");
+                memberLog.Items.Add(new ListViewItem(SPFInfo.Key + " (" + SPFInfo.Value.ToString() + ")", memberLog.Groups[0]));
             }
+
+            foreach (string MemberName in DeleteMembers)
+            {
+                memberLog.Items.Add(new ListViewItem(MemberName, memberLog.Groups[1]));
+            }
+
+            foreach (var MemberInfo in CreateMembers)
+            {
+                memberLog.Items.Add(new ListViewItem(MemberInfo.Key + "." + MemberInfo.Value, memberLog.Groups[2]));
+            }
+
+            foreach (var MemberName in UploadMembers)
+            {
+                memberLog.Items.Add(new ListViewItem(MemberName.Key, memberLog.Groups[3]));
+            }
+
+            pushButton.Enabled = true;
+            fetch.Enabled = false;
+            lib.Enabled = false;
         }
 
         private void pushButton_Click(object sender, EventArgs e)
@@ -96,21 +100,30 @@ namespace ILEditor.Forms
             string LocalFile;
             List<string> Commands = new List<string>();
             Commands.Add("cd /QSYS.lib");
+            string[] Path;
 
-            foreach(string Member in DeleteMembers)
+            foreach (var Member in CreateSPFs)
             {
-                Commands.Add("QUOTE RCMD RMVM FILE(" + lib.Text.Trim() + "/" + spf.Text.Trim() +") MBR(" + Member.Trim() + ")");
+                Commands.Add("QUOTE RCMD CRTSRCPF FILE(" + lib.Text.Trim() + "/" + Member.Key + ") RCDLEN(" + Member.Value.ToString() + ")");
+            }
+
+            foreach (string Member in DeleteMembers)
+            {
+                Path = Member.Split('/');
+                Commands.Add("QUOTE RCMD RMVM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ")");
             }
 
             foreach (var Member in CreateMembers)
             {
-                Commands.Add("QUOTE RCMD ADDPFM FILE(" + lib.Text.Trim() + "/" + spf.Text.Trim() + ") MBR(" + Member.Key.Trim() + ") SRCTYPE(" + Member.Value.Trim() + ")");
+                Path = Member.Key.Trim().Split('/');
+                Commands.Add("QUOTE RCMD ADDPFM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ") SRCTYPE(" + Member.Value.Trim() + ")");
             }
 
             foreach(var Member in UploadMembers)
             {
-                LocalFile = IBMiUtils.GetLocalFile(lib.Text.Trim(), spf.Text.Trim(), Member.Key, Member.Value);
-                Commands.Add("put \"" + LocalFile + "\" \"" + lib.Text.Trim() + ".lib/" + spf.Text.Trim() + ".file/" + Member.Key + ".mbr\"");
+                Path = Member.Key.Trim().Split('/');
+                LocalFile = IBMiUtils.GetLocalFile(lib.Text.Trim(), Path[0], Path[1], Member.Value);
+                Commands.Add("put \"" + LocalFile + "\" \"" + lib.Text.Trim() + ".lib/" + Path[0] + ".file/" + Path[1] + ".mbr\"");
             }
 
             Boolean Failure = IBMi.RunCommands(Commands.ToArray());

@@ -103,6 +103,10 @@ namespace ILEditor.Classes
             return Objects.ToArray();
         }
 
+        private static readonly string[] IgnorePFs = new[] {
+            "EVFTEMP",
+            "QSQLTEMP"
+        };
         public static ILEObject[] GetSPFList(string Lib)
         {
             List<ILEObject> SPFList = new List<ILEObject>();
@@ -120,12 +124,14 @@ namespace ILEditor.Classes
 
             if (file != "")
             {
+                Boolean validName = true;
                 string Line, Library, Object;
                 ILEObject Obj;
                 foreach (string RealLine in File.ReadAllLines(file))
                 {
                     if (RealLine.Trim() != "")
                     {
+                        validName = true;
                         Line = RealLine.PadRight(31);
                         Object = Line.Substring(0, 10).Trim();
                         Library = Line.Substring(10, 10).Trim();
@@ -134,7 +140,14 @@ namespace ILEditor.Classes
                         Obj.Library = Library;
                         Obj.Name = Object;
 
-                        SPFList.Add(Obj);
+                        foreach (string Name in IgnorePFs)
+                        {
+                            if (Obj.Name.StartsWith(Name))
+                                validName = false;
+                        }
+
+                        if (validName)
+                            SPFList.Add(Obj);
                     }
                 }
             }
@@ -297,6 +310,16 @@ namespace ILEditor.Classes
             }
 
             return true;
+        }
+
+        public static string GetLocalDir(string Lib)
+        {
+            string LIBDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib;
+
+            if (!Directory.Exists(LIBDir))
+                Directory.CreateDirectory(LIBDir);
+
+            return LIBDir;
         }
 
         public static string GetLocalDir(string Lib, string Obj)
