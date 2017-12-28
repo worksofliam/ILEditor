@@ -558,7 +558,11 @@ namespace ILEditor
             }
             newMemberForm.Dispose();
         }
-
+        
+        private void sourcePhysicalFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new NewSPF().ShowDialog();
+        }
 
         private void memberToolStripMenuItem1_Click(object sender, EventArgs e)
         {
