@@ -53,6 +53,7 @@ namespace ILEditor.UserTools
 
             textEditor = new TextEditor();
             textEditor.ShowLineNumbers = true;
+            textEditor.Encoding = Encoding.GetEncoding("iso-8859-1");
             textEditor.Text = File.ReadAllText(LocalFile);
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
@@ -238,7 +239,7 @@ namespace ILEditor.UserTools
 
                         this.Invoke((MethodInvoker)delegate
                         {
-                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText());
+                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
                         });
                         bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
                         if (UploadResult == false)
