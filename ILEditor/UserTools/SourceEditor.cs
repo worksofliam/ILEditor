@@ -53,8 +53,11 @@ namespace ILEditor.UserTools
 
             textEditor = new TextEditor();
             textEditor.ShowLineNumbers = true;
+            //textEditor.Encoding = Encoding.GetEncoding(1252);
+            //textEditor.Encoding = Encoding.GetEncoding(28591);
+            //textEditor.Encoding = Encoding.GetEncoding("IBM437");
             textEditor.Encoding = Encoding.GetEncoding("iso-8859-1");
-            textEditor.Text = File.ReadAllText(LocalFile);
+            textEditor.Text = File.ReadAllText(LocalFile, textEditor.Encoding);
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
