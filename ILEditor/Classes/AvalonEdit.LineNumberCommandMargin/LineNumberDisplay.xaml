@@ -22,7 +22,7 @@
                  MinWidth="25"
                 Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
                  Name="lineNumberCommandTextBox"
-                 KeyDown="lineNumberCommandTextBox_KeyDown"
+                 LostFocus="lineNumberCommandTextBox_LostFocus"
                  >
             <TextBox.Style>
                 <Style TargetType="TextBox">
@@ -40,6 +40,7 @@
                    MinWidth="25"
                    Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
                    Name="lineNumberCommandTextBlock"
+                   MouseUp="lineNumberCommandTextBlock_MouseUp"
                    >
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
@@ -61,7 +62,7 @@
                     Text="{Binding Path=Model.LineNumber, ElementName=lineNumberDisplayCtl}" 
                    Name="lineNumberTextBlock" 
                     TextAlignment="Right"
-                    MouseEnter="lineNumberTextBlock_MouseEnter"
+                    MouseUp="lineNumberTextBlock_MouseUp"
                    >
         </TextBlock>
 

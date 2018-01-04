@@ -38,36 +38,31 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         {
             InitializeComponent();
 
-            turnOffCommandEntryTimer.Tick += TurnOffCommandEntryTimer_Tick;
         }
 
-        DispatcherTimer turnOffCommandEntryTimer = new DispatcherTimer
+        private void lineNumberTextBlock_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Interval = new TimeSpan(0, 0, 2)
-        };
+            // clicked line number so go to command mode
+            var context = this.DataContext as LineNumberDisplayModel;
+            context.IsCommandEntryVisible = true;
+            lineNumberCommandTextBox.Focus();
+        }
 
-        private void TurnOffCommandEntryTimer_Tick(object sender, EventArgs e)
+        private void lineNumberCommandTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            turnOffCommandEntryTimer.Stop();
-            var model = this.DataContext as LineNumberDisplayModel;
-            model.IsCommandEntryVisible = false;
+            var context = this.DataContext as LineNumberDisplayModel;
+            context.IsCommandEntryVisible = false;
+        }
+
+        private void lineNumberCommandTextBlock_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // clicked a command area so go to command mode
+            var context = this.DataContext as LineNumberDisplayModel;
+            context.IsCommandEntryVisible = true;
+            lineNumberCommandTextBox.Focus();
         }
 
 
-
-        private void lineNumberTextBlock_MouseEnter(object sender, MouseEventArgs e)
-        {
-            var model = this.DataContext as LineNumberDisplayModel;
-
-            model.IsCommandEntryVisible = true;
-        }
-
-        private void lineNumberCommandTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            // keep command entry going while they are typing
-            turnOffCommandEntryTimer.Stop();
-            turnOffCommandEntryTimer.Start();
-        }
     }
 
 
