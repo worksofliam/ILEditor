@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
     public class LineNumberMarginAdorner : Adorner
     {
 
-        public LineNumberMarginAdorner(LineNumberMarginWithCommands marginElement)
+        private TextEditor editor;
+
+        public LineNumberMarginAdorner(LineNumberMarginWithCommands marginElement, TextEditor _editor)
             : base(marginElement)
         {
+            this.editor = _editor;
             this.listView = new LineNumbersListView();
             this.AddVisualChild(this.listView); // this has to be there for events and interaction to work
 
@@ -57,12 +61,27 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             // create 
             foreach( var t in nonExistantTextLines)
             {
-                visualLines.Add(new LineNumberDisplayModel
+                var entry = new LineNumberDisplayModel
                 {
                     IsInView = true,
                     LineNumber = t.Number,
                     ControlHeight = t.LineHeight
-                });
+                };
+
+                entry.SubmitAllLineNumberCommands += (_sender, _args) =>
+                {
+                    var commands = from l in listView.LineNumbers
+                                   where l.HasCommandText
+                                   select new SEUCommands.SEUCommandInfo
+                                   {
+                                       LineNumber= l.LineNumber,
+                                       CommandText= l.CommandText
+                                   };
+                    // need command handler
+                    SEUCommands.SEUCommandHandler.ExecuteCommands(commands, editor);
+                };
+
+                visualLines.Add(entry);
             }
 
             // hide

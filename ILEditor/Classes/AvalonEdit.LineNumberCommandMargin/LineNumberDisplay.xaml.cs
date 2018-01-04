@@ -62,7 +62,15 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             lineNumberCommandTextBox.Focus();
         }
 
-
+        private void lineNumberCommandTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            var model = this.DataContext as LineNumberDisplayModel;
+            if( e.Key == Key.Return)
+            {
+                // signal command submitted
+                model.signalSubmitAllCommands();
+            }
+        }
     }
 
 

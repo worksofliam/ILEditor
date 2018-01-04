@@ -29,7 +29,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
             me.Loaded += (_sender, args) =>
             {
-                var adorner1 = new LineNumberMarginAdorner(me);
+                var adorner1 = new LineNumberMarginAdorner(me, _editor);
                 // it's got to be displayed before adorning I think
                 // adorn it
                 adorner1.LineNumberListViewWidthChanged += (_sender2, _args2) =>

@@ -23,6 +23,7 @@
                 Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
                  Name="lineNumberCommandTextBox"
                  LostFocus="lineNumberCommandTextBox_LostFocus"
+                 KeyDown="lineNumberCommandTextBox_KeyDown"
                  >
             <TextBox.Style>
                 <Style TargetType="TextBox">

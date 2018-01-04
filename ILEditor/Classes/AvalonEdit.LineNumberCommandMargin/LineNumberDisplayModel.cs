@@ -9,6 +9,10 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
     public class LineNumberDisplayModel : WPFHelpers.ViewModelBase
     {
 
+        public event Action<object, EventArgs> SubmitAllLineNumberCommands;
+
+
+
         public int LineNumber
         {
             get { return this.GetValue(() => this.LineNumber); }
@@ -51,6 +55,18 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         {
             get { return this.GetValue(() => this.IsCommandEntryVisible); }
             set { this.SetValue(() => this.IsCommandEntryVisible, value); }
+        }
+
+
+
+
+
+        public void signalSubmitAllCommands()
+        {
+            if( this.SubmitAllLineNumberCommands != null)
+            {
+                this.SubmitAllLineNumberCommands(this, new EventArgs());
+            }
         }
 
     }
