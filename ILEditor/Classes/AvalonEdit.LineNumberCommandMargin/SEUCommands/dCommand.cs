@@ -16,13 +16,26 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.SEUCommands
                        where string.Equals(c.CommandText, "d", StringComparison.OrdinalIgnoreCase)
                        select c;
 
+
+
             foreach( var c in cmds)
             {
                 var editorLine = editor.Document.GetLineByNumber(c.LineNumber);
                 editor.Document.Remove(editorLine);
                 editor.Document.BeginUpdate();
-                // deleted the line so also remove command
-                commands.Remove(c);
+
+                // we've deleted a line so we have to renumber all lines after it
+                int lineNumber = c.LineNumber;
+                c.LineNumber = -1;
+                c.IsInView = false;
+                // will also need to remove c at some point
+                int commandsIndex = commands.IndexOf(c);
+                for( int i = commandsIndex + 1; i < commands.Count; ++i )
+                {
+                    var cmdToRenumber = commands[i];
+                    cmdToRenumber.LineNumber = lineNumber;
+                    ++lineNumber; 
+                }
             }
         }
     }
