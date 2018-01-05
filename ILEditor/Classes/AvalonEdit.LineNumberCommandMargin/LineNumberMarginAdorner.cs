@@ -70,15 +70,11 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
                 entry.SubmitAllLineNumberCommands += (_sender, _args) =>
                 {
-                    var commands = from l in listView.LineNumbers
-                                   where l.HasCommandText
-                                   select new SEUCommands.SEUCommandInfo
-                                   {
-                                       LineNumber= l.LineNumber,
-                                       CommandText= l.CommandText
-                                   };
-                    // need command handler
-                    SEUCommands.SEUCommandHandler.ExecuteCommands(commands, editor);
+                    if(this.listView.LineNumbers.Any(l => l.HasCommandText))
+                    {
+                        SEUCommands.SEUCommandHandler.ExecuteCommands(this.listView.LineNumbers, editor);
+                    }
+                    
                 };
 
                 visualLines.Add(entry);
