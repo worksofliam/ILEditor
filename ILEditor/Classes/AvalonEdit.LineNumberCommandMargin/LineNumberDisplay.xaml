@@ -20,7 +20,7 @@
     <DockPanel Height="{Binding Path=Model.ControlHeight, Mode=TwoWay, ElementName=lineNumberDisplayCtl}">
         <TextBox DockPanel.Dock="Left"
                  MinWidth="25"
-                Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
+                Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl, UpdateSourceTrigger=PropertyChanged}"
                  Name="lineNumberCommandTextBox"
                  LostFocus="lineNumberCommandTextBox_LostFocus"
                  KeyDown="lineNumberCommandTextBox_KeyDown"
