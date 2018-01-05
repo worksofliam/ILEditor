@@ -123,6 +123,10 @@
       <DependentUpon>LineNumbersListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\MaxLineNumberLengthChangedEventArgs.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\dCommand.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\ddCommand.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\ICommand.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\SEUCommandHandler.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\DiffMatchPatch.cs" />
