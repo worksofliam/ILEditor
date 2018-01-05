@@ -12,30 +12,32 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.SEUCommands
     {
         public void Execute(ObservableCollection<LineNumberDisplayModel> commands, TextEditor editor)
         {
-            var cmds = from c in commands
+            var cmds = (from c in commands
                        where string.Equals(c.CommandText, "d", StringComparison.OrdinalIgnoreCase)
-                       select c;
+                       select c
+                       ).ToList();// make a copy of it
 
 
 
             foreach( var c in cmds)
             {
+               // int commandsIndex = commands.IndexOf(c); // it's being removed from commands so grab it's index prior to that
+                
                 var editorLine = editor.Document.GetLineByNumber(c.LineNumber);
-                editor.Document.Remove(editorLine);
-                editor.Document.BeginUpdate();
+                // remove the line from AvalonEdit
+                editor.Document.Remove(editorLine.Offset, editorLine.NextLine.Offset - editorLine.Offset);
+                commands.Remove(c); // remove it from the margin since it's line is about to be deleted
 
+                /*
                 // we've deleted a line so we have to renumber all lines after it
                 int lineNumber = c.LineNumber;
-                c.LineNumber = -1;
-                c.IsInView = false;
-                // will also need to remove c at some point
-                int commandsIndex = commands.IndexOf(c);
-                for( int i = commandsIndex + 1; i < commands.Count; ++i )
+                
+                // things will shift down so we want to renumber starting with the old index of our removed line
+                for( int i = commandsIndex; i < commands.Count; ++i )
                 {
                     var cmdToRenumber = commands[i];
-                    cmdToRenumber.LineNumber = lineNumber;
-                    ++lineNumber; 
-                }
+                    cmdToRenumber.LineNumber = ++lineNumber;
+                }*/
             }
         }
     }

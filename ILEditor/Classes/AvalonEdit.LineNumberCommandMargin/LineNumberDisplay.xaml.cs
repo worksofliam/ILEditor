@@ -51,7 +51,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         private void lineNumberCommandTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var context = this.DataContext as LineNumberDisplayModel;
-            context.IsCommandEntryVisible = false;
+            // they may have entered a command that got rid of the line
+            if( context != null)
+            {
+                context.IsCommandEntryVisible = false;
+            }
+            
         }
 
         private void lineNumberCommandTextBlock_MouseUp(object sender, MouseButtonEventArgs e)
