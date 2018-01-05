@@ -72,7 +72,15 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                 {
                     if(this.listView.LineNumbers.Any(l => l.HasCommandText))
                     {
-                        SEUCommands.SEUCommandHandler.ExecuteCommands(this.listView.LineNumbers, editor);
+                        try
+                        {
+                            SEUCommands.SEUCommandHandler.ExecuteCommands(this.listView.LineNumbers, editor);
+                        }
+                        catch(Exception ex)
+                        {
+                            // command execution failed, redo all the line numbers so it just clears everything?
+                            System.Windows.MessageBox.Show($"Hey change this to just clear out everything.  Exception Occured: {ex}");
+                        }
                     }
                     
                 };
