@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILEditor.Classes;
 using System.IO;
+using System.Diagnostics;
 
 namespace ILEditor.Forms
 {
@@ -26,6 +27,7 @@ namespace ILEditor.Forms
             password = Password.Decode(password);
             pass.Text = password;
 
+            ftpes.Checked = (Program.Config.GetValue("useFTPES") == "true");
             fetchJobLog.Checked = (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true");
 
             selectedFont.SelectedItem = IBMi.CurrentSystem.GetValue("FONT");
@@ -50,6 +52,8 @@ namespace ILEditor.Forms
             password = pass.Text.Trim();
             password = Password.Encode(password);
             IBMi.CurrentSystem.SetValue("password", password);
+
+            IBMi.CurrentSystem.SetValue("useFTPES", ftpes.Checked.ToString().ToLower());
             IBMi.CurrentSystem.SetValue("fetchJobLog", fetchJobLog.Checked.ToString().ToLower());
 
             IBMi.CurrentSystem.SetValue("FONT", selectedFont.SelectedItem.ToString());
@@ -77,6 +81,11 @@ namespace ILEditor.Forms
             {
                 Program.Config.SetValue("acspath", openFile.FileName);
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://www-01.ibm.com/support/docview.wss?uid=nas8N1014798");
         }
     }
 }

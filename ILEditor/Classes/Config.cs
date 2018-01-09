@@ -65,6 +65,7 @@ namespace ILEditor.Classes
             CheckExist("username", "myuser");
             CheckExist("password", "mypass");
             CheckExist("alias", Data["system"]);
+            CheckExist("useFTPES", "false");
 
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");

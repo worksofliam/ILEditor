@@ -51,6 +51,8 @@
             this.validACS = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.fetchJobLog = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -65,8 +67,8 @@
             this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.fetchJobLog = new System.Windows.Forms.CheckBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.ftpes = new System.Windows.Forms.CheckBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -297,6 +299,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.linkLabel1);
+            this.tabPage1.Controls.Add(this.ftpes);
             this.tabPage1.Controls.Add(this.label16);
             this.tabPage1.Controls.Add(this.fetchJobLog);
             this.tabPage1.Controls.Add(this.label1);
@@ -312,6 +316,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 123);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(130, 13);
+            this.label16.TabIndex = 14;
+            this.label16.Text = "Show Job Log on Compile";
+            // 
+            // fetchJobLog
+            // 
+            this.fetchJobLog.AutoSize = true;
+            this.fetchJobLog.Location = new System.Drawing.Point(259, 122);
+            this.fetchJobLog.Name = "fetchJobLog";
+            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
+            this.fetchJobLog.TabIndex = 13;
+            this.fetchJobLog.Text = "Fetch Job Log";
+            this.fetchJobLog.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -468,24 +491,26 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // fetchJobLog
+            // ftpes
             // 
-            this.fetchJobLog.AutoSize = true;
-            this.fetchJobLog.Location = new System.Drawing.Point(259, 98);
-            this.fetchJobLog.Name = "fetchJobLog";
-            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
-            this.fetchJobLog.TabIndex = 13;
-            this.fetchJobLog.Text = "Fetch Job Log";
-            this.fetchJobLog.UseVisualStyleBackColor = true;
+            this.ftpes.AutoSize = true;
+            this.ftpes.Location = new System.Drawing.Point(259, 99);
+            this.ftpes.Name = "ftpes";
+            this.ftpes.Size = new System.Drawing.Size(60, 17);
+            this.ftpes.TabIndex = 15;
+            this.ftpes.Text = "FTPES";
+            this.ftpes.UseVisualStyleBackColor = true;
             // 
-            // label16
+            // linkLabel1
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 99);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(130, 13);
-            this.label16.TabIndex = 14;
-            this.label16.Text = "Show Job Log on Compile";
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(8, 100);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
+            this.linkLabel1.TabIndex = 16;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Use FTPES";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // Connection
             // 
@@ -555,5 +580,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox fetchJobLog;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.CheckBox ftpes;
     }
 }

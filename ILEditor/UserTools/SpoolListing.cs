@@ -103,7 +103,7 @@ namespace ILEditor.UserTools
                 Editor.TheEditor.SetStatus("Deleting all spool files..");
                 new Thread((ThreadStart)delegate
                 {
-                    if (IBMi.RunCommands(new[] { "QUOTE RCMD DLTSPLF FILE(*SELECT)" }) == false)
+                    if (IBMi.RemoteCommand("DLTSPLF FILE(*SELECT)") == true)
                     {
                         this.Invoke((MethodInvoker)delegate
                         {

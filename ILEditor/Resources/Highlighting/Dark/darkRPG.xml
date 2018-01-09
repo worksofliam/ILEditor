@@ -102,6 +102,7 @@
       <Word>downto</Word>
       <Word>export</Word>
       <Word>handler</Word>
+      <Word>sfile</Word>
     </Keywords>
 
     <Keywords foreground="#C26DFF">
