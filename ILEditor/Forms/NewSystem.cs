@@ -38,7 +38,7 @@ namespace ILEditor.Forms
                 lines[1] = "system=" + Host;
                 lines[2] = "username=" + User;
                 lines[3] = "password=" + Pass;
-                lines[5] = "useFTPes=" + useFTPES;
+                lines[4] = "useFTPes=" + useFTPES;
                 File.WriteAllLines(SystemPath, lines);
                 Successful = true;
             }
