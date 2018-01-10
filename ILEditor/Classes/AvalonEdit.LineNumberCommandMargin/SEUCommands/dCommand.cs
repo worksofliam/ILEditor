@@ -26,11 +26,17 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.SEUCommands
 
                 var editorLine = editor.Document.GetLineByNumber(c.LineNumber);
                 // remove the line from AvalonEdit
-                editor.Document.Remove(editorLine.Offset, editorLine.NextLine.Offset - editorLine.Offset);
-                
+                if( editorLine.NextLine == null)
+                {
+                    // no next line so call it this way
+                    editor.Document.Remove(editorLine);
+                }else
+                {
+                    editor.Document.Remove(editorLine.Offset, editorLine.NextLine.Offset - editorLine.Offset);
+                }
 
                 
-                // we've deleted a line so we have to renumber all lines after it
+                // we've deleted a line so we have to renumber all lines after it in the custom margin
                 int lineNumber = c.LineNumber;
                 
                 // things will shift down so we want to renumber starting with the old index of our removed line
