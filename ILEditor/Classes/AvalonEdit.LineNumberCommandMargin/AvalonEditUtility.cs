@@ -14,18 +14,14 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             var editorLine = editor.Document.GetLineByNumber(lineNumber);
             // remove the line from AvalonEdit
 
-            if( editorLine.PreviousLine != null && editorLine.NextLine != null)
-            {
-                // has both previous and next lines
-                editor.Document.Remove(editorLine.PreviousLine.EndOffset, editorLine.NextLine.Offset - editorLine.PreviousLine.EndOffset);
-            }else if( editorLine.NextLine != null)
+            if( editorLine.NextLine != null && editorLine.PreviousLine == null)
             {
                 // has no previous but has next
                 editor.Document.Remove(editorLine.Offset, editorLine.NextLine.Offset - editorLine.Offset);
             }
-            else if( editorLine.PreviousLine != null)
+            else if( editorLine.PreviousLine != null )
             {
-                // has no next but has previous
+                // has previous (Having a next either way doesn't matter)
                 editor.Document.Remove(editorLine.PreviousLine.EndOffset, editorLine.EndOffset - editorLine.PreviousLine.EndOffset);
             }
             else
