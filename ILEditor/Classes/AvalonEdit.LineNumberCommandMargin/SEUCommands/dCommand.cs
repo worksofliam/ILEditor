@@ -24,16 +24,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.SEUCommands
                 int commandsIndex = commands.IndexOf(c); // it's being removed from commands so grab it's index prior to that
                 commands.Remove(c); // remove it from the margin since it's line is about to be deleted
 
-                var editorLine = editor.Document.GetLineByNumber(c.LineNumber);
-                // remove the line from AvalonEdit
-                if( editorLine.NextLine == null)
-                {
-                    // no next line so call it this way
-                    editor.Document.Remove(editorLine);
-                }else
-                {
-                    editor.Document.Remove(editorLine.Offset, editorLine.NextLine.Offset - editorLine.Offset);
-                }
+                AvalonEditUtility.DeleteLine(editor, c.LineNumber);
 
                 
                 // we've deleted a line so we have to renumber all lines after it in the custom margin
