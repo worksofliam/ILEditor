@@ -21,14 +21,15 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.SEUCommands
 
             foreach( var c in cmds)
             {
-               // int commandsIndex = commands.IndexOf(c); // it's being removed from commands so grab it's index prior to that
-                
+                int commandsIndex = commands.IndexOf(c); // it's being removed from commands so grab it's index prior to that
+                commands.Remove(c); // remove it from the margin since it's line is about to be deleted
+
                 var editorLine = editor.Document.GetLineByNumber(c.LineNumber);
                 // remove the line from AvalonEdit
                 editor.Document.Remove(editorLine.Offset, editorLine.NextLine.Offset - editorLine.Offset);
-                commands.Remove(c); // remove it from the margin since it's line is about to be deleted
+                
 
-                /*
+                
                 // we've deleted a line so we have to renumber all lines after it
                 int lineNumber = c.LineNumber;
                 
@@ -36,8 +37,8 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.SEUCommands
                 for( int i = commandsIndex; i < commands.Count; ++i )
                 {
                     var cmdToRenumber = commands[i];
-                    cmdToRenumber.LineNumber = ++lineNumber;
-                }*/
+                    cmdToRenumber.LineNumber = lineNumber++; // assign current line number then incriment it
+                }
             }
         }
     }
