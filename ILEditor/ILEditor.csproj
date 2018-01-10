@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AutoCompleteData.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\AvalonEditUtility.cs" />
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineInfo.cs" />
     <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml.cs">
       <DependentUpon>LineNumberDisplay.xaml</DependentUpon>
