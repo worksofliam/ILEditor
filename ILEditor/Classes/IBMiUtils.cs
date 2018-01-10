@@ -69,13 +69,20 @@ namespace ILEditor.Classes
             List<ILEObject> Objects = new List<ILEObject>();
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
-            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/OBJLIST) OBJTYPE(*FILE)", false);
-            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/DATA) OBJTYPE(*FILE)", false);
+            string FileA = 'O' + Lib, FileB = "T" + Lib;
 
-            IBMi.RemoteCommand("DSPOBJD OBJ(" + Lib + "/*ALL) OBJTYPE(" + Types + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/objlist)");
-            IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/objlist order by ODOBNM) WITH DATA') COMMIT(*NONE)");
+            if (FileA.Length > 10)
+                FileA = FileA.Substring(0, 10);
+            if (FileB.Length > 10)
+                FileB = FileB.Substring(0, 10);
+
+            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileA + ") OBJTYPE(*FILE)", false);
+            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileB + ") OBJTYPE(*FILE)", false);
+
+            IBMi.RemoteCommand("DSPOBJD OBJ(" + Lib + "/*ALL) OBJTYPE(" + Types + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/" + FileA + ")");
+            IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/" + FileA + " order by ODOBNM) WITH DATA') COMMIT(*NONE)");
             
-            string file = DownloadMember("QTEMP", "DATA", "DATA");
+            string file = DownloadMember("QTEMP", FileB, FileB);
 
             if (file != "")
             {
@@ -121,14 +128,21 @@ namespace ILEditor.Classes
 
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
-            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/SPFLIST) OBJTYPE(*FILE)", false);
-            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/DATA) OBJTYPE(*FILE)", false);
+            string FileA = 'S' + Lib, FileB = "D" + Lib;
 
-            IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/SPFLIST)");
-            IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/DATA AS (SELECT PHFILE, PHLIB FROM QTEMP/SPFLIST WHERE PHDTAT = ''S'' order by PHFILE) WITH DATA') COMMIT(*NONE)");
+            if (FileA.Length > 10)
+                FileA = FileA.Substring(0, 10);
+            if (FileB.Length > 10)
+                FileB = FileB.Substring(0, 10);
+
+            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileA + ") OBJTYPE(*FILE)", false);
+            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileB + ") OBJTYPE(*FILE)", false);
+
+            IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/" + FileA + ")");
+            IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT PHFILE, PHLIB FROM QTEMP/" + FileA + " WHERE PHDTAT = ''S'' order by PHFILE) WITH DATA') COMMIT(*NONE)");
 
             Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
-            string file = DownloadMember("QTEMP", "DATA", "DATA");
+            string file = DownloadMember("QTEMP", FileB, FileB);
 
             if (file != "")
             {
@@ -179,11 +193,15 @@ namespace ILEditor.Classes
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
             Editor.TheEditor.SetStatus("Fetching members for " + Lib + "/" + Obj + "...");
 
-            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/MEMBERS) OBJTYPE(*FILE)", false);
+            string TempName = 'M' + Obj;
+            if (TempName.Length > 10)
+                TempName = TempName.Substring(0, 10);
+
+            IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + TempName + ") OBJTYPE(*FILE)", false);
             IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + Obj + ") OBJTYPE(*FILE)", false);
 
-            IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MEMBERS)");
-            IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + Obj + " AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/MEMBERS order by MBNAME) WITH DATA') COMMIT(*NONE)");
+            IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/" + TempName + ")");
+            IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + Obj + " AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/" + TempName + " order by MBNAME) WITH DATA') COMMIT(*NONE)");
 
             string file = DownloadMember("QTEMP", Obj, Obj);
 

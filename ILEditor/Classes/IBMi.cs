@@ -67,14 +67,21 @@ namespace ILEditor.Classes
                 MessageBox.Show(FTPCodeMessages[ErrorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static string FTPFile = "";
         public static bool Connect()
         {
             bool result = false;
             try
             {
+                FTPFile = IBMiUtils.GetLocalFile("QTEMP", "FTPLOG", DateTime.Now.ToString("MMddTHHmm"), "txt");
+                FtpTrace.AddListener(new TextWriterTraceListener(FTPFile));
+                FtpTrace.LogUserName = false;   // hide FTP user names
+                FtpTrace.LogPassword = false;   // hide FTP passwords
+                FtpTrace.LogIP = false; 	// hide FTP server IP addresses
+
                 string password = Password.Decode(CurrentSystem.GetValue("password"));
                 Client = new FtpClient(CurrentSystem.GetValue("system"), CurrentSystem.GetValue("username"), password);
-
+                
                 Client.UploadDataType = FtpDataType.ASCII;
                 Client.DownloadDataType = FtpDataType.ASCII;
 
@@ -88,7 +95,7 @@ namespace ILEditor.Classes
                 //Change the user library list on connection
                 if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
                     RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
-
+                
                 result = true;
             }
             catch (Exception e)
@@ -107,9 +114,11 @@ namespace ILEditor.Classes
         //Returns false if successful
         public static bool DownloadFile(string Local, string Remote)
         {
+            bool Result = false;
             try
             {
-                return !Client.DownloadFile(Local, Remote, true);
+                
+                Result = !Client.DownloadFile(Local, Remote, true);
             }
             catch (Exception e)
             {
@@ -118,8 +127,10 @@ namespace ILEditor.Classes
                     FtpCommandException err = e.InnerException as FtpCommandException;
                     HandleError(err.CompletionCode, err.Message);
                 }
-                return true;
+                Result = true;
             }
+            
+            return Result;
         }
 
         //Returns true if successful
@@ -131,7 +142,8 @@ namespace ILEditor.Classes
         //Returns true if successful
         public static bool RemoteCommand(string Command, bool ShowError = true)
         {
-            FtpReply reply = Client.Execute("RCMD " + Command);
+            string inputCmd = "RCMD " + Command;
+            FtpReply reply = Client.Execute(inputCmd);
 
             if (ShowError)
                 HandleError(reply.Code, reply.ErrorMessage);

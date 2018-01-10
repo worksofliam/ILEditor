@@ -713,6 +713,11 @@ namespace ILEditor
         {
             new About().ShowDialog();
         }
+        
+        private void sessionFTPLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(IBMi.FTPFile);
+        }
         #endregion
     }
 
