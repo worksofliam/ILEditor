@@ -308,6 +308,9 @@ namespace ILEditor.Classes
                     command = command.Replace("&OPENMBR", MemberInfo.GetMember());
                     command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
                     
+                    if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
+                        IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
+
                     if (!IBMi.RemoteCommand(command))
                     {
                         Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
