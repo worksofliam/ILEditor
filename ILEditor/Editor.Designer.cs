@@ -34,6 +34,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourcePhysicalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +83,7 @@
             this.greenOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
-            this.sourcePhysicalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGRLAToEmbeddedSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -135,6 +136,13 @@
             this.memberToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.memberToolStripMenuItem.Text = "Member";
             this.memberToolStripMenuItem.Click += new System.EventHandler(this.memberToolStripMenuItem_Click);
+            // 
+            // sourcePhysicalFileToolStripMenuItem
+            // 
+            this.sourcePhysicalFileToolStripMenuItem.Name = "sourcePhysicalFileToolStripMenuItem";
+            this.sourcePhysicalFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
+            this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -273,7 +281,8 @@
             this.rPGConversionToolStripMenuItem,
             this.cLFormatterToolStripMenuItem,
             this.serviceProgramGeneratorToolStripMenuItem,
-            this.generateSQLToolStripMenuItem});
+            this.generateSQLToolStripMenuItem,
+            this.rPGRLAToEmbeddedSQLToolStripMenuItem});
             this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
             this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.languageToolsToolStripMenuItem.Text = "Language Tools";
@@ -558,12 +567,12 @@
             this.tabImageList.Images.SetKeyName(2, "file.png");
             this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
-            // sourcePhysicalFileToolStripMenuItem
+            // rPGRLAToEmbeddedSQLToolStripMenuItem
             // 
-            this.sourcePhysicalFileToolStripMenuItem.Name = "sourcePhysicalFileToolStripMenuItem";
-            this.sourcePhysicalFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
-            this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
+            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Name = "rPGRLAToEmbeddedSQLToolStripMenuItem";
+            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Text = "RPG RLA to Embedded SQL";
+            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Click += new System.EventHandler(this.rPGRLAToEmbeddedSQLToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -651,6 +660,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutILEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourcePhysicalFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGRLAToEmbeddedSQLToolStripMenuItem;
     }
 }
 

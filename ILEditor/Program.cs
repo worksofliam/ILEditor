@@ -29,6 +29,8 @@ namespace ILEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            RLAConverterLib.Module.UIEntry = true;
+
             HostSelect Selector = new HostSelect();
 
             //Application.Run(new Splash());
