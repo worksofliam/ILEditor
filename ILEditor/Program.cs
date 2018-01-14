@@ -32,7 +32,6 @@ namespace ILEditor
             RLAConverterLib.Module.UIEntry = true;
 
             HostSelect Selector;
-            HostSelect Selector = new HostSelect();
 
             //Application.Run(new Splash());
 
