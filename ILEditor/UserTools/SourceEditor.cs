@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.IO;
 using ILEditor.Classes;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using ILEditor.Classes.LanguageTools;
 using System.Threading;
 using ICSharpCode.AvalonEdit;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Search;
 using FindReplace;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -330,7 +321,7 @@ namespace ILEditor.UserTools
             }
         }
 
-        private int GetSpaces(string line)
+        private static int GetSpaces(string line)
         {
             int index = 0;
             foreach(char c in line.ToCharArray())
@@ -367,6 +358,18 @@ namespace ILEditor.UserTools
             }
 
         }
+
+        public void ConvertRLA()
+        {
+            string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            
+            RLAConverterLib.Module Mod = new RLAConverterLib.Module(Lines);
+
+            textEditor.SelectAll();
+            textEditor.SelectedText = "";
+            textEditor.AppendText(String.Join(Environment.NewLine, Mod.GetResult()));
+        }
+
         #endregion
 
         #region CL
@@ -374,7 +377,8 @@ namespace ILEditor.UserTools
         public void FormatCL()
         {
             string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            textEditor.Clear();
+            textEditor.SelectAll();
+            textEditor.SelectedText = "";
             int length = (RcdLen > 0 ? RcdLen : 80);
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }
