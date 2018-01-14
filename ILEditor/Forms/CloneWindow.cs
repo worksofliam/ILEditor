@@ -25,6 +25,7 @@ namespace ILEditor.Forms
             this.Close();
         }
 
+        private Dictionary<string, string> CloneList;
         private List<string> LocalSPFs;
         private void fetch_Click(object sender, EventArgs e)
         {
@@ -70,14 +71,14 @@ namespace ILEditor.Forms
             List<string> Commands = new List<string>();
             string[] member, path;
 
-            Commands.Add("cd /QSYS.lib");
+            CloneList = new Dictionary<string, string>();
             foreach (ListViewItem listitem in memberList.Items)
             {
                 if (listitem.Checked)
                 {
                     member = (string[])listitem.Tag;
                     path = member[0].Split('/');
-                    Commands.Add("recv \"" + lib.Text + ".lib/" + path[0] + ".file/" + path[1] + ".mbr\" \"" + member[1] + "\"");
+                    CloneList.Add("/QSYS.lib/" + lib.Text + ".lib/" + path[0] + ".file/" + path[1] + ".mbr", member[1]);
                 }
             }
 
@@ -92,7 +93,17 @@ namespace ILEditor.Forms
             foreach (string Dir in LocalSPFs)
                 Directory.CreateDirectory(Dir);
 
-            if (IBMi.RunCommands(Commands.ToArray()) == false)
+            bool isOkay = true;
+            foreach (var File in CloneList)
+            {
+                if (IBMi.DownloadFile(File.Value, File.Key) == true) //Error?
+                {
+                    isOkay = false;
+                    break;
+                }
+            }
+
+            if (isOkay)
             {
                 MessageBox.Show("Source-Physical File cloned sucessfully.", "SPF Clone", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 string Location = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + lib.Text;
@@ -101,7 +112,7 @@ namespace ILEditor.Forms
             }
             else
             {
-                
+                MessageBox.Show("There was an error during the clone process.");
             }
         }
     }

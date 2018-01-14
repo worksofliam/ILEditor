@@ -31,7 +31,7 @@ namespace ILEditor
 
             RLAConverterLib.Module.UIEntry = true;
 
-            HostSelect Selector = new HostSelect();
+            HostSelect Selector;
 
             //Application.Run(new Splash());
 
@@ -41,16 +41,50 @@ namespace ILEditor
             Config = new Config(CONFIGDIR);
             Config.DoEditorDefaults();
 
-            Application.Run(Selector);
-            if (Selector.SystemSelected)
+            bool Connected = false;
+            while (Connected == false)
             {
-                if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
-                {
-                    MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    new Connection().ShowDialog();
-                }
+                Selector = new HostSelect();
+                Application.Run(Selector);
 
-                Application.Run(new Editor());
+                if (Selector.SystemSelected)
+                {
+                    if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
+                    {
+                        MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        new Connection().ShowDialog();
+                    }
+
+                    Connected = IBMi.Connect();
+
+                    if (Connected)
+                    {
+                        Application.Run(new Editor());
+                        IBMi.Disconnect();
+                    }
+                    else
+                    {
+                        //Basically, if it failed to connect when they're using FTPES - offer them a FTP connection
+                        if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
+                        {
+                            DialogResult Result = MessageBox.Show("Would you like to try and connect again using a plain FTP connection? This will change the systems settings.", "Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            if (Result == DialogResult.Yes)
+                            {
+                                IBMi.CurrentSystem.SetValue("useFTPES", "false");
+                                Connected = IBMi.Connect();
+                                if (Connected)
+                                {
+                                    Application.Run(new Editor());
+                                    IBMi.Disconnect();
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Connected = true; //End loop and close
+                }
             }
         }
 

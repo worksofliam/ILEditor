@@ -83,6 +83,7 @@
             this.greenOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
+            this.sessionFTPLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPGRLAToEmbeddedSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -372,7 +373,8 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sendFeedbackToolStripMenuItem,
-            this.aboutILEditorToolStripMenuItem});
+            this.aboutILEditorToolStripMenuItem,
+            this.sessionFTPLogToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -380,14 +382,14 @@
             // sendFeedbackToolStripMenuItem
             // 
             this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
-            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.sendFeedbackToolStripMenuItem.Text = "Send Feedback";
             this.sendFeedbackToolStripMenuItem.Click += new System.EventHandler(this.sendFeedbackToolStripMenuItem_Click);
             // 
             // aboutILEditorToolStripMenuItem
             // 
             this.aboutILEditorToolStripMenuItem.Name = "aboutILEditorToolStripMenuItem";
-            this.aboutILEditorToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.aboutILEditorToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.aboutILEditorToolStripMenuItem.Text = "About ILEditor";
             this.aboutILEditorToolStripMenuItem.Click += new System.EventHandler(this.aboutILEditorToolStripMenuItem_Click);
             // 
@@ -567,6 +569,13 @@
             this.tabImageList.Images.SetKeyName(2, "file.png");
             this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
+            // sessionFTPLogToolStripMenuItem
+            // 
+            this.sessionFTPLogToolStripMenuItem.Name = "sessionFTPLogToolStripMenuItem";
+            this.sessionFTPLogToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.sessionFTPLogToolStripMenuItem.Text = "Session FTP Log";
+            this.sessionFTPLogToolStripMenuItem.Click += new System.EventHandler(this.sessionFTPLogToolStripMenuItem_Click);
+            // 
             // rPGRLAToEmbeddedSQLToolStripMenuItem
             // 
             this.rPGRLAToEmbeddedSQLToolStripMenuItem.Name = "rPGRLAToEmbeddedSQLToolStripMenuItem";
@@ -660,6 +669,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutILEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourcePhysicalFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rPGRLAToEmbeddedSQLToolStripMenuItem;
     }
 }

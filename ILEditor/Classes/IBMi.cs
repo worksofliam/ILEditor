@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
+using FluentFTP;
+using System.Net.Sockets;
 
 namespace ILEditor.Classes
 {
     class IBMi
     {
+        public static Config CurrentSystem;
+        private static FtpClient Client;
+        
         public readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
         {
             { "425", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions." },
@@ -21,177 +26,143 @@ namespace ILEditor.Classes
             { "530", "Configuration username and password incorrect." }
         };
 
-        public static Config CurrentSystem;
-        public static Boolean _NotConnected = false;
-        public static Boolean FTPFirewallIssue = false;
-
-        public static Boolean RunCommands(string[] list)
+        public static void HandleError(string Code, string Message)
         {
-            string password = Password.Decode(CurrentSystem.GetValue("password"));
-            Boolean result = true;
-
-            string tempfile = Path.GetTempFileName();
-            File.Move(tempfile, tempfile + ".ftp");
-            tempfile += ".ftp";
-
-            List<string> lines = new List<string>();
-
-            lines.Add("user " + CurrentSystem.GetValue("username"));
-            lines.Add(password);
-
-            lines.Add("ASCII");
-            if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
-                lines.Add($"QUOTE RCMD CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
-            foreach (string cmd in list)
+            string ErrorMessageText = "";
+            switch (Code)
             {
-                if (cmd == null) continue;
-                if (cmd.Trim() != "")
-                {
-                    lines.Add(cmd);
-                }
+                case "200":
+                    ErrorMessageText = "425";
+                    break;
+
+                case "425":
+                case "426":
+                case "530":
+                case "550":
+                    ErrorMessageText = Code;
+
+                    switch (Code)
+                    {
+                        case "426":
+                            if (Message.Contains("truncated"))
+                                ErrorMessageText = "426T";
+
+                            else if (Message.Contains("Unable to open or create"))
+                                ErrorMessageText = "426L";
+
+                            else if (Message.Contains("not found"))
+                                ErrorMessageText = "426F";
+
+                            break;
+                        case "550":
+                            if (Message.Contains("not created in"))
+                                ErrorMessageText = "550NC";
+                            break;
+                    }
+
+                    break;
             }
-            lines.Add("quit");
 
-            File.WriteAllLines(tempfile, lines.ToArray());
+            if (FTPCodeMessages.ContainsKey(ErrorMessageText))
+                MessageBox.Show(FTPCodeMessages[ErrorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
-            FTPProcess ftp = new FTPProcess();
-            result = ftp.RunFTP(tempfile);
+        public static string FTPFile = "";
+        public static bool Connect()
+        {
+            bool result = false;
             try
             {
-                File.Delete(tempfile);
-            } catch { }
+                FTPFile = IBMiUtils.GetLocalFile("QTEMP", "FTPLOG", DateTime.Now.ToString("MMddTHHmm"), "txt");
+                FtpTrace.AddListener(new TextWriterTraceListener(FTPFile));
+                FtpTrace.LogUserName = false;   // hide FTP user names
+                FtpTrace.LogPassword = false;   // hide FTP passwords
+                FtpTrace.LogIP = false; 	// hide FTP server IP addresses
+
+                string password = Password.Decode(CurrentSystem.GetValue("password"));
+                Client = new FtpClient(CurrentSystem.GetValue("system"), CurrentSystem.GetValue("username"), password);
+                
+                Client.UploadDataType = FtpDataType.ASCII;
+                Client.DownloadDataType = FtpDataType.ASCII;
+
+                //FTPES is configurable
+                if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
+                    Client.EncryptionMode = FtpEncryptionMode.Explicit;
+
+                Client.ConnectTimeout = 5000;
+                Client.Connect();
+
+                //Change the user library list on connection
+                if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
+                    RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+                
+                result = true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to connect to " + CurrentSystem.GetValue("system") + " - " + e.Message, "Cannot Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return result;
         }
-        
-    }
 
-    class FTPProcess
-    {
-        public FTPProcess()
+        public static void Disconnect()
         {
+            Client.Disconnect();
         }
 
-        private string _Failed = "";
-        private bool _Truncated = false;
-        private bool _Locked = false;
-        private bool _NotCreated = false;
-        private bool _NotFound = false;
-
-        private Boolean _getList = false;
-        private List<string> _list = new List<string>();
-
-        public string[] GetListing()
+        //Returns false if successful
+        public static bool DownloadFile(string Local, string Remote)
         {
-            return _list.ToArray();
-        }
-
-        public Boolean RunFTP(string FileLoc)
-        {
-            _list.Clear();
-            IBMi._NotConnected = false;
-            
-            Process process = new Process();
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = "/c FTP -n -s:\"" + FileLoc + "\" " + IBMi.CurrentSystem.GetValue("system");
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-
-            process.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
-            process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-
-            if (IBMi.FTPFirewallIssue)
-                _Failed = "425";
-
-            if (IBMi._NotConnected)
+            bool Result = false;
+            try
             {
-                MessageBox.Show("Not able to connect to " + IBMi.CurrentSystem.GetValue("system"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+                Result = !Client.DownloadFile(Local, Remote, true);
             }
-            else if (_Failed != "")
+            catch (Exception e)
             {
-                if (_Truncated)
-                    _Failed = "426T";
-                else if (_Locked)
-                    _Failed = "426L";
-                else if (_NotCreated)
-                    _Failed = "550NC";
-                else if (_NotFound)
-                    _Failed = "426F";
-
-                if (IBMi.FTPCodeMessages.ContainsKey(_Failed))
-                    MessageBox.Show(IBMi.FTPCodeMessages[_Failed], "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            return _Failed != "" || IBMi._NotConnected;
-        }
-
-        private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
-        {
-            string code = "", message = "";
-            if (outLine.Data != null)
-            {
-                if (outLine.Data.Length >= 5)
+                if (e.InnerException is FtpCommandException)
                 {
-                    if (outLine.Data.Trim() == "Not connected.")
-                    {
-                        IBMi._NotConnected = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine(outLine.Data);
-                        code = outLine.Data.Substring(0, 3);
-                        message = outLine.Data.Substring(5);
-                        switch (code)
-                        {
-                            case "200":
-                                IBMi.FTPFirewallIssue = true;
-                                break;
-
-                            case "125":
-                                _getList = true;
-                                break;
-                            case "250":
-                                _getList = false;
-                                break;
-                            case "425":
-                            case "426":
-                            case "530":
-                            case "550":
-                                _Failed = code;
-
-                                switch (code)
-                                {
-                                    case "426":
-                                        if (message.Contains("truncated"))
-                                            _Truncated = true;
-                                        else if (message.Contains("Unable to open or create"))
-                                            _Locked = true;
-                                        else if (message.Contains("not found"))
-                                            _NotFound = true;
-                                        
-                                        break;
-                                    case "550":
-                                        if (message.Contains("not created in"))
-                                            _NotCreated = true;
-                                        break;
-                                }
-
-                                break;
-                            default:
-                                IBMi.FTPFirewallIssue = false;
-                                if (_getList) _list.Add(outLine.Data);
-                                break;
-                        }
-                    }
+                    FtpCommandException err = e.InnerException as FtpCommandException;
+                    HandleError(err.CompletionCode, err.Message);
                 }
+                Result = true;
             }
+            
+            return Result;
         }
+
+        //Returns true if successful
+        public static bool UploadFile(string Local, string Remote)
+        {
+            return Client.UploadFile(Local, Remote, FtpExists.Overwrite);
+        }
+
+        //Returns true if successful
+        public static bool RemoteCommand(string Command, bool ShowError = true)
+        {
+            string inputCmd = "RCMD " + Command;
+            FtpReply reply = Client.Execute(inputCmd);
+
+            if (ShowError)
+                HandleError(reply.Code, reply.ErrorMessage);
+            
+            return reply.Success;
+        }
+
+        //Returns true if successful
+        public static bool RunCommands(string[] Commands)
+        {
+            bool result = true;
+            foreach (string Command in Commands)
+            {
+                if (RemoteCommand(Command) == false)
+                    result = false;
+            }
+
+            return result;
+        }
+
     }
 }

@@ -293,7 +293,8 @@ namespace ILEditor
             if (SelectFile.Success)
             {
                 new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember("QTEMP", "Q_GENSQL", "Q_GENSQL", new[] { SelectFile.getCommand() }, "SQL");
+                    IBMi.RemoteCommand(SelectFile.getCommand());
+                    string resultFile = IBMiUtils.DownloadMember("QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL");
 
                     if (resultFile != "")
                     {
@@ -429,7 +430,7 @@ namespace ILEditor
         {
             string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
             Thread gothread = new Thread((ThreadStart)delegate {
-                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
+                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), member.GetExtension());
 
                 if (resultFile != "")
                 {
@@ -555,7 +556,7 @@ namespace ILEditor
             {
                 new Thread((ThreadStart)delegate {
 
-                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, null, (newMemberForm._type == "*NONE" ? "" : newMemberForm._type));
+                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, (newMemberForm._type == "*NONE" ? "" : newMemberForm._type));
 
                     if (resultFile != "")
                     {
@@ -721,6 +722,11 @@ namespace ILEditor
         private void aboutILEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
+        }
+        
+        private void sessionFTPLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(IBMi.FTPFile);
         }
         #endregion
     }

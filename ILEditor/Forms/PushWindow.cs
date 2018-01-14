@@ -99,45 +99,55 @@ namespace ILEditor.Forms
         {
             string LocalFile;
             List<string> Commands = new List<string>();
-            Commands.Add("cd /QSYS.lib");
+            Dictionary<string, string> PushList = new Dictionary<string, string>();
             string[] Path;
 
             foreach (var Member in CreateSPFs)
             {
-                Commands.Add("QUOTE RCMD CRTSRCPF FILE(" + lib.Text.Trim() + "/" + Member.Key + ") RCDLEN(" + Member.Value.ToString() + ")");
+                Commands.Add("CRTSRCPF FILE(" + lib.Text.Trim() + "/" + Member.Key + ") RCDLEN(" + Member.Value.ToString() + ")");
             }
 
             foreach (string Member in DeleteMembers)
             {
                 Path = Member.Split('/');
-                Commands.Add("QUOTE RCMD RMVM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ")");
+                Commands.Add("RMVM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ")");
             }
 
             foreach (var Member in CreateMembers)
             {
                 Path = Member.Key.Trim().Split('/');
-                Commands.Add("QUOTE RCMD ADDPFM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ") SRCTYPE(" + Member.Value.Trim() + ")");
+                Commands.Add("ADDPFM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ") SRCTYPE(" + Member.Value.Trim() + ")");
             }
 
             foreach(var Member in UploadMembers)
             {
                 Path = Member.Key.Trim().Split('/');
                 LocalFile = IBMiUtils.GetLocalFile(lib.Text.Trim(), Path[0], Path[1], Member.Value);
-                Commands.Add("put \"" + LocalFile + "\" \"" + lib.Text.Trim() + ".lib/" + Path[0] + ".file/" + Path[1] + ".mbr\"");
+                PushList.Add(LocalFile, "/QSYS.lib/" + lib.Text.Trim() + ".lib/" + Path[0] + ".file/" + Path[1] + ".mbr");
             }
 
-            Boolean Failure = IBMi.RunCommands(Commands.ToArray());
-
-            if (Failure == false)
+            Boolean Success = IBMi.RunCommands(Commands.ToArray());
+            if (Success)
             {
-                MessageBox.Show("Push to server was successful.");
+                foreach (var File in PushList)
+                {
+                    if (IBMi.UploadFile(File.Key, File.Value) == false)
+                        Success = false;
+                }
+
+                if (Success)
+                {
+                    MessageBox.Show("Push to server was successful.");
+                    this.Close();
+                } 
+                else
+                    MessageBox.Show("Push to server was not successful (stage 2)");
             }
             else
             {
-                MessageBox.Show("Push to server was not successful.");
+                MessageBox.Show("Push to server was not successful (stage 1)");
             }
 
-            this.Close();
         }
 
         private void cancel_Click(object sender, EventArgs e)

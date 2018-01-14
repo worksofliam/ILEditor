@@ -79,6 +79,11 @@ namespace ILEditor.UserTools
                     {
                         treeView1.Nodes.Add(new TreeNode("No errors found for " + Library + "/" + Object + ".", 2, 2));
                     }
+
+                    if (treeView1.Nodes.Count <= 1)
+                    {
+                        treeView1.ExpandAll();
+                    }  
                 }
 
                 toolStripStatusLabel1.Text = "Total errors: " + totalErrors.ToString();

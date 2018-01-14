@@ -34,7 +34,7 @@ namespace ILEditor.Forms
             if (isValid)
             {
                 string cmd = "CRTSRCPF FILE(" + lib.Text.Trim() + "/" + spf.Text.Trim() + ") RCDLEN(" + rcdLen.Value.ToString() + ") CCSID(" + ccsid.Text + ")";
-                if (IBMi.RunCommands(new[] { "QUOTE RCMD " + cmd }) == false)
+                if (IBMi.RemoteCommand(cmd) == false)
                 {
                     Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(lib.Text, spf.Text));
                     this.Close();

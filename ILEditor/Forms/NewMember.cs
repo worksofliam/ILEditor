@@ -48,8 +48,8 @@ namespace ILEditor.Forms
                 _type = (type.Text.Trim() == "" ? "*NONE" : type.Text.Trim());
                 _text = (text.Text.Trim() == "" ? "*BLANK" : "'" + text.Text.Trim() + "'");
 
-                Command = "QUOTE RCMD ADDPFM FILE(" + _lib + "/" + _spf + ") MBR(" + _mbr + ") TEXT(" + _text + ") SRCTYPE(" + _type + ")";
-                if (IBMi.RunCommands(new string[1] { Command }) == false) //No error
+                Command = "ADDPFM FILE(" + _lib + "/" + _spf + ") MBR(" + _mbr + ") TEXT(" + _text + ") SRCTYPE(" + _type + ")";
+                if (IBMi.RemoteCommand(Command)) //No error
                 {
                     created = true;
                     this.Close();
