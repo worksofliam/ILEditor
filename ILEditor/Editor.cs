@@ -306,16 +306,6 @@ namespace ILEditor
                 }).Start();
             }
         }
-        
-        private void rPGRLAToEmbeddedSQLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Member MemberInfo = (Member)this.LastEditing.Tag;
-            ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
-
-            if (Language == ILELanguage.RPG)
-                if (LastEditing != null)
-                    LastEditing.ConvertRLA();
-        }
 
         private void quickCommentToolStripMenuItem_Click(object sender, EventArgs e)
         {

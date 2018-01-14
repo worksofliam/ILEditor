@@ -359,17 +359,6 @@ namespace ILEditor.UserTools
 
         }
 
-        public void ConvertRLA()
-        {
-            string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            
-            RLAConverterLib.Module Mod = new RLAConverterLib.Module(Lines);
-
-            textEditor.SelectAll();
-            textEditor.SelectedText = "";
-            textEditor.AppendText(String.Join(Environment.NewLine, Mod.GetResult()));
-        }
-
         #endregion
 
         #region CL

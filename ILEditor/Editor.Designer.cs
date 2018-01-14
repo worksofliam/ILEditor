@@ -65,6 +65,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutILEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sessionFTPLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.columnLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -83,8 +84,6 @@
             this.greenOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
-            this.sessionFTPLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGRLAToEmbeddedSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -282,8 +281,7 @@
             this.rPGConversionToolStripMenuItem,
             this.cLFormatterToolStripMenuItem,
             this.serviceProgramGeneratorToolStripMenuItem,
-            this.generateSQLToolStripMenuItem,
-            this.rPGRLAToEmbeddedSQLToolStripMenuItem});
+            this.generateSQLToolStripMenuItem});
             this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
             this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.languageToolsToolStripMenuItem.Text = "Language Tools";
@@ -392,6 +390,13 @@
             this.aboutILEditorToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.aboutILEditorToolStripMenuItem.Text = "About ILEditor";
             this.aboutILEditorToolStripMenuItem.Click += new System.EventHandler(this.aboutILEditorToolStripMenuItem_Click);
+            // 
+            // sessionFTPLogToolStripMenuItem
+            // 
+            this.sessionFTPLogToolStripMenuItem.Name = "sessionFTPLogToolStripMenuItem";
+            this.sessionFTPLogToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.sessionFTPLogToolStripMenuItem.Text = "Session FTP Log";
+            this.sessionFTPLogToolStripMenuItem.Click += new System.EventHandler(this.sessionFTPLogToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -569,20 +574,6 @@
             this.tabImageList.Images.SetKeyName(2, "file.png");
             this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
-            // sessionFTPLogToolStripMenuItem
-            // 
-            this.sessionFTPLogToolStripMenuItem.Name = "sessionFTPLogToolStripMenuItem";
-            this.sessionFTPLogToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.sessionFTPLogToolStripMenuItem.Text = "Session FTP Log";
-            this.sessionFTPLogToolStripMenuItem.Click += new System.EventHandler(this.sessionFTPLogToolStripMenuItem_Click);
-            // 
-            // rPGRLAToEmbeddedSQLToolStripMenuItem
-            // 
-            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Name = "rPGRLAToEmbeddedSQLToolStripMenuItem";
-            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Text = "RPG RLA to Embedded SQL";
-            this.rPGRLAToEmbeddedSQLToolStripMenuItem.Click += new System.EventHandler(this.rPGRLAToEmbeddedSQLToolStripMenuItem_Click);
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -670,7 +661,6 @@
         private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourcePhysicalFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rPGRLAToEmbeddedSQLToolStripMenuItem;
     }
 }
 

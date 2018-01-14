@@ -21,6 +21,7 @@ namespace ILEditor
         //Config
         public static Config Config;
 
+        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
@@ -29,11 +30,7 @@ namespace ILEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            RLAConverterLib.Module.UIEntry = true;
-
             HostSelect Selector;
-
-            //Application.Run(new Splash());
 
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
@@ -90,7 +87,7 @@ namespace ILEditor
 
         static String getVersion()
         {
-            return System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
+            return Assembly.GetEntryAssembly().GetName().Version.ToString();
         }
     }
 }
