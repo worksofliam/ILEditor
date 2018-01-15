@@ -11,6 +11,23 @@ namespace ILEditor.Classes.LanguageTools
 {
     class RPGFree
     {
+        private static string LastKey = "";
+        private static Dictionary<string, List<string>> KeyLists = new Dictionary<string, List<string>>();
+        private static void AddKeyList(string Name)
+        {
+            Name = Name.ToUpper();
+            if (KeyLists.ContainsKey(Name))
+                KeyLists[Name].Clear();
+            else
+                KeyLists.Add(Name, new List<string>());
+        }
+        private static void AddKeyItem(string ListName, string Key)
+        {
+            ListName = ListName.ToUpper();
+            if (KeyLists.ContainsKey(ListName))
+                KeyLists[ListName].Add(Key);
+        }
+
         private static string prevName = "";
         private static Boolean isSubf = false;
         public static string getFree(string input)
@@ -27,7 +44,7 @@ namespace ILEditor.Classes.LanguageTools
             string output = "";
             string field = "";
 
-            string factor1 = "", factor2 = "", result = "", opcode = "", extended = "";
+            string factor1 = "", factor2 = "", result = "", opcode = "", plainOp = "", extended = "";
             string ind1, ind2, ind3;
 
             switch (chars[7])
@@ -186,7 +203,6 @@ namespace ILEditor.Classes.LanguageTools
                     break;
 
                 case 'P':
-
                     if (prevName != "")
                     {
                         name = prevName;
@@ -214,6 +230,7 @@ namespace ILEditor.Classes.LanguageTools
                     string sep = "";
                     factor1 = input.Substring(12, 14).Trim();
                     opcode = input.Substring(26, 10).Trim().ToUpper();
+                    plainOp = "";
                     factor2 = input.Substring(36, 14).Trim();
                     extended = input.Substring(36).Trim();
                     result = input.Substring(50, 14).Trim();
@@ -222,8 +239,22 @@ namespace ILEditor.Classes.LanguageTools
                     ind2 = input.Substring(73, 2);
                     ind3 = input.Substring(75, 2);
 
-                    switch (opcode)
+                    plainOp = opcode;
+                    if (plainOp.Contains('('))
+                        plainOp = opcode.Substring(0, opcode.IndexOf('('));
+
+                    switch (plainOp)
                     {
+                        case "KLIST":
+                            LastKey = factor1.ToUpper();
+                            AddKeyList(LastKey);
+                            output = "*SAME";
+                            break;
+                        case "KFLD":
+                            //Handle var declaration
+                            AddKeyItem(LastKey, result);
+                            output = "*SAME";
+                            break;
                         case "ADD":
                             output = result + " = " + factor1 + " + " + factor2;
                             break;
@@ -239,7 +270,10 @@ namespace ILEditor.Classes.LanguageTools
                             output = result + " = " + factor1 + "+ '" + "".PadLeft(spaces) + "' + " + factor2;
                             break;
                         case "CHAIN":
-                            output = opcode + " " + factor1 + " " + factor2 + " " + result;
+                            if (KeyLists.ContainsKey(factor1.ToUpper()))
+                                output = opcode + " (" + String.Join(":", KeyLists[factor1.ToUpper()]) + ") " + factor2 + " " + result;
+                            else
+                                output = opcode + " " + factor1 + " " + factor2 + " " + result;
                             break;
                         case "CHECK":
                             output = result + " = %Check(" + factor1 + ":" + factor2 + ")";

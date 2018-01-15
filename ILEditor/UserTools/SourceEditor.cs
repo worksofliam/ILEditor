@@ -350,7 +350,18 @@ namespace ILEditor.UserTools
                     freeForm = RPGFree.getFree(lines[i]);
                     if (freeForm != "")
                     {
-                        lines[i] = freeForm;
+                        switch (freeForm)
+                        {
+                            case "*SAME;":
+                                //Do nothing!
+                                break;
+                            case "*BLANK;":
+                                lines[i] = "";
+                                break;
+                            default:
+                                lines[i] = freeForm;
+                                break;
+                        }
                     }
                 }
 
