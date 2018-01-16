@@ -55,7 +55,7 @@ namespace ILEditor.Classes.LanguageTools
                 case '*':
                     if (line == "")
                     {
-                        return "*BLANK";
+                        return "*BLANK;";
                     }
                     else
                     {
@@ -164,7 +164,14 @@ namespace ILEditor.Classes.LanguageTools
                                 }
                                 else
                                 {
-                                    type = "Zoned" + "(" + len + ":" + decimals + ")";
+                                    if (isSubf)
+                                    {
+                                        type = "Zoned" + "(" + len + ":" + decimals + ")";
+                                    } 
+                                    else
+                                    {
+                                        type = "Packed" + "(" + len + ":" + decimals + ")";
+                                    }
                                 }
                             }
                             break;
@@ -256,7 +263,7 @@ namespace ILEditor.Classes.LanguageTools
                             output = "*SAME";
                             break;
                         case "ADD":
-                            output = result + " = " + factor1 + " + " + factor2;
+                            output = result + " = " + result + " + " + factor2;
                             break;
                         case "BEGSR":
                             output = opcode + " " + factor1;
@@ -300,6 +307,24 @@ namespace ILEditor.Classes.LanguageTools
                         case "DOW":
                             output = opcode + " " + extended;
                             break;
+                        case "DOWEQ":
+                            output = "Dow (" + factor1 + " = " + factor2 + ")";
+                            break;
+                        case "DOWNE":
+                            output = "Dow (" + factor1 + " <> " + factor2 + ")";
+                            break;
+                        case "DOWGT":
+                            output = "Dow (" + factor1 + " > " + factor2 + ")";
+                            break;
+                        case "DOWLT":
+                            output = "Dow (" + factor1 + " < " + factor2 + ")";
+                            break;
+                        case "DOWGE":
+                            output = "Dow (" + factor1 + " >= " + factor2 + ")";
+                            break;
+                        case "DOWLE":
+                            output = "Dow (" + factor1 + " <= " + factor2 + ")";
+                            break;
                         case "DSPLY":
                             output = opcode + " (" + factor1 + ") " + factor2 + " " + result;
                             break;
@@ -310,7 +335,7 @@ namespace ILEditor.Classes.LanguageTools
                             output = opcode + " " + factor2;
                             break;
                         case "ENDDO":
-                            output = "Enddo;";
+                            output = "Enddo";
                             break;
                         case "ENDIF":
                             output = opcode;
@@ -341,6 +366,24 @@ namespace ILEditor.Classes.LanguageTools
                             break;
                         case "IF":
                             output = opcode + " " + extended;
+                            break;
+                        case "IFGT":
+                            output = "If (" + factor1 + " > " + factor2 + ")";
+                            break;
+                        case "IFLT":
+                            output = "If (" + factor1 + " < " + factor2 + ")";
+                            break;
+                        case "IFEQ":
+                            output = "If (" + factor1 + " = " + factor2 + ")";
+                            break;
+                        case "IFNE":
+                            output = "If (" + factor1 + " <> " + factor2 + ")";
+                            break;
+                        case "IFGE":
+                            output = "If (" + factor1 + " >= " + factor2 + ")";
+                            break;
+                        case "IFLE":
+                            output = "If (" + factor1 + " <= " + factor2 + ")";
                             break;
                         case "IN":
                             output = opcode + " " + factor1 + " " + factor2;

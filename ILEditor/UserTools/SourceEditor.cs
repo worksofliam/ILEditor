@@ -350,7 +350,7 @@ namespace ILEditor.UserTools
                     freeForm = RPGFree.getFree(lines[i]);
                     if (freeForm != "")
                     {
-                        switch (freeForm)
+                        switch (freeForm.Trim())
                         {
                             case "*SAME;":
                                 //Do nothing!
