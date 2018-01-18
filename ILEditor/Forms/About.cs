@@ -37,5 +37,10 @@ namespace ILEditor.Forms
         {
             Process.Start("https://github.com/tradewright/tabcontrol-extra");
         }
+
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/robinrodricks/FluentFTP");
+        }
     }
 }

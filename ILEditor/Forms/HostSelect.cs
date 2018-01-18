@@ -22,6 +22,7 @@ namespace ILEditor.Forms
             LoadListView();
 
             this.BringToFront();
+            versionLabel.Text = "ILEditor " + Program.getVersion();
         }
 
         private void LoadListView()

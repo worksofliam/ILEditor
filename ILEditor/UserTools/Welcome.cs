@@ -51,6 +51,8 @@ namespace ILEditor.UserTools
         {
             InitializeComponent();
             LoadItems();
+
+            devNews.Refresh();
         }
 
         private void recents_DoubleClick(object sender, EventArgs e)

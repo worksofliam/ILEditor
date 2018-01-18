@@ -36,7 +36,7 @@ namespace ILEditor
 
             SetUpPanels();
             
-            this.Text += " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
+            this.Text += ' ' + Program.getVersion() + " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             MemberCache.Import();
         }
 
@@ -508,34 +508,42 @@ namespace ILEditor
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             OpenTab currentTab = EditorContains(pageName);
 
-            //Close tab if it already exists.
-            if (currentTab != null)
+            if (File.Exists(MemberInfo.GetLocalFile()))
             {
-                switch (currentTab.getSide())
+
+                //Close tab if it already exists.
+                if (currentTab != null)
                 {
-                    case OpenTab.TAB_SIDE.Left:
-                        editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
-                        break;
-                    case OpenTab.TAB_SIDE.Right:
-                        editortabsright.TabPages.RemoveAt(currentTab.getIndex());
-                        break;
+                    switch (currentTab.getSide())
+                    {
+                        case OpenTab.TAB_SIDE.Left:
+                            editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                        case OpenTab.TAB_SIDE.Right:
+                            editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                    }
                 }
+
+                TabPage tabPage = new TabPage(pageName);
+                tabPage.ImageIndex = 0;
+                tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+                SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
+                srcEdit.SetReadOnly(!MemberInfo.IsEditable());
+                srcEdit.BringToFront();
+                srcEdit.Dock = DockStyle.Fill;
+                srcEdit.Tag = MemberInfo;
+
+                tabPage.Tag = MemberInfo;
+                tabPage.Controls.Add(srcEdit);
+                editortabsleft.TabPages.Add(tabPage);
+
+                SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
             }
-
-            TabPage tabPage = new TabPage(pageName);
-            tabPage.ImageIndex = 0;
-            tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
-            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
-            srcEdit.SetReadOnly(!MemberInfo.IsEditable());
-            srcEdit.BringToFront();
-            srcEdit.Dock = DockStyle.Fill;
-            srcEdit.Tag = MemberInfo;
-
-            tabPage.Tag = MemberInfo;
-            tabPage.Controls.Add(srcEdit);
-            editortabsleft.TabPages.Add(tabPage);
-
-            SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
+            else
+            {
+                MessageBox.Show("There was an error opening the local member. '" + MemberInfo.GetLocalFile() + "' does not exist");
+            }
         }
         
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)

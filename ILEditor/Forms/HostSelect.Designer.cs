@@ -34,6 +34,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.cancel = new System.Windows.Forms.Button();
             this.newhost = new System.Windows.Forms.Button();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // systemlist
@@ -74,11 +75,20 @@
             this.newhost.UseVisualStyleBackColor = true;
             this.newhost.Click += new System.EventHandler(this.newhost_Click);
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Location = new System.Drawing.Point(93, 298);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(0, 13);
+            this.versionLabel.TabIndex = 3;
+            // 
             // HostSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 328);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.newhost);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.systemlist);
@@ -90,6 +100,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Host Select";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -99,5 +110,6 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button newhost;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label versionLabel;
     }
 }

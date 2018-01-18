@@ -79,7 +79,7 @@ namespace ILEditor.Classes
             CheckExist("FONT", "Consolas");
             CheckExist("ZOOM", 12.75f.ToString());
             CheckExist("INDENT_SIZE", "4");
-            CheckExist("SHOW_SPACES", "true");
+            CheckExist("SHOW_SPACES", "false");
             CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");
