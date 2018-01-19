@@ -71,7 +71,7 @@ namespace ILEditor
                         new Connection().ShowDialog();
                     }
 
-                    Connected = IBMi.Connect();
+                    Connected = IBMi.Connect(Selector.OfflineModeSelected());
 
                     if (Connected)
                     {

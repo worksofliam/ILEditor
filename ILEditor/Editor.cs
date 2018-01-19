@@ -33,11 +33,27 @@ namespace ILEditor
         {
             InitializeComponent();
             TheEditor = this;
-
+            
+            MemberCache.Import();
             SetUpPanels();
             
             this.Text += ' ' + Program.getVersion() + " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
-            MemberCache.Import();
+            if (!IBMi.IsConnected())
+                this.Text += " - Offline Mode";
+
+            if (IBMi.IsConnected())
+            {
+                if (IBMi.CurrentSystem.GetValue("lastOffline") == "true")
+                {
+                    DialogResult result = MessageBox.Show("Looks like your last session was in Offline Mode. Would you like the launch the SPF Push tool?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        new PushWindow().ShowDialog();
+                    }
+                }
+            }
+            IBMi.CurrentSystem.SetValue("lastOffline", (IBMi.IsConnected() == false).ToString().ToLower());
         }
 
         private void SetUpPanels()

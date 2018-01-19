@@ -235,6 +235,9 @@ namespace ILEditor.UserTools
                         {
                             File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
                         });
+                        
+                        MemberCache.EditsAdd(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
+                        
                         bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
                         if (UploadResult == false)
                         {

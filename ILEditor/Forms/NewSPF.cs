@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,15 +34,23 @@ namespace ILEditor.Forms
 
             if (isValid)
             {
-                string cmd = "CRTSRCPF FILE(" + lib.Text.Trim() + "/" + spf.Text.Trim() + ") RCDLEN(" + rcdLen.Value.ToString() + ") CCSID(" + ccsid.Text + ")";
-                if (IBMi.RemoteCommand(cmd) == false)
+                if (IBMi.IsConnected())
                 {
-                    Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(lib.Text, spf.Text));
-                    this.Close();
+                    string cmd = "CRTSRCPF FILE(" + lib.Text + "/" + spf.Text + ") RCDLEN(" + rcdLen.Value.ToString() + ") CCSID(" + ccsid.Text + ")";
+                    if (IBMi.RemoteCommand(cmd) == false)
+                    {
+                        Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(lib.Text, spf.Text));
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(lib.Text.Trim() + "/" + spf.Text.Trim() + " not created.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(lib.Text.Trim() + "/" + spf.Text.Trim() + " not created.");
+                    Directory.CreateDirectory(IBMiUtils.GetLocalDir(lib.Text, spf.Text));
+                    Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(lib.Text, spf.Text));
                 }
             }
             else

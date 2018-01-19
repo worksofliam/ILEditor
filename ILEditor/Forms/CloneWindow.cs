@@ -20,6 +20,15 @@ namespace ILEditor.Forms
             InitializeComponent();
         }
 
+        private void CloneWindow_Load(object sender, EventArgs e)
+        {
+            if (!IBMi.IsConnected())
+            {
+                MessageBox.Show("The SPF Clone tool does not work in Offline Mode.");
+                this.Close();
+            }
+        }
+
         private void cancel_Click(object sender, EventArgs e)
         {
             this.Close();

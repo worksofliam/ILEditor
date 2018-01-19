@@ -67,8 +67,9 @@ namespace ILEditor.Classes
                 MessageBox.Show(FTPCodeMessages[ErrorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static bool IsConnected() => Client.IsConnected;
         public static string FTPFile = "";
-        public static bool Connect()
+        public static bool Connect(bool OfflineMode = false)
         {
             bool result = false;
             try
@@ -81,21 +82,24 @@ namespace ILEditor.Classes
 
                 string password = Password.Decode(CurrentSystem.GetValue("password"));
                 Client = new FtpClient(CurrentSystem.GetValue("system"), CurrentSystem.GetValue("username"), password);
-                
-                Client.UploadDataType = FtpDataType.ASCII;
-                Client.DownloadDataType = FtpDataType.ASCII;
 
-                //FTPES is configurable
-                if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
-                    Client.EncryptionMode = FtpEncryptionMode.Explicit;
+                if (OfflineMode == false)
+                {
+                    Client.UploadDataType = FtpDataType.ASCII;
+                    Client.DownloadDataType = FtpDataType.ASCII;
 
-                Client.ConnectTimeout = 5000;
-                Client.Connect();
+                    //FTPES is configurable
+                    if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
+                        Client.EncryptionMode = FtpEncryptionMode.Explicit;
 
-                //Change the user library list on connection
-                if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
-                    RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
-                
+                    Client.ConnectTimeout = 5000;
+                    Client.Connect();
+
+                    //Change the user library list on connection
+                    if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
+                        RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+                }
+
                 result = true;
             }
             catch (Exception e)
@@ -108,7 +112,8 @@ namespace ILEditor.Classes
 
         public static void Disconnect()
         {
-            Client.Disconnect();
+            if (Client.IsConnected)
+                Client.Disconnect();
         }
 
         //Returns false if successful
@@ -117,8 +122,10 @@ namespace ILEditor.Classes
             bool Result = false;
             try
             {
-                
-                Result = !Client.DownloadFile(Local, Remote, true);
+                if (Client.IsConnected)
+                    Result = !Client.DownloadFile(Local, Remote, true);
+                else
+                    return true; //error
             }
             catch (Exception e)
             {
@@ -136,29 +143,46 @@ namespace ILEditor.Classes
         //Returns true if successful
         public static bool UploadFile(string Local, string Remote)
         {
-            return Client.UploadFile(Local, Remote, FtpExists.Overwrite);
+            if (Client.IsConnected)
+                return Client.UploadFile(Local, Remote, FtpExists.Overwrite);
+            else
+                return false;
         }
 
         //Returns true if successful
         public static bool RemoteCommand(string Command, bool ShowError = true)
         {
-            string inputCmd = "RCMD " + Command;
-            FtpReply reply = Client.Execute(inputCmd);
+            if (Client.IsConnected)
+            {
+                string inputCmd = "RCMD " + Command;
+                FtpReply reply = Client.Execute(inputCmd);
 
-            if (ShowError)
-                HandleError(reply.Code, reply.ErrorMessage);
-            
-            return reply.Success;
+                if (ShowError)
+                    HandleError(reply.Code, reply.ErrorMessage);
+
+                return reply.Success;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //Returns true if successful
         public static bool RunCommands(string[] Commands)
         {
             bool result = true;
-            foreach (string Command in Commands)
+            if (Client.IsConnected)
             {
-                if (RemoteCommand(Command) == false)
-                    result = false;
+                foreach (string Command in Commands)
+                {
+                    if (RemoteCommand(Command) == false)
+                        result = false;
+                }
+            }
+            else
+            {
+                result = false;
             }
 
             return result;

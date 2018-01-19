@@ -35,6 +35,7 @@
             this.cancel = new System.Windows.Forms.Button();
             this.newhost = new System.Windows.Forms.Button();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.isOffline = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // systemlist
@@ -83,11 +84,22 @@
             this.versionLabel.Size = new System.Drawing.Size(0, 13);
             this.versionLabel.TabIndex = 3;
             // 
+            // isOffline
+            // 
+            this.isOffline.AutoSize = true;
+            this.isOffline.Location = new System.Drawing.Point(289, 297);
+            this.isOffline.Name = "isOffline";
+            this.isOffline.Size = new System.Drawing.Size(86, 17);
+            this.isOffline.TabIndex = 4;
+            this.isOffline.Text = "Offline Mode";
+            this.isOffline.UseVisualStyleBackColor = true;
+            // 
             // HostSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 328);
+            this.Controls.Add(this.isOffline);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.newhost);
             this.Controls.Add(this.cancel);
@@ -111,5 +123,6 @@
         private System.Windows.Forms.Button newhost;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.CheckBox isOffline;
     }
 }

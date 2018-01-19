@@ -14,7 +14,8 @@ namespace ILEditor.Forms
 {
     public partial class HostSelect : Form
     {
-        public Boolean SystemSelected;
+        public bool SystemSelected;
+        public bool OfflineModeSelected() => isOffline.Checked;
         public HostSelect()
         {
             InitializeComponent();

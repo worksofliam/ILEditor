@@ -14,6 +14,7 @@ ILEditor is an editor for development of ILE applications on IBM i. ILEditor wil
 * Store members locally & search locally
 * Integrated spool file listing
 * Light and dark modes (dark mode in the image above)
+* Offline mode for when you're on the go
 * Support for FTPES (requires [setup on IBM i](http://www-01.ibm.com/support/docview.wss?uid=nas8N1014798))
 
 ## Installation

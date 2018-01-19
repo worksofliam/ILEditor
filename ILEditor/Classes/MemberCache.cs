@@ -9,42 +9,70 @@ namespace ILEditor.Classes
 {
     class MemberCache
     {
+        private static string ExportDir = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system");
+        private static string ExportLoc = ExportDir + @"\membercache";
+        private static string OfflineLoc = ExportDir + @"\offlinecache";
+
+        private static List<string> OfflineEdits = new List<string>();
         private static Dictionary<string, string> MemberList = new Dictionary<string, string>();
 
-        public static void AddMember(string MemberString, string Type)
+        public static void AddMemberCache(string MemberString, string Type)
         {
             if (!MemberList.ContainsKey(MemberString))
                 MemberList.Add(MemberString, Type);
         }
 
+        public static void EditsClear() {
+            OfflineEdits.Clear();
+        }
+
+        public static void EditsAdd(string Lib, string Obj, string Mbr)
+        {
+            if (!EditsContains(Lib, Obj, Mbr))
+                OfflineEdits.Add(Lib.ToUpper() + "/" + Obj.ToUpper() + "." + Mbr.ToUpper());
+        }
+
+        public static bool EditsContains(string Lib, string Obj, string Mbr)
+        {
+            return OfflineEdits.Contains(Lib.ToUpper() + "/" + Obj.ToUpper() + "." + Mbr.ToUpper());
+        }
+
         public static void Export()
         {
-            string ExportDir = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system");
-            string ExportLoc = ExportDir + @"\membercache";
-
             List<string> Output = new List<string>();
 
-            foreach (var Member in MemberList)
-            {
-                Output.Add(Member.Key + "," + Member.Value);
-            }
-
             Directory.CreateDirectory(ExportDir);
+
+            foreach (var Member in MemberList)
+                Output.Add(Member.Key + "," + Member.Value);
             File.WriteAllLines(ExportLoc, Output);
+
+            Output.Clear();
+
+            foreach (string Member in OfflineEdits)
+                Output.Add(Member);
+            File.WriteAllLines(OfflineLoc, Output);
         }
 
         public static void Import()
         {
-            string ImportLoc = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system") + @"\membercache";
-
-            if (File.Exists(ImportLoc))
+            if (File.Exists(ExportLoc))
             {
                 string[] data;
-                foreach (string Line in File.ReadAllLines(ImportLoc))
+                foreach (string Line in File.ReadAllLines(ExportLoc))
                 {
                     if (Line == "") continue;
                     data = Line.Split(',');
                     MemberList.Add(data[0], data[1]);
+                }
+            }
+
+            if (File.Exists(OfflineLoc))
+            {
+                string[] data;
+                foreach (string Line in File.ReadAllLines(OfflineLoc))
+                {
+                    OfflineEdits.Add(Line);
                 }
             }
         }
