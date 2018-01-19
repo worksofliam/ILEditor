@@ -491,6 +491,30 @@ namespace ILEditor.Properties {
         ///    &lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
+        ///    &lt;h3&gt;Offline Mode in ILEditor&lt;/h3&gt;
+        ///    &lt;p&gt;As of ILEditor 1.1.1.0, there has been an offline mode available so you can still work on your code while you&apos;re on the go.&lt;/p&gt;
+        ///    &lt;p&gt;To use offline mode, start ILEditor and tick &apos;Offline Mode&apos; before sel [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string OfflineMode {
+            get {
+                return ResourceManager.GetString("OfflineMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, Helvetica, sans-serif;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
         ///    &lt;h3&gt;Opening a specific member&lt;/h3&gt;
         ///    &lt;ol&gt;
         ///        &lt;li&gt;Select the File dropdown&lt;/li&gt;
