@@ -11,6 +11,18 @@ namespace ILEditor.Classes
 {
     class IBMiUtils
     {
+        private static List<string> QTEMPListing = new List<string>();
+        //This method is used to determine whether a file in QTEMP needs to be deleted
+        //If it's already exists in QTEMP, we delete it - otherwise we delete it next time
+        private static void UsingQTEMPFiles(string[] Objects)
+        {
+            foreach (string Object in Objects) 
+                if (QTEMPListing.Contains(Object))
+                    IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + Object + ") OBJTYPE(*FILE)", false);
+                else
+                    QTEMPListing.Add(Object);
+        }
+
         public static Boolean IsValueObjectName(string Name)
         {
             if (Name.Trim() == "")
@@ -29,9 +41,8 @@ namespace ILEditor.Classes
                 string Line = ""; BindingEntry Entry;
                 List<BindingEntry> Entries = new List<BindingEntry>();
                 if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
-
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/BNDDIR) OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/BNDDATA) OBJTYPE(*FILE)", false);
+                
+                UsingQTEMPFiles(new[] { "BNDDIR", "BNDDATA" });
 
                 IBMi.RemoteCommand("DSPBNDDIR BNDDIR(" + Lib + "/" + Obj + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/BNDDIR)");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/BNDDATA AS (SELECT BNOBNM, BNOBTP, BNOLNM, BNOACT, BNODAT, BNOTIM FROM qtemp/bnddir) WITH DATA ') COMMIT(*NONE)");
@@ -84,9 +95,8 @@ namespace ILEditor.Classes
                     FileA = FileA.Substring(0, 10);
                 if (FileB.Length > 10)
                     FileB = FileB.Substring(0, 10);
-
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileA + ") OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileB + ") OBJTYPE(*FILE)", false);
+                
+                UsingQTEMPFiles(new[] { FileA, FileB });
 
                 IBMi.RemoteCommand("DSPOBJD OBJ(" + Lib + "/*ALL) OBJTYPE(" + Types + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/" + FileA + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/" + FileA + " order by ODOBNM) WITH DATA') COMMIT(*NONE)");
@@ -148,8 +158,7 @@ namespace ILEditor.Classes
                 if (FileB.Length > 10)
                     FileB = FileB.Substring(0, 10);
 
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileA + ") OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileB + ") OBJTYPE(*FILE)", false);
+                UsingQTEMPFiles(new[] { FileA, FileB });
 
                 IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/" + FileA + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT PHFILE, PHLIB FROM QTEMP/" + FileA + " WHERE PHDTAT = ''S'' order by PHFILE) WITH DATA') COMMIT(*NONE)");
@@ -227,9 +236,8 @@ namespace ILEditor.Classes
                 string TempName = 'M' + Obj;
                 if (TempName.Length > 10)
                     TempName = TempName.Substring(0, 10);
-
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + TempName + ") OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + Obj + ") OBJTYPE(*FILE)", false);
+                
+                UsingQTEMPFiles(new[] { TempName, Obj });
 
                 IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/" + TempName + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + Obj + " AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/" + TempName + " order by MBNAME) WITH DATA') COMMIT(*NONE)");
@@ -302,8 +310,7 @@ namespace ILEditor.Classes
 
                 if (Lib != "" && Obj != "")
                 {
-                    IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/SPOOL) OBJTYPE(*FILE)", false);
-                    IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d, Char(FILE_NUMBER) as e FROM TABLE(QSYS2.OUTPUT_QUEUE_ENTRIES(''" + Lib + "'', ''" + Obj + "'', ''*NO'')) A WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 25 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
+                    UsingQTEMPFiles(new[] { "SPOOL" });
 
                     Editor.TheEditor.SetStatus("Fetching spool file listing.. (can take a moment)");
                     file = DownloadMember("QTEMP", "SPOOL", "SPOOL");
@@ -378,7 +385,7 @@ namespace ILEditor.Classes
                             }
                             if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
                             {
-                                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/JOBLOG) OBJTYPE(*FILE)", false);
+                                UsingQTEMPFiles(new[] { "JOBLOG" });
                                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
                                 IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
                             }
