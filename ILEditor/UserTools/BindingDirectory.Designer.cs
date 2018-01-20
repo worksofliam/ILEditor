@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Loading..");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BindingDirectory));
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Loading..");
             this.entriesList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,9 +38,9 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.objectName = new System.Windows.Forms.ToolStripTextBox();
+            this.objectType = new System.Windows.Forms.ToolStripComboBox();
             this.objectLib = new System.Windows.Forms.ToolStripTextBox();
             this.objectActivation = new System.Windows.Forms.ToolStripComboBox();
-            this.objectType = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +57,7 @@
             this.entriesList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.entriesList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.entriesList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.entriesList.Location = new System.Drawing.Point(0, 0);
             this.entriesList.MultiSelect = false;
             this.entriesList.Name = "entriesList";
@@ -123,6 +122,17 @@
             this.objectName.Size = new System.Drawing.Size(100, 25);
             this.objectName.ToolTipText = "Object";
             // 
+            // objectType
+            // 
+            this.objectType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.objectType.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.objectType.Items.AddRange(new object[] {
+            "*SRVPGM",
+            "*MODULE"});
+            this.objectType.Name = "objectType";
+            this.objectType.Size = new System.Drawing.Size(121, 25);
+            this.objectType.ToolTipText = "Object Type";
+            // 
             // objectLib
             // 
             this.objectLib.AutoToolTip = true;
@@ -145,20 +155,9 @@
             this.objectActivation.Size = new System.Drawing.Size(121, 25);
             this.objectActivation.ToolTipText = "Activation";
             // 
-            // objectType
-            // 
-            this.objectType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.objectType.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.objectType.Items.AddRange(new object[] {
-            "*SRVPGM",
-            "*MODULE"});
-            this.objectType.Name = "objectType";
-            this.objectType.Size = new System.Drawing.Size(121, 25);
-            this.objectType.ToolTipText = "Object Type";
-            // 
             // toolStripButton1
             // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.Image = global::ILEditor.Properties.Resources.notebook;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(79, 22);

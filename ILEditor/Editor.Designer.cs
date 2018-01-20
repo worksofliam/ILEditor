@@ -34,6 +34,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourcePhysicalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,9 +58,14 @@
             this.generateSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutILEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sessionFTPLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.columnLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -89,11 +95,13 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.White;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.sourceToolStripMenuItem,
-            this.compileToolStripMenuItem});
+            this.compileToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(833, 24);
@@ -115,7 +123,8 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.memberToolStripMenuItem});
+            this.memberToolStripMenuItem,
+            this.sourcePhysicalFileToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.newToolStripMenuItem.Text = "New";
@@ -124,9 +133,16 @@
             // 
             this.memberToolStripMenuItem.Name = "memberToolStripMenuItem";
             this.memberToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.memberToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.memberToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.memberToolStripMenuItem.Text = "Member";
             this.memberToolStripMenuItem.Click += new System.EventHandler(this.memberToolStripMenuItem_Click);
+            // 
+            // sourcePhysicalFileToolStripMenuItem
+            // 
+            this.sourcePhysicalFileToolStripMenuItem.Name = "sourcePhysicalFileToolStripMenuItem";
+            this.sourcePhysicalFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
+            this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -222,7 +238,8 @@
             this.localCopiesToolStripMenuItem,
             this.languageToolsToolStripMenuItem,
             this.quickMemberSearchToolStripMenuItem,
-            this.compareMembersToolStripMenuItem});
+            this.compareMembersToolStripMenuItem,
+            this.quickCommentToolStripMenuItem});
             this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
             this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.sourceToolStripMenuItem.Text = "Source";
@@ -317,6 +334,14 @@
             this.compareMembersToolStripMenuItem.Text = "Compare Members";
             this.compareMembersToolStripMenuItem.Click += new System.EventHandler(this.compareMembersToolStripMenuItem_Click);
             // 
+            // quickCommentToolStripMenuItem
+            // 
+            this.quickCommentToolStripMenuItem.Name = "quickCommentToolStripMenuItem";
+            this.quickCommentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.quickCommentToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.quickCommentToolStripMenuItem.Text = "Quick Comment";
+            this.quickCommentToolStripMenuItem.Click += new System.EventHandler(this.quickCommentToolStripMenuItem_Click);
+            // 
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -341,6 +366,37 @@
             this.otherForTypeToolStripMenuItem.Name = "otherForTypeToolStripMenuItem";
             this.otherForTypeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.otherForTypeToolStripMenuItem.Text = "Compile Options";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sendFeedbackToolStripMenuItem,
+            this.aboutILEditorToolStripMenuItem,
+            this.sessionFTPLogToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // sendFeedbackToolStripMenuItem
+            // 
+            this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
+            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.sendFeedbackToolStripMenuItem.Text = "Send Feedback";
+            this.sendFeedbackToolStripMenuItem.Click += new System.EventHandler(this.sendFeedbackToolStripMenuItem_Click);
+            // 
+            // aboutILEditorToolStripMenuItem
+            // 
+            this.aboutILEditorToolStripMenuItem.Name = "aboutILEditorToolStripMenuItem";
+            this.aboutILEditorToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.aboutILEditorToolStripMenuItem.Text = "About ILEditor";
+            this.aboutILEditorToolStripMenuItem.Click += new System.EventHandler(this.aboutILEditorToolStripMenuItem_Click);
+            // 
+            // sessionFTPLogToolStripMenuItem
+            // 
+            this.sessionFTPLogToolStripMenuItem.Name = "sessionFTPLogToolStripMenuItem";
+            this.sessionFTPLogToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.sessionFTPLogToolStripMenuItem.Text = "Session FTP Log";
+            this.sessionFTPLogToolStripMenuItem.Click += new System.EventHandler(this.sessionFTPLogToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -369,6 +425,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.Color.White;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -410,7 +467,7 @@
             // newButton
             // 
             this.newButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newButton.Image = ((System.Drawing.Image)(resources.GetObject("newButton.Image")));
+            this.newButton.Image = global::ILEditor.Properties.Resources.edit;
             this.newButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newButton.Name = "newButton";
             this.newButton.Size = new System.Drawing.Size(23, 22);
@@ -420,7 +477,7 @@
             // saveButton
             // 
             this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
+            this.saveButton.Image = global::ILEditor.Properties.Resources.save;
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(23, 22);
@@ -441,7 +498,7 @@
             // compileButton
             // 
             this.compileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.compileButton.Image = ((System.Drawing.Image)(resources.GetObject("compileButton.Image")));
+            this.compileButton.Image = global::ILEditor.Properties.Resources.compile;
             this.compileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(23, 22);
@@ -456,7 +513,7 @@
             // zoomInButton
             // 
             this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomInButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomInButton.Image")));
+            this.zoomInButton.Image = global::ILEditor.Properties.Resources.zoom_in;
             this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(23, 22);
@@ -467,7 +524,7 @@
             // zoomOutButton
             // 
             this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomOutButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomOutButton.Image")));
+            this.zoomOutButton.Image = global::ILEditor.Properties.Resources.zoom_out;
             this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
@@ -476,6 +533,7 @@
             // 
             // tool_bar
             // 
+            this.tool_bar.BackColor = System.Drawing.Color.White;
             this.tool_bar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newButton,
             this.saveButton,
@@ -511,9 +569,9 @@
             // 
             this.tabImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabImageList.ImageStream")));
             this.tabImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabImageList.Images.SetKeyName(0, "script.png");
-            this.tabImageList.Images.SetKeyName(1, "book.png");
-            this.tabImageList.Images.SetKeyName(2, "page.png");
+            this.tabImageList.Images.SetKeyName(0, "edit.png");
+            this.tabImageList.Images.SetKeyName(1, "notebook.png");
+            this.tabImageList.Images.SetKeyName(2, "file.png");
             this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
             // Editor
@@ -528,7 +586,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Editor";
-            this.Text = "ILEditor - IBM i Development";
+            this.Text = "ILEditor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Editor_FormClosing);
             this.Load += new System.EventHandler(this.Editor_Load);
@@ -597,6 +655,12 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel columnLabel;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendFeedbackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutILEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sourcePhysicalFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
     }
 }
 

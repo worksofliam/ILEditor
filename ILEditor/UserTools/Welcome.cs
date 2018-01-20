@@ -51,6 +51,8 @@ namespace ILEditor.UserTools
         {
             InitializeComponent();
             LoadItems();
+
+            devNews.Refresh();
         }
 
         private void recents_DoubleClick(object sender, EventArgs e)
@@ -77,6 +79,9 @@ namespace ILEditor.UserTools
                     break;
                 case "CMP":
                     new Forms.HelpWindow(Properties.Resources.Compiling).Show();
+                    break;
+                case "OFFLINE":
+                    new Forms.HelpWindow(Properties.Resources.OfflineMode).Show();
                     break;
                 case "FTP":
                     new Forms.FirewallHelp().Show();

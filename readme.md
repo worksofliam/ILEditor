@@ -1,6 +1,6 @@
 # [ILEditor](http://worksofbarry.com/ileditor/)
 
-![Welcome Screen](https://i.imgur.com/6qgZnSG.png)
+![Welcome Screen](https://i.imgur.com/UQdSjut.png)
 
 ILEditor is an editor for development of ILE applications on IBM i. ILEditor will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
 
@@ -14,6 +14,8 @@ ILEditor is an editor for development of ILE applications on IBM i. ILEditor wil
 * Store members locally & search locally
 * Integrated spool file listing
 * Light and dark modes (dark mode in the image above)
+* Offline mode for when you're on the go
+* Support for FTPES (requires [setup on IBM i](http://www-01.ibm.com/support/docview.wss?uid=nas8N1014798))
 
 ## Installation
 
@@ -22,6 +24,8 @@ ILEditor is an editor for development of ILE applications on IBM i. ILEditor wil
 
 ## Libraries used
 
+* [FluentFTP](https://github.com/robinrodricks/FluentFTP)
+* [flaticon](https://www.flaticon.com/authors/simpleicon)
 * [AvalonEdit](https://github.com/icsharpcode/AvalonEdit)
 * [tabcontrol-extra](https://github.com/tradewright/tabcontrol-extra)
 

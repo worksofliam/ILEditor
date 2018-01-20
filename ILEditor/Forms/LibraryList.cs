@@ -83,9 +83,9 @@ namespace ILEditor.Forms
                 IBMi.CurrentSystem.SetValue("datalibl", s.Remove(s.Length - 1, 1)); //Remove last comma
                 IBMi.CurrentSystem.SetValue("curlib", textBox2.Text.Trim()); //Remove last comma
 
-                Boolean hasFailed = IBMi.RunCommands(new string[0]);
+                Boolean Success = IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
 
-                if (hasFailed)
+                if (!Success)
                 {
                     IBMi.CurrentSystem.SetValue("datalibl", origLibl);
                     IBMi.CurrentSystem.SetValue("curlib", origCur);

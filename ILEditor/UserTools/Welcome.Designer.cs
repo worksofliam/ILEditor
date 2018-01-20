@@ -40,6 +40,7 @@
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.devNews = new System.Windows.Forms.WebBrowser();
             this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -83,7 +84,7 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "folder_page.png");
+            this.imageList1.Images.SetKeyName(0, "folder.png");
             // 
             // linkLabel1
             // 
@@ -124,7 +125,7 @@
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(45, 154);
+            this.linkLabel4.Location = new System.Drawing.Point(44, 179);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(129, 13);
             this.linkLabel4.TabIndex = 6;
@@ -147,6 +148,7 @@
             this.devNews.Size = new System.Drawing.Size(548, 435);
             this.devNews.TabIndex = 7;
             this.devNews.Url = new System.Uri("http://worksofbarry.com/ileditor/devnews/", System.UriKind.Absolute);
+            this.devNews.WebBrowserShortcutsEnabled = false;
             this.devNews.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.devNews_Navigating);
             // 
             // label3
@@ -161,11 +163,24 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Developer News";
             // 
+            // linkLabel5
+            // 
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.Location = new System.Drawing.Point(45, 155);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(113, 13);
+            this.linkLabel5.TabIndex = 9;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Tag = "OFFLINE";
+            this.linkLabel5.Text = "Using Offline Mode";
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.linkLabel5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.devNews);
             this.Controls.Add(this.linkLabel4);
@@ -195,5 +210,6 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.WebBrowser devNews;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel linkLabel5;
     }
 }

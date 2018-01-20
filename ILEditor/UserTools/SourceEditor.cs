@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.IO;
 using ILEditor.Classes;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using ILEditor.Classes.LanguageTools;
 using System.Threading;
 using ICSharpCode.AvalonEdit;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Search;
 using FindReplace;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -53,7 +44,11 @@ namespace ILEditor.UserTools
 
             textEditor = new TextEditor();
             textEditor.ShowLineNumbers = true;
-            textEditor.Text = File.ReadAllText(LocalFile);
+            //textEditor.Encoding = Encoding.GetEncoding(1252);
+            //textEditor.Encoding = Encoding.GetEncoding(28591);
+            //textEditor.Encoding = Encoding.GetEncoding("IBM437");
+            textEditor.Encoding = Encoding.GetEncoding("iso-8859-1");
+            textEditor.Text = File.ReadAllText(LocalFile, textEditor.Encoding);
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
@@ -164,9 +159,12 @@ namespace ILEditor.UserTools
 
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
-            if (!GetParent().Text.EndsWith("*"))
+            if (GetParent() != null)
             {
-                GetParent().Text += "*";
+                if (!GetParent().Text.EndsWith("*"))
+                {
+                    GetParent().Text += "*";
+                }
             }
         }
         
@@ -235,8 +233,11 @@ namespace ILEditor.UserTools
 
                         this.Invoke((MethodInvoker)delegate
                         {
-                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText());
+                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
                         });
+                        
+                        MemberCache.EditsAdd(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
+                        
                         bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
                         if (UploadResult == false)
                         {
@@ -269,6 +270,71 @@ namespace ILEditor.UserTools
             }
         }
 
+        public void CommentOutSelected()
+        {
+            if (textEditor.SelectionLength == 0)
+            {
+                DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+                textEditor.Select(line.Offset, line.Length);
+            }
+
+            string[] lines = textEditor.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+            int index = 0;
+            switch (Language)
+            {
+                case ILELanguage.RPG:
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Trim() != "")
+                        {
+                            index = GetSpaces(lines[i]);
+                            lines[i] = lines[i].Insert(index, "//");
+                        }
+                    }
+                    textEditor.SelectedText = String.Join(Environment.NewLine, lines);
+                    break;
+
+                case ILELanguage.CL:
+                case ILELanguage.CPP:
+                    if (lines.Length == 1 && Language != ILELanguage.CL)
+                    {
+                        index = GetSpaces(lines[0]);
+                        lines[0] = lines[0].Insert(index, "//");
+                    }
+                    else
+                    {
+                        lines[0] = "/*" + lines[0];
+                        lines[lines.Length - 1] = lines[lines.Length - 1] + "*/";
+                    }
+                    textEditor.SelectedText = String.Join(Environment.NewLine, lines);
+                    break;
+
+                case ILELanguage.SQL:
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Trim() != "")
+                        {
+                            index = GetSpaces(lines[i]);
+                            lines[i] = lines[i].Insert(index, "--");
+                        }
+                    }
+                    textEditor.SelectedText = String.Join(Environment.NewLine, lines);
+                    break;
+            }
+        }
+
+        private static int GetSpaces(string line)
+        {
+            int index = 0;
+            foreach(char c in line.ToCharArray())
+            {
+                if (c == ' ') index++;
+                else break;
+            }
+            return index;
+        }
+
         #region RPG
 
         public void ConvertSelectedRPG()
@@ -287,7 +353,18 @@ namespace ILEditor.UserTools
                     freeForm = RPGFree.getFree(lines[i]);
                     if (freeForm != "")
                     {
-                        lines[i] = freeForm;
+                        switch (freeForm.Trim())
+                        {
+                            case "*SAME;":
+                                //Do nothing!
+                                break;
+                            case "*BLANK;":
+                                lines[i] = "";
+                                break;
+                            default:
+                                lines[i] = freeForm;
+                                break;
+                        }
                     }
                 }
 
@@ -295,6 +372,7 @@ namespace ILEditor.UserTools
             }
 
         }
+
         #endregion
 
         #region CL
@@ -302,7 +380,8 @@ namespace ILEditor.UserTools
         public void FormatCL()
         {
             string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            textEditor.Clear();
+            textEditor.SelectAll();
+            textEditor.SelectedText = "";
             int length = (RcdLen > 0 ? RcdLen : 80);
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }

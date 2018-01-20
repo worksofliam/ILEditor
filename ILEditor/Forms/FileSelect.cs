@@ -45,7 +45,7 @@ namespace ILEditor.Forms
             }
             else
             {
-                this.Command = "QUOTE RCMD RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" + Obj + "'', ''" + Lib + "'', ''" + Type + "'', REPLACE_OPTION => ''0'')')";
+                this.Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" + Obj + "'', ''" + Lib + "'', ''" + Type + "'', REPLACE_OPTION => ''0'')')";
                 this.Success = true;
                 this.Close();
             }

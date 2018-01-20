@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace ILEditor.Forms
         private void create_Click(object sender, EventArgs e)
         {
             Boolean isValid = true;
-            string Command = "";
+            string Command = "", Local;
 
             if (!IBMiUtils.IsValueObjectName(lib.Text))
                 isValid = false;
@@ -46,17 +47,34 @@ namespace ILEditor.Forms
                 _spf = spf.Text.Trim();
                 _mbr = mbr.Text.Trim();
                 _type = (type.Text.Trim() == "" ? "*NONE" : type.Text.Trim());
-                _text = (text.Text.Trim() == "" ? "*BLANK" : "'" + text.Text.Trim() + "'");
-
-                Command = "QUOTE RCMD ADDPFM FILE(" + _lib + "/" + _spf + ") MBR(" + _mbr + ") TEXT(" + _text + ") SRCTYPE(" + _type + ")";
-                if (IBMi.RunCommands(new string[1] { Command }) == false) //No error
+                if (IBMi.IsConnected())
                 {
-                    created = true;
-                    this.Close();
+                    _text = (text.Text.Trim() == "" ? "*BLANK" : "'" + text.Text.Trim() + "'");
+
+                    Command = "ADDPFM FILE(" + _lib + "/" + _spf + ") MBR(" + _mbr + ") TEXT(" + _text + ") SRCTYPE(" + _type + ")";
+                    if (IBMi.RemoteCommand(Command)) //No error
+                    {
+                    }
+                    else
+                    {
+                        MessageBox.Show("Member not created.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Member not created.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (_type == "*NONE") _type = "";
+                    Local = IBMiUtils.GetLocalFile(_lib, _spf, _mbr, _type);
+
+                    if (!File.Exists(Local))
+                    {
+                        File.Create(Local).Close();
+                        created = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Local member not created as already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
             }
             else
