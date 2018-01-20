@@ -51,10 +51,10 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "exclamation.png");
-            this.imageList1.Images.SetKeyName(1, "information.png");
-            this.imageList1.Images.SetKeyName(2, "script.png");
-            this.imageList1.Images.SetKeyName(3, "script_go.png");
+            this.imageList1.Images.SetKeyName(0, "warning.png");
+            this.imageList1.Images.SetKeyName(1, "info.png");
+            this.imageList1.Images.SetKeyName(2, "file.png");
+            this.imageList1.Images.SetKeyName(3, "edit.png");
             // 
             // MemberSearchListing
             // 

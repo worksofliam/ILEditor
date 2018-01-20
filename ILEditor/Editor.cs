@@ -33,11 +33,27 @@ namespace ILEditor
         {
             InitializeComponent();
             TheEditor = this;
-
+            
+            MemberCache.Import();
             SetUpPanels();
             
-            this.Text += " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
-            MemberCache.Import();
+            this.Text += ' ' + Program.getVersion() + " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
+            if (!IBMi.IsConnected())
+                this.Text += " - Offline Mode";
+
+            if (IBMi.IsConnected())
+            {
+                if (IBMi.CurrentSystem.GetValue("lastOffline") == "true")
+                {
+                    DialogResult result = MessageBox.Show("Looks like your last session was in Offline Mode. Would you like the launch the SPF Push tool?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        new PushWindow().ShowDialog();
+                    }
+                }
+            }
+            IBMi.CurrentSystem.SetValue("lastOffline", (IBMi.IsConnected() == false).ToString().ToLower());
         }
 
         private void SetUpPanels()
@@ -126,6 +142,7 @@ namespace ILEditor
 
         private void Editortabsleft_TabClosed(object sender, TabControlEventArgs e)
         {
+            e.TabPage.Dispose();
             FixEditorSplitters();
         }
 
@@ -292,7 +309,8 @@ namespace ILEditor
             if (SelectFile.Success)
             {
                 new Thread((ThreadStart)delegate {
-                    string resultFile = IBMiUtils.DownloadMember("QTEMP", "Q_GENSQL", "Q_GENSQL", new[] { SelectFile.getCommand() }, "SQL");
+                    IBMi.RemoteCommand(SelectFile.getCommand());
+                    string resultFile = IBMiUtils.DownloadMember("QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL");
 
                     if (resultFile != "")
                     {
@@ -302,6 +320,14 @@ namespace ILEditor
                         });
                     }
                 }).Start();
+            }
+        }
+
+        private void quickCommentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+            {
+                LastEditing.CommentOutSelected();
             }
         }
         #endregion
@@ -410,7 +436,7 @@ namespace ILEditor
         {
             string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
             Thread gothread = new Thread((ThreadStart)delegate {
-                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), null, member.GetExtension());
+                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), member.GetExtension());
 
                 if (resultFile != "")
                 {
@@ -498,34 +524,42 @@ namespace ILEditor
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
             OpenTab currentTab = EditorContains(pageName);
 
-            //Close tab if it already exists.
-            if (currentTab != null)
+            if (File.Exists(MemberInfo.GetLocalFile()))
             {
-                switch (currentTab.getSide())
+
+                //Close tab if it already exists.
+                if (currentTab != null)
                 {
-                    case OpenTab.TAB_SIDE.Left:
-                        editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
-                        break;
-                    case OpenTab.TAB_SIDE.Right:
-                        editortabsright.TabPages.RemoveAt(currentTab.getIndex());
-                        break;
+                    switch (currentTab.getSide())
+                    {
+                        case OpenTab.TAB_SIDE.Left:
+                            editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                        case OpenTab.TAB_SIDE.Right:
+                            editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                    }
                 }
+
+                TabPage tabPage = new TabPage(pageName);
+                tabPage.ImageIndex = 0;
+                tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+                SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
+                srcEdit.SetReadOnly(!MemberInfo.IsEditable());
+                srcEdit.BringToFront();
+                srcEdit.Dock = DockStyle.Fill;
+                srcEdit.Tag = MemberInfo;
+
+                tabPage.Tag = MemberInfo;
+                tabPage.Controls.Add(srcEdit);
+                editortabsleft.TabPages.Add(tabPage);
+
+                SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
             }
-
-            TabPage tabPage = new TabPage(pageName);
-            tabPage.ImageIndex = 0;
-            tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
-            SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
-            srcEdit.SetReadOnly(!MemberInfo.IsEditable());
-            srcEdit.BringToFront();
-            srcEdit.Dock = DockStyle.Fill;
-            srcEdit.Tag = MemberInfo;
-
-            tabPage.Tag = MemberInfo;
-            tabPage.Controls.Add(srcEdit);
-            editortabsleft.TabPages.Add(tabPage);
-
-            SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
+            else
+            {
+                MessageBox.Show("There was an error opening the local member. '" + MemberInfo.GetLocalFile() + "' does not exist");
+            }
         }
         
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)
@@ -536,7 +570,7 @@ namespace ILEditor
             {
                 new Thread((ThreadStart)delegate {
 
-                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, null, (newMemberForm._type == "*NONE" ? "" : newMemberForm._type));
+                    string resultFile = IBMiUtils.DownloadMember(newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, (newMemberForm._type == "*NONE" ? "" : newMemberForm._type));
 
                     if (resultFile != "")
                     {
@@ -549,7 +583,11 @@ namespace ILEditor
             }
             newMemberForm.Dispose();
         }
-
+        
+        private void sourcePhysicalFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new NewSPF().ShowDialog();
+        }
 
         private void memberToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -688,6 +726,23 @@ namespace ILEditor
         {
             MemberCache.Export();
         }
+
+        #region Help
+        private void sendFeedbackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Please send any feedback for ILEditor to feedback@worksofbarry.com.", "Feedback", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void aboutILEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new About().ShowDialog();
+        }
+        
+        private void sessionFTPLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(IBMi.FTPFile);
+        }
+        #endregion
     }
 
     public class OpenTab

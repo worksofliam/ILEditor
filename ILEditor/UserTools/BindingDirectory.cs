@@ -66,7 +66,7 @@ namespace ILEditor.UserTools
                     if (Selected.Tag != null)
                     {
                         BindingEntry Entry = (BindingEntry)Selected.Tag;
-                        string command = "QUOTE RCMD RMVBNDDIRE BNDDIR(" + Entry.BindingLib + "/" + Entry.BindingObj + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + "))";
+                        string command = "RMVBNDDIRE BNDDIR(" + Entry.BindingLib + "/" + Entry.BindingObj + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + "))";
                         DialogResult result = MessageBox.Show("Are you sure you want to delete this binding entry?", "Deleting Binding Entry", MessageBoxButtons.YesNo);
 
                         if (result == DialogResult.Yes)
@@ -126,7 +126,7 @@ namespace ILEditor.UserTools
             Entry.CreationDate = "";
             Entry.CreationTime = "";
 
-            string command = "QUOTE RCMD ADDBNDDIRE BNDDIR(" + Library + "/" + Object + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + " " + Entry.Activation + "))";
+            string command = "ADDBNDDIRE BNDDIR(" + Library + "/" + Object + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + " " + Entry.Activation + "))";
             Thread gothread = new Thread((ThreadStart)delegate
             {
                 if (IBMi.RunCommands(new string[1] { command }) == false)

@@ -72,7 +72,7 @@
             // fetchButton
             // 
             this.fetchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fetchButton.Image = ((System.Drawing.Image)(resources.GetObject("fetchButton.Image")));
+            this.fetchButton.Image = global::ILEditor.Properties.Resources.search;
             this.fetchButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fetchButton.Name = "fetchButton";
             this.fetchButton.Size = new System.Drawing.Size(23, 22);
@@ -129,10 +129,10 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "application.png");
-            this.imageList1.Images.SetKeyName(1, "bricks.png");
-            this.imageList1.Images.SetKeyName(2, "brick.png");
-            this.imageList1.Images.SetKeyName(3, "book.png");
+            this.imageList1.Images.SetKeyName(0, "browser.png");
+            this.imageList1.Images.SetKeyName(1, "cubedark.png");
+            this.imageList1.Images.SetKeyName(2, "cube.png");
+            this.imageList1.Images.SetKeyName(3, "notebook.png");
             // 
             // objectRightClick
             // 

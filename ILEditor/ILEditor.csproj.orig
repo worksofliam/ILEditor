@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ILEditor</RootNamespace>
+    <AssemblyName>ILEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>ftp://ftp.worksofbarry.com/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://worksofbarry.com/ileditor/installer/</InstallUrl>
+    <UpdateUrl>http://worksofbarry.com/ileditor/installer/</UpdateUrl>
+    <TargetCulture>en-GB</TargetCulture>
+    <ProductName>ILEditor</ProductName>
+    <PublisherName>Works Of Barry</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>index.html</WebPage>
+    <ApplicationRevision>73</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>worksofbarry_mOq_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>DA92B763BFFCE5314360B97F39EDAACE53632514</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Idle.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Idle.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentFTP, Version=19.1.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentFTP.19.1.2\lib\net45\FluentFTP.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TabControlExtra">
+      <HintPath>Resources\TabControlExtra.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\AutoCompleteData.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\AvalonEditUtility.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineInfo.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml.cs">
+      <DependentUpon>LineNumberDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplayModel.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberMarginAdorner.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberMarginWithCommands.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumbersListView.xaml.cs">
+      <DependentUpon>LineNumbersListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\MaxLineNumberLengthChangedEventArgs.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\dCommand.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\ddCommand.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\ICommand.cs" />
+    <Compile Include="Classes\AvalonEdit.LineNumberCommandMargin\SEUCommands\SEUCommandHandler.cs" />
+    <Compile Include="Classes\BindingEntry.cs" />
+    <Compile Include="Classes\Config.cs" />
+    <Compile Include="Classes\DiffMatchPatch.cs" />
+    <Compile Include="Classes\ErrorHandle.cs" />
+    <Compile Include="Classes\IBMi.cs" />
+    <Compile Include="Classes\IBMiUtils.cs" />
+    <Compile Include="Classes\LanguageTools\CLFile.cs" />
+    <Compile Include="Classes\LanguageTools\RPGParser.cs" />
+    <Compile Include="Classes\Member.cs" />
+    <Compile Include="Classes\ILEObject.cs" />
+    <Compile Include="Classes\MemberCache.cs" />
+    <Compile Include="Classes\SearchReplacePanel.cs" />
+    <Compile Include="Classes\SpoolFile.cs" />
+<<<<<<< HEAD
+    <Compile Include="Classes\WPFHelpers\ViewModelBase.cs" />
+=======
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+>>>>>>> master
+    <Compile Include="Forms\CloneWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CloneWindow.Designer.cs">
+      <DependentUpon>CloneWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\EditCommand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\EditCommand.Designer.cs">
+      <DependentUpon>EditCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\NewType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
+      <DependentUpon>NewType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FirewallHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirewallHelp.Designer.cs">
+      <DependentUpon>FirewallHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FirewallPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirewallPrompt.Designer.cs">
+      <DependentUpon>FirewallPrompt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LibraryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LibraryList.Designer.cs">
+      <DependentUpon>LibraryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Connection.Designer.cs">
+      <DependentUpon>Connection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberCompareDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberCompareDisplay.Designer.cs">
+      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberCompareSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberCompareSelect.Designer.cs">
+      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberSearch.Designer.cs">
+      <DependentUpon>MemberSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewMember.Designer.cs">
+      <DependentUpon>NewMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewSPF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewSPF.Designer.cs">
+      <DependentUpon>NewSPF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ObjectInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ObjectInformation.Designer.cs">
+      <DependentUpon>ObjectInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileSelect.Designer.cs">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OpenMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OpenMember.Designer.cs">
+      <DependentUpon>OpenMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HelpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HelpWindow.Designer.cs">
+      <DependentUpon>HelpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PushWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PushWindow.Designer.cs">
+      <DependentUpon>PushWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuickMemberSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuickMemberSearch.Designer.cs">
+      <DependentUpon>QuickMemberSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SaveAs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaveAs.Designer.cs">
+      <DependentUpon>SaveAs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ServiceGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ServiceGenerator.Designer.cs">
+      <DependentUpon>ServiceGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SPFSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SPFSelect.Designer.cs">
+      <DependentUpon>SPFSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\BindingDirectory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\BindingDirectory.Designer.cs">
+      <DependentUpon>BindingDirectory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\CompileOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\CompileOptions.Designer.cs">
+      <DependentUpon>CompileOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\ErrorListing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\ErrorListing.Designer.cs">
+      <DependentUpon>ErrorListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HostSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HostSelect.Designer.cs">
+      <DependentUpon>HostSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewSystem.Designer.cs">
+      <DependentUpon>NewSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserTools\MemberSearchListing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\MemberSearchListing.Designer.cs">
+      <DependentUpon>MemberSearchListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\ObjectBrowse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\ObjectBrowse.Designer.cs">
+      <DependentUpon>ObjectBrowse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\SourceEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\SourceEditor.Designer.cs">
+      <DependentUpon>SourceEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\MemberBrowse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\MemberBrowse.Designer.cs">
+      <DependentUpon>MemberBrowse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\SpoolListing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\SpoolListing.Designer.cs">
+      <DependentUpon>SpoolListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\SpoolViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\SpoolViewer.Designer.cs">
+      <DependentUpon>SpoolViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\TreeBrowse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\TreeBrowse.Designer.cs">
+      <DependentUpon>TreeBrowse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\UserToolList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\UserToolList.Designer.cs">
+      <DependentUpon>UserToolList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\Welcome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\Welcome.Designer.cs">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CloneWindow.resx">
+      <DependentUpon>CloneWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompileOptionForms\EditCommand.resx">
+      <DependentUpon>EditCommand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
+      <DependentUpon>NewType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirewallHelp.resx">
+      <DependentUpon>FirewallHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirewallPrompt.resx">
+      <DependentUpon>FirewallPrompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HostSelect.resx">
+      <DependentUpon>HostSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LibraryList.resx">
+      <DependentUpon>LibraryList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberCompareDisplay.resx">
+      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberCompareSelect.resx">
+      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberSearch.resx">
+      <DependentUpon>MemberSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewMember.resx">
+      <DependentUpon>NewMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewSPF.resx">
+      <DependentUpon>NewSPF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewSystem.resx">
+      <DependentUpon>NewSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Connection.resx">
+      <DependentUpon>Connection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ObjectInformation.resx">
+      <DependentUpon>ObjectInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileSelect.resx">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OpenMember.resx">
+      <DependentUpon>OpenMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PushWindow.resx">
+      <DependentUpon>PushWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuickMemberSearch.resx">
+      <DependentUpon>QuickMemberSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaveAs.resx">
+      <DependentUpon>SaveAs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ServiceGenerator.resx">
+      <DependentUpon>ServiceGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SPFSelect.resx">
+      <DependentUpon>SPFSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Forms\HelpWindow.resx">
+      <DependentUpon>HelpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\BindingDirectory.resx">
+      <DependentUpon>BindingDirectory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\CompileOptions.resx">
+      <DependentUpon>CompileOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\ErrorListing.resx">
+      <DependentUpon>ErrorListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\MemberBrowse.resx">
+      <DependentUpon>MemberBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\MemberSearchListing.resx">
+      <DependentUpon>MemberSearchListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
+      <DependentUpon>ObjectBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\SourceEditor.resx">
+      <DependentUpon>SourceEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\SpoolListing.resx">
+      <DependentUpon>SpoolListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\SpoolViewer.resx">
+      <DependentUpon>SpoolViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\TreeBrowse.resx">
+      <DependentUpon>TreeBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\UserToolList.resx">
+      <DependentUpon>UserToolList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\Welcome.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Idle.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\script_go.png" />
+    <None Include="Resources\Icons\application_go.png" />
+    <None Include="Resources\Icons\script_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\firewall.png" />
+    <Content Include="Resources\AutoComplete\CL.txt" />
+    <Content Include="Resources\AutoComplete\CPP.txt" />
+    <Content Include="Resources\AutoComplete\RPG.txt" />
+    <Content Include="Resources\Help\Compiling.html" />
+    <Content Include="Resources\Help\FTP.html" />
+    <Content Include="Resources\Help\LibraryList.html" />
+    <Content Include="Resources\Help\OfflineMode.html" />
+    <Content Include="Resources\Help\OpenMember.html" />
+    <Content Include="Resources\Highlighting\Dark\darkCL.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\Highlighting\Dark\darkCOBOL.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkCPP.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\Highlighting\Dark\darkRPG.xml" />
+    <Content Include="Resources\Highlighting\Dark\darkSQL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCOBOL.xml" />
+    <None Include="Resources\Highlighting\Light\lightCPP.xml" />
+    <None Include="Resources\Highlighting\Light\lightRPG.xml" />
+    <None Include="Resources\Highlighting\Light\lightSQL.xml" />
+    <None Include="Resources\NewIcons\edit.png" />
+    <None Include="Resources\NewIcons\save.png" />
+    <None Include="Resources\NewIcons\compile.png" />
+    <None Include="Resources\NewIcons\zoom-in.png" />
+    <None Include="Resources\NewIcons\zoom-out.png" />
+    <None Include="Resources\NewIcons\notebook.png" />
+    <None Include="Resources\NewIcons\folder.png" />
+    <None Include="Resources\NewIcons\search.png" />
+    <None Include="Resources\NewIcons\refresh.png" />
+    <None Include="Resources\NewIcons\filedelete.png" />
+    <Content Include="worksofbarry_mOq_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumberDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Classes\AvalonEdit.LineNumberCommandMargin\LineNumbersListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

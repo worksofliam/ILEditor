@@ -178,8 +178,8 @@ namespace ILEditor.Forms
             Commands.Add("put \"" + ModuleFile + "\" \"" + srvpgmlib.Text + ".lib/" + modsrc.Text + ".file/" + srvpgmnam.Text + ".mbr\"");
             Commands.Add("put \"" + BinderFile + "\" \"" + srvpgmlib.Text + ".lib/" + bndsrc.Text + ".file/" + srvpgmnam.Text + ".mbr\"");
 
-            Commands.Add("QUOTE RCMD CRTRPGMOD MODULE(" + srvpgmlib.Text + "/" + srvpgmnam.Text + ") SRCFILE(" + srvpgmlib.Text + "/" + modsrc.Text + ") OPTION(*EVENTF) DBGVIEW(*SOURCE)");
-            Commands.Add("QUOTE RCMD CRTSRVPGM SRVPGM(" + srvpgmlib.Text + "/" + srvpgmnam.Text + ") MODULE(" + srvpgmlib.Text + "/" + srvpgmnam.Text + ") SRCFILE(" + srvpgmlib.Text + "/" + bndsrc.Text + ") SRCMBR(" + srvpgmnam.Text + ")");
+            Commands.Add("CRTRPGMOD MODULE(" + srvpgmlib.Text + "/" + srvpgmnam.Text + ") SRCFILE(" + srvpgmlib.Text + "/" + modsrc.Text + ") OPTION(*EVENTF) DBGVIEW(*SOURCE)");
+            Commands.Add("CRTSRVPGM SRVPGM(" + srvpgmlib.Text + "/" + srvpgmnam.Text + ") MODULE(" + srvpgmlib.Text + "/" + srvpgmnam.Text + ") SRCFILE(" + srvpgmlib.Text + "/" + bndsrc.Text + ") SRCMBR(" + srvpgmnam.Text + ")");
 
             if (IBMi.RunCommands(Commands.ToArray()) == false)
             {

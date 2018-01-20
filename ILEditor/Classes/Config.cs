@@ -65,6 +65,7 @@ namespace ILEditor.Classes
             CheckExist("username", "myuser");
             CheckExist("password", "mypass");
             CheckExist("alias", Data["system"]);
+            CheckExist("useFTPES", "false");
 
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
@@ -72,12 +73,13 @@ namespace ILEditor.Classes
 
             CheckExist("printerLib", "");
             CheckExist("printerObj", "");
+            CheckExist("fetchJobLog", "false");
 
             CheckExist("TREE_LIST", "");
             CheckExist("FONT", "Consolas");
             CheckExist("ZOOM", 12.75f.ToString());
             CheckExist("INDENT_SIZE", "4");
-            CheckExist("SHOW_SPACES", "true");
+            CheckExist("SHOW_SPACES", "false");
             CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");

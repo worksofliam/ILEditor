@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ILEditor</RootNamespace>
     <AssemblyName>ILEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>ftp://ftp.worksofbarry.com/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -29,7 +30,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>56</ApplicationRevision>
+    <ApplicationRevision>73</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -45,6 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +56,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>worksofbarry_mOq_icon.ico</ApplicationIcon>
@@ -83,6 +86,9 @@
     <AssemblyOriginatorKeyFile>Idle.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentFTP, Version=19.1.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentFTP.19.1.2\lib\net45\FluentFTP.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
@@ -90,6 +96,9 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
@@ -142,6 +151,12 @@
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
     <Compile Include="Classes\WPFHelpers\ViewModelBase.cs" />
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CloneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +222,12 @@
     </Compile>
     <Compile Include="Forms\NewMember.Designer.cs">
       <DependentUpon>NewMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewSPF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewSPF.Designer.cs">
+      <DependentUpon>NewSPF.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ObjectInformation.cs">
       <SubType>Form</SubType>
@@ -357,6 +378,9 @@
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CloneWindow.resx">
       <DependentUpon>CloneWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -389,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewMember.resx">
       <DependentUpon>NewMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewSPF.resx">
+      <DependentUpon>NewSPF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewSystem.resx">
       <DependentUpon>NewSystem.cs</DependentUpon>
@@ -510,6 +537,7 @@
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
+    <Content Include="Resources\Help\OfflineMode.html" />
     <Content Include="Resources\Help\OpenMember.html" />
     <Content Include="Resources\Highlighting\Dark\darkCL.xml">
       <SubType>Designer</SubType>
@@ -525,6 +553,16 @@
     <None Include="Resources\Highlighting\Light\lightCPP.xml" />
     <None Include="Resources\Highlighting\Light\lightRPG.xml" />
     <None Include="Resources\Highlighting\Light\lightSQL.xml" />
+    <None Include="Resources\NewIcons\edit.png" />
+    <None Include="Resources\NewIcons\save.png" />
+    <None Include="Resources\NewIcons\compile.png" />
+    <None Include="Resources\NewIcons\zoom-in.png" />
+    <None Include="Resources\NewIcons\zoom-out.png" />
+    <None Include="Resources\NewIcons\notebook.png" />
+    <None Include="Resources\NewIcons\folder.png" />
+    <None Include="Resources\NewIcons\search.png" />
+    <None Include="Resources\NewIcons\refresh.png" />
+    <None Include="Resources\NewIcons\filedelete.png" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>
