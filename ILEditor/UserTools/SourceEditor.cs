@@ -217,7 +217,7 @@ namespace ILEditor.UserTools
                     }
                     else
                     {
-                        MessageBox.Show("Save as is not available for offline source.");
+                        MessageBox.Show("Save as is not available for local source.");
                     }
                 }
             }

@@ -19,6 +19,7 @@ namespace ILEditor.Classes
         }
 
         public static List<Project> Projects = new List<Project>();
+        public static Project GetProject(string Name) => Projects.Where(x => x.GetName() == Name).First();
 
         private Config Settings;
         private string Dir; //Local project directory
@@ -79,5 +80,5 @@ namespace ILEditor.Classes
         public string[] GetHeaderFiles() => Directory.GetFiles(this.HeadersDir);
         public string[] GetSourceFiles() => Directory.GetFiles(this.SourceDir);
 
-        }
+    }
 }

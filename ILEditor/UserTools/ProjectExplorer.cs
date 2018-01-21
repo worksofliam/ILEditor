@@ -42,11 +42,11 @@ namespace ILEditor.UserTools
 
                 HeadersNode = new TreeNode("Headers", 3, 3);
                 foreach (string FilePath in Proj.GetHeaderFiles())
-                    HeadersNode.Nodes.Add(new TreeNode(Path.GetFileName(FilePath), 4, 4) { Tag = FilePath });
+                    HeadersNode.Nodes.Add(new TreeNode(Path.GetFileName(FilePath), 4, 4) { Tag = "FIL:" + FilePath });
 
                 SourceNode = new TreeNode("Source", 3, 3);
                 foreach (string FilePath in Proj.GetSourceFiles())
-                    SourceNode.Nodes.Add(new TreeNode(Path.GetFileName(FilePath), 4, 4) { Tag = FilePath });
+                    SourceNode.Nodes.Add(new TreeNode(Path.GetFileName(FilePath), 4, 4) { Tag = "FIL:" + FilePath });
 
                 ProjectNode.Nodes.Add(HeadersNode);
                 ProjectNode.Nodes.Add(SourceNode);
@@ -63,24 +63,27 @@ namespace ILEditor.UserTools
 
         private void projView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            string tag = "";
+            string tag = "", value = "";
             if (projView.SelectedNode != null)
             {
                 tag = projView.SelectedNode.Tag as string;
 
                 if (tag != null)
                 {
-                    switch (tag.Substring(0, 4))
+                    value = tag.Substring(4);
+                    switch (tag.Substring(0, 3))
                     {
-                        case "EDT:":
+                        case "EDT":
                             //Load edit screen
                             break;
                         case "BLD":
                             //Build project
                             break;
+                        case "FIL":
+                            //File
+                            Editor.OpenLocal(value);
+                            break;
                         default:
-                            //Must be a file
-                            Editor.OpenLocal(tag);
                             break;
                     }
                 }
