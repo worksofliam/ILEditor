@@ -11,7 +11,7 @@ namespace ILEditor.Classes
     {
         public enum InitLang
         {
-            RPG, C
+            None, RPG, C
         }
         public enum Type
         {
@@ -20,24 +20,28 @@ namespace ILEditor.Classes
 
         public static List<Project> Projects = new List<Project>();
 
-        private string Name; //Project name
+        private Config Settings;
         private string Dir; //Local project directory
-        private string OutputName; //Object name
-        private string BuildLibrary; //Library in which source and objects are created
         private Type OutputType; //Compile type
 
         private string SourceDir, HeadersDir;
 
-        public Project(string ProjectName, string ProjectDir, string ObjectName, string BuildLibrary, Type ProjectType)
+        //When creating a new project
+        public Project(string ProjectDir, string ObjectName, string BuildLibrary, Type ProjectType)
         {
-            this.Name = ProjectName;
             this.Dir = ProjectDir;
-            this.OutputName = ObjectName;
-            this.BuildLibrary = BuildLibrary;
+
+            Settings = new Config(Path.Combine(this.Dir, "project.ileprj"));
+            Settings.SetValue("objectname", ObjectName);
+            Settings.SetValue("buildlibrary", BuildLibrary);
+            Settings.SetValue("projecttype", ProjectType.ToString());
+
             this.OutputType = ProjectType;
 
             this.HeadersDir = Path.Combine(this.Dir, "Headers");
             this.SourceDir = Path.Combine(this.Dir, "Source");
+
+            this.Init(InitLang.None);
         }
 
         public void Init(InitLang InitLanguage)
@@ -45,24 +49,33 @@ namespace ILEditor.Classes
             Directory.CreateDirectory(this.Dir);
             File.Create(Path.Combine(this.Dir, "project.ileprj")).Close();
 
-            //Create init config here
-
             Directory.CreateDirectory(this.HeadersDir);
             Directory.CreateDirectory(this.SourceDir);
 
             switch (InitLanguage)
             {
                 case InitLang.RPG:
-                    File.WriteAllLines(Path.Combine(this.SourceDir, this.OutputName + ".sqlrpgle"), new[]
+                    File.WriteAllLines(Path.Combine(this.SourceDir, Settings.GetValue("objectname") + ".sqlrpgle"), new[]
                     {
                         "**FREE", "",
-                        "Dcl-Pi " + this.OutputName + ";", "End-Pi;",
+                        "Dcl-Pi " + Settings.GetValue("objectname") + ";", "End-Pi;",
                         "", "Return"
                     });
                     break;
                 case InitLang.C:
                     break;
             }
+        }
+        
+        //Pass in directory when loading existing project
+        public Project(string Directory)
+        {
+            this.Dir = Directory;
+            Settings = new Config(Path.Combine(this.Dir, "project.ileprj"));
+
+            this.OutputType = (Type)Enum.Parse(typeof(Type), Settings.GetValue("projecttype"));
+            this.HeadersDir = Path.Combine(this.Dir, "Headers");
+            this.SourceDir = Path.Combine(this.Dir, "Source");
         }
 
     }
