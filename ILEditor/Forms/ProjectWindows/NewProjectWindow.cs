@@ -18,7 +18,7 @@ namespace ILEditor.Forms.ProjectWindows
             projDir.Text = Program.PROJDIR;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void findDir_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
             {
@@ -29,6 +29,17 @@ namespace ILEditor.Forms.ProjectWindows
                     projDir.Text = fbd.SelectedPath;
                 }
             }
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+            if (objName.Text.Trim() == "")
+            {
+                //Error
+                return;
+            }
+
+
         }
     }
 }

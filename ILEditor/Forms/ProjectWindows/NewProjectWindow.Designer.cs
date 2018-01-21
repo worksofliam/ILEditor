@@ -44,7 +44,7 @@
             this.lang_rpg = new System.Windows.Forms.RadioButton();
             this.projDir = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.findDir = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -59,6 +59,7 @@
             this.next.TabIndex = 0;
             this.next.Text = "Next";
             this.next.UseVisualStyleBackColor = true;
+            this.next.Click += new System.EventHandler(this.next_Click);
             // 
             // cancel
             // 
@@ -105,7 +106,6 @@
             this.ile_dynamic.Name = "ile_dynamic";
             this.ile_dynamic.Size = new System.Drawing.Size(178, 17);
             this.ile_dynamic.TabIndex = 2;
-            this.ile_dynamic.TabStop = true;
             this.ile_dynamic.Text = "ILE Dynamic Library (*SRVPGM)";
             this.ile_dynamic.UseVisualStyleBackColor = true;
             // 
@@ -116,13 +116,13 @@
             this.ile_static.Name = "ile_static";
             this.ile_static.Size = new System.Drawing.Size(143, 17);
             this.ile_static.TabIndex = 1;
-            this.ile_static.TabStop = true;
             this.ile_static.Text = "ILE Static Library (*MOD)";
             this.ile_static.UseVisualStyleBackColor = true;
             // 
             // ile_pgm
             // 
             this.ile_pgm.AutoSize = true;
+            this.ile_pgm.Checked = true;
             this.ile_pgm.Location = new System.Drawing.Point(18, 26);
             this.ile_pgm.Name = "ile_pgm";
             this.ile_pgm.Size = new System.Drawing.Size(120, 17);
@@ -199,20 +199,20 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Directory";
             // 
-            // button1
+            // findDir
             // 
-            this.button1.Location = new System.Drawing.Point(372, 58);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(67, 20);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Find";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.findDir.Location = new System.Drawing.Point(372, 58);
+            this.findDir.Name = "findDir";
+            this.findDir.Size = new System.Drawing.Size(67, 20);
+            this.findDir.TabIndex = 9;
+            this.findDir.Text = "Find";
+            this.findDir.UseVisualStyleBackColor = true;
+            this.findDir.Click += new System.EventHandler(this.findDir_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.findDir);
             this.groupBox3.Controls.Add(this.projName);
             this.groupBox3.Controls.Add(this.projDir);
             this.groupBox3.Controls.Add(this.label3);
@@ -268,7 +268,7 @@
         private System.Windows.Forms.RadioButton lang_rpg;
         private System.Windows.Forms.TextBox projDir;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button findDir;
         private System.Windows.Forms.GroupBox groupBox3;
     }
 }

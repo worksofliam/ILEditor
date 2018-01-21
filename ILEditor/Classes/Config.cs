@@ -108,6 +108,8 @@ namespace ILEditor.Classes
             CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
 
             CheckExist("LIBSAVE", "");
+
+            CheckExist("PROJECTS", "");
         }
 
         public void SaveConfig()
