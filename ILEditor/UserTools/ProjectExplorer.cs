@@ -15,6 +15,8 @@ namespace ILEditor.UserTools
 {
     public partial class ProjectExplorer : UserControl
     {
+        private string SelectedProject, SelectedFolder;
+
         public ProjectExplorer()
         {
             InitializeComponent();
@@ -86,6 +88,171 @@ namespace ILEditor.UserTools
                         default:
                             break;
                     }
+                }
+            }
+        }
+
+        private void projView_MouseClick(object sender, MouseEventArgs e)
+        {
+            string tag = "", value = "";
+            if (e.Button == MouseButtons.Right)
+            {
+                if (projView.SelectedNode != null)
+                {
+                    if (projView.SelectedNode.Parent == null)
+                    {
+                        SelectedProject = projView.SelectedNode.Text;
+                        projRightClick.Show(Cursor.Position);
+                    }
+                    else if (projView.SelectedNode.Tag != null)
+                    {
+                        //Other node selected
+                        tag = projView.SelectedNode.Tag as string;
+
+                        if (tag != null)
+                        {
+                            value = tag.Substring(4);
+                            if (tag.Substring(0, 3) == "FIL")
+                            {
+                                fileRightClick.Show(Cursor.Position);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        switch (projView.SelectedNode.Text)
+                        {
+                            case "Headers":
+                            case "Source":
+                                SelectedProject = projView.SelectedNode.Parent.Text;
+                                SelectedFolder = projView.SelectedNode.Text;
+                                folderRightClick.Show(Cursor.Position);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        private void removeProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to remove " + SelectedProject + "? This will not delete the project directory.", "Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+
+            if (result == DialogResult.Yes)
+            {
+                List<string> projects = IBMi.CurrentSystem.GetValue("PROJECTS").Split('|').ToList();
+                projects.Remove(Project.GetProject(SelectedProject).GetDirectory());
+                IBMi.CurrentSystem.SetValue("PROJECTS", String.Join("|", projects));
+                ReloadProjects();
+            }
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (projView.SelectedNode != null)
+            {
+                projView.SelectedNode.BeginEdit();
+            }
+        }
+
+        private static readonly string[] ValidExtentions = new[]
+        {
+            "SQLRPGLE", "RPGLE", "C", "SQLC", "CMD", "CLLE", "DDS", "SQL", "DSPF", "H"
+        };
+
+        private void projView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            e.CancelEdit = true;
+            if (e.Node.Tag != null)
+            {
+                if ((e.Node.Tag as string).Substring(0, 3) == "FIL") e.CancelEdit = false;
+            }
+        }
+
+        private void projView_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            if (e.Label == null) return;
+
+            string[] NewName = e.Label.Split('.');
+
+            e.CancelEdit = true;
+            
+            if (NewName.Length == 2)
+            {
+                if (ValidExtentions.Contains(NewName[1].ToUpper()))
+                {
+                    if (IBMiUtils.IsValueObjectName(NewName[1]))
+                    {
+                        bool FileExists = false;
+                        
+                        foreach (TreeNode node in e.Node.Parent.Nodes)
+                        {
+                            if (node.Text.Split('.')[0] == NewName[0].ToUpper())
+                                FileExists = true;
+                        }
+                        
+                        if (!FileExists)
+                        {
+                            string FileDir = "", currentFile = (e.Node.Tag as string).Substring(4);
+
+                            FileDir = Path.GetDirectoryName(currentFile);
+                            FileDir = Path.Combine(FileDir, e.Label);
+
+                            File.Move(currentFile, FileDir);
+
+                            e.Node.Tag = "FIL:" + FileDir;
+                            e.CancelEdit = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show(NewName[0] + " already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show(NewName[1] + " is not a valid name,", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        //Error
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NewName[1] + " is not a valid extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    //Error
+                }
+            }
+            else
+            {
+                MessageBox.Show("New name requires a name an extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //Error
+            }
+        }
+
+        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string CrtDir = Path.Combine(Project.GetProject(SelectedProject).GetDirectory(), SelectedFolder, "NEWFILE.ext");
+            File.Create(CrtDir).Close();
+
+            TreeNode newNode = projView.SelectedNode.Nodes.Add("NEWFILE.ext");
+            newNode.ImageIndex = 4; newNode.SelectedImageIndex = 4;
+            newNode.Tag = "FIL:" + CrtDir;
+
+            projView.SelectedNode.Expand();
+
+            newNode.BeginEdit();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (projView.SelectedNode != null)
+            {
+                string FilePath = (projView.SelectedNode.Tag as string).Substring(4);
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + Path.GetFileName(FilePath) + "?", "Delete file", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    File.Delete(FilePath);
+                    projView.SelectedNode.Remove();
                 }
             }
         }

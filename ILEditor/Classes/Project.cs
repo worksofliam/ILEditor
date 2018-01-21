@@ -57,7 +57,7 @@ namespace ILEditor.Classes
                     {
                         "**FREE", "",
                         "Dcl-Pi " + Settings.GetValue("objectname") + ";", "End-Pi;",
-                        "", "Return"
+                        "", "Return;"
                     });
                     break;
                 case InitLang.C:
@@ -77,6 +77,7 @@ namespace ILEditor.Classes
         }
 
         public string GetName() => Path.GetFileName(this.Dir);
+        public string GetDirectory() => this.Dir;
         public string[] GetHeaderFiles() => Directory.GetFiles(this.HeadersDir);
         public string[] GetSourceFiles() => Directory.GetFiles(this.SourceDir);
 
