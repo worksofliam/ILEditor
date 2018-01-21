@@ -32,6 +32,7 @@ namespace ILEditor.UserTools
         private TextEditor textEditor = null;
         private ILELanguage Language;
         private int RcdLen;
+        private string LocalPath;
 
         public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
         {
@@ -41,6 +42,7 @@ namespace ILEditor.UserTools
 
             this.Language = Language;
             this.RcdLen = RecordLength;
+            this.LocalPath = LocalFile;
 
             textEditor = new TextEditor();
             textEditor.ShowLineNumbers = true;
@@ -189,26 +191,33 @@ namespace ILEditor.UserTools
                 if (SaveAsWindow.Success)
                 {
                     Member MemberInfo = (Member)this.Tag;
-                    if (!MemberInfo._IsBeingSaved)
+                    if (MemberInfo != null)
                     {
-                        MemberInfo._IsBeingSaved = true;
-
-                        Editor.TheEditor.SetStatus("Saving " + SaveAsWindow.Mbr + "..");
-                        Thread gothread = new Thread((ThreadStart)delegate
+                        if (!MemberInfo._IsBeingSaved)
                         {
-                            bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
-                            if (UploadResult == false)
-                                MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+                            MemberInfo._IsBeingSaved = true;
 
-                            this.Invoke((MethodInvoker)delegate
+                            Editor.TheEditor.SetStatus("Saving " + SaveAsWindow.Mbr + "..");
+                            Thread gothread = new Thread((ThreadStart)delegate
                             {
-                                Editor.TheEditor.SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                                bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
+                                if (UploadResult == false)
+                                    MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    Editor.TheEditor.SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                                });
+
+                                MemberInfo._IsBeingSaved = false;
                             });
 
-                            MemberInfo._IsBeingSaved = false;
-                        });
-
-                        gothread.Start();
+                            gothread.Start();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Save as is not available for offline source.");
                     }
                 }
             }
@@ -221,52 +230,62 @@ namespace ILEditor.UserTools
         public void Save()
         {
             Member MemberInfo = (Member)this.Tag;
-            if (MemberInfo.IsEditable())
+
+            if (MemberInfo != null)
             {
-                if (!MemberInfo._IsBeingSaved)
+                if (MemberInfo.IsEditable())
                 {
-                    MemberInfo._IsBeingSaved = true;
-
-                    Editor.TheEditor.SetStatus("Saving " + MemberInfo.GetMember() + "..");
-                    Thread gothread = new Thread((ThreadStart)delegate
+                    if (!MemberInfo._IsBeingSaved)
                     {
+                        MemberInfo._IsBeingSaved = true;
 
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
-                        });
-                        
-                        MemberCache.EditsAdd(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
-                        
-                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
-                        if (UploadResult == false)
-                        {
-                            //MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
-                        }
-                        else
+                        Editor.TheEditor.SetStatus("Saving " + MemberInfo.GetMember() + "..");
+                        Thread gothread = new Thread((ThreadStart)delegate
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                if (GetParent().Text.EndsWith("*"))
-                                    GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
+                                File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
                             });
-                        }
 
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            Editor.TheEditor.SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
+                            MemberCache.EditsAdd(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
+
+                            bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
+                            if (UploadResult == false)
+                            {
+                            //MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
+                        }
+                            else
+                            {
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    if (GetParent().Text.EndsWith("*"))
+                                        GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
+                                });
+                            }
+
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                Editor.TheEditor.SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
+                            });
+
+                            MemberInfo._IsBeingSaved = false;
                         });
 
-                        MemberInfo._IsBeingSaved = false;
-                    });
+                        gothread.Start();
+                    }
 
-                    gothread.Start();
                 }
-
+                else
+                {
+                    MessageBox.Show("This file is readonly.");
+                }
             }
             else
             {
-                MessageBox.Show("This file is readonly.");
+                File.WriteAllText(this.LocalPath, this.GetText(), textEditor.Encoding);
+                if (GetParent().Text.EndsWith("*"))
+                    GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
+                Editor.TheEditor.SetStatus("File saved locally.");
             }
         }
 

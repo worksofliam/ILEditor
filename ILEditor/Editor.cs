@@ -188,6 +188,7 @@ namespace ILEditor
 
         public static ILELanguage GetBoundLangType(string Obj)
         {
+            Obj = Obj.ToUpper();
             if (LangTypes.ContainsKey(Obj))
                 return LangTypes[Obj];
             else
@@ -432,6 +433,12 @@ namespace ILEditor
             return null;
         }
 
+        public static void OpenLocal(string FilePath)
+        {
+            string Extension = Path.GetExtension(FilePath).Substring(1);
+            TheEditor.AddFileEditor(FilePath, GetBoundLangType(Extension));
+        }
+
         public static void OpenMember(Member member)
         {
             string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
@@ -519,6 +526,42 @@ namespace ILEditor
             editortabs.Panel2Collapsed = (editortabsright.TabPages.Count == 0);
         }
 
+        private void AddFileEditor(string FilePath, ILELanguage Language)
+        {
+            string pageName = Path.GetFileName(FilePath);
+            OpenTab currentTab = EditorContains(pageName);
+
+            if (File.Exists(FilePath))
+            {
+                if (currentTab != null)
+                {
+                    switch (currentTab.getSide())
+                    {
+                        case OpenTab.TAB_SIDE.Left:
+                            editortabsleft.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                        case OpenTab.TAB_SIDE.Right:
+                            editortabsright.TabPages.RemoveAt(currentTab.getIndex());
+                            break;
+                    }
+                }
+
+                TabPage tabPage = new TabPage(pageName);
+                tabPage.ImageIndex = 0;
+                tabPage.ToolTipText = pageName;
+                SourceEditor srcEdit = new SourceEditor(FilePath, Language);
+                srcEdit.BringToFront();
+                srcEdit.Dock = DockStyle.Fill;
+                srcEdit.Tag = null;
+
+                tabPage.Tag = null;
+                tabPage.Controls.Add(srcEdit);
+                editortabsleft.TabPages.Add(tabPage);
+
+                SwitchToTab(OpenTab.TAB_SIDE.Left, editortabsleft.TabPages.Count - 1);
+            }
+        }
+
         private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
@@ -543,7 +586,7 @@ namespace ILEditor
 
                 TabPage tabPage = new TabPage(pageName);
                 tabPage.ImageIndex = 0;
-                tabPage.ToolTipText = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+                tabPage.ToolTipText = pageName;
                 SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
                 srcEdit.SetReadOnly(!MemberInfo.IsEditable());
                 srcEdit.BringToFront();

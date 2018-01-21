@@ -36,17 +36,17 @@ namespace ILEditor.UserTools
                 
             foreach (Project Proj in Project.Projects)
             {
-                ProjectNode = new TreeNode(Proj.GetName());
-                ProjectNode.Nodes.Add(new TreeNode("Project Settings"));
-                ProjectNode.Nodes.Add(new TreeNode("Project Build"));
+                ProjectNode = new TreeNode(Proj.GetName(), 0, 0);
+                ProjectNode.Nodes.Add(new TreeNode("Project Settings", 1, 1) { Tag = "EDT:" + Proj.GetName() });
+                ProjectNode.Nodes.Add(new TreeNode("Project Build", 2, 2) { Tag = "BLD:" + Proj.GetName() });
 
-                HeadersNode = new TreeNode("Headers");
+                HeadersNode = new TreeNode("Headers", 3, 3);
                 foreach (string FilePath in Proj.GetHeaderFiles())
-                    HeadersNode.Nodes.Add(Path.GetFileName(FilePath));
+                    HeadersNode.Nodes.Add(new TreeNode(Path.GetFileName(FilePath), 4, 4) { Tag = FilePath });
 
-                SourceNode = new TreeNode("Source");
+                SourceNode = new TreeNode("Source", 3, 3);
                 foreach (string FilePath in Proj.GetSourceFiles())
-                    SourceNode.Nodes.Add(Path.GetFileName(FilePath));
+                    SourceNode.Nodes.Add(new TreeNode(Path.GetFileName(FilePath), 4, 4) { Tag = FilePath });
 
                 ProjectNode.Nodes.Add(HeadersNode);
                 ProjectNode.Nodes.Add(SourceNode);
@@ -61,5 +61,30 @@ namespace ILEditor.UserTools
             ReloadProjects();
         }
 
+        private void projView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            string tag = "";
+            if (projView.SelectedNode != null)
+            {
+                tag = projView.SelectedNode.Tag as string;
+
+                if (tag != null)
+                {
+                    switch (tag.Substring(0, 4))
+                    {
+                        case "EDT:":
+                            //Load edit screen
+                            break;
+                        case "BLD":
+                            //Build project
+                            break;
+                        default:
+                            //Must be a file
+                            Editor.OpenLocal(tag);
+                            break;
+                    }
+                }
+            }
+        }
     }
 }
