@@ -40,7 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.objName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ile_c = new System.Windows.Forms.RadioButton();
+            this.lang_c = new System.Windows.Forms.RadioButton();
             this.lang_rpg = new System.Windows.Forms.RadioButton();
             this.projDir = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -151,7 +151,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.ile_c);
+            this.groupBox2.Controls.Add(this.lang_c);
             this.groupBox2.Controls.Add(this.lang_rpg);
             this.groupBox2.Location = new System.Drawing.Point(78, 172);
             this.groupBox2.Name = "groupBox2";
@@ -160,16 +160,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Base Language";
             // 
-            // ile_c
+            // lang_c
             // 
-            this.ile_c.AutoSize = true;
-            this.ile_c.Location = new System.Drawing.Point(18, 49);
-            this.ile_c.Name = "ile_c";
-            this.ile_c.Size = new System.Drawing.Size(51, 17);
-            this.ile_c.TabIndex = 1;
-            this.ile_c.TabStop = true;
-            this.ile_c.Text = "ILE C";
-            this.ile_c.UseVisualStyleBackColor = true;
+            this.lang_c.AutoSize = true;
+            this.lang_c.Location = new System.Drawing.Point(18, 49);
+            this.lang_c.Name = "lang_c";
+            this.lang_c.Size = new System.Drawing.Size(51, 17);
+            this.lang_c.TabIndex = 1;
+            this.lang_c.TabStop = true;
+            this.lang_c.Text = "ILE C";
+            this.lang_c.UseVisualStyleBackColor = true;
             // 
             // lang_rpg
             // 
@@ -187,6 +187,7 @@
             this.projDir.Location = new System.Drawing.Point(9, 58);
             this.projDir.MaxLength = 256;
             this.projDir.Name = "projDir";
+            this.projDir.ReadOnly = true;
             this.projDir.Size = new System.Drawing.Size(357, 20);
             this.projDir.TabIndex = 7;
             // 
@@ -264,7 +265,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox objName;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton ile_c;
+        private System.Windows.Forms.RadioButton lang_c;
         private System.Windows.Forms.RadioButton lang_rpg;
         private System.Windows.Forms.TextBox projDir;
         private System.Windows.Forms.Label label3;

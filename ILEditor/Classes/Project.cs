@@ -27,13 +27,13 @@ namespace ILEditor.Classes
         private string SourceDir, HeadersDir;
 
         //When creating a new project
-        public Project(string ProjectDir, string ObjectName, string BuildLibrary, Type ProjectType)
+        public Project(string ProjectDir, string ObjectName, Type ProjectType)
         {
             this.Dir = ProjectDir;
+            Directory.CreateDirectory(this.Dir);
 
             Settings = new Config(Path.Combine(this.Dir, "project.ileprj"));
             Settings.SetValue("objectname", ObjectName);
-            Settings.SetValue("buildlibrary", BuildLibrary);
             Settings.SetValue("projecttype", ProjectType.ToString());
 
             this.OutputType = ProjectType;
@@ -46,9 +46,6 @@ namespace ILEditor.Classes
 
         public void Init(InitLang InitLanguage)
         {
-            Directory.CreateDirectory(this.Dir);
-            File.Create(Path.Combine(this.Dir, "project.ileprj")).Close();
-
             Directory.CreateDirectory(this.HeadersDir);
             Directory.CreateDirectory(this.SourceDir);
 
