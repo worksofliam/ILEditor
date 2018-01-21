@@ -40,7 +40,7 @@ namespace ILEditor.Forms.ProjectWindows
 
             if (objName.Text.Trim() == "")
             {
-                //Error
+                MessageBox.Show("Object name cannot be blank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -58,20 +58,20 @@ namespace ILEditor.Forms.ProjectWindows
 
             if (projName.Text.Trim() == "")
             {
-                //Error
+                MessageBox.Show("Project name cannot be blank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!Directory.Exists(projDir.Text))
             {
-                //Error
+                MessageBox.Show("Selected directory does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             string ProjectDirectory = Path.Combine(projDir.Text, projName.Text);
             if (Directory.Exists(ProjectDirectory))
             {
-                //Error return
+                MessageBox.Show("Folder '" + projName.Text + "' already exists in the chosen directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
