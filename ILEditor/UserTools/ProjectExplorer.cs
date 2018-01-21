@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Forms.ProjectWindows;
 
 namespace ILEditor.UserTools
 {
-    public partial class Projects : UserControl
+    public partial class ProjectExplorer : UserControl
     {
-        public Projects()
+        public ProjectExplorer()
         {
             InitializeComponent();
         }
 
         private void newProject_ButtonClick(object sender, EventArgs e)
         {
-
+            new NewProjectWindow().ShowDialog();
         }
     }
 }

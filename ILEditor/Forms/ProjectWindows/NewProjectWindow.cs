@@ -15,6 +15,20 @@ namespace ILEditor.Forms.ProjectWindows
         public NewProjectWindow()
         {
             InitializeComponent();
+            projDir.Text = Program.PROJDIR;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    projDir.Text = fbd.SelectedPath;
+                }
+            }
         }
     }
 }

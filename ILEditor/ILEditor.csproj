@@ -132,6 +132,7 @@
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Classes\MemberCache.cs" />
+    <Compile Include="Classes\Project.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
     <Compile Include="Forms\About.cs">
@@ -322,11 +323,11 @@
     <Compile Include="UserTools\ObjectBrowse.Designer.cs">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\Projects.cs">
+    <Compile Include="UserTools\ProjectExplorer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserTools\Projects.Designer.cs">
-      <DependentUpon>Projects.cs</DependentUpon>
+    <Compile Include="UserTools\ProjectExplorer.Designer.cs">
+      <DependentUpon>ProjectExplorer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
       <SubType>UserControl</SubType>
@@ -476,8 +477,8 @@
     <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\Projects.resx">
-      <DependentUpon>Projects.cs</DependentUpon>
+    <EmbeddedResource Include="UserTools\ProjectExplorer.resx">
+      <DependentUpon>ProjectExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>

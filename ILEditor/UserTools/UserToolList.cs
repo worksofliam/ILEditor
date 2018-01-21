@@ -45,6 +45,9 @@ namespace ILEditor.UserTools
                     case "SPL":
                         Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
                         break;
+                    case "PROJ":
+                        Editor.TheEditor.AddTool("Project Explorer", new ProjectExplorer(), true);
+                        break;
                 }
             }
         }

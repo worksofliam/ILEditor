@@ -1,6 +1,6 @@
 ﻿namespace ILEditor.UserTools
 {
-    partial class Projects
+    partial class ProjectExplorer
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Projects));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectExplorer));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.newProject = new System.Windows.Forms.ToolStripSplitButton();
             this.treeView1 = new System.Windows.Forms.TreeView();

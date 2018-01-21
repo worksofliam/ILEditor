@@ -32,17 +32,17 @@
             this.next = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.projName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.ile_dynamic = new System.Windows.Forms.RadioButton();
+            this.ile_static = new System.Windows.Forms.RadioButton();
+            this.ile_pgm = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.objName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ile_c = new System.Windows.Forms.RadioButton();
+            this.lang_rpg = new System.Windows.Forms.RadioButton();
+            this.projDir = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -78,19 +78,19 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Name";
             // 
-            // textBox1
+            // projName
             // 
-            this.textBox1.Location = new System.Drawing.Point(339, 19);
-            this.textBox1.MaxLength = 30;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
+            this.projName.Location = new System.Drawing.Point(339, 19);
+            this.projName.MaxLength = 30;
+            this.projName.Name = "projName";
+            this.projName.Size = new System.Drawing.Size(100, 20);
+            this.projName.TabIndex = 3;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.ile_dynamic);
+            this.groupBox1.Controls.Add(this.ile_static);
+            this.groupBox1.Controls.Add(this.ile_pgm);
             this.groupBox1.Location = new System.Drawing.Point(78, 51);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(445, 106);
@@ -98,38 +98,38 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Project Type";
             // 
-            // radioButton1
+            // ile_dynamic
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(18, 26);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(120, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "ILE Program (*PGM)";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.ile_dynamic.AutoSize = true;
+            this.ile_dynamic.Location = new System.Drawing.Point(18, 72);
+            this.ile_dynamic.Name = "ile_dynamic";
+            this.ile_dynamic.Size = new System.Drawing.Size(178, 17);
+            this.ile_dynamic.TabIndex = 2;
+            this.ile_dynamic.TabStop = true;
+            this.ile_dynamic.Text = "ILE Dynamic Library (*SRVPGM)";
+            this.ile_dynamic.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // ile_static
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(18, 49);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(143, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "ILE Static Library (*MOD)";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.ile_static.AutoSize = true;
+            this.ile_static.Location = new System.Drawing.Point(18, 49);
+            this.ile_static.Name = "ile_static";
+            this.ile_static.Size = new System.Drawing.Size(143, 17);
+            this.ile_static.TabIndex = 1;
+            this.ile_static.TabStop = true;
+            this.ile_static.Text = "ILE Static Library (*MOD)";
+            this.ile_static.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // ile_pgm
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(18, 72);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(178, 17);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "ILE Dynamic Library (*SRVPGM)";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.ile_pgm.AutoSize = true;
+            this.ile_pgm.Location = new System.Drawing.Point(18, 26);
+            this.ile_pgm.Name = "ile_pgm";
+            this.ile_pgm.Size = new System.Drawing.Size(120, 17);
+            this.ile_pgm.TabIndex = 0;
+            this.ile_pgm.TabStop = true;
+            this.ile_pgm.Text = "ILE Program (*PGM)";
+            this.ile_pgm.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -140,19 +140,19 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Object Name";
             // 
-            // textBox2
+            // objName
             // 
-            this.textBox2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox2.Location = new System.Drawing.Point(423, 25);
-            this.textBox2.MaxLength = 10;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
+            this.objName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.objName.Location = new System.Drawing.Point(423, 25);
+            this.objName.MaxLength = 10;
+            this.objName.Name = "objName";
+            this.objName.Size = new System.Drawing.Size(100, 20);
+            this.objName.TabIndex = 6;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton5);
-            this.groupBox2.Controls.Add(this.radioButton6);
+            this.groupBox2.Controls.Add(this.ile_c);
+            this.groupBox2.Controls.Add(this.lang_rpg);
             this.groupBox2.Location = new System.Drawing.Point(78, 172);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(445, 85);
@@ -160,35 +160,35 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Base Language";
             // 
-            // radioButton5
+            // ile_c
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(18, 49);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(51, 17);
-            this.radioButton5.TabIndex = 1;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "ILE C";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.ile_c.AutoSize = true;
+            this.ile_c.Location = new System.Drawing.Point(18, 49);
+            this.ile_c.Name = "ile_c";
+            this.ile_c.Size = new System.Drawing.Size(51, 17);
+            this.ile_c.TabIndex = 1;
+            this.ile_c.TabStop = true;
+            this.ile_c.Text = "ILE C";
+            this.ile_c.UseVisualStyleBackColor = true;
             // 
-            // radioButton6
+            // lang_rpg
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(18, 26);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(67, 17);
-            this.radioButton6.TabIndex = 0;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "ILE RPG";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this.lang_rpg.AutoSize = true;
+            this.lang_rpg.Location = new System.Drawing.Point(18, 26);
+            this.lang_rpg.Name = "lang_rpg";
+            this.lang_rpg.Size = new System.Drawing.Size(67, 17);
+            this.lang_rpg.TabIndex = 0;
+            this.lang_rpg.TabStop = true;
+            this.lang_rpg.Text = "ILE RPG";
+            this.lang_rpg.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // projDir
             // 
-            this.textBox3.Location = new System.Drawing.Point(9, 58);
-            this.textBox3.MaxLength = 256;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(357, 20);
-            this.textBox3.TabIndex = 7;
+            this.projDir.Location = new System.Drawing.Point(9, 58);
+            this.projDir.MaxLength = 256;
+            this.projDir.Name = "projDir";
+            this.projDir.Size = new System.Drawing.Size(357, 20);
+            this.projDir.TabIndex = 7;
             // 
             // label3
             // 
@@ -207,13 +207,14 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "Find";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.projName);
+            this.groupBox3.Controls.Add(this.projDir);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(78, 263);
             this.groupBox3.Name = "groupBox3";
@@ -229,7 +230,7 @@
             this.ClientSize = new System.Drawing.Size(606, 424);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.objName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cancel);
@@ -255,17 +256,17 @@
         private System.Windows.Forms.Button next;
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox projName;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton ile_dynamic;
+        private System.Windows.Forms.RadioButton ile_static;
+        private System.Windows.Forms.RadioButton ile_pgm;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox objName;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.RadioButton ile_c;
+        private System.Windows.Forms.RadioButton lang_rpg;
+        private System.Windows.Forms.TextBox projDir;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox3;
