@@ -85,6 +85,8 @@ namespace ILEditor.Forms.ProjectWindows
             List<string> projects = IBMi.CurrentSystem.GetValue("PROJECTS").Split('|').ToList();
             projects.Add(ProjectDirectory);
             IBMi.CurrentSystem.SetValue("PROJECTS", String.Join("|", projects));
+
+            this.Close();
         }
     }
 }

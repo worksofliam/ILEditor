@@ -75,5 +75,9 @@ namespace ILEditor.Classes
             this.SourceDir = Path.Combine(this.Dir, "Source");
         }
 
-    }
+        public string GetName() => Path.GetFileName(this.Dir);
+        public string[] GetHeaderFiles() => Directory.GetFiles(this.HeadersDir);
+        public string[] GetSourceFiles() => Directory.GetFiles(this.SourceDir);
+
+        }
 }

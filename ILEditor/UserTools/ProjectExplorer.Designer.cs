@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectExplorer));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.newProject = new System.Windows.Forms.ToolStripSplitButton();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.projView = new System.Windows.Forms.TreeView();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,21 +56,22 @@
             this.newProject.Text = "New Project";
             this.newProject.ButtonClick += new System.EventHandler(this.newProject_ButtonClick);
             // 
-            // treeView1
+            // projView
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(0, 22);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(280, 333);
-            this.treeView1.TabIndex = 1;
+            this.projView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.projView.Location = new System.Drawing.Point(0, 22);
+            this.projView.Name = "projView";
+            this.projView.Size = new System.Drawing.Size(280, 333);
+            this.projView.TabIndex = 1;
             // 
-            // Projects
+            // ProjectExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.projView);
             this.Controls.Add(this.statusStrip1);
-            this.Name = "Projects";
+            this.Name = "ProjectExplorer";
             this.Size = new System.Drawing.Size(280, 355);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -83,6 +84,6 @@
 
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripSplitButton newProject;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView projView;
     }
 }
