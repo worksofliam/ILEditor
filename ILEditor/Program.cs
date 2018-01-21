@@ -22,6 +22,7 @@ namespace ILEditor
         public static readonly string SYSTEMSDIR = Path.Combine(APPDIR, "systems"); //Directory
         public static readonly string SOURCEDIR = Path.Combine(APPDIR, "source"); //Directory
         public static readonly string CONFIGFILE = Path.Combine(APPDIR, "config"); //Config file
+        public static readonly string PROJDIR = Path.Combine(APPDIR, "projects"); //Directory
 
 
         //Config
@@ -53,6 +54,7 @@ namespace ILEditor
 
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
+            Directory.CreateDirectory(PROJDIR);
 
             Config = new Config(CONFIGFILE);
             Config.DoEditorDefaults();

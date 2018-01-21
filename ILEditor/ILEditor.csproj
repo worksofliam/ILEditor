@@ -236,6 +236,12 @@
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProjectWindows\NewProjectWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectWindows\NewProjectWindow.Designer.cs">
+      <DependentUpon>NewProjectWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PushWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,6 +321,12 @@
     </Compile>
     <Compile Include="UserTools\ObjectBrowse.Designer.cs">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\Projects.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\Projects.Designer.cs">
+      <DependentUpon>Projects.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
       <SubType>UserControl</SubType>
@@ -415,6 +427,9 @@
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectWindows\NewProjectWindow.resx">
+      <DependentUpon>NewProjectWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PushWindow.resx">
       <DependentUpon>PushWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -460,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\Projects.resx">
+      <DependentUpon>Projects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>
