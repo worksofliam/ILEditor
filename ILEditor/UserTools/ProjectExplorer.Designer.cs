@@ -41,6 +41,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.projRightClick.SuspendLayout();
             this.fileRightClick.SuspendLayout();
@@ -61,6 +62,8 @@
             // newProject
             // 
             this.newProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.newProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem});
             this.newProject.Image = ((System.Drawing.Image)(resources.GetObject("newProject.Image")));
             this.newProject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newProject.Name = "newProject";
@@ -141,9 +144,16 @@
             // newFileToolStripMenuItem
             // 
             this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh Projects";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // ProjectExplorer
             // 
@@ -176,5 +186,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip folderRightClick;
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

@@ -242,6 +242,11 @@ namespace ILEditor.UserTools
             newNode.BeginEdit();
         }
 
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReloadProjects();
+        }
+
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (projView.SelectedNode != null)
