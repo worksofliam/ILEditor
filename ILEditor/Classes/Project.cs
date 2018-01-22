@@ -34,9 +34,15 @@ namespace ILEditor.Classes
             Directory.CreateDirectory(this.Dir);
 
             Settings = new Config(Path.Combine(this.Dir, "project.ileprj"));
-            Settings.SetValue("objectname", ObjectName);
-            Settings.SetValue("projecttype", ProjectType.ToString());
 
+            Settings.SetValue("objectname", ObjectName); //Used for CRTPGM and CRTSRVPGM
+
+            //Build settings
+            Settings.SetValue("projecttype", ProjectType.ToString());
+            Settings.SetValue("buildlibrary", "QTEMP");
+            Settings.SetValue("preprojectbuild", ""); //OTHER PROJECTS TO BUILD BEFORE THIS ONE
+            Settings.SetValue("staticlibs", ""); //EXTRA *MODs to pass into CRTPGM
+            
             this.OutputType = ProjectType;
 
             this.HeadersDir = Path.Combine(this.Dir, "Headers");
