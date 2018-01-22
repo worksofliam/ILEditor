@@ -32,7 +32,10 @@ namespace ILEditor.UserTools
 
             foreach (string ProjectDir in ProjectDirectories)
                 if (ProjectDir.Trim() != "") //ALSO CHECK IF DIR EXISTS
-                    Project.Projects.Add(new Project(ProjectDir));
+                    if (Directory.Exists(ProjectDir))
+                        Project.Projects.Add(new Project(ProjectDir));
+                    else
+                        MessageBox.Show("Tried loading '" + ProjectDir + "' but the directory does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             projView.Nodes.Clear();
                 
@@ -76,7 +79,8 @@ namespace ILEditor.UserTools
                     switch (tag.Substring(0, 3))
                     {
                         case "EDT":
-                            //Load edit screen
+                            //Load project settings
+                            new ProjectSettings(value).ShowDialog();
                             break;
                         case "BLD":
                             //Build project
@@ -245,6 +249,29 @@ namespace ILEditor.UserTools
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReloadProjects();
+        }
+
+        private void importProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    if (File.Exists(Path.Combine(fbd.SelectedPath, "project.ileprj")))
+                    {
+                        List<string> projects = IBMi.CurrentSystem.GetValue("PROJECTS").Split('|').ToList();
+                        projects.Add(fbd.SelectedPath);
+                        IBMi.CurrentSystem.SetValue("PROJECTS", String.Join("|", projects));
+                        ReloadProjects();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected folder is not a valid ILEditor project.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)

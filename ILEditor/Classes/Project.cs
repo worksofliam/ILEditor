@@ -19,7 +19,17 @@ namespace ILEditor.Classes
         }
 
         public static List<Project> Projects = new List<Project>();
-        public static Project GetProject(string Name) => Projects.Where(x => x.GetName() == Name).First();
+        public static Project GetProject(string Name)
+        {
+            if (Projects.Count() > 0) {
+                foreach (Project proj in Projects)
+                    if (proj.GetName() == Name) return proj;
+
+                return null;
+            }
+            else
+                return null;
+        }
 
         private Config Settings;
         private string Dir; //Local project directory
@@ -41,7 +51,7 @@ namespace ILEditor.Classes
             Settings.SetValue("projecttype", ProjectType.ToString());
             Settings.SetValue("buildlibrary", "QTEMP");
             Settings.SetValue("preprojectbuild", ""); //OTHER PROJECTS TO BUILD BEFORE THIS ONE
-            Settings.SetValue("staticlibs", ""); //EXTRA *MODs to pass into CRTPGM
+            Settings.SetValue("staticmods", ""); //EXTRA *MODs to pass into CRTPGM
             
             this.OutputType = ProjectType;
 
@@ -87,5 +97,15 @@ namespace ILEditor.Classes
         public string[] GetHeaderFiles() => Directory.GetFiles(this.HeadersDir);
         public string[] GetSourceFiles() => Directory.GetFiles(this.SourceDir);
 
+        public Type GetProjectType() => this.OutputType;
+
+        public string GetBuildLibrary() => Settings.GetValue("buildlibrary");
+        public void SetBuildLibrary(string Library) => Settings.SetValue("buildlibrary", Library);
+
+        public string[] GetLocalProjectDeps() => Settings.GetValue("preprojectbuild").Split('|');
+        public void SetLocalProjectDeps(string[] ProjectNames) => Settings.SetValue("preprojectbuild", String.Join("|", ProjectNames));
+
+        public string[] GetStaticModules() => Settings.GetValue("staticmods").Split('|');
+        public void SetStaticModules(string[] ObjectList) => Settings.SetValue("staticmods", String.Join("|", ObjectList));
     }
 }

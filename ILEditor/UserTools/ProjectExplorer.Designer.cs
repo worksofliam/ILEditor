@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectExplorer));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.newProject = new System.Windows.Forms.ToolStripSplitButton();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projView = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.projRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -41,7 +43,6 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.projRightClick.SuspendLayout();
             this.fileRightClick.SuspendLayout();
@@ -63,13 +64,28 @@
             // 
             this.newProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.newProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem});
+            this.refreshToolStripMenuItem,
+            this.importProjectToolStripMenuItem});
             this.newProject.Image = ((System.Drawing.Image)(resources.GetObject("newProject.Image")));
             this.newProject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newProject.Name = "newProject";
             this.newProject.Size = new System.Drawing.Size(87, 20);
             this.newProject.Text = "New Project";
             this.newProject.ButtonClick += new System.EventHandler(this.newProject_ButtonClick);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh Projects";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // importProjectToolStripMenuItem
+            // 
+            this.importProjectToolStripMenuItem.Name = "importProjectToolStripMenuItem";
+            this.importProjectToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.importProjectToolStripMenuItem.Text = "Import Project";
+            this.importProjectToolStripMenuItem.Click += new System.EventHandler(this.importProjectToolStripMenuItem_Click);
             // 
             // projView
             // 
@@ -148,13 +164,6 @@
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh Projects";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
             // ProjectExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,5 +196,6 @@
         private System.Windows.Forms.ContextMenuStrip folderRightClick;
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importProjectToolStripMenuItem;
     }
 }

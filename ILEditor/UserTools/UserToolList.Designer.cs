@@ -33,7 +33,7 @@
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Program Listing", 5);
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Tree Browser", 6);
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Project Explorer");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Project Explorer", 8);
             System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Library List", 3);
             System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Compile Settings", 4);
             System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Connection Settings", 2);
@@ -86,6 +86,7 @@
             this.imageList1.Images.SetKeyName(5, "browser.png");
             this.imageList1.Images.SetKeyName(6, "folder.png");
             this.imageList1.Images.SetKeyName(7, "file.png");
+            this.imageList1.Images.SetKeyName(8, "cubedark.png");
             // 
             // UserToolList
             // 

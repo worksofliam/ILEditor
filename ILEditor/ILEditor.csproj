@@ -243,6 +243,12 @@
     <Compile Include="Forms\ProjectWindows\NewProjectWindow.Designer.cs">
       <DependentUpon>NewProjectWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProjectWindows\ProjectSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectWindows\ProjectSettings.Designer.cs">
+      <DependentUpon>ProjectSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PushWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -430,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProjectWindows\NewProjectWindow.resx">
       <DependentUpon>NewProjectWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectWindows\ProjectSettings.resx">
+      <DependentUpon>ProjectSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PushWindow.resx">
       <DependentUpon>PushWindow.cs</DependentUpon>
