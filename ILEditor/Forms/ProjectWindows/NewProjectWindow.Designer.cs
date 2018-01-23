@@ -115,9 +115,9 @@
             this.ile_static.AutoSize = true;
             this.ile_static.Location = new System.Drawing.Point(18, 49);
             this.ile_static.Name = "ile_static";
-            this.ile_static.Size = new System.Drawing.Size(143, 17);
+            this.ile_static.Size = new System.Drawing.Size(151, 17);
             this.ile_static.TabIndex = 1;
-            this.ile_static.Text = "ILE Static Library (*MOD)";
+            this.ile_static.Text = "ILE Static Libraries (*MOD)";
             this.ile_static.UseVisualStyleBackColor = true;
             // 
             // ile_pgm

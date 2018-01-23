@@ -59,6 +59,9 @@ namespace ILEditor.Forms.ProjectWindows
                 }
             }
 
+            if (SelectedProject.GetProjectType() == Project.Type.MOD)
+                modList.Enabled = false;
+
             foreach (string Module in SelectedProject.GetStaticModules())
             {
                 if (Module == "") continue;
