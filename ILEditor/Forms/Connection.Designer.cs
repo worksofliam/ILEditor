@@ -51,6 +51,8 @@
             this.validACS = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.ftpes = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -67,8 +69,11 @@
             this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.ftpes = new System.Windows.Forms.CheckBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.bldLib = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.bldDir = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -76,6 +81,7 @@
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // save
@@ -288,6 +294,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -316,6 +323,27 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(8, 100);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
+            this.linkLabel1.TabIndex = 16;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Use FTPES";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // ftpes
+            // 
+            this.ftpes.AutoSize = true;
+            this.ftpes.Location = new System.Drawing.Point(259, 99);
+            this.ftpes.Name = "ftpes";
+            this.ftpes.Size = new System.Drawing.Size(60, 17);
+            this.ftpes.TabIndex = 15;
+            this.ftpes.Text = "FTPES";
+            this.ftpes.UseVisualStyleBackColor = true;
             // 
             // label16
             // 
@@ -491,26 +519,54 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // ftpes
+            // tabPage5
             // 
-            this.ftpes.AutoSize = true;
-            this.ftpes.Location = new System.Drawing.Point(259, 99);
-            this.ftpes.Name = "ftpes";
-            this.ftpes.Size = new System.Drawing.Size(60, 17);
-            this.ftpes.TabIndex = 15;
-            this.ftpes.Text = "FTPES";
-            this.ftpes.UseVisualStyleBackColor = true;
+            this.tabPage5.Controls.Add(this.bldDir);
+            this.tabPage5.Controls.Add(this.label18);
+            this.tabPage5.Controls.Add(this.bldLib);
+            this.tabPage5.Controls.Add(this.label17);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(361, 211);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Projects";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // linkLabel1
+            // bldLib
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 100);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
-            this.linkLabel1.TabIndex = 16;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Use FTPES";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.bldLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.bldLib.Location = new System.Drawing.Point(253, 6);
+            this.bldLib.MaxLength = 10;
+            this.bldLib.Name = "bldLib";
+            this.bldLib.Size = new System.Drawing.Size(100, 20);
+            this.bldLib.TabIndex = 5;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 9);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(64, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Build Library";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 35);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(126, 13);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Remote Upload Directory";
+            // 
+            // bldDir
+            // 
+            this.bldDir.Location = new System.Drawing.Point(196, 32);
+            this.bldDir.MaxLength = 128;
+            this.bldDir.Name = "bldDir";
+            this.bldDir.Size = new System.Drawing.Size(157, 20);
+            this.bldDir.TabIndex = 7;
             // 
             // Connection
             // 
@@ -536,6 +592,8 @@
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -582,5 +640,10 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox ftpes;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox bldLib;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox bldDir;
+        private System.Windows.Forms.Label label18;
     }
 }

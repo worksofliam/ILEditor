@@ -71,6 +71,9 @@ namespace ILEditor.Classes
             CheckExist("curlib", "SYSTOOLS");
             CheckExist("useuserlibl", "false");
 
+            CheckExist("buildlibrary", "QTEMP");
+            CheckExist("projuploaddir", "/home/" + Data["username"] + "/");
+
             CheckExist("printerLib", "");
             CheckExist("printerObj", "");
             CheckExist("fetchJobLog", "false");

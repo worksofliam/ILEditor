@@ -24,9 +24,12 @@ namespace ILEditor.Forms.ProjectWindows
             if (SelectedProject == null)
                 this.Close();
 
-            buildLib.Text = SelectedProject.GetBuildLibrary();
-
             string[] PreBuildProjects = SelectedProject.GetLocalProjectDeps();
+
+            projType.Text = SelectedProject.GetProjectType().ToString();
+
+            commit.SelectedItem = SelectedProject.GetCommitmentControl();
+            debugView.SelectedItem = SelectedProject.GetDebugView();
 
             //Load all projects are check them if they're deps
             foreach (Project proj in Project.Projects)
@@ -113,7 +116,9 @@ namespace ILEditor.Forms.ProjectWindows
             foreach (string item in modList.Items)
                 ModuleDeps.Add(item);
 
-            SelectedProject.SetBuildLibrary(buildLib.Text);
+            SelectedProject.SetCommitmentControl(commit.SelectedItem.ToString());
+            SelectedProject.SetDebugView(debugView.SelectedItem.ToString());
+
             if (projList.Enabled)
                 SelectedProject.SetLocalProjectDeps(ProjectDeps.ToArray());
             SelectedProject.SetStaticModules(ModuleDeps.ToArray());

@@ -39,6 +39,9 @@ namespace ILEditor.Forms
             prntLib.Text = IBMi.CurrentSystem.GetValue("printerLib");
             prntObj.Text = IBMi.CurrentSystem.GetValue("printerObj");
 
+            bldLib.Text = IBMi.CurrentSystem.GetValue("buildlibrary");
+            bldDir.Text = IBMi.CurrentSystem.GetValue("projuploaddir");
+
             validACS.Checked = (Program.Config.GetValue("acspath") != "false");
             darkMode.Checked = (Program.Config.GetValue("darkmode") == "true");
             toolbarSide.SelectedItem = (Program.Config.GetValue("toolbarSide"));
@@ -63,6 +66,9 @@ namespace ILEditor.Forms
 
             IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
             IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);
+
+            IBMi.CurrentSystem.SetValue("buildlibrary", bldLib.Text);
+            IBMi.CurrentSystem.SetValue("projuploaddir", bldDir.Text);
 
             //ACS value is handled differently (findACS_Click)
             Program.Config.SetValue("darkmode", darkMode.Checked.ToString().ToLower());

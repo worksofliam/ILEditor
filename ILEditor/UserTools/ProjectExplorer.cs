@@ -86,15 +86,22 @@ namespace ILEditor.UserTools
                         case "BLD":
                             //Build project
                             SelectedProject = value;
-                            Project.PreProjectBuild(); //Clears messages
-                            new Thread((ThreadStart)delegate
+                            if (IBMi.IsConnected())
                             {
-                                Project.GetProject(value).Build();
-                                Invoke((MethodInvoker)delegate
+                                Project.PreProjectBuild(); //Clears messages
+                                new Thread((ThreadStart)delegate
                                 {
-                                    Editor.TheEditor.AddTool(value + " Build", new BuildResult(Project.GetBuildMessages()), true);
-                                });
-                            }).Start();
+                                    Project.GetProject(value).Build();
+                                    Invoke((MethodInvoker)delegate
+                                    {
+                                        Editor.TheEditor.AddTool(value + " Build", new BuildResult(Project.GetBuildMessages()), true);
+                                    });
+                                }).Start();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Cannot build project while in offline mode.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                             break;
                         case "FIL":
                             //File
@@ -172,7 +179,7 @@ namespace ILEditor.UserTools
 
         private static readonly string[] ValidExtentions = new[]
         {
-            "SQLRPGLE", "RPGLE", "C", "SQLC", "CMD", "CLLE", "DDS", "SQL", "DSPF", "H"
+            "SQLRPGLE", "RPGLE", "C", "SQLC", "CMD", "CLLE", "DSPF", "SQL", "DSPF", "H"
         };
 
         private void projView_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -202,7 +209,7 @@ namespace ILEditor.UserTools
                         
                         foreach (TreeNode node in e.Node.Parent.Nodes)
                         {
-                            if (node.Text.Split('.')[0] == NewName[0].ToUpper())
+                            if (node.Text == e.Label.ToUpper())
                                 FileExists = true;
                         }
                         
@@ -220,19 +227,19 @@ namespace ILEditor.UserTools
                         }
                         else
                         {
-                            MessageBox.Show(NewName[0] + " already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show(e.Label + " already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                         
                     }
                     else
                     {
-                        MessageBox.Show(NewName[1] + " is not a valid name,", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(e.Label + " is not a valid name,", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         //Error
                     }
                 }
                 else
                 {
-                    MessageBox.Show(NewName[1] + " is not a valid extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(e.Label + " is not a valid extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     //Error
                 }
             }
@@ -247,7 +254,7 @@ namespace ILEditor.UserTools
         {
             Project SelectedProj = Project.GetProject(SelectedProject);
             string ModName = projView.SelectedNode.Text.Split('.')[0];
-            Editor.TheEditor.AddTool("Error Listing", new ErrorListing(SelectedProj.GetBuildLibrary(), ModName), true);
+            Editor.TheEditor.AddTool("Error Listing", new ErrorListing(Project.GetBuildLibrary(), ModName), true);
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)

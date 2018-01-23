@@ -49,9 +49,11 @@ namespace ILEditor.Classes
 
             //Build settings
             Settings.SetValue("projecttype", ProjectType.ToString());
-            Settings.SetValue("buildlibrary", "QTEMP");
             Settings.SetValue("preprojectbuild", ""); //OTHER PROJECTS TO BUILD BEFORE THIS ONE
             Settings.SetValue("staticmods", ""); //EXTRA *MODs to pass into CRTPGM
+
+            Settings.SetValue("sqlcommit", "*NONE");
+            Settings.SetValue("debugview", "*SOURCE");
             
             this.OutputType = ProjectType;
 
@@ -99,11 +101,17 @@ namespace ILEditor.Classes
 
         public Type GetProjectType() => this.OutputType;
 
+        public string GetCommitmentControl() => Settings.GetValue("sqlcommit");
+        public void SetCommitmentControl(string Value) => Settings.SetValue("sqlcommit", Value);
+
+        public string GetDebugView() => Settings.GetValue("debugview");
+        public void SetDebugView(string Value) => Settings.SetValue("debugview", Value);
+
         public string GetBuildObject() => Settings.GetValue("objectname");
         public void SetBuildObject(string Object) => Settings.SetValue("objectname", Object);
 
-        public string GetBuildLibrary() => Settings.GetValue("buildlibrary");
-        public void SetBuildLibrary(string Library) => Settings.SetValue("buildlibrary", Library);
+        public static string GetBuildLibrary() => IBMi.CurrentSystem.GetValue("buildlibrary");
+        public static string GetUploadDir() => IBMi.CurrentSystem.GetValue("projuploaddir");
 
         public string[] GetLocalProjectDeps() => Settings.GetValue("preprojectbuild").Split('|');
         public void SetLocalProjectDeps(string[] ProjectNames) => Settings.SetValue("preprojectbuild", String.Join("|", ProjectNames));
@@ -153,7 +161,7 @@ namespace ILEditor.Classes
             Editor.TheEditor.SetStatus("Building " + this.GetName());
 
             //TODO CUSTOMISE REMOTE DIR
-            string ProjectDirectory = "/home/" + IBMi.CurrentSystem.GetValue("username") + "/" + this.GetName() + "/";
+            string ProjectDirectory = Project.GetUploadDir() + this.GetName() + "/";
             IBMi.CreateDirecory(ProjectDirectory);
 
             IBMi.UploadFiles(ProjectDirectory + "/Headers/", this.GetHeaderFiles());
@@ -161,7 +169,7 @@ namespace ILEditor.Classes
 
             IBMi.SetWorkingDir(ProjectDirectory);
 
-            List<string> Commands = new List<string>();
+            List<string> Commands = new List<string>(), CurModList = new List<string>();
             string Name, Ext;
             bool hasSPF = false;
             foreach (String FilePath in this.GetSourceFiles())
@@ -172,19 +180,54 @@ namespace ILEditor.Classes
                 switch (Ext.ToUpper())
                 {
                     case "RPGLE":
-                        Commands.Add("CRTRPGMOD MODULE(" + this.GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') OPTION(*EVENTF)");
+                        CurModList.Add(GetBuildLibrary() + "/" + Name);
+                        Commands.Add("CRTRPGMOD MODULE(" + GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') OPTION(*EVENTF) DBGVIEW(" + GetDebugView() + ")");
                         break;
                     case "SQLRPGLE":
-                        Commands.Add("CRTSQLRPGI OBJ(" + this.GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') COMMIT(*NONE) OBJTYPE(*MODULE) OPTION(*EVENTF *XREF)");
+                        CurModList.Add(GetBuildLibrary() + "/" + Name);
+                        Commands.Add("CRTSQLRPGI OBJ(" + GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') COMMIT(" + GetCommitmentControl() + ") OBJTYPE(*MODULE) OPTION(*EVENTF) DBGVIEW(" + GetDebugView() + ") RPGPPOPT(*LVL2)");
+                        break;
+                    case "C":
+                        CurModList.Add(GetBuildLibrary() + "/" + Name);
+                        Commands.Add("CRTCMOD MODULE(" + GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') DBGVIEW(" + GetDebugView() + ") OPTION(*EVENTF)");
+                        break;
+                    case "SQLC":
+                        CurModList.Add(GetBuildLibrary() + "/" + Name);
+                        Commands.Add("CRTSQLCI OBJ(" + GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') COMMIT(c) OBJTYPE(*MODULE) OPTION(*EVENTF) DBGVIEW(" + GetDebugView() + ")");
                         break;
                     case "CLLE":
+                        CurModList.Add(GetBuildLibrary() + "/" + Name);
                         if (hasSPF != true)
                         {
-                            Commands.Add("CRTSRCPF FILE(" + this.GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
+                            Commands.Add("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
                             hasSPF = true;
                         }
-                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + this.GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
-                        Commands.Add("CRTCLMOD MOD(" + this.GetBuildLibrary() + "/" + Name + ") SRCFILE(" + this.GetBuildLibrary() + "/SOURCE) OPTION(*EVENTF)");
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CRTCLMOD MOD(" + GetBuildLibrary() + "/" + Name + ") SRCFILE(" + GetBuildLibrary() + "/SOURCE) OPTION(*EVENTF) DBGVIEW(" + GetDebugView() + ")");
+                        break;
+
+                    case "CMD":
+                        if (hasSPF != true)
+                        {
+                            Commands.Add("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
+                            hasSPF = true;
+                        }
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CRTCMD CMD(" + GetBuildLibrary() + "/" + Name + ") PGM(" + GetBuildLibrary() + "/" + Name + ") SRCFILE(" + GetBuildLibrary() + "/SOURCE)");
+                        break;
+
+                    case "DSPF":
+                        if (hasSPF != true)
+                        {
+                            Commands.Add("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
+                            hasSPF = true;
+                        }
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CRTCMD CMD(" + GetBuildLibrary() + "/" + Name + ") SRCFILE(" + GetBuildLibrary() + "/SOURCE)");
+                        break;
+
+                    case "SQL":
+                        Commands.Add("RUNSQLSTM SRCSTMF('Source/" + Name + "." + Ext + "') COMMIT('Source/" + Name + "." + Ext + "') NAMING(*SQL)");
                         break;
                 }
             }
@@ -193,12 +236,11 @@ namespace ILEditor.Classes
             {
                 case Type.PGM:
                     List<string> ModList = new List<string>();
-                    foreach (string Mod in this.GetSourceFiles())
-                        ModList.Add(this.GetBuildLibrary() + "/" + Path.GetFileNameWithoutExtension(Mod));
 
+                    ModList.AddRange(CurModList);
                     ModList.AddRange(this.GetStaticModules());
 
-                    Commands.Add("CRTPGM PGM(" + this.GetBuildLibrary() + "/" + this.GetBuildObject() + ") MODULE(" + String.Join(" ", ModList) + ") ENTMOD(*PGM) ACTGRP(*NEW)");
+                    Commands.Add("CRTPGM PGM(" + GetBuildLibrary() + "/" + this.GetBuildObject() + ") MODULE(" + String.Join(" ", ModList) + ") ENTMOD(*PGM) ACTGRP(*NEW)");
                     break;
 
                 case Type.MOD:
