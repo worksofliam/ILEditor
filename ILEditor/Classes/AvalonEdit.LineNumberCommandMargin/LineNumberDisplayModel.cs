@@ -11,6 +11,14 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         public event Action<object, EventArgs> SubmitAllLineNumberCommands;
 
+        public class LineNumberEventArgs : EventArgs
+        {
+            public int LineNumber { get; set; }
+        }
+
+        public event Action<object, EventArgs> AvalonEditKeyPressShouldCauseTransitionToCommandMode;
+        public event Action<object, LineNumberEventArgs> CommandModeKeyPressShouldCauseTransitionToAvalonEditLine;
+
 
 
         public int LineNumber
@@ -74,12 +82,23 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         public void signalAvalonEditArrowKeyShouldCauseCommandMode()
         {
             // user is on a line and they've used the arrow key all the way to the left which should make the cursor jump to command mode
+            if( this.AvalonEditKeyPressShouldCauseTransitionToCommandMode != null)
+            {
+                this.AvalonEditKeyPressShouldCauseTransitionToCommandMode(this, new EventArgs());
+            }
         }
 
         public void signalCommandModeArrowKeyShouldCauseCursorToBeOnAvalonEdit()
         {
             // user was in command mode and they'ved arrowed all the way to the right which should cause command mode to end
             //   - then the cursor should go to the avalonedit line
+            if( this.CommandModeKeyPressShouldCauseTransitionToAvalonEditLine != null)
+            {
+                this.CommandModeKeyPressShouldCauseTransitionToAvalonEditLine(this, new LineNumberEventArgs
+                {
+                    LineNumber = this.LineNumber
+                });
+            }
         }
 
 

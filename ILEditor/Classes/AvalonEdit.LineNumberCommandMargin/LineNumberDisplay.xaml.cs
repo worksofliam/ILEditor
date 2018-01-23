@@ -24,12 +24,18 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         #region Model DP
 
-        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LineNumberDisplayModel), typeof(LineNumberDisplay));
+        public static readonly DependencyProperty ModelProperty = DependencyProperty.Register("Model", typeof(LineNumberDisplayModel), typeof(LineNumberDisplay), new PropertyMetadata { PropertyChangedCallback = new PropertyChangedCallback( OnModelChanged) });
 
         public LineNumberDisplayModel Model
         {
             get { return (LineNumberDisplayModel)this.GetValue(ModelProperty); }
             set { this.SetValue(ModelProperty, value); }
+        }
+
+        private static void OnModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            var ctrl = d as LineNumberDisplay;
+            ctrl.InitModel();
         }
 
         #endregion
@@ -38,6 +44,23 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
         {
             InitializeComponent();
 
+        }
+
+
+        public void InitModel()
+        {
+            // hookup events and other things
+            var model = this.DataContext as LineNumberDisplayModel;
+
+            model.AvalonEditKeyPressShouldCauseTransitionToCommandMode += Model_AvalonEditKeyPressShouldCauseTransitionToCommandMode;
+        }
+
+        private void Model_AvalonEditKeyPressShouldCauseTransitionToCommandMode(object arg1, EventArgs arg2)
+        {
+            var model = this.DataContext as LineNumberDisplayModel;
+            model.IsCommandEntryVisible = true;
+            // focus the textbox
+            lineNumberCommandTextBox.Focus();
         }
 
         private void lineNumberTextBlock_MouseUp(object sender, MouseButtonEventArgs e)
@@ -74,6 +97,22 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             {
                 // signal command submitted
                 model.signalSubmitAllCommands();
+            }
+        }
+
+        private void lineNumberCommandTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var model = this.DataContext as LineNumberDisplayModel;
+            //arrow keys only available on this event.  They don't show up on KeyDown
+            if (e.Key == Key.Right && 
+                ( lineNumberCommandTextBox.Text.Length == 0 ||
+                lineNumberCommandTextBox.CaretIndex == lineNumberCommandTextBox.Text.Length - 1
+                )
+                )
+            {
+                // signal that we should move to avalonedit
+                model.IsCommandEntryVisible = false;
+                model.signalCommandModeArrowKeyShouldCauseCursorToBeOnAvalonEdit();// I bet we need to pass line number later
             }
         }
     }

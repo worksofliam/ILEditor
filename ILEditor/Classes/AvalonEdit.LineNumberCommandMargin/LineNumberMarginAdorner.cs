@@ -85,6 +85,14 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                     
                 };
 
+
+                entry.CommandModeKeyPressShouldCauseTransitionToAvalonEditLine += (_sender, _args) =>
+                {
+                    var line = editor.Document.GetLineByNumber(_args.LineNumber);
+                    editor.Focus();
+                    editor.CaretOffset = line.Offset;
+                };
+
                 visualLines.Add(entry);
             }
 
