@@ -69,5 +69,19 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             }
         }
 
+
+
+        public void signalAvalonEditArrowKeyShouldCauseCommandMode()
+        {
+            // user is on a line and they've used the arrow key all the way to the left which should make the cursor jump to command mode
+        }
+
+        public void signalCommandModeArrowKeyShouldCauseCursorToBeOnAvalonEdit()
+        {
+            // user was in command mode and they'ved arrowed all the way to the right which should cause command mode to end
+            //   - then the cursor should go to the avalonedit line
+        }
+
+
     }
 }
