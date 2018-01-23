@@ -358,43 +358,50 @@ namespace ILEditor.Classes
                 List<string> commands = new List<string>();
                 string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
 
-                type = MemberInfo.GetExtension();
-                command = IBMi.CurrentSystem.GetValue("DFT_" + type);
-                if (command.Trim() != "")
+                if (MemberInfo != null)
                 {
-                    if (TrueCmd != "") command = TrueCmd;
-                    Editor.TheEditor.SetStatus("Compiling " + MemberInfo.GetMember() + " with " + command + "...");
-                    command = IBMi.CurrentSystem.GetValue(command);
+                    type = MemberInfo.GetExtension();
+                    command = IBMi.CurrentSystem.GetValue("DFT_" + type);
                     if (command.Trim() != "")
                     {
-                        command = command.Replace("&OPENLIB", MemberInfo.GetLibrary());
-                        command = command.Replace("&OPENSPF", MemberInfo.GetObject());
-                        command = command.Replace("&OPENMBR", MemberInfo.GetMember());
-                        command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
-
-                        if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
-                            IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
-
-                        if (!IBMi.RemoteCommand(command))
+                        if (TrueCmd != "") command = TrueCmd;
+                        Editor.TheEditor.SetStatus("Compiling " + MemberInfo.GetMember() + " with " + command + "...");
+                        command = IBMi.CurrentSystem.GetValue(command);
+                        if (command.Trim() != "")
                         {
-                            Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
-                            if (command.ToUpper().Contains("*EVENTF"))
+                            command = command.Replace("&OPENLIB", MemberInfo.GetLibrary());
+                            command = command.Replace("&OPENSPF", MemberInfo.GetObject());
+                            command = command.Replace("&OPENMBR", MemberInfo.GetMember());
+                            command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
+
+                            if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
+                                IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
+
+                            if (!IBMi.RemoteCommand(command))
                             {
-                                Editor.TheEditor.SetStatus("Fetching errors..");
-                                Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                                Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
+                                if (command.ToUpper().Contains("*EVENTF"))
+                                {
+                                    Editor.TheEditor.SetStatus("Fetching errors..");
+                                    Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                                }
+                                if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+                                {
+                                    UsingQTEMPFiles(new[] { "JOBLOG" });
+                                    IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
+                                    IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
+                                }
                             }
-                            if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+                            else
                             {
-                                UsingQTEMPFiles(new[] { "JOBLOG" });
-                                IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
-                                IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
+                                Editor.TheEditor.SetStatus("Compile finished successfully.");
                             }
-                        }
-                        else
-                        {
-                            Editor.TheEditor.SetStatus("Compile finished successfully.");
                         }
                     }
+                }
+                else
+                {
+                    Editor.TheEditor.SetStatus("Only remote members can be compiled.");
                 }
 
                 return true;

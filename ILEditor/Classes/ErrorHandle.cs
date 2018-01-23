@@ -45,7 +45,6 @@ namespace ILEditor.Classes
         {
             return _Success;
         }
-
         public static void setLines(string[] data)
         {
             _Lines = data;

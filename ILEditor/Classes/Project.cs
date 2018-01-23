@@ -99,6 +99,9 @@ namespace ILEditor.Classes
 
         public Type GetProjectType() => this.OutputType;
 
+        public string GetBuildObject() => Settings.GetValue("objectname");
+        public void SetBuildObject(string Object) => Settings.SetValue("objectname", Object);
+
         public string GetBuildLibrary() => Settings.GetValue("buildlibrary");
         public void SetBuildLibrary(string Library) => Settings.SetValue("buildlibrary", Library);
 
@@ -107,5 +110,119 @@ namespace ILEditor.Classes
 
         public string[] GetStaticModules() => Settings.GetValue("staticmods").Split('|');
         public void SetStaticModules(string[] ObjectList) => Settings.SetValue("staticmods", String.Join("|", ObjectList));
+
+        private static List<string> BuildMessages = new List<string>();
+        public static string[] GetBuildMessages() => BuildMessages.ToArray();
+        public static void PreProjectBuild() => BuildMessages.Clear();
+        
+        public bool Build()
+        {
+            string[] ProjectDeps = GetLocalProjectDeps();
+
+            foreach (string ProjDeps in ProjectDeps)
+            {
+                if (ProjDeps == "") continue;
+                if (GetProject(ProjDeps) == null)
+                {
+                    BuildMessages.Add("Local project " + ProjDeps + " is missing but is required for " + this.GetName() + " to build.");
+                    return false;
+                }
+            }
+
+            bool DepBuildResult = true;
+            foreach (string ProjDeps in ProjectDeps)
+            {
+                if (ProjDeps == "") continue;
+                if (DepBuildResult == true)
+                {
+                    BuildMessages.Add("Building " + ProjDeps + " as required for " + this.GetName());
+                    if (GetProject(ProjDeps).Build() == false)
+                    {
+                        DepBuildResult = false;
+                    }
+                }
+            }
+
+            if (DepBuildResult == false)
+            {
+                BuildMessages.Add(this.GetName() + " didn't initiate build due to failing local project dependancy builds.");
+                return false;
+            }
+
+            BuildMessages.Add("Building " + this.GetName());
+            Editor.TheEditor.SetStatus("Building " + this.GetName());
+
+            //TODO CUSTOMISE REMOTE DIR
+            string ProjectDirectory = "/home/" + IBMi.CurrentSystem.GetValue("username") + "/" + this.GetName() + "/";
+            IBMi.CreateDirecory(ProjectDirectory);
+
+            IBMi.UploadFiles(ProjectDirectory + "/Headers/", this.GetHeaderFiles());
+            IBMi.UploadFiles(ProjectDirectory + "/Source/", this.GetSourceFiles());
+
+            IBMi.SetWorkingDir(ProjectDirectory);
+
+            List<string> Commands = new List<string>();
+            string Name, Ext;
+            bool hasSPF = false;
+            foreach (String FilePath in this.GetSourceFiles())
+            {
+                Name = Path.GetFileNameWithoutExtension(FilePath);
+                Ext = Path.GetExtension(FilePath).Substring(1);
+                
+                switch (Ext.ToUpper())
+                {
+                    case "RPGLE":
+                        Commands.Add("CRTRPGMOD MODULE(" + this.GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') OPTION(*EVENTF)");
+                        break;
+                    case "SQLRPGLE":
+                        Commands.Add("CRTSQLRPGI OBJ(" + this.GetBuildLibrary() + "/" + Name + ") SRCSTMF('Source/" + Name + "." + Ext + "') COMMIT(*NONE) OBJTYPE(*MODULE) OPTION(*EVENTF *XREF)");
+                        break;
+                    case "CLLE":
+                        if (hasSPF != true)
+                        {
+                            Commands.Add("CRTSRCPF FILE(" + this.GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
+                            hasSPF = true;
+                        }
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + this.GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CRTCLMOD MOD(" + this.GetBuildLibrary() + "/" + Name + ") SRCFILE(" + this.GetBuildLibrary() + "/SOURCE) OPTION(*EVENTF)");
+                        break;
+                }
+            }
+
+            switch (this.GetProjectType())
+            {
+                case Type.PGM:
+                    List<string> ModList = new List<string>();
+                    foreach (string Mod in this.GetSourceFiles())
+                        ModList.Add(this.GetBuildLibrary() + "/" + Path.GetFileNameWithoutExtension(Mod));
+
+                    ModList.AddRange(this.GetStaticModules());
+
+                    Commands.Add("CRTPGM PGM(" + this.GetBuildLibrary() + "/" + this.GetBuildObject() + ") MODULE(" + String.Join(" ", ModList) + ") ENTMOD(*PGM) ACTGRP(*NEW)");
+                    break;
+
+                case Type.MOD:
+                    //Create modules only, no need to make any pgms
+                    break;
+            }
+
+            string Response;
+            foreach (string Command in Commands)
+            {
+                Response = IBMi.RemoteCommandResponse(Command);
+
+                if (Response != "")
+                {
+                    BuildMessages.Add(Response);
+                    BuildMessages.Add("Ending " + this.GetName() + " build.");
+                    return false;
+                }
+            }
+
+
+            BuildMessages.Add("Finished build.");
+            Editor.TheEditor.SetStatus("Build of " + this.GetName() + " finished.");
+            return true;
+        }
     }
 }

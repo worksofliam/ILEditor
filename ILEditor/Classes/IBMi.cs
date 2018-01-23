@@ -168,6 +168,24 @@ namespace ILEditor.Classes
             }
         }
 
+        public static string RemoteCommandResponse(string Command)
+        {
+            if (Client.IsConnected)
+            {
+                string inputCmd = "RCMD " + Command;
+                FtpReply reply = Client.Execute(inputCmd);
+
+                if (reply.Success)
+                    return "";
+                else
+                    return reply.ErrorMessage;
+            }
+            else
+            {
+                return "Not connected.";
+            }
+        }
+
         //Returns true if successful
         public static bool RunCommands(string[] Commands)
         {
@@ -186,6 +204,19 @@ namespace ILEditor.Classes
             }
 
             return result;
+        }
+
+        public static void SetWorkingDir(string RemoteDir)
+        {
+            Client.SetWorkingDirectory(RemoteDir);
+        }
+        public static void CreateDirecory(string RemoteDir)
+        {
+            Client.CreateDirectory(RemoteDir);
+        }
+        public static void UploadFiles(string RemoteDir, string[] Files)
+        {
+            Client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
         }
 
     }

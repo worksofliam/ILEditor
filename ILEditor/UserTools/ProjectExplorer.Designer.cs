@@ -43,6 +43,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCompileErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.projRightClick.SuspendLayout();
             this.fileRightClick.SuspendLayout();
@@ -131,22 +132,23 @@
             // fileRightClick
             // 
             this.fileRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewCompileErrorsToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.fileRightClick.Name = "contextMenuStrip1";
-            this.fileRightClick.Size = new System.Drawing.Size(118, 48);
+            this.fileRightClick.Size = new System.Drawing.Size(181, 92);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.renameToolStripMenuItem.Text = "Rename";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -163,6 +165,13 @@
             this.newFileToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
+            // 
+            // viewCompileErrorsToolStripMenuItem
+            // 
+            this.viewCompileErrorsToolStripMenuItem.Name = "viewCompileErrorsToolStripMenuItem";
+            this.viewCompileErrorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewCompileErrorsToolStripMenuItem.Text = "View Compile Errors";
+            this.viewCompileErrorsToolStripMenuItem.Click += new System.EventHandler(this.viewCompileErrorsToolStripMenuItem_Click);
             // 
             // ProjectExplorer
             // 
@@ -197,5 +206,6 @@
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importProjectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewCompileErrorsToolStripMenuItem;
     }
 }

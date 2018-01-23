@@ -102,6 +102,7 @@
             // ile_dynamic
             // 
             this.ile_dynamic.AutoSize = true;
+            this.ile_dynamic.Enabled = false;
             this.ile_dynamic.Location = new System.Drawing.Point(18, 72);
             this.ile_dynamic.Name = "ile_dynamic";
             this.ile_dynamic.Size = new System.Drawing.Size(178, 17);
@@ -163,6 +164,7 @@
             // lang_c
             // 
             this.lang_c.AutoSize = true;
+            this.lang_c.Enabled = false;
             this.lang_c.Location = new System.Drawing.Point(18, 49);
             this.lang_c.Name = "lang_c";
             this.lang_c.Size = new System.Drawing.Size(51, 17);

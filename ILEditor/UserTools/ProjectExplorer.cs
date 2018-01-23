@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ILEditor.Forms.ProjectWindows;
 using ILEditor.Classes;
 using System.IO;
+using System.Threading;
 
 namespace ILEditor.UserTools
 {
@@ -84,6 +85,16 @@ namespace ILEditor.UserTools
                             break;
                         case "BLD":
                             //Build project
+                            SelectedProject = value;
+                            Project.PreProjectBuild(); //Clears messages
+                            new Thread((ThreadStart)delegate
+                            {
+                                Project.GetProject(value).Build();
+                                Invoke((MethodInvoker)delegate
+                                {
+                                    Editor.TheEditor.AddTool(value + " Build", new BuildResult(Project.GetBuildMessages()), true);
+                                });
+                            }).Start();
                             break;
                         case "FIL":
                             //File
@@ -230,6 +241,13 @@ namespace ILEditor.UserTools
                 MessageBox.Show("New name requires a name an extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 //Error
             }
+        }
+        
+        private void viewCompileErrorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Project SelectedProj = Project.GetProject(SelectedProject);
+            string ModName = projView.SelectedNode.Text.Split('.')[0];
+            Editor.TheEditor.AddTool("Error Listing", new ErrorListing(SelectedProj.GetBuildLibrary(), ModName), true);
         }
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
