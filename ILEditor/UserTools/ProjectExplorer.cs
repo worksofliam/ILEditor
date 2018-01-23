@@ -276,6 +276,20 @@ namespace ILEditor.UserTools
             ReloadProjects();
         }
 
+        private void ImportProject(string ProjPath)
+        {
+            if (File.Exists(Path.Combine(ProjPath, "project.ileprj")))
+            {
+                List<string> projects = IBMi.CurrentSystem.GetValue("PROJECTS").Split('|').ToList();
+                projects.Add(ProjPath);
+                IBMi.CurrentSystem.SetValue("PROJECTS", String.Join("|", projects));
+            }
+            else
+            {
+                MessageBox.Show("Selected folder is not a valid ILEditor project.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
         private void importProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
@@ -284,17 +298,24 @@ namespace ILEditor.UserTools
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    if (File.Exists(Path.Combine(fbd.SelectedPath, "project.ileprj")))
-                    {
-                        List<string> projects = IBMi.CurrentSystem.GetValue("PROJECTS").Split('|').ToList();
-                        projects.Add(fbd.SelectedPath);
-                        IBMi.CurrentSystem.SetValue("PROJECTS", String.Join("|", projects));
-                        ReloadProjects();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Selected folder is not a valid ILEditor project.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
+                    ImportProject(fbd.SelectedPath);
+                    ReloadProjects();
+                }
+            }
+        }
+
+        private void importProjectsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    foreach (string ProjPath in Directory.GetDirectories(fbd.SelectedPath))
+                        ImportProject(ProjPath);
+
+                    ReloadProjects();
                 }
             }
         }

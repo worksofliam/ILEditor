@@ -134,7 +134,8 @@
             // projType
             // 
             this.projType.AutoSize = true;
-            this.projType.Location = new System.Drawing.Point(332, 24);
+            this.projType.ForeColor = System.Drawing.Color.DarkRed;
+            this.projType.Location = new System.Drawing.Point(339, 24);
             this.projType.Name = "projType";
             this.projType.Size = new System.Drawing.Size(35, 13);
             this.projType.TabIndex = 11;

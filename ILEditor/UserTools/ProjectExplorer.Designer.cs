@@ -39,11 +39,12 @@
             this.projRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewCompileErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewCompileErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.projRightClick.SuspendLayout();
             this.fileRightClick.SuspendLayout();
@@ -66,7 +67,8 @@
             this.newProject.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.newProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem,
-            this.importProjectToolStripMenuItem});
+            this.importProjectToolStripMenuItem,
+            this.importProjectsToolStripMenuItem});
             this.newProject.Image = ((System.Drawing.Image)(resources.GetObject("newProject.Image")));
             this.newProject.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newProject.Name = "newProject";
@@ -136,7 +138,14 @@
             this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.fileRightClick.Name = "contextMenuStrip1";
-            this.fileRightClick.Size = new System.Drawing.Size(181, 92);
+            this.fileRightClick.Size = new System.Drawing.Size(181, 70);
+            // 
+            // viewCompileErrorsToolStripMenuItem
+            // 
+            this.viewCompileErrorsToolStripMenuItem.Name = "viewCompileErrorsToolStripMenuItem";
+            this.viewCompileErrorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewCompileErrorsToolStripMenuItem.Text = "View Compile Errors";
+            this.viewCompileErrorsToolStripMenuItem.Click += new System.EventHandler(this.viewCompileErrorsToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
@@ -166,12 +175,12 @@
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
-            // viewCompileErrorsToolStripMenuItem
+            // importProjectsToolStripMenuItem
             // 
-            this.viewCompileErrorsToolStripMenuItem.Name = "viewCompileErrorsToolStripMenuItem";
-            this.viewCompileErrorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.viewCompileErrorsToolStripMenuItem.Text = "View Compile Errors";
-            this.viewCompileErrorsToolStripMenuItem.Click += new System.EventHandler(this.viewCompileErrorsToolStripMenuItem_Click);
+            this.importProjectsToolStripMenuItem.Name = "importProjectsToolStripMenuItem";
+            this.importProjectsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.importProjectsToolStripMenuItem.Text = "Import Projects";
+            this.importProjectsToolStripMenuItem.Click += new System.EventHandler(this.importProjectsToolStripMenuItem_Click);
             // 
             // ProjectExplorer
             // 
@@ -207,5 +216,6 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCompileErrorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importProjectsToolStripMenuItem;
     }
 }
