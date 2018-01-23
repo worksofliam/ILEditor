@@ -38,9 +38,26 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
             // need to initially populate line numbers that are already there
             populateLineNumbers(marginElement.uiLineInfoList, this.listView.LineNumbers);
+
+
+            // some command manipulation occurs because of keypresses in the editor
+            _editor.PreviewKeyDown += _editor_PreviewKeyDown;
         }
 
-
+        private void _editor_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if( e.Key == System.Windows.Input.Key.Left)
+            {
+                // get current line then find out if we are at the first character of the line
+                var line = editor.Document.GetLineByOffset(editor.CaretOffset);
+                if( line.Offset == editor.CaretOffset)
+                {
+                    // signal
+                    var model = listView.LineNumbers.Single(m => m.LineNumber == line.LineNumber);
+                    model.signalAvalonEditArrowKeyShouldCauseCommandMode();
+                }
+            }
+        }
 
         private void populateLineNumbers(List<LineInfo> textLineInfoList,
                                         ObservableCollection<LineNumberDisplayModel> visualLines)
