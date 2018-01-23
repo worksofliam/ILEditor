@@ -54,7 +54,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                 {
                     // signal
                     var model = listView.LineNumbers.Single(m => m.LineNumber == line.LineNumber);
-                    model.signalAvalonEditArrowKeyShouldCauseCommandMode();
+                    model.signalTurnOnCommandMode();
                 }
             }
         }
@@ -108,6 +108,30 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                     var line = editor.Document.GetLineByNumber(_args.LineNumber);
                     editor.Focus();
                     editor.CaretOffset = line.Offset;
+                };
+
+                entry.OnSignalToTurnOnCommandModeForNextLineNumber += (_sender, _args) =>
+                {
+                    // next line number
+                    var nextLineModel = listView.LineNumbers.FirstOrDefault(m => m.LineNumber == _args.LineNumber + 1);
+
+                    if( nextLineModel != null && nextLineModel.IsInView == true)
+                    {
+                        // signal it
+                        nextLineModel.signalTurnOnCommandMode();
+                    }
+                };
+
+                entry.OnSignalToTurnOnCommandModeForPreviousLineNumber += (_sender, _args) =>
+                {
+                    // previous line number
+                    var previousLineNumber = listView.LineNumbers.FirstOrDefault(m => m.LineNumber == _args.LineNumber - 1);
+
+                    if( previousLineNumber != null && previousLineNumber.IsInView == true)
+                    {
+                        // signal it
+                        previousLineNumber.signalTurnOnCommandMode();
+                    }
                 };
 
                 visualLines.Add(entry);

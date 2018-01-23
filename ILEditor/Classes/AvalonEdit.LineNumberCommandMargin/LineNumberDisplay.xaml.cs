@@ -52,10 +52,11 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             // hookup events and other things
             var model = this.DataContext as LineNumberDisplayModel;
 
-            model.AvalonEditKeyPressShouldCauseTransitionToCommandMode += Model_AvalonEditKeyPressShouldCauseTransitionToCommandMode;
+            // different things can signal us to turn on command mode
+            model.OnSignalToTurnOnCommandMode += Model_OnSignalToTurnOnCommandMode;
         }
 
-        private void Model_AvalonEditKeyPressShouldCauseTransitionToCommandMode(object arg1, EventArgs arg2)
+        private void Model_OnSignalToTurnOnCommandMode(object arg1, EventArgs arg2)
         {
             var model = this.DataContext as LineNumberDisplayModel;
             model.IsCommandEntryVisible = true;
@@ -113,6 +114,16 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                 // signal that we should move to avalonedit
                 model.IsCommandEntryVisible = false;
                 model.signalCommandModeArrowKeyShouldCauseCursorToBeOnAvalonEdit();// I bet we need to pass line number later
+            } else if( e.Key == Key.Up)
+            {
+                // signal that we should move up a line number command
+                model.IsCommandEntryVisible = false;
+                model.signalUpArrowKeyPressedInCommandTextBox();
+            } else if( e.Key == Key.Down)
+            {
+                // signal that we should move down a line number command
+                model.IsCommandEntryVisible = false;
+                model.signalDownArrowKeyPressedInCommandTextBox();
             }
         }
     }

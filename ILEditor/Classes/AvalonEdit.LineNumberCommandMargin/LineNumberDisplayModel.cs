@@ -16,9 +16,11 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             public int LineNumber { get; set; }
         }
 
-        public event Action<object, EventArgs> AvalonEditKeyPressShouldCauseTransitionToCommandMode;
+        public event Action<object, EventArgs> OnSignalToTurnOnCommandMode;
         public event Action<object, LineNumberEventArgs> CommandModeKeyPressShouldCauseTransitionToAvalonEditLine;
 
+        public event Action<object, LineNumberEventArgs> OnSignalToTurnOnCommandModeForPreviousLineNumber;
+        public event Action<object, LineNumberEventArgs> OnSignalToTurnOnCommandModeForNextLineNumber;
 
 
         public int LineNumber
@@ -79,12 +81,12 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
 
 
-        public void signalAvalonEditArrowKeyShouldCauseCommandMode()
+        public void signalTurnOnCommandMode()
         {
             // user is on a line and they've used the arrow key all the way to the left which should make the cursor jump to command mode
-            if( this.AvalonEditKeyPressShouldCauseTransitionToCommandMode != null)
+            if( this.OnSignalToTurnOnCommandMode != null)
             {
-                this.AvalonEditKeyPressShouldCauseTransitionToCommandMode(this, new EventArgs());
+                this.OnSignalToTurnOnCommandMode(this, new EventArgs());
             }
         }
 
@@ -95,6 +97,29 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
             if( this.CommandModeKeyPressShouldCauseTransitionToAvalonEditLine != null)
             {
                 this.CommandModeKeyPressShouldCauseTransitionToAvalonEditLine(this, new LineNumberEventArgs
+                {
+                    LineNumber = this.LineNumber
+                });
+            }
+        }
+
+
+        public void signalUpArrowKeyPressedInCommandTextBox()
+        {
+            if( this.OnSignalToTurnOnCommandModeForPreviousLineNumber != null)
+            {
+                this.OnSignalToTurnOnCommandModeForPreviousLineNumber(this, new LineNumberEventArgs
+                {
+                    LineNumber = this.LineNumber
+                });
+            }
+        }
+
+        public void signalDownArrowKeyPressedInCommandTextBox()
+        {
+            if( this.OnSignalToTurnOnCommandModeForNextLineNumber != null)
+            {
+                this.OnSignalToTurnOnCommandModeForNextLineNumber(this, new LineNumberEventArgs
                 {
                     LineNumber = this.LineNumber
                 });
