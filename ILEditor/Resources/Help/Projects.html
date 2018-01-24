@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h3>ILEditor Projects</h3>
+
+    <p>An ILEditor Project is used to develop ILE applications with a new methodology. With a project, you develop all the code locally and builds all the sources remotely. This mean you can develop code in an ILEditor Project while offline or online. (You need to be only to submit a build.)</p>
+
+    <p>When you create an ILEditor Project, you only get two folders to store your source code. Those are <code>Headers</code> and <code>Source</code>. If you can't guess, <code>Headers</code> is where your headers / prototypes go and <code>Source</code> is where the source code for your RPG, C, CL, CMDs, DSPFs, SQL will live.</p>
+
+    <p>That's correct, all of those different types of languages will live in one folder. We do not expect people to mix languages together (that might be two seperate projects) and a Project is also not a place to store multiple programs. Like other environments, a Project should be used to either create a single large application (`*PGM`), a set of static libraries (multiple `*MOD` objects) or to create a dynamic library (`*SRVPGM`). Seperate projects is a new development concept for IBM i, but is rather common in other environments.</p>
+
+    <p>Seeing as it's important to bring multiple Projects together (you might have a Program Project that depends on an object built in another Project), we have also added the ability to add dependants in the Project settings. Your Project can depend on other local project which will be built first and you can also define the static libraries (modules) which will be bound at compile time in the settings.</p>
+
+    <p>Whenever you build your local Project, all the source is uploaded to the IBM i IFS (in a directory you specify in the Connection Setup, as well as a 'build library'). We build all objects from the IFS. For things like CL, commands and display files - we copy them to a member in your chosen build library and create them from there.</p>
+
+    <p>If you're going to use an ILEditor Project to develop applications, we suggest that you use some source control over the project directories.</p>
+</body>

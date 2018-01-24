@@ -568,6 +568,7 @@
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OfflineMode.html" />
     <Content Include="Resources\Help\OpenMember.html" />
+    <Content Include="Resources\Help\Projects.html" />
     <Content Include="Resources\Highlighting\Dark\darkCL.xml">
       <SubType>Designer</SubType>
     </Content>

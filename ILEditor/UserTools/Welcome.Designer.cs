@@ -41,6 +41,7 @@
             this.devNews = new System.Windows.Forms.WebBrowser();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -57,7 +58,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(31, 232);
+            this.label2.Location = new System.Drawing.Point(31, 242);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(224, 31);
             this.label2.TabIndex = 1;
@@ -70,7 +71,7 @@
             this.recents.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.recents.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.recents.LargeImageList = this.imageList1;
-            this.recents.Location = new System.Drawing.Point(40, 277);
+            this.recents.Location = new System.Drawing.Point(40, 287);
             this.recents.MultiSelect = false;
             this.recents.Name = "recents";
             this.recents.Size = new System.Drawing.Size(264, 186);
@@ -125,7 +126,7 @@
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(44, 179);
+            this.linkLabel4.Location = new System.Drawing.Point(44, 206);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(129, 13);
             this.linkLabel4.TabIndex = 6;
@@ -166,7 +167,7 @@
             // linkLabel5
             // 
             this.linkLabel5.AutoSize = true;
-            this.linkLabel5.Location = new System.Drawing.Point(45, 155);
+            this.linkLabel5.Location = new System.Drawing.Point(45, 156);
             this.linkLabel5.Name = "linkLabel5";
             this.linkLabel5.Size = new System.Drawing.Size(113, 13);
             this.linkLabel5.TabIndex = 9;
@@ -175,11 +176,24 @@
             this.linkLabel5.Text = "Using Offline Mode";
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // linkLabel6
+            // 
+            this.linkLabel6.AutoSize = true;
+            this.linkLabel6.Location = new System.Drawing.Point(45, 180);
+            this.linkLabel6.Name = "linkLabel6";
+            this.linkLabel6.Size = new System.Drawing.Size(101, 13);
+            this.linkLabel6.TabIndex = 10;
+            this.linkLabel6.TabStop = true;
+            this.linkLabel6.Tag = "PROJ";
+            this.linkLabel6.Text = "ILEditor Projects";
+            this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.linkLabel6);
             this.Controls.Add(this.linkLabel5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.devNews);
@@ -211,5 +225,6 @@
         private System.Windows.Forms.WebBrowser devNews;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel5;
+        private System.Windows.Forms.LinkLabel linkLabel6;
     }
 }

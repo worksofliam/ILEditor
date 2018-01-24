@@ -532,6 +532,30 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;title&gt;&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Arial, Helvetica, sans-serif;
+        ///        }
+        ///    &lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///    &lt;h3&gt;ILEditor Projects&lt;/h3&gt;
+        ///
+        ///    &lt;p&gt;An ILEditor Project is used to develop ILE applications with a new methodology. With a project, you develop all the code locally and builds all the sources remotely. This mean you can develop code in an ILEditor [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Projects {
+            get {
+                return ResourceManager.GetString("Projects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap refresh {

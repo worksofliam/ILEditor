@@ -83,6 +83,9 @@ namespace ILEditor.UserTools
                 case "OFFLINE":
                     new Forms.HelpWindow(Properties.Resources.OfflineMode).Show();
                     break;
+                case "PROJ":
+                    new Forms.HelpWindow(Properties.Resources.Projects).Show();
+                    break;
                 case "FTP":
                     new Forms.FirewallHelp().Show();
                     break;
