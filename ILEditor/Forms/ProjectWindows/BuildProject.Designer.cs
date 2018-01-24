@@ -48,9 +48,9 @@
             // 
             this.projList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.projList.FormattingEnabled = true;
-            this.projList.Location = new System.Drawing.Point(121, 12);
+            this.projList.Location = new System.Drawing.Point(99, 12);
             this.projList.Name = "projList";
-            this.projList.Size = new System.Drawing.Size(121, 21);
+            this.projList.Size = new System.Drawing.Size(143, 21);
             this.projList.TabIndex = 1;
             // 
             // label1
@@ -75,6 +75,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "BuildProject";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Build Project";
             this.ResumeLayout(false);
             this.PerformLayout();

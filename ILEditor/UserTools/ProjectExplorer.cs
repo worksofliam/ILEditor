@@ -33,7 +33,7 @@ namespace ILEditor.UserTools
             Project.Projects.Clear();
 
             foreach (string ProjectDir in ProjectDirectories)
-                if (ProjectDir.Trim() != "") //ALSO CHECK IF DIR EXISTS
+                if (ProjectDir.Trim() != "") 
                     if (Directory.Exists(ProjectDir))
                         Project.Projects.Add(new Project(ProjectDir));
                     else
@@ -238,7 +238,7 @@ namespace ILEditor.UserTools
             }
             else
             {
-                MessageBox.Show("New name requires a name an extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("New name requires a name and extention.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 //Error
             }
         }
