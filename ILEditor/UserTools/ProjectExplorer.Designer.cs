@@ -34,6 +34,7 @@
             this.newProject = new System.Windows.Forms.ToolStripSplitButton();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projView = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.projRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -44,7 +45,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.projRightClick.SuspendLayout();
             this.fileRightClick.SuspendLayout();
@@ -90,6 +91,13 @@
             this.importProjectToolStripMenuItem.Text = "Import Project";
             this.importProjectToolStripMenuItem.Click += new System.EventHandler(this.importProjectToolStripMenuItem_Click);
             // 
+            // importProjectsToolStripMenuItem
+            // 
+            this.importProjectsToolStripMenuItem.Name = "importProjectsToolStripMenuItem";
+            this.importProjectsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.importProjectsToolStripMenuItem.Text = "Import Projects";
+            this.importProjectsToolStripMenuItem.Click += new System.EventHandler(this.importProjectsToolStripMenuItem_Click);
+            // 
             // projView
             // 
             this.projView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -120,9 +128,10 @@
             // projRightClick
             // 
             this.projRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openDirectoryToolStripMenuItem,
             this.removeProjectToolStripMenuItem});
             this.projRightClick.Name = "projRightClick";
-            this.projRightClick.Size = new System.Drawing.Size(158, 26);
+            this.projRightClick.Size = new System.Drawing.Size(158, 70);
             // 
             // removeProjectToolStripMenuItem
             // 
@@ -175,12 +184,12 @@
             this.newFileToolStripMenuItem.Text = "New File";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
-            // importProjectsToolStripMenuItem
+            // openDirectoryToolStripMenuItem
             // 
-            this.importProjectsToolStripMenuItem.Name = "importProjectsToolStripMenuItem";
-            this.importProjectsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.importProjectsToolStripMenuItem.Text = "Import Projects";
-            this.importProjectsToolStripMenuItem.Click += new System.EventHandler(this.importProjectsToolStripMenuItem_Click);
+            this.openDirectoryToolStripMenuItem.Name = "openDirectoryToolStripMenuItem";
+            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.openDirectoryToolStripMenuItem.Text = "Open Directory";
+            this.openDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
             // 
             // ProjectExplorer
             // 
@@ -217,5 +226,6 @@
         private System.Windows.Forms.ToolStripMenuItem importProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCompileErrorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importProjectsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openDirectoryToolStripMenuItem;
     }
 }

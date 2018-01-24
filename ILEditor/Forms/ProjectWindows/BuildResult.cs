@@ -12,10 +12,11 @@ namespace ILEditor.Forms.ProjectWindows
 {
     public partial class BuildResult : UserControl
     {
-        public BuildResult(string[] Lines)
+        public BuildResult(string[] Messages)
         {
             InitializeComponent();
-            textListing.Items.AddRange(Lines);
+
+            resultBox.Items.AddRange(Messages);
         }
     }
 }

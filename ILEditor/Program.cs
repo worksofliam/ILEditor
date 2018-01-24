@@ -24,6 +24,8 @@ namespace ILEditor
         public static readonly string CONFIGFILE = Path.Combine(APPDIR, "config"); //Config file
         public static readonly string PROJDIR = Path.Combine(APPDIR, "projects"); //Directory
 
+        public static string LAST_BUILD = ""; //Used for F5 key for local project build
+
 
         //Config
         public static Config Config;

@@ -38,7 +38,7 @@ namespace ILEditor.Classes
         private string SourceDir, HeadersDir;
 
         //When creating a new project
-        public Project(string ProjectDir, string ObjectName, Type ProjectType)
+        public Project(string ProjectDir, string ObjectName)
         {
             this.Dir = ProjectDir;
             Directory.CreateDirectory(this.Dir);
@@ -48,38 +48,46 @@ namespace ILEditor.Classes
             Settings.SetValue("objectname", ObjectName); //Used for CRTPGM and CRTSRVPGM
 
             //Build settings
-            Settings.SetValue("projecttype", ProjectType.ToString());
             Settings.SetValue("preprojectbuild", ""); //OTHER PROJECTS TO BUILD BEFORE THIS ONE
             Settings.SetValue("staticmods", ""); //EXTRA *MODs to pass into CRTPGM
 
             Settings.SetValue("sqlcommit", "*NONE");
             Settings.SetValue("debugview", "*SOURCE");
-            
-            this.OutputType = ProjectType;
 
             this.HeadersDir = Path.Combine(this.Dir, "Headers");
             this.SourceDir = Path.Combine(this.Dir, "Source");
-
-            this.Init(InitLang.None);
         }
 
-        public void Init(InitLang InitLanguage)
+        public void Init(Type ProjectType, InitLang InitLanguage)
         {
+            Settings.SetValue("projecttype", ProjectType.ToString());
+            this.OutputType = ProjectType;
+
             Directory.CreateDirectory(this.HeadersDir);
             Directory.CreateDirectory(this.SourceDir);
 
             switch (InitLanguage)
             {
                 case InitLang.RPG:
-                    File.WriteAllLines(Path.Combine(this.SourceDir, Settings.GetValue("objectname") + ".sqlrpgle"), new[]
+                    File.WriteAllLines(Path.Combine(this.SourceDir, this.GetBuildObject() + ".sqlrpgle"), new[]
                     {
                         "**FREE", "",
-                        "Dcl-Pi " + Settings.GetValue("objectname") + ";", "End-Pi;",
+                        "Dcl-Pi " + this.GetBuildObject() + ";", "End-Pi;",
                         "", "Return;"
                     });
                     break;
                 case InitLang.C:
                     break;
+            }
+
+            if (ProjectType == Type.SRVPGM)
+            {
+                File.WriteAllLines(Path.Combine(this.HeadersDir, this.GetBuildObject() + ".bnd"), new[]
+                {
+                    "STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('" + this.GetBuildObject() + "')",
+                    "  EXPORT SYMBOL('PROCNAME')",
+                    "ENDPGMEXP"
+                });
             }
         }
         
@@ -121,7 +129,12 @@ namespace ILEditor.Classes
 
         private static List<string> BuildMessages = new List<string>();
         public static string[] GetBuildMessages() => BuildMessages.ToArray();
-        public static void PreProjectBuild() => BuildMessages.Clear();
+        public static void PreProjectBuild()
+        {
+            BuildMessages.Clear();
+            IBMi.RemoteCommand("CRTSRCPF FILE(" + GetBuildLibrary() + "/HEADERS) RCDLEN(112)", false);
+            IBMi.RemoteCommand("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)", false);
+        }
         
         public bool Build()
         {
@@ -171,7 +184,6 @@ namespace ILEditor.Classes
 
             List<string> Commands = new List<string>(), CurModList = new List<string>();
             string Name, Ext;
-            bool hasSPF = false;
             foreach (String FilePath in this.GetSourceFiles())
             {
                 Name = Path.GetFileNameWithoutExtension(FilePath);
@@ -197,32 +209,17 @@ namespace ILEditor.Classes
                         break;
                     case "CLLE":
                         CurModList.Add(GetBuildLibrary() + "/" + Name);
-                        if (hasSPF != true)
-                        {
-                            Commands.Add("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
-                            hasSPF = true;
-                        }
-                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*REPLACE)");
                         Commands.Add("CRTCLMOD MOD(" + GetBuildLibrary() + "/" + Name + ") SRCFILE(" + GetBuildLibrary() + "/SOURCE) OPTION(*EVENTF) DBGVIEW(" + GetDebugView() + ")");
                         break;
 
                     case "CMD":
-                        if (hasSPF != true)
-                        {
-                            Commands.Add("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
-                            hasSPF = true;
-                        }
-                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*REPLACE)");
                         Commands.Add("CRTCMD CMD(" + GetBuildLibrary() + "/" + Name + ") PGM(" + GetBuildLibrary() + "/" + Name + ") SRCFILE(" + GetBuildLibrary() + "/SOURCE)");
                         break;
 
                     case "DSPF":
-                        if (hasSPF != true)
-                        {
-                            Commands.Add("CRTSRCPF FILE(" + GetBuildLibrary() + "/SOURCE) RCDLEN(112)");
-                            hasSPF = true;
-                        }
-                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*ADD)");
+                        Commands.Add("CPYFRMSTMF FROMSTMF('Source/" + Name + "." + Ext + "') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/SOURCE.file/" + Name + ".mbr') MBROPT(*REPLACE)");
                         Commands.Add("CRTCMD CMD(" + GetBuildLibrary() + "/" + Name + ") SRCFILE(" + GetBuildLibrary() + "/SOURCE)");
                         break;
 
@@ -232,19 +229,26 @@ namespace ILEditor.Classes
                 }
             }
 
+            List<string> ModList = new List<string>();
+            ModList.AddRange(CurModList);
+            ModList.AddRange(this.GetStaticModules());
+
             switch (this.GetProjectType())
             {
                 case Type.PGM:
-                    List<string> ModList = new List<string>();
-
-                    ModList.AddRange(CurModList);
-                    ModList.AddRange(this.GetStaticModules());
-
                     Commands.Add("CRTPGM PGM(" + GetBuildLibrary() + "/" + this.GetBuildObject() + ") MODULE(" + String.Join(" ", ModList) + ") ENTMOD(*PGM) ACTGRP(*NEW)");
                     break;
 
                 case Type.MOD:
                     //Create modules only, no need to make any pgms
+                    break;
+
+                case Type.SRVPGM:
+                    string BinderSource = "BND" + GetBuildObject();
+                    if (BinderSource.Length > 10) BinderSource = BinderSource.Substring(0, 10);
+
+                    Commands.Add("CPYFRMSTMF FROMSTMF('Headers/" + this.GetBuildObject() + ".bnd') TOMBR('/QSYS.lib/" + GetBuildLibrary() + ".lib/HEADERS.file/" + BinderSource + ".mbr') MBROPT(*REPLACE)");
+                    Commands.Add("CRTSRVPGM SRVPGM(" + GetBuildLibrary() + "/" + this.GetBuildObject() + ") MODULE(" + String.Join(" ", ModList) + ") SRCFILE(" + GetBuildLibrary() + "/HEADERS) SRCMBR(" + BinderSource + ")");
                     break;
             }
 

@@ -237,6 +237,12 @@
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProjectWindows\BuildProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectWindows\BuildProject.Designer.cs">
+      <DependentUpon>BuildProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ProjectWindows\BuildResult.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -439,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProjectWindows\BuildProject.resx">
+      <DependentUpon>BuildProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProjectWindows\BuildResult.resx">
       <DependentUpon>BuildResult.cs</DependentUpon>

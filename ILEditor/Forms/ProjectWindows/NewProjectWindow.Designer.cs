@@ -56,7 +56,7 @@
             this.next.Location = new System.Drawing.Point(519, 383);
             this.next.Name = "next";
             this.next.Size = new System.Drawing.Size(75, 23);
-            this.next.TabIndex = 0;
+            this.next.TabIndex = 5;
             this.next.Text = "Next";
             this.next.UseVisualStyleBackColor = true;
             this.next.Click += new System.EventHandler(this.next_Click);
@@ -66,7 +66,7 @@
             this.cancel.Location = new System.Drawing.Point(12, 383);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(75, 23);
-            this.cancel.TabIndex = 1;
+            this.cancel.TabIndex = 6;
             this.cancel.Text = "Cancel";
             this.cancel.UseVisualStyleBackColor = true;
             // 
@@ -92,21 +92,20 @@
             this.groupBox1.Controls.Add(this.ile_dynamic);
             this.groupBox1.Controls.Add(this.ile_static);
             this.groupBox1.Controls.Add(this.ile_pgm);
-            this.groupBox1.Location = new System.Drawing.Point(78, 51);
+            this.groupBox1.Location = new System.Drawing.Point(78, 18);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(445, 106);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Project Type";
             // 
             // ile_dynamic
             // 
             this.ile_dynamic.AutoSize = true;
-            this.ile_dynamic.Enabled = false;
             this.ile_dynamic.Location = new System.Drawing.Point(18, 72);
             this.ile_dynamic.Name = "ile_dynamic";
             this.ile_dynamic.Size = new System.Drawing.Size(178, 17);
-            this.ile_dynamic.TabIndex = 2;
+            this.ile_dynamic.TabIndex = 10;
             this.ile_dynamic.Text = "ILE Dynamic Library (*SRVPGM)";
             this.ile_dynamic.UseVisualStyleBackColor = true;
             // 
@@ -116,7 +115,7 @@
             this.ile_static.Location = new System.Drawing.Point(18, 49);
             this.ile_static.Name = "ile_static";
             this.ile_static.Size = new System.Drawing.Size(151, 17);
-            this.ile_static.TabIndex = 1;
+            this.ile_static.TabIndex = 10;
             this.ile_static.Text = "ILE Static Libraries (*MOD)";
             this.ile_static.UseVisualStyleBackColor = true;
             // 
@@ -127,7 +126,7 @@
             this.ile_pgm.Location = new System.Drawing.Point(18, 26);
             this.ile_pgm.Name = "ile_pgm";
             this.ile_pgm.Size = new System.Drawing.Size(120, 17);
-            this.ile_pgm.TabIndex = 0;
+            this.ile_pgm.TabIndex = 10;
             this.ile_pgm.TabStop = true;
             this.ile_pgm.Text = "ILE Program (*PGM)";
             this.ile_pgm.UseVisualStyleBackColor = true;
@@ -135,7 +134,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(75, 28);
+            this.label2.Location = new System.Drawing.Point(75, 238);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 13);
             this.label2.TabIndex = 5;
@@ -144,20 +143,21 @@
             // objName
             // 
             this.objName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.objName.Location = new System.Drawing.Point(423, 25);
+            this.objName.Location = new System.Drawing.Point(423, 235);
             this.objName.MaxLength = 10;
             this.objName.Name = "objName";
             this.objName.Size = new System.Drawing.Size(100, 20);
-            this.objName.TabIndex = 6;
+            this.objName.TabIndex = 2;
+            this.objName.TabStop = false;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lang_c);
             this.groupBox2.Controls.Add(this.lang_rpg);
-            this.groupBox2.Location = new System.Drawing.Point(78, 172);
+            this.groupBox2.Location = new System.Drawing.Point(78, 139);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(445, 85);
-            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Base Language";
             // 
@@ -168,7 +168,7 @@
             this.lang_c.Location = new System.Drawing.Point(18, 49);
             this.lang_c.Name = "lang_c";
             this.lang_c.Size = new System.Drawing.Size(51, 17);
-            this.lang_c.TabIndex = 1;
+            this.lang_c.TabIndex = 10;
             this.lang_c.TabStop = true;
             this.lang_c.Text = "ILE C";
             this.lang_c.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
             this.lang_rpg.Location = new System.Drawing.Point(18, 26);
             this.lang_rpg.Name = "lang_rpg";
             this.lang_rpg.Size = new System.Drawing.Size(67, 17);
-            this.lang_rpg.TabIndex = 0;
+            this.lang_rpg.TabIndex = 10;
             this.lang_rpg.TabStop = true;
             this.lang_rpg.Text = "ILE RPG";
             this.lang_rpg.UseVisualStyleBackColor = true;
@@ -207,7 +207,7 @@
             this.findDir.Location = new System.Drawing.Point(372, 58);
             this.findDir.Name = "findDir";
             this.findDir.Size = new System.Drawing.Size(67, 20);
-            this.findDir.TabIndex = 9;
+            this.findDir.TabIndex = 4;
             this.findDir.Text = "Find";
             this.findDir.UseVisualStyleBackColor = true;
             this.findDir.Click += new System.EventHandler(this.findDir_Click);

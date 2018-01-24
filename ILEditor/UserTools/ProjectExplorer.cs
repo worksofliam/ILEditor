@@ -11,6 +11,7 @@ using ILEditor.Forms.ProjectWindows;
 using ILEditor.Classes;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace ILEditor.UserTools
 {
@@ -86,22 +87,9 @@ namespace ILEditor.UserTools
                         case "BLD":
                             //Build project
                             SelectedProject = value;
-                            if (IBMi.IsConnected())
-                            {
-                                Project.PreProjectBuild(); //Clears messages
-                                new Thread((ThreadStart)delegate
-                                {
-                                    Project.GetProject(value).Build();
-                                    Invoke((MethodInvoker)delegate
-                                    {
-                                        Editor.TheEditor.AddTool(value + " Build", new BuildResult(Project.GetBuildMessages()), true);
-                                    });
-                                }).Start();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Cannot build project while in offline mode.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+                            Program.LAST_BUILD = SelectedProject;
+
+                            new BuildProject().Show();
                             break;
                         case "FIL":
                             //File
@@ -167,6 +155,11 @@ namespace ILEditor.UserTools
                 IBMi.CurrentSystem.SetValue("PROJECTS", String.Join("|", projects));
                 ReloadProjects();
             }
+        }
+        
+        private void openDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(Project.GetProject(SelectedProject).GetDirectory());
         }
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)

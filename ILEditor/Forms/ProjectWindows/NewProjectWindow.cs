@@ -75,8 +75,8 @@ namespace ILEditor.Forms.ProjectWindows
                 return;
             }
 
-            Project newProject = new Project(ProjectDirectory, objName.Text, projType);
-            newProject.Init(lang);
+            Project newProject = new Project(ProjectDirectory, objName.Text);
+            newProject.Init(projType, lang);
 
             //Add it to current project lists
             Project.Projects.Add(newProject);
