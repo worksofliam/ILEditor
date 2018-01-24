@@ -66,15 +66,38 @@ namespace ILEditor.Classes
             Directory.CreateDirectory(this.HeadersDir);
             Directory.CreateDirectory(this.SourceDir);
 
+            string SourceFile;
             switch (InitLanguage)
             {
                 case InitLang.RPG:
-                    File.WriteAllLines(Path.Combine(this.SourceDir, this.GetBuildObject() + ".sqlrpgle"), new[]
+                    SourceFile = Path.Combine(this.SourceDir, this.GetBuildObject() + ".sqlrpgle");
+                    switch (ProjectType)
                     {
-                        "**FREE", "",
-                        "Dcl-Pi " + this.GetBuildObject() + ";", "End-Pi;",
-                        "", "Return;"
-                    });
+                        case Type.PGM:
+                            File.WriteAllLines(SourceFile, new[]
+                            {
+                                "**FREE", "",
+                                "Dcl-Pi " + this.GetBuildObject() + ";", "End-Pi;",
+                                "", "Return;"
+                            });
+                            break;
+
+                        case Type.MOD:
+                        case Type.SRVPGM:
+                            File.WriteAllLines(SourceFile, new[]
+                            {
+                                "**FREE", "", "Ctl-Opt NoMain;", "",
+                                "Dcl-Proc ProcName Export;",
+                                "End-Pi;"
+                            });
+                            File.WriteAllLines(Path.Combine(this.SourceDir, this.GetBuildObject() + ".sqlrpgle"), new[]
+                            {
+                                "**FREE", "",
+                                "Dcl-Pr ProcName ExtProc('PROCNAME');",
+                                "End-Pi;"
+                            });
+                            break;
+                    }
                     break;
                 case InitLang.C:
                     break;
