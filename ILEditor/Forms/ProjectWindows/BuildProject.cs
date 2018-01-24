@@ -22,6 +22,8 @@ namespace ILEditor.Forms.ProjectWindows
                 projList.Items.Add(proj.GetName());
 
             projList.SelectedItem = Program.LAST_BUILD;
+
+            projList.Focus();
         }
 
         private void build_Click(object sender, EventArgs e)
