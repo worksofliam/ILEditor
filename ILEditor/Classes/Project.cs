@@ -90,7 +90,7 @@ namespace ILEditor.Classes
                                 "Dcl-Proc ProcName Export;",
                                 "End-Pi;"
                             });
-                            File.WriteAllLines(Path.Combine(this.SourceDir, this.GetBuildObject() + ".sqlrpgle"), new[]
+                            File.WriteAllLines(Path.Combine(this.HeadersDir, this.GetBuildObject() + ".h"), new[]
                             {
                                 "**FREE", "",
                                 "Dcl-Pr ProcName ExtProc('PROCNAME');",
@@ -191,6 +191,15 @@ namespace ILEditor.Classes
             {
                 BuildMessages.Add(this.GetName() + " didn't initiate build due to failing local project dependancy builds.");
                 return false;
+            }
+
+            if (this.GetProjectType() == Type.SRVPGM)
+            {
+                if (!File.Exists(Path.Combine(this.HeadersDir, this.GetBuildObject() + ".bnd")))
+                {
+                    BuildMessages.Add(this.GetName() + " requires binder source to create a dynamic library (service program). Please create 'Headers/" + this.GetBuildObject() + ".bnd' correctly to build successfully.");
+                    return false;
+                }
             }
 
             BuildMessages.Add("Building " + this.GetName());
