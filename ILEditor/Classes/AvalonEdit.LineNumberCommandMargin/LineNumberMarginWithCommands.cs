@@ -65,8 +65,6 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         }
 
-        private double lineHeight = 1;
-
         private double lineNumberListViewWidth = 0;
         public void UpdateLineNumberListWidthFromAdorner(double width)
         {
@@ -81,11 +79,6 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
 
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
         {
-            if (this.TextView != null && this.TextView.VisualLinesValid)
-            {
-                lineHeight = this.TextView.VisualLines.First().Height;
-            }
-
             return new Size(this.lineNumberListViewWidth, 0);
         }
 
@@ -133,7 +126,7 @@ namespace ILEditor.Classes.AvalonEdit.LineNumberCommandMargin
                 {
                     var info = new LineInfo();
                     info.Number = line.FirstDocumentLine.LineNumber;
-                    info.LineHeight = this.lineHeight;
+                    info.LineHeight = line.Height;
 
                     this.uiLineInfoList.Add(info);
                 }
