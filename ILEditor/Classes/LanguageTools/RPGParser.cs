@@ -83,7 +83,7 @@ namespace ILEditor.Classes.LanguageTools
                     if (line.EndsWith("..."))
                     {
                         prevName = line.Substring(0, line.Length - 3);
-                        return "*NAMEREM";
+                        return "*BLANK;";
                     }
 
                     switch (type.ToUpper())
@@ -218,7 +218,7 @@ namespace ILEditor.Classes.LanguageTools
                     if (line.EndsWith("..."))
                     {
                         prevName = line.Substring(0, line.Length - 3);
-                        return "*NAMEREM";
+                        return "*BLANK;";
                     }
 
                     switch (Char.ToUpper(chars[24]))

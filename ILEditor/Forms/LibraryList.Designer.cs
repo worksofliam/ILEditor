@@ -36,7 +36,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.userLibl = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -114,17 +113,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // userLibl
-            // 
-            this.userLibl.AutoSize = true;
-            this.userLibl.Location = new System.Drawing.Point(200, 12);
-            this.userLibl.Name = "userLibl";
-            this.userLibl.Size = new System.Drawing.Size(102, 30);
-            this.userLibl.TabIndex = 11;
-            this.userLibl.Text = "Use User Profile\r\nlibrary list";
-            this.userLibl.UseVisualStyleBackColor = true;
-            this.userLibl.CheckedChanged += new System.EventHandler(this.userLibl_CheckedChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -152,7 +140,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 157);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.userLibl);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listBox1);
@@ -182,7 +169,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckBox userLibl;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button4;
     }

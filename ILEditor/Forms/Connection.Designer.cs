@@ -63,25 +63,31 @@
             this.prntObj = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.bldDir = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.bldLib = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.bldLib = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.bldDir = new System.Windows.Forms.TextBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.dataConnectionType = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.infoBox = new System.Windows.Forms.RichTextBox();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // save
@@ -292,6 +298,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
@@ -453,6 +460,55 @@
             this.label12.TabIndex = 2;
             this.label12.Text = "Object";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.bldDir);
+            this.tabPage5.Controls.Add(this.label18);
+            this.tabPage5.Controls.Add(this.bldLib);
+            this.tabPage5.Controls.Add(this.label17);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(361, 211);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Projects";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // bldDir
+            // 
+            this.bldDir.Location = new System.Drawing.Point(196, 32);
+            this.bldDir.MaxLength = 128;
+            this.bldDir.Name = "bldDir";
+            this.bldDir.Size = new System.Drawing.Size(157, 20);
+            this.bldDir.TabIndex = 7;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 35);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(126, 13);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Remote Upload Directory";
+            // 
+            // bldLib
+            // 
+            this.bldLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.bldLib.Location = new System.Drawing.Point(253, 6);
+            this.bldLib.MaxLength = 10;
+            this.bldLib.Name = "bldLib";
+            this.bldLib.Size = new System.Drawing.Size(100, 20);
+            this.bldLib.TabIndex = 5;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 9);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(64, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Build Library";
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.label15);
@@ -519,60 +575,71 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // tabPage5
+            // tabPage6
             // 
-            this.tabPage5.Controls.Add(this.bldDir);
-            this.tabPage5.Controls.Add(this.label18);
-            this.tabPage5.Controls.Add(this.bldLib);
-            this.tabPage5.Controls.Add(this.label17);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(361, 211);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Projects";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPage6.Controls.Add(this.label20);
+            this.tabPage6.Controls.Add(this.infoBox);
+            this.tabPage6.Controls.Add(this.label19);
+            this.tabPage6.Controls.Add(this.dataConnectionType);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(361, 211);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "FTP";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // bldLib
+            // dataConnectionType
             // 
-            this.bldLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.bldLib.Location = new System.Drawing.Point(253, 6);
-            this.bldLib.MaxLength = 10;
-            this.bldLib.Name = "bldLib";
-            this.bldLib.Size = new System.Drawing.Size(100, 20);
-            this.bldLib.TabIndex = 5;
+            this.dataConnectionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dataConnectionType.FormattingEnabled = true;
+            this.dataConnectionType.Items.AddRange(new object[] {
+            "AutoPassive",
+            "AutoActive",
+            "EPRT",
+            "EPSV",
+            "PASV",
+            "PASVEX",
+            "PORT"});
+            this.dataConnectionType.Location = new System.Drawing.Point(232, 9);
+            this.dataConnectionType.Name = "dataConnectionType";
+            this.dataConnectionType.Size = new System.Drawing.Size(121, 21);
+            this.dataConnectionType.TabIndex = 0;
+            this.dataConnectionType.SelectedIndexChanged += new System.EventHandler(this.infoBox_SelectionChanged);
             // 
-            // label17
+            // label19
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(8, 9);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(64, 13);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "Build Library";
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 12);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(114, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Data Connection Type";
             // 
-            // label18
+            // infoBox
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 35);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(126, 13);
-            this.label18.TabIndex = 6;
-            this.label18.Text = "Remote Upload Directory";
+            this.infoBox.Location = new System.Drawing.Point(6, 36);
+            this.infoBox.MaxLength = 1000;
+            this.infoBox.Name = "infoBox";
+            this.infoBox.ReadOnly = true;
+            this.infoBox.Size = new System.Drawing.Size(347, 148);
+            this.infoBox.TabIndex = 2;
+            this.infoBox.Text = "";
             // 
-            // bldDir
+            // label20
             // 
-            this.bldDir.Location = new System.Drawing.Point(196, 32);
-            this.bldDir.MaxLength = 128;
-            this.bldDir.Name = "bldDir";
-            this.bldDir.Size = new System.Drawing.Size(157, 20);
-            this.bldDir.TabIndex = 7;
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 189);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(201, 13);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Changing this setting will require a restart.";
             // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 278);
+            this.ClientSize = new System.Drawing.Size(369, 274);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -590,10 +657,12 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -645,5 +714,10 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox bldDir;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.ComboBox dataConnectionType;
+        private System.Windows.Forms.RichTextBox infoBox;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
     }
 }

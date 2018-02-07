@@ -62,7 +62,6 @@
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherForTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectBuildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutILEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -347,8 +346,7 @@
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.compileCurrentToolStripMenuItem,
-            this.otherForTypeToolStripMenuItem,
-            this.projectBuildToolStripMenuItem});
+            this.otherForTypeToolStripMenuItem});
             this.compileToolStripMenuItem.Name = "compileToolStripMenuItem";
             this.compileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.compileToolStripMenuItem.Text = "Compile";
@@ -368,15 +366,6 @@
             this.otherForTypeToolStripMenuItem.Name = "otherForTypeToolStripMenuItem";
             this.otherForTypeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.otherForTypeToolStripMenuItem.Text = "Compile Options";
-            // 
-            // projectBuildToolStripMenuItem
-            // 
-            this.projectBuildToolStripMenuItem.Enabled = false;
-            this.projectBuildToolStripMenuItem.Name = "projectBuildToolStripMenuItem";
-            this.projectBuildToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.projectBuildToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.projectBuildToolStripMenuItem.Text = "Project Build";
-            this.projectBuildToolStripMenuItem.Click += new System.EventHandler(this.projectBuildToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -524,7 +513,7 @@
             // zoomInButton
             // 
             this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomInButton.Image = global::ILEditor.Properties.Resources.zoom_in;
+            this.zoomInButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomInButton.Image")));
             this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(23, 22);
@@ -535,7 +524,7 @@
             // zoomOutButton
             // 
             this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomOutButton.Image = global::ILEditor.Properties.Resources.zoom_out;
+            this.zoomOutButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomOutButton.Image")));
             this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
@@ -598,7 +587,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Editor";
             this.Text = "ILEditor";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Editor_FormClosing);
             this.Load += new System.EventHandler(this.Editor_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -672,7 +660,6 @@
         private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourcePhysicalFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem projectBuildToolStripMenuItem;
     }
 }
 

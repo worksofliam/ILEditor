@@ -360,12 +360,6 @@ namespace ILEditor
             }
         }
 
-
-        private void projectBuildToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Forms.ProjectWindows.BuildProject().ShowDialog();
-        }
-
         private void compileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             if (editortabsleft.SelectedTab == null) return;
@@ -386,7 +380,6 @@ namespace ILEditor
             compileCurrentToolStripMenuItem.Enabled = (Compiles.Count > 0);
             otherForTypeToolStripMenuItem.Enabled = (Compiles.Count > 0);
             otherForTypeToolStripMenuItem.DropDownItems.AddRange(Compiles.ToArray());
-            projectBuildToolStripMenuItem.Enabled = (Project.Projects.Count() > 0);
         }
         #endregion
 

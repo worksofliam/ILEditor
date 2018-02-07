@@ -66,10 +66,10 @@ namespace ILEditor.Classes
             CheckExist("password", "mypass");
             CheckExist("alias", Data["system"]);
             CheckExist("useFTPES", "false");
+            CheckExist("transferMode", "AutoPassive");
 
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
-            CheckExist("useuserlibl", "false");
 
             CheckExist("buildlibrary", "QTEMP");
             CheckExist("projuploaddir", "/home/" + Data["username"] + "/");

@@ -41,7 +41,6 @@
             this.devNews = new System.Windows.Forms.WebBrowser();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -126,7 +125,7 @@
             // linkLabel4
             // 
             this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(44, 206);
+            this.linkLabel4.Location = new System.Drawing.Point(44, 181);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(129, 13);
             this.linkLabel4.TabIndex = 6;
@@ -176,24 +175,11 @@
             this.linkLabel5.Text = "Using Offline Mode";
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
-            // linkLabel6
-            // 
-            this.linkLabel6.AutoSize = true;
-            this.linkLabel6.Location = new System.Drawing.Point(45, 180);
-            this.linkLabel6.Name = "linkLabel6";
-            this.linkLabel6.Size = new System.Drawing.Size(101, 13);
-            this.linkLabel6.TabIndex = 10;
-            this.linkLabel6.TabStop = true;
-            this.linkLabel6.Tag = "PROJ";
-            this.linkLabel6.Text = "ILEditor Projects";
-            this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this.linkLabel6);
             this.Controls.Add(this.linkLabel5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.devNews);
@@ -225,6 +211,5 @@
         private System.Windows.Forms.WebBrowser devNews;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel5;
-        private System.Windows.Forms.LinkLabel linkLabel6;
     }
 }

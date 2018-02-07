@@ -132,7 +132,6 @@
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Classes\MemberCache.cs" />
-    <Compile Include="Classes\Project.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
     <Compile Include="Forms\About.cs">
@@ -237,30 +236,6 @@
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ProjectWindows\BuildProject.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\BuildProject.Designer.cs">
-      <DependentUpon>BuildProject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\BuildResult.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\BuildResult.Designer.cs">
-      <DependentUpon>BuildResult.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\NewProjectWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\NewProjectWindow.Designer.cs">
-      <DependentUpon>NewProjectWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\ProjectSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ProjectWindows\ProjectSettings.Designer.cs">
-      <DependentUpon>ProjectSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PushWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -340,12 +315,6 @@
     </Compile>
     <Compile Include="UserTools\ObjectBrowse.Designer.cs">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserTools\ProjectExplorer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserTools\ProjectExplorer.Designer.cs">
-      <DependentUpon>ProjectExplorer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
       <SubType>UserControl</SubType>
@@ -446,18 +415,6 @@
     <EmbeddedResource Include="Forms\OpenMember.resx">
       <DependentUpon>OpenMember.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProjectWindows\BuildProject.resx">
-      <DependentUpon>BuildProject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProjectWindows\BuildResult.resx">
-      <DependentUpon>BuildResult.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProjectWindows\NewProjectWindow.resx">
-      <DependentUpon>NewProjectWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProjectWindows\ProjectSettings.resx">
-      <DependentUpon>ProjectSettings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PushWindow.resx">
       <DependentUpon>PushWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -503,9 +460,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\ProjectExplorer.resx">
-      <DependentUpon>ProjectExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>
@@ -568,7 +522,6 @@
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OfflineMode.html" />
     <Content Include="Resources\Help\OpenMember.html" />
-    <Content Include="Resources\Help\Projects.html" />
     <Content Include="Resources\Highlighting\Dark\darkCL.xml">
       <SubType>Designer</SubType>
     </Content>

@@ -29,9 +29,6 @@ namespace ILEditor.Forms
             }
 
             textBox2.Text = IBMi.CurrentSystem.GetValue("curlib");
-
-            userLibl.Checked = (IBMi.CurrentSystem.GetValue("useuserlibl") == "true");
-            UpdateEnables();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,13 +38,6 @@ namespace ILEditor.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            IBMi.CurrentSystem.SetValue("useuserlibl", userLibl.Checked.ToString().ToLower());
-            if (userLibl.Checked)
-            {
-                this.Close();
-            }
-            else
-            {
                 label2.Text = "";
                 label2.Update();
 
@@ -96,7 +86,6 @@ namespace ILEditor.Forms
                 {
                     this.Close();
                 }
-            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -152,22 +141,6 @@ namespace ILEditor.Forms
             listBox1.Items.Insert(newIndex, selected);
             // Restore selection
             if (direction == 1) listBox1.SetSelected(newIndex - 1, true);
-        }
-
-        private void userLibl_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateEnables();
-        }
-
-        private void UpdateEnables()
-        {
-            Boolean UseILEditorLibl = !userLibl.Checked;
-
-            listBox1.Enabled = UseILEditorLibl;
-            textBox1.Enabled = UseILEditorLibl;
-            textBox2.Enabled = UseILEditorLibl;
-            button3.Enabled = UseILEditorLibl;
-            button4.Enabled = UseILEditorLibl;
         }
 
         private void button4_Click(object sender, EventArgs e)

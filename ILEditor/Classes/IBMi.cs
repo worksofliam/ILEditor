@@ -67,6 +67,14 @@ namespace ILEditor.Classes
                 MessageBox.Show(FTPCodeMessages[ErrorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private static FtpDataConnectionType GetFtpDataConnectionType(string Type)
+        {
+            if (Enum.TryParse(Type, out FtpDataConnectionType result))
+                return result;
+            else
+                return FtpDataConnectionType.AutoActive;
+        }
+
         public static bool IsConnected() => Client.IsConnected;
         public static string FTPFile = "";
         public static bool Connect(bool OfflineMode = false)
@@ -92,12 +100,14 @@ namespace ILEditor.Classes
                     if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
                         Client.EncryptionMode = FtpEncryptionMode.Explicit;
 
+                    //Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
+                    Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
+
                     Client.ConnectTimeout = 5000;
                     Client.Connect();
 
                     //Change the user library list on connection
-                    if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
-                        RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+                    RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
                 }
 
                 result = true;
