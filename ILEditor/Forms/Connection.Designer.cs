@@ -51,10 +51,15 @@
             this.validACS = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.ftpes = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.ftpes = new System.Windows.Forms.CheckBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.infoBox = new System.Windows.Forms.RichTextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.dataConnectionType = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -63,31 +68,21 @@
             this.prntObj = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.bldDir = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.bldLib = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.dataConnectionType = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.infoBox = new System.Windows.Forms.RichTextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.systemInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // save
@@ -103,7 +98,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 61);
+            this.label3.Location = new System.Drawing.Point(7, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 12;
@@ -112,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 35);
+            this.label2.Location = new System.Drawing.Point(7, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 11;
@@ -120,7 +115,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(218, 58);
+            this.pass.Location = new System.Drawing.Point(218, 114);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -129,7 +124,7 @@
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(218, 32);
+            this.user.Location = new System.Drawing.Point(218, 88);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -138,7 +133,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 9);
+            this.label1.Location = new System.Drawing.Point(7, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 8;
@@ -146,7 +141,7 @@
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(218, 6);
+            this.host.Location = new System.Drawing.Point(218, 62);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
             this.host.TabIndex = 7;
@@ -301,7 +296,6 @@
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -313,8 +307,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.linkLabel1);
-            this.tabPage1.Controls.Add(this.ftpes);
+            this.tabPage1.Controls.Add(this.systemInfo);
             this.tabPage1.Controls.Add(this.label16);
             this.tabPage1.Controls.Add(this.fetchJobLog);
             this.tabPage1.Controls.Add(this.label1);
@@ -331,31 +324,10 @@
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 100);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
-            this.linkLabel1.TabIndex = 16;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Use FTPES";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // ftpes
-            // 
-            this.ftpes.AutoSize = true;
-            this.ftpes.Location = new System.Drawing.Point(259, 99);
-            this.ftpes.Name = "ftpes";
-            this.ftpes.Size = new System.Drawing.Size(60, 17);
-            this.ftpes.TabIndex = 15;
-            this.ftpes.Text = "FTPES";
-            this.ftpes.UseVisualStyleBackColor = true;
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 123);
+            this.label16.Location = new System.Drawing.Point(8, 145);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(130, 13);
             this.label16.TabIndex = 14;
@@ -364,12 +336,95 @@
             // fetchJobLog
             // 
             this.fetchJobLog.AutoSize = true;
-            this.fetchJobLog.Location = new System.Drawing.Point(259, 122);
+            this.fetchJobLog.Location = new System.Drawing.Point(259, 144);
             this.fetchJobLog.Name = "fetchJobLog";
             this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
             this.fetchJobLog.TabIndex = 13;
             this.fetchJobLog.Text = "Fetch Job Log";
             this.fetchJobLog.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.linkLabel1);
+            this.tabPage6.Controls.Add(this.ftpes);
+            this.tabPage6.Controls.Add(this.label20);
+            this.tabPage6.Controls.Add(this.infoBox);
+            this.tabPage6.Controls.Add(this.label19);
+            this.tabPage6.Controls.Add(this.dataConnectionType);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(361, 211);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "FTP";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(8, 19);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
+            this.linkLabel1.TabIndex = 18;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Use FTPES";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // ftpes
+            // 
+            this.ftpes.AutoSize = true;
+            this.ftpes.Location = new System.Drawing.Point(293, 18);
+            this.ftpes.Name = "ftpes";
+            this.ftpes.Size = new System.Drawing.Size(60, 17);
+            this.ftpes.TabIndex = 17;
+            this.ftpes.Text = "FTPES";
+            this.ftpes.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 189);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(216, 13);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Changing these settings will require a restart.";
+            // 
+            // infoBox
+            // 
+            this.infoBox.Location = new System.Drawing.Point(8, 68);
+            this.infoBox.MaxLength = 1000;
+            this.infoBox.Name = "infoBox";
+            this.infoBox.ReadOnly = true;
+            this.infoBox.Size = new System.Drawing.Size(347, 118);
+            this.infoBox.TabIndex = 2;
+            this.infoBox.Text = "";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(8, 45);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(114, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Data Connection Type";
+            // 
+            // dataConnectionType
+            // 
+            this.dataConnectionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dataConnectionType.FormattingEnabled = true;
+            this.dataConnectionType.Items.AddRange(new object[] {
+            "AutoPassive",
+            "AutoActive",
+            "EPRT",
+            "EPSV",
+            "PASV",
+            "PASVEX",
+            "PORT"});
+            this.dataConnectionType.Location = new System.Drawing.Point(232, 41);
+            this.dataConnectionType.Name = "dataConnectionType";
+            this.dataConnectionType.Size = new System.Drawing.Size(121, 21);
+            this.dataConnectionType.TabIndex = 0;
+            this.dataConnectionType.SelectedIndexChanged += new System.EventHandler(this.infoBox_SelectionChanged);
             // 
             // tabPage2
             // 
@@ -460,55 +515,6 @@
             this.label12.TabIndex = 2;
             this.label12.Text = "Object";
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.bldDir);
-            this.tabPage5.Controls.Add(this.label18);
-            this.tabPage5.Controls.Add(this.bldLib);
-            this.tabPage5.Controls.Add(this.label17);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(361, 211);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Projects";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // bldDir
-            // 
-            this.bldDir.Location = new System.Drawing.Point(196, 32);
-            this.bldDir.MaxLength = 128;
-            this.bldDir.Name = "bldDir";
-            this.bldDir.Size = new System.Drawing.Size(157, 20);
-            this.bldDir.TabIndex = 7;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 35);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(126, 13);
-            this.label18.TabIndex = 6;
-            this.label18.Text = "Remote Upload Directory";
-            // 
-            // bldLib
-            // 
-            this.bldLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.bldLib.Location = new System.Drawing.Point(253, 6);
-            this.bldLib.MaxLength = 10;
-            this.bldLib.Name = "bldLib";
-            this.bldLib.Size = new System.Drawing.Size(100, 20);
-            this.bldLib.TabIndex = 5;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(8, 9);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(64, 13);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "Build Library";
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.label15);
@@ -575,65 +581,14 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // tabPage6
+            // systemInfo
             // 
-            this.tabPage6.Controls.Add(this.label20);
-            this.tabPage6.Controls.Add(this.infoBox);
-            this.tabPage6.Controls.Add(this.label19);
-            this.tabPage6.Controls.Add(this.dataConnectionType);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(361, 211);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "FTP";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // dataConnectionType
-            // 
-            this.dataConnectionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dataConnectionType.FormattingEnabled = true;
-            this.dataConnectionType.Items.AddRange(new object[] {
-            "AutoPassive",
-            "AutoActive",
-            "EPRT",
-            "EPSV",
-            "PASV",
-            "PASVEX",
-            "PORT"});
-            this.dataConnectionType.Location = new System.Drawing.Point(232, 9);
-            this.dataConnectionType.Name = "dataConnectionType";
-            this.dataConnectionType.Size = new System.Drawing.Size(121, 21);
-            this.dataConnectionType.TabIndex = 0;
-            this.dataConnectionType.SelectedIndexChanged += new System.EventHandler(this.infoBox_SelectionChanged);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 12);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(114, 13);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "Data Connection Type";
-            // 
-            // infoBox
-            // 
-            this.infoBox.Location = new System.Drawing.Point(6, 36);
-            this.infoBox.MaxLength = 1000;
-            this.infoBox.Name = "infoBox";
-            this.infoBox.ReadOnly = true;
-            this.infoBox.Size = new System.Drawing.Size(347, 148);
-            this.infoBox.TabIndex = 2;
-            this.infoBox.Text = "";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(8, 189);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(201, 13);
-            this.label20.TabIndex = 3;
-            this.label20.Text = "Changing this setting will require a restart.";
+            this.systemInfo.AutoSize = true;
+            this.systemInfo.Location = new System.Drawing.Point(8, 13);
+            this.systemInfo.Name = "systemInfo";
+            this.systemInfo.Size = new System.Drawing.Size(57, 13);
+            this.systemInfo.TabIndex = 15;
+            this.systemInfo.Text = "systemInfo";
             // 
             // Connection
             // 
@@ -652,17 +607,15 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -707,17 +660,13 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox fetchJobLog;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.CheckBox ftpes;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TextBox bldLib;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox bldDir;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.ComboBox dataConnectionType;
         private System.Windows.Forms.RichTextBox infoBox;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.CheckBox ftpes;
+        private System.Windows.Forms.Label systemInfo;
     }
 }

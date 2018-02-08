@@ -102,6 +102,7 @@ namespace ILEditor.Classes
 
                     //Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
                     Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
+                    Client.SocketKeepAlive = true;
 
                     Client.ConnectTimeout = 5000;
                     Client.Connect();
@@ -124,6 +125,14 @@ namespace ILEditor.Classes
         {
             if (Client.IsConnected)
                 Client.Disconnect();
+        }
+
+        public static string GetSystem()
+        {
+            if (Client.IsConnected)
+                return Client.SystemType;
+            else
+                return "";
         }
 
         //Returns false if successful
