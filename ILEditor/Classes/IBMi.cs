@@ -105,6 +105,7 @@ namespace ILEditor.Classes
                     Client.SocketKeepAlive = true;
 
                     Client.ConnectTimeout = 5000;
+                    Client.ReadTimeout = 2500;
                     Client.Connect();
 
                     //Change the user library list on connection
@@ -174,12 +175,19 @@ namespace ILEditor.Classes
             if (Client.IsConnected)
             {
                 string inputCmd = "RCMD " + Command;
-                FtpReply reply = Client.Execute(inputCmd);
+                try
+                {
+                    FtpReply reply = Client.Execute(inputCmd);
 
-                if (ShowError)
-                    HandleError(reply.Code, reply.ErrorMessage);
+                    if (ShowError)
+                        HandleError(reply.Code, reply.ErrorMessage);
 
-                return reply.Success;
+                    return reply.Success;
+                }
+                catch
+                {
+                    return false;
+                }
             }
             else
             {

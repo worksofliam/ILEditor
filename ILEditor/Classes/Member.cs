@@ -18,6 +18,8 @@ namespace ILEditor.Classes
         private Boolean _isEditable;
         public Boolean _IsBeingSaved;
 
+        private Boolean _isLocked;
+
         public Member(string Local, string Lib, string Obj, string Mbr, string Ext, Boolean isEditable = true, int RecordLength = 0)
         {
             this._Local = Local;
@@ -28,6 +30,8 @@ namespace ILEditor.Classes
             this._RecordLength = RecordLength;
             this._isEditable = isEditable;
             this._IsBeingSaved = false;
+
+            this._isLocked = false;
         }
 
         public int GetRecordLength()
@@ -68,6 +72,27 @@ namespace ILEditor.Classes
         public bool IsEditable()
         {
             return this._isEditable;
+        }
+
+        public void Lock()
+        {
+            if (this._isEditable)
+            {
+                bool result = IBMi.RemoteCommand("ALCOBJ OBJ((" + this._Lib + "/" + this._Obj + " *FILE *EXCLRD " + this._Mbr + "))", false);
+
+                this._isLocked = result;
+                if (result == false)
+                {
+                    Editor.TheEditor.SetStatus(this._Mbr + " has opened but was not locked! Member has been placed in readonly mode.");
+                    this._isEditable = false;
+                }
+            }
+        }
+
+        internal void Unlock()
+        {
+            if (this._isLocked)
+                IBMi.RemoteCommand("DLCOBJ OBJ((" + this._Lib + "/" + this._Obj + " *FILE *EXCLRD " + this._Mbr + "))", false);
         }
     }
 }

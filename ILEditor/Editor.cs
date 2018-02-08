@@ -82,8 +82,8 @@ namespace ILEditor
             this.editortabsleft.TabIndex = 0;
             this.editortabsleft.ImageList = tabImageList;
             this.editortabsleft.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
-            this.editortabsleft.ControlAdded += Editortabsleft_ControlAdded;
-            this.editortabsleft.TabClosed += Editortabsleft_TabClosed;
+            this.editortabsleft.ControlAdded += Editortabs_ControlAdded;
+            this.editortabsleft.TabClosed += Editortabs_TabClosed;
 
             // 
             // editortabsright
@@ -102,8 +102,8 @@ namespace ILEditor
             this.editortabsright.TabIndex = 0;
             this.editortabsright.ImageList = tabImageList;
             this.editortabsright.MouseClick += new MouseEventHandler(this.editortabs_MouseClick);
-            this.editortabsright.ControlAdded += Editortabsleft_ControlAdded;
-            this.editortabsright.TabClosed += Editortabsleft_TabClosed;
+            this.editortabsright.ControlAdded += Editortabs_ControlAdded;
+            this.editortabsright.TabClosed += Editortabs_TabClosed;
 
             // 
             // usercontrol
@@ -140,13 +140,20 @@ namespace ILEditor
             }
         }
 
-        private void Editortabsleft_TabClosed(object sender, TabControlEventArgs e)
+        private void Editortabs_TabClosed(object sender, TabControlEventArgs e)
         {
+            Member member;
+            if (e.TabPage.Tag is Member)
+            {
+                member = e.TabPage.Tag as Member;
+                member.Unlock();
+            }
+
             e.TabPage.Dispose();
             FixEditorSplitters();
         }
 
-        private void Editortabsleft_ControlAdded(object sender, ControlEventArgs e)
+        private void Editortabs_ControlAdded(object sender, ControlEventArgs e)
         {
             FixEditorSplitters();
         }
@@ -448,6 +455,8 @@ namespace ILEditor
                 if (resultFile != "")
                 {
                     member._Local = resultFile;
+                    //LOCK HERE
+                    member.Lock();
                     TheEditor.Invoke((MethodInvoker)delegate
                     {
                         TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
@@ -607,7 +616,9 @@ namespace ILEditor
         
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Member member;
             NewMember newMemberForm = new NewMember();
+
             newMemberForm.ShowDialog();
             if (newMemberForm.created)
             {
@@ -617,9 +628,12 @@ namespace ILEditor
 
                     if (resultFile != "")
                     {
+                        member = new Member(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true);
+                        //LOCK HERE
+                        member.Lock();
                         this.Invoke((MethodInvoker)delegate
                         {
-                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true), GetBoundLangType(newMemberForm._type));
+                            Editor.TheEditor.AddMemberEditor(member, GetBoundLangType(newMemberForm._type));
                         });
                     }
                 }).Start();
