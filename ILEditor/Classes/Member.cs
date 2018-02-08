@@ -83,7 +83,7 @@ namespace ILEditor.Classes
                 this._isLocked = result;
                 if (result == false)
                 {
-                    Editor.TheEditor.SetStatus(this._Mbr + " has opened but was not locked! Member has been placed in readonly mode.");
+                    Editor.TheEditor.SetStatus("Failed to allocate a lock for " + this._Mbr + "! Member has been placed in read-only mode.");
                     this._isEditable = false;
                 }
             }
