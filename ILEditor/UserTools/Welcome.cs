@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using ILEditor.Classes;
 using System.Diagnostics;
+using System.Net;
 
 namespace ILEditor.UserTools
 {
@@ -51,8 +52,6 @@ namespace ILEditor.UserTools
         {
             InitializeComponent();
             LoadItems();
-
-            devNews.Refresh();
         }
 
         private void recents_DoubleClick(object sender, EventArgs e)
@@ -96,6 +95,11 @@ namespace ILEditor.UserTools
 
             //this opens the URL in the user's default browser
             Process.Start(e.Url.ToString());
+        }
+
+        private void devNews_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            devNews.Refresh(WebBrowserRefreshOption.Completely);
         }
     }
 }
