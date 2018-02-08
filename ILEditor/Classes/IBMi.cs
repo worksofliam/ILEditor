@@ -174,20 +174,13 @@ namespace ILEditor.Classes
             if (Client.IsConnected)
             {
                 string inputCmd = "RCMD " + Command;
-                try
-                {
-                    //IF THIS CRASHES CLIENT DISCONNECTS!!!
-                    FtpReply reply = Client.Execute(inputCmd);
+                //IF THIS CRASHES CLIENT DISCONNECTS!!!
+                FtpReply reply = Client.Execute(inputCmd);
 
-                    if (ShowError)
-                        HandleError(reply.Code, reply.ErrorMessage);
+                if (ShowError)
+                    HandleError(reply.Code, reply.ErrorMessage);
 
-                    return reply.Success;
-                }
-                catch
-                {
-                    return false;
-                }
+                return reply.Success;
             }
             else
             {
