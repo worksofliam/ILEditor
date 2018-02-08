@@ -78,7 +78,7 @@ namespace ILEditor.Classes
         {
             if (this._isEditable)
             {
-                bool result = IBMi.RemoteCommand("ALCOBJ OBJ((" + this._Lib + "/" + this._Obj + " *FILE *EXCLRD " + this._Mbr + "))", false);
+                bool result = IBMi.RemoteCommand("ALCOBJ OBJ((" + this._Lib + "/" + this._Obj + " *FILE *EXCLRD " + this._Mbr + ")) WAIT(1)", false);
 
                 this._isLocked = result;
                 if (result == false)
