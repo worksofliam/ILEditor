@@ -121,13 +121,13 @@ namespace ILEditor.UserTools
                 {
                     path = node.Tag.ToString().Split('/');
                     items = new List<TreeNode>();
-                    Member[] members = IBMiUtils.GetMemberList(path[0], path[1]);
+                    RemoteSource[] members = IBMiUtils.GetMemberList(path[0], path[1]);
 
                     if (members != null)
                     {
-                        foreach (Member member in members)
+                        foreach (RemoteSource member in members)
                         {
-                            mbr = new TreeNode(member.GetMember() + (member.GetExtension() == "" ? "" : "." + member.GetExtension().ToLower()) + (member.GetText() == "" ? "" : " - " + member.GetText()));
+                            mbr = new TreeNode(member.GetName() + (member.GetExtension() == "" ? "" : "." + member.GetExtension().ToLower()) + (member.GetText() == "" ? "" : " - " + member.GetText()));
                             mbr.Tag = member;
                             mbr.ImageIndex = 3;
                             mbr.SelectedImageIndex = mbr.ImageIndex;
@@ -166,10 +166,10 @@ namespace ILEditor.UserTools
             if (e.Node.Tag == null) { }
             else
             {
-                if (e.Node.Tag is Member)
+                if (e.Node.Tag is RemoteSource)
                 {
-                    Member member = (Member)e.Node.Tag;
-                    Editor.OpenMember(member);
+                    RemoteSource member = (RemoteSource)e.Node.Tag;
+                    Editor.OpenSource(member);
                 }
             }
         }

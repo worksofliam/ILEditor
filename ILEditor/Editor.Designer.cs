@@ -35,8 +35,10 @@
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourcePhysicalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.streamFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.streamFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,6 +86,7 @@
             this.greenOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tabImageList = new System.Windows.Forms.ImageList(this.components);
+            this.localFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -124,7 +127,8 @@
             // 
             this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem,
-            this.sourcePhysicalFileToolStripMenuItem});
+            this.sourcePhysicalFileToolStripMenuItem,
+            this.streamFileToolStripMenuItem1});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.newToolStripMenuItem.Text = "New";
@@ -144,10 +148,19 @@
             this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
             this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
             // 
+            // streamFileToolStripMenuItem1
+            // 
+            this.streamFileToolStripMenuItem1.Name = "streamFileToolStripMenuItem1";
+            this.streamFileToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
+            this.streamFileToolStripMenuItem1.Text = "Stream file";
+            this.streamFileToolStripMenuItem1.Click += new System.EventHandler(this.streamFileToolStripMenuItem1_Click);
+            // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.memberToolStripMenuItem1});
+            this.memberToolStripMenuItem1,
+            this.streamFileToolStripMenuItem,
+            this.localFileToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "Open";
@@ -159,6 +172,13 @@
             this.memberToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.memberToolStripMenuItem1.Text = "Member";
             this.memberToolStripMenuItem1.Click += new System.EventHandler(this.memberToolStripMenuItem1_Click);
+            // 
+            // streamFileToolStripMenuItem
+            // 
+            this.streamFileToolStripMenuItem.Name = "streamFileToolStripMenuItem";
+            this.streamFileToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.streamFileToolStripMenuItem.Text = "Stream file";
+            this.streamFileToolStripMenuItem.Click += new System.EventHandler(this.streamFileToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -574,6 +594,13 @@
             this.tabImageList.Images.SetKeyName(2, "file.png");
             this.tabImageList.Images.SetKeyName(3, "worksofbarry_mOq_icon.ico");
             // 
+            // localFileToolStripMenuItem
+            // 
+            this.localFileToolStripMenuItem.Name = "localFileToolStripMenuItem";
+            this.localFileToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.localFileToolStripMenuItem.Text = "Local file";
+            this.localFileToolStripMenuItem.Click += new System.EventHandler(this.localFileToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -660,6 +687,9 @@
         private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourcePhysicalFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem streamFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem streamFileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem localFileToolStripMenuItem;
     }
 }
 

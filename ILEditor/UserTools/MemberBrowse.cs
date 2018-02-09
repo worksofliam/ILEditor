@@ -38,7 +38,7 @@ namespace ILEditor.UserTools
         {
             Thread gothread = new Thread((ThreadStart)delegate
             {
-                Member[] members;
+                RemoteSource[] members;
                 ListViewItem curItem;
                 Boolean NoMembers = false;
 
@@ -62,9 +62,9 @@ namespace ILEditor.UserTools
                     NoMembers = (members.Length == 0);
                     if (!NoMembers)
                     {
-                        foreach (Member member in members)
+                        foreach (RemoteSource member in members)
                         {
-                            curItem = new ListViewItem(new[] { member.GetMember(), member.GetExtension(), member.GetText() }, 0);
+                            curItem = new ListViewItem(new[] { member.GetName(), member.GetExtension(), member.GetText() }, 0);
                             curItem.Tag = member;
 
                             curItems.Add(curItem);
@@ -133,9 +133,9 @@ namespace ILEditor.UserTools
                 ListViewItem selection = memberList.SelectedItems[0];
                 if (selection.Tag != null)
                 {
-                    Member member = (Member)selection.Tag;
+                    RemoteSource member = (RemoteSource)selection.Tag;
 
-                    Editor.OpenMember(member);
+                    Editor.OpenSource(member);
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace ILEditor.UserTools
             if (newMemberForm.created)
             {
                 ListViewItem curItem = new ListViewItem(new string[3] { newMemberForm._mbr, newMemberForm._type, newMemberForm._text }, 0);
-                curItem.Tag = new Member("", library.Text.Trim(), spf.Text.Trim(), newMemberForm._mbr, newMemberForm._type);
+                curItem.Tag = new RemoteSource("", library.Text.Trim(), spf.Text.Trim(), newMemberForm._mbr, newMemberForm._type);
                 memberList.Items.Add(curItem);
             }
 
@@ -157,14 +157,14 @@ namespace ILEditor.UserTools
 
         #region rightclick
 
-        private Member currentRightClick;
+        private RemoteSource currentRightClick;
         private void memberList_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 if (memberList.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
-                    currentRightClick = (Member)memberList.FocusedItem.Tag;
+                    currentRightClick = (RemoteSource)memberList.FocusedItem.Tag;
                     compileRightclick.Show(Cursor.Position);
                 }
             }
@@ -176,7 +176,7 @@ namespace ILEditor.UserTools
             List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
             if (currentRightClick != null)
             {
-                Member MemberInfo = currentRightClick;
+                RemoteSource MemberInfo = currentRightClick;
                 string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
                 foreach (string Item in Items)
                 {

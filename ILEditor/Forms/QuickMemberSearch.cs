@@ -89,8 +89,8 @@ namespace ILEditor.Forms
                 string type = MemberCache.GetType(Member);
                 string[] data = Member.Split(new char[] { '/', '.' }, StringSplitOptions.RemoveEmptyEntries);
 
-                Member openMember = new Classes.Member("", data[0], data[1], data[2], type);
-                Editor.OpenMember(openMember);
+                RemoteSource openMember = new Classes.RemoteSource("", data[0], data[1], data[2], type);
+                Editor.OpenSource(openMember);
 
                 this.Close();
             }

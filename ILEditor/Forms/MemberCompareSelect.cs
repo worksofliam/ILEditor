@@ -63,8 +63,8 @@ namespace ILEditor.Forms
             }
 
             new MemberCompareDisplay(
-                new Member(FileA, libA.Text, spfA.Text, mbrA.Text, ""),
-                new Member(FileB, libA.Text, spfA.Text, mbrB.Text, "")
+                new RemoteSource(FileA, libA.Text, spfA.Text, mbrA.Text, ""),
+                new RemoteSource(FileB, libA.Text, spfA.Text, mbrB.Text, "")
             ).ShowDialog();
 
             this.Close();

@@ -38,7 +38,7 @@ namespace ILEditor.Forms
         private List<string> LocalSPFs;
         private void fetch_Click(object sender, EventArgs e)
         {
-            Member[] MemberList;
+            RemoteSource[] MemberList;
             List<ListViewItem> Items = new List<ListViewItem>();
             ListViewItem Item;
             LocalSPFs = new List<string>();
@@ -60,9 +60,9 @@ namespace ILEditor.Forms
                     LocalSPFs.Add(IBMiUtils.GetLocalDir(lib.Text, Object.Name));
                     for (int i = 0; i < MemberList.Length; i++)
                     {
-                        Item = new ListViewItem(MemberList[i].GetObject() + "/" + MemberList[i].GetMember() + "." + MemberList[i].GetExtension().ToLower());
+                        Item = new ListViewItem(MemberList[i].GetObject() + "/" + MemberList[i].GetName() + "." + MemberList[i].GetExtension().ToLower());
                         Item.Checked = true;
-                        Item.Tag = new string[2] { MemberList[i].GetObject() + "/" + MemberList[i].GetMember(), IBMiUtils.GetLocalFile(MemberList[i].GetLibrary(), MemberList[i].GetObject(), MemberList[i].GetMember(), MemberList[i].GetExtension()) };
+                        Item.Tag = new string[2] { MemberList[i].GetObject() + "/" + MemberList[i].GetName(), IBMiUtils.GetLocalFile(MemberList[i].GetLibrary(), MemberList[i].GetObject(), MemberList[i].GetName(), MemberList[i].GetExtension()) };
                         Items.Add(Item);
                     }
                 }

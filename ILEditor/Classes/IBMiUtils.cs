@@ -218,11 +218,11 @@ namespace ILEditor.Classes
             return SPFList.ToArray();
         }
 
-        public static Member[] GetMemberList(string Lib, string Obj)
+        public static RemoteSource[] GetMemberList(string Lib, string Obj)
         {
             string Line, Object, Name, Desc, Type, RcdLen;
-            List<Member> Members = new List<Member>();
-            Member NewMember;
+            List<RemoteSource> Members = new List<RemoteSource>();
+            RemoteSource NewMember;
 
             Lib = Lib.ToUpper();
             Obj = Obj.ToUpper();
@@ -259,7 +259,7 @@ namespace ILEditor.Classes
 
                             if (Name != "")
                             {
-                                NewMember = new Member("", Lib, Object, Name, Type, true, int.Parse(RcdLen) - 12);
+                                NewMember = new RemoteSource("", Lib, Object, Name, Type, true, int.Parse(RcdLen) - 12);
                                 NewMember._Text = Desc;
 
                                 Members.Add(NewMember);
@@ -285,7 +285,7 @@ namespace ILEditor.Classes
                         Type = Path.GetExtension(file).ToUpper();
                         if (Type.StartsWith(".")) Type = Type.Substring(1);
                         
-                        NewMember = new Member(file, Lib, Obj, Path.GetFileNameWithoutExtension(file), Type);
+                        NewMember = new RemoteSource(file, Lib, Obj, Path.GetFileNameWithoutExtension(file), Type);
                         NewMember._Text = "";
                         Members.Add(NewMember);
                     }
@@ -351,27 +351,27 @@ namespace ILEditor.Classes
             }
         }
 
-        public static Boolean CompileMember(Member MemberInfo, string TrueCmd = "")
+        public static Boolean CompileMember(RemoteSource SourceInfo, string TrueCmd = "")
         {
             if (IBMi.IsConnected())
             {
                 List<string> commands = new List<string>();
                 string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
 
-                if (MemberInfo != null)
+                if (SourceInfo != null)
                 {
-                    type = MemberInfo.GetExtension();
+                    type = SourceInfo.GetExtension();
                     command = IBMi.CurrentSystem.GetValue("DFT_" + type);
                     if (command.Trim() != "")
                     {
                         if (TrueCmd != "") command = TrueCmd;
-                        Editor.TheEditor.SetStatus("Compiling " + MemberInfo.GetMember() + " with " + command + "...");
+                        Editor.TheEditor.SetStatus("Compiling " + SourceInfo.GetName() + " with " + command + "...");
                         command = IBMi.CurrentSystem.GetValue(command);
                         if (command.Trim() != "")
                         {
-                            command = command.Replace("&OPENLIB", MemberInfo.GetLibrary());
-                            command = command.Replace("&OPENSPF", MemberInfo.GetObject());
-                            command = command.Replace("&OPENMBR", MemberInfo.GetMember());
+                            command = command.Replace("&OPENLIB", SourceInfo.GetLibrary());
+                            command = command.Replace("&OPENSPF", SourceInfo.GetObject());
+                            command = command.Replace("&OPENMBR", SourceInfo.GetName());
                             command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
                             
                             IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
@@ -382,7 +382,7 @@ namespace ILEditor.Classes
                                 if (command.ToUpper().Contains("*EVENTF"))
                                 {
                                     Editor.TheEditor.SetStatus("Fetching errors..");
-                                    Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                                    Editor.TheEditor.AddTool("Error Listing", new ErrorListing(SourceInfo.GetLibrary(), SourceInfo.GetName()), true);
                                 }
                                 if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
                                 {
@@ -500,6 +500,27 @@ namespace ILEditor.Classes
             }
         }
 
+        public static string DownloadFile(string RemoteFile)
+        {
+            string filetemp = Path.Combine(GetLocalDir("IFS"), Path.GetFileName(RemoteFile));
+
+            if (IBMi.IsConnected())
+            {
+                if (IBMi.DownloadFile(filetemp, RemoteFile) == false)
+                    return filetemp;
+                else
+                    return "";
+            }
+            else
+            {
+                Editor.TheEditor.SetStatus("Fetching existing local file.");
+                if (File.Exists(filetemp))
+                    return filetemp;
+                else
+                    return "";
+            }
+        }
+
         public static bool UploadMember(string Local, string Lib, string Obj, string Mbr)
         {
             Lib = Lib.ToUpper();
@@ -508,6 +529,16 @@ namespace ILEditor.Classes
             
             if (IBMi.IsConnected()) 
                 return IBMi.UploadFile(Local, "/QSYS.lib/" + Lib + ".lib/" + Obj + ".file/" + Mbr + ".mbr");
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool UploadFile(string Local, string Remote)
+        {
+            if (IBMi.IsConnected())
+                return IBMi.UploadFile(Local, Remote);
             else
             {
                 Editor.TheEditor.SetStatus("Saving locally only.");

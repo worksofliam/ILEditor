@@ -15,11 +15,11 @@ namespace ILEditor.Forms
 {
     public partial class MemberCompareDisplay : Form
     {
-        public MemberCompareDisplay(Member MemberA, Member MemberB)
+        public MemberCompareDisplay(RemoteSource MemberA, RemoteSource MemberB)
         {
             InitializeComponent();
 
-            this.Text = MemberA.GetLibrary() + "/" + MemberA.GetObject() + "." + MemberA.GetMember() + " -> " + MemberB.GetLibrary() + "/" + MemberB.GetObject() + "." + MemberB.GetMember();
+            this.Text = MemberA.GetLibrary() + "/" + MemberA.GetObject() + "." + MemberA.GetName() + " -> " + MemberB.GetLibrary() + "/" + MemberB.GetObject() + "." + MemberB.GetName();
 
             var dmp = new diff_match_patch();
             var res = dmp.diff_main(File.ReadAllText(MemberA.GetLocalFile()), File.ReadAllText(MemberB.GetLocalFile()), false);

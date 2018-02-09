@@ -142,11 +142,11 @@ namespace ILEditor
 
         private void Editortabs_TabClosed(object sender, TabControlEventArgs e)
         {
-            Member member;
-            if (e.TabPage.Tag is Member)
+            RemoteSource source;
+            if (e.TabPage.Tag is RemoteSource)
             {
-                member = e.TabPage.Tag as Member;
-                member.Unlock();
+                source = e.TabPage.Tag as RemoteSource;
+                source.Unlock();
             }
 
             e.TabPage.Dispose();
@@ -175,7 +175,7 @@ namespace ILEditor
             editortabsleft.TabPages.Add(tabPage);
         }
 
-        #region MemberInfo
+        #region SourceInfo
         public static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
         {
             { "RPG", ILELanguage.RPG },
@@ -247,11 +247,11 @@ namespace ILEditor
         {
             if (this.LastEditing.Tag != null)
             {
-                Member MemberInfo = (Member)this.LastEditing.Tag;
-                ILELanguage Language = GetBoundLangType(MemberInfo.GetExtension());
+                RemoteSource SourceInfo = (RemoteSource)this.LastEditing.Tag;
+                ILELanguage Language = GetBoundLangType(SourceInfo.GetExtension());
                 if (Language == ILELanguage.RPG)
                 {
-                    SetStatus("Converting RPG in " + MemberInfo.GetMember());
+                    SetStatus("Converting RPG in " + SourceInfo.GetName());
                     LastEditing.ConvertSelectedRPG();
                 }
             }
@@ -261,11 +261,11 @@ namespace ILEditor
         {
             if (this.LastEditing.Tag != null)
             {
-                Member MemberInfo = (Member)this.LastEditing.Tag;
-                ILELanguage Language = Editor.GetBoundLangType(MemberInfo.GetExtension());
+                RemoteSource SourceInfo = (RemoteSource)this.LastEditing.Tag;
+                ILELanguage Language = Editor.GetBoundLangType(SourceInfo.GetExtension());
                 if (Language == ILELanguage.CL)
                 {
-                    SetStatus("Formatting CL in " + MemberInfo.GetMember());
+                    SetStatus("Formatting CL in " + SourceInfo.GetName());
                     LastEditing.FormatCL();
                 }
             }
@@ -301,10 +301,10 @@ namespace ILEditor
             string lib = "", spf = "", mbr = "";
             if (this.LastEditing.Tag != null)
             {
-                Member MemberInfo = (Member)this.LastEditing.Tag;
+                RemoteSource MemberInfo = (RemoteSource)this.LastEditing.Tag;
                 lib = MemberInfo.GetLibrary();
                 spf = MemberInfo.GetObject();
-                mbr = MemberInfo.GetMember();
+                mbr = MemberInfo.GetName();
             }
             new MemberCompareSelect(lib, spf, mbr).ShowDialog();
         }
@@ -324,7 +324,7 @@ namespace ILEditor
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            Editor.TheEditor.AddMemberEditor(new Member(resultFile, "QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL", false), GetBoundLangType("SQL"));
+                            Editor.TheEditor.AddSourceEditor(new RemoteSource(resultFile, "QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL", false), GetBoundLangType("SQL"));
                         });
                     }
                 }).Start();
@@ -346,10 +346,10 @@ namespace ILEditor
         {
             if (LastEditing != null)
             {
-                Member MemberInfo = (Member)LastEditing.Tag;
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(MemberInfo);
+                    IBMiUtils.CompileMember(SourceInfo);
                 }).Start();
             }
         }
@@ -359,10 +359,10 @@ namespace ILEditor
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             if (LastEditing.Tag != null)
             {
-                Member MemberInfo = (Member)LastEditing.Tag;
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(MemberInfo, clickedItem.Text);
+                    IBMiUtils.CompileMember(SourceInfo, clickedItem.Text);
                 }).Start();
             }
         }
@@ -375,8 +375,8 @@ namespace ILEditor
             List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
             if (editortabsleft.SelectedTab.Tag != null)
             {
-                Member MemberInfo = (Member)LastEditing.Tag;
-                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
+                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + SourceInfo.GetExtension()).Split('|');
                 foreach (string Item in Items)
                 {
                     if (Item.Trim() == "") continue;
@@ -446,25 +446,38 @@ namespace ILEditor
             TheEditor.AddFileEditor(FilePath, GetBoundLangType(Extension));
         }
 
-        public static void OpenMember(Member member)
+        public static void OpenSource(RemoteSource source)
         {
-            string TabText = member.GetLibrary() + "/" + member.GetObject() + "(" + member.GetMember() + ")";
+            string resultFile = "";
             Thread gothread = new Thread((ThreadStart)delegate {
-                string resultFile = IBMiUtils.DownloadMember(member.GetLibrary(), member.GetObject(), member.GetMember(), member.GetExtension());
+                switch (source.GetFS())
+                {
+                    case FileSystem.QSYS:
+                        resultFile = IBMiUtils.DownloadMember(source.GetLibrary(), source.GetObject(), source.GetName(), source.GetExtension());
+                        break;
+                    case FileSystem.IFS:
+                        resultFile = IBMiUtils.DownloadFile(source.GetRemoteFile());
+                        break;
+                }
 
                 if (resultFile != "")
                 {
-                    member._Local = resultFile;
+                    source._Local = resultFile;
                     //LOCK HERE
-                    member.Lock();
+                    source.Lock();
                     TheEditor.Invoke((MethodInvoker)delegate
                     {
-                        TheEditor.AddMemberEditor(member, GetBoundLangType(member.GetExtension()));
+                        TheEditor.AddSourceEditor(source, GetBoundLangType(source.GetExtension()));
                     });
                 }
                 else
                 {
-                    MessageBox.Show("Unable to download member " + member.GetLibrary() + "/" + member.GetObject() + "." + member.GetMember() + ". Please check it exists and that you have access to the remote system.");
+                    switch (source.GetFS())
+                    {
+                        case FileSystem.QSYS:
+                            MessageBox.Show("Unable to download member " + source.GetLibrary() + "/" + source.GetObject() + "." + source.GetName() + ". Please check it exists and that you have access to the remote system.");
+                            break;
+                    }
                 }
 
             });
@@ -571,12 +584,22 @@ namespace ILEditor
             }
         }
 
-        private void AddMemberEditor(Member MemberInfo, ILELanguage Language = ILELanguage.None)
+        private void AddSourceEditor(RemoteSource SourceInfo, ILELanguage Language = ILELanguage.None)
         {
-            string pageName = MemberInfo.GetLibrary() + "/" + MemberInfo.GetObject() + "(" + MemberInfo.GetMember() + ")";
+            string pageName = "";
+            switch (SourceInfo.GetFS())
+            {
+                case FileSystem.QSYS:
+                    pageName = SourceInfo.GetLibrary() + "/" + SourceInfo.GetObject() + "(" + SourceInfo.GetName() + ")";
+                    break;
+                case FileSystem.IFS:
+                    pageName = SourceInfo.GetName() + "." + SourceInfo.GetExtension();
+                    break;
+            }
+            
             OpenTab currentTab = EditorContains(pageName);
 
-            if (File.Exists(MemberInfo.GetLocalFile()))
+            if (File.Exists(SourceInfo.GetLocalFile()))
             {
 
                 //Close tab if it already exists.
@@ -596,13 +619,13 @@ namespace ILEditor
                 TabPage tabPage = new TabPage(pageName);
                 tabPage.ImageIndex = 0;
                 tabPage.ToolTipText = pageName;
-                SourceEditor srcEdit = new SourceEditor(MemberInfo.GetLocalFile(), Language, MemberInfo.GetRecordLength());
-                srcEdit.SetReadOnly(!MemberInfo.IsEditable());
+                SourceEditor srcEdit = new SourceEditor(SourceInfo.GetLocalFile(), Language, SourceInfo.GetRecordLength());
+                srcEdit.SetReadOnly(!SourceInfo.IsEditable());
                 srcEdit.BringToFront();
                 srcEdit.Dock = DockStyle.Fill;
-                srcEdit.Tag = MemberInfo;
+                srcEdit.Tag = SourceInfo;
 
-                tabPage.Tag = MemberInfo;
+                tabPage.Tag = SourceInfo;
                 tabPage.Controls.Add(srcEdit);
                 editortabsleft.TabPages.Add(tabPage);
 
@@ -610,13 +633,13 @@ namespace ILEditor
             }
             else
             {
-                MessageBox.Show("There was an error opening the local member. '" + MemberInfo.GetLocalFile() + "' does not exist");
+                MessageBox.Show("There was an error opening the local member. '" + SourceInfo.GetLocalFile() + "' does not exist");
             }
         }
         
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Member member;
+            RemoteSource member;
             NewMember newMemberForm = new NewMember();
 
             newMemberForm.ShowDialog();
@@ -628,12 +651,12 @@ namespace ILEditor
 
                     if (resultFile != "")
                     {
-                        member = new Member(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true);
+                        member = new RemoteSource(resultFile, newMemberForm._lib, newMemberForm._spf, newMemberForm._mbr, newMemberForm._type, true);
                         //LOCK HERE
                         member.Lock();
                         this.Invoke((MethodInvoker)delegate
                         {
-                            Editor.TheEditor.AddMemberEditor(member, GetBoundLangType(newMemberForm._type));
+                            Editor.TheEditor.AddSourceEditor(member, GetBoundLangType(newMemberForm._type));
                         });
                     }
                 }).Start();
@@ -641,6 +664,15 @@ namespace ILEditor
             newMemberForm.Dispose();
         }
         
+        private void streamFileToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CreateStreamFile window = new CreateStreamFile();
+            window.ShowDialog();
+
+            if (window.result != null)
+                Editor.TheEditor.AddSourceEditor(window.result, GetBoundLangType(window.result.GetExtension()));
+        }
+
         private void sourcePhysicalFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new NewSPF().ShowDialog();
@@ -648,7 +680,28 @@ namespace ILEditor
 
         private void memberToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new OpenMember().ShowDialog();
+            new OpenSource(0).ShowDialog();
+        }
+        
+        private void streamFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new OpenSource(1).ShowDialog();
+        }
+
+        private void localFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ext;
+            using (OpenFileDialog fileSelect = new OpenFileDialog())
+            {
+                DialogResult result = fileSelect.ShowDialog();
+                if (result == DialogResult.OK) // Test result.
+                {
+                    ext = Path.GetExtension(fileSelect.FileName);
+                    if (ext.StartsWith(".")) ext = ext.Substring(1);
+
+                    AddFileEditor(fileSelect.FileName, GetBoundLangType(ext));
+                }
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -800,7 +853,6 @@ namespace ILEditor
             Process.Start(IBMi.FTPFile);
         }
         #endregion
-
     }
 
     public class OpenTab

@@ -1,0 +1,75 @@
+﻿using ILEditor.Classes;
+using ILEditor.UserTools;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ILEditor.Forms
+{
+    public partial class OpenSource : Form
+    {
+        public OpenSource(int tab = 0)
+        {
+            InitializeComponent();
+            type.Items.AddRange(Editor.LangTypes.Keys.ToArray());
+
+            tabs.SelectedIndex = tab;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Boolean isValid = true;
+
+            switch (tabs.SelectedIndex)
+            {
+                case 0:
+                    if (!IBMiUtils.IsValueObjectName(lib.Text))
+                        isValid = false;
+                    if (!IBMiUtils.IsValueObjectName(spf.Text))
+                        isValid = false;
+                    if (!IBMiUtils.IsValueObjectName(mbr.Text))
+                        isValid = false;
+
+                    if (isValid)
+                    {
+                        Editor.OpenSource(new RemoteSource("", lib.Text, spf.Text, mbr.Text, type.Text, true));
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("Member information not valid.");
+                    break;
+
+                case 1:
+                    stmfPath.Text = stmfPath.Text.Trim();
+
+                    if (IBMi.FileExists(stmfPath.Text)) {
+                        Editor.OpenSource(new RemoteSource("", stmfPath.Text));
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Chosen file does not exist.");
+                    }
+                    break;
+            }
+            
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            open.Text = "Open " + tabs.SelectedTab.Text;
+        }
+    }
+}

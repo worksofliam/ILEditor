@@ -68,7 +68,7 @@ namespace ILEditor.UserTools
                             if (Contains)
                             {
                                 currentResult = new TreeNode("Line " + currentLine.ToString(), 3, 3);
-                                currentResult.Tag = new Member(Member, Library, SPF, Name, Extension);
+                                currentResult.Tag = new RemoteSource(Member, Library, SPF, Name, Extension);
                                 CurrentFile.Nodes.Add(currentResult);
                             }
 
@@ -103,10 +103,10 @@ namespace ILEditor.UserTools
             if (e.Node.Tag == null) { }
             else
             {
-                if (e.Node.Tag is Member)
+                if (e.Node.Tag is RemoteSource)
                 {
-                    Member member = (Member)e.Node.Tag;
-                    Editor.OpenMember(member);
+                    RemoteSource member = (RemoteSource)e.Node.Tag;
+                    Editor.OpenSource(member);
                 }
             }
         }

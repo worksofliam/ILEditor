@@ -69,7 +69,6 @@ namespace ILEditor.Classes
 
             if (File.Exists(OfflineLoc))
             {
-                string[] data;
                 foreach (string Line in File.ReadAllLines(OfflineLoc))
                 {
                     OfflineEdits.Add(Line);

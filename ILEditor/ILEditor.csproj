@@ -68,7 +68,7 @@
     <ManifestKeyFile>Idle.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -129,7 +129,7 @@
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
-    <Compile Include="Classes\Member.cs" />
+    <Compile Include="Classes\RemoteSource.cs" />
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
@@ -224,17 +224,23 @@
     <Compile Include="Forms\FileSelect.Designer.cs">
       <DependentUpon>FileSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\OpenMember.cs">
+    <Compile Include="Forms\OpenSource.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\OpenMember.Designer.cs">
-      <DependentUpon>OpenMember.cs</DependentUpon>
+    <Compile Include="Forms\OpenSource.Designer.cs">
+      <DependentUpon>OpenSource.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HelpWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateStreamFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateStreamFile.Designer.cs">
+      <DependentUpon>CreateStreamFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PushWindow.cs">
       <SubType>Form</SubType>
@@ -373,6 +379,9 @@
     <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
       <DependentUpon>NewType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateStreamFile.resx">
+      <DependentUpon>CreateStreamFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirewallHelp.resx">
       <DependentUpon>FirewallHelp.cs</DependentUpon>
     </EmbeddedResource>
@@ -412,8 +421,8 @@
     <EmbeddedResource Include="Forms\FileSelect.resx">
       <DependentUpon>FileSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OpenMember.resx">
-      <DependentUpon>OpenMember.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\OpenSource.resx">
+      <DependentUpon>OpenSource.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PushWindow.resx">
       <DependentUpon>PushWindow.cs</DependentUpon>

@@ -226,6 +226,11 @@ namespace ILEditor.Classes
             return result;
         }
 
+        public static bool FileExists(string remoteFile)
+        {
+            return Client.FileExists(remoteFile);
+        }
+
         public static void SetWorkingDir(string RemoteDir)
         {
             Client.SetWorkingDirectory(RemoteDir);
@@ -238,6 +243,5 @@ namespace ILEditor.Classes
         {
             Client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
         }
-
     }
 }
