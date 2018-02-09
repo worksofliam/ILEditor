@@ -349,7 +349,7 @@ namespace ILEditor
                 RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(SourceInfo);
+                    IBMiUtils.CompileSource(SourceInfo);
                 }).Start();
             }
         }
@@ -362,7 +362,7 @@ namespace ILEditor
                 RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(SourceInfo, clickedItem.Text);
+                    IBMiUtils.CompileSource(SourceInfo, clickedItem.Text);
                 }).Start();
             }
         }

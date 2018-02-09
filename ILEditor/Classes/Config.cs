@@ -72,7 +72,6 @@ namespace ILEditor.Classes
             CheckExist("curlib", "SYSTOOLS");
 
             CheckExist("homeDir", "/home/" + Data["username"] + "/");
-            CheckExist("buildLib", "QTEMP");
             CheckExist("tempSpf", "QSOURCE");
 
             CheckExist("printerLib", "");
@@ -95,10 +94,14 @@ namespace ILEditor.Classes
 
             CheckExist("TYPE_RPGLE", "CRTBNDRPG|CRTRPGMOD");
             CheckExist("CRTBNDRPG", "CRTBNDRPG PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF) DBGVIEW(*SOURCE)");
+            CheckExist("CRTBNDRPG_IFS", "CRTBNDRPG PGM(&BUILDLIB/&FILENAME) SRCSTMF('&FILEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE)");
+
             CheckExist("CRTRPGMOD", "CRTRPGMOD MODULE(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF)");
 
             CheckExist("TYPE_SQLRPGLE", "CRTSQLRPGI|CRTSQLRPGI_MOD");
             CheckExist("CRTSQLRPGI", "CRTSQLRPGI OBJ(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) COMMIT(*NONE) OPTION(*EVENTF *XREF)");
+            CheckExist("CRTSQLRPGI_IFS", "CRTSQLRPGI OBJ(&BUILDLIB/&FILENAME) SRCSTMF('&FILEPATH') COMMIT(*NONE) OPTION(*EVENTF *XREF)");
+
             CheckExist("CRTSQLRPGI_MOD", "CRTSQLRPGI OBJ(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) COMMIT(*NONE) OBJTYPE(*MODULE) OPTION(*EVENTF *XREF)");
 
             CheckExist("TYPE_CLLE", "CRTBNDCL");
@@ -110,10 +113,6 @@ namespace ILEditor.Classes
 
             CheckExist("TYPE_CMD", "CRTCMD");
             CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
-
-            CheckExist("LIBSAVE", "");
-
-            CheckExist("PROJECTS", "");
         }
 
         public void SaveConfig()

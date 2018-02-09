@@ -78,8 +78,6 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.buildLib = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.tempSpf = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.homeDir = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
@@ -603,8 +601,6 @@
             // 
             this.tabPage5.Controls.Add(this.label21);
             this.tabPage5.Controls.Add(this.homeDir);
-            this.tabPage5.Controls.Add(this.tempSpf);
-            this.tabPage5.Controls.Add(this.label18);
             this.tabPage5.Controls.Add(this.buildLib);
             this.tabPage5.Controls.Add(this.label17);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -631,24 +627,6 @@
             this.label17.Size = new System.Drawing.Size(64, 13);
             this.label17.TabIndex = 18;
             this.label17.Text = "Build Library";
-            // 
-            // tempSpf
-            // 
-            this.tempSpf.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tempSpf.Location = new System.Drawing.Point(253, 66);
-            this.tempSpf.MaxLength = 10;
-            this.tempSpf.Name = "tempSpf";
-            this.tempSpf.Size = new System.Drawing.Size(100, 20);
-            this.tempSpf.TabIndex = 19;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 69);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(191, 13);
-            this.label18.TabIndex = 18;
-            this.label18.Text = "Temporary SPF (for IFS CL, DSPF, etc)";
             // 
             // homeDir
             // 
@@ -750,8 +728,6 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox homeDir;
-        private System.Windows.Forms.TextBox tempSpf;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox buildLib;
         private System.Windows.Forms.Label label17;
     }

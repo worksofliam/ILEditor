@@ -351,27 +351,49 @@ namespace ILEditor.Classes
             }
         }
 
-        public static Boolean CompileMember(RemoteSource SourceInfo, string TrueCmd = "")
+        public static Boolean CompileSource(RemoteSource SourceInfo, string TrueCmd = "")
         {
             if (IBMi.IsConnected())
             {
                 List<string> commands = new List<string>();
-                string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
+                string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG"), name, library = "";
 
                 if (SourceInfo != null)
                 {
-                    type = SourceInfo.GetExtension();
+                    type = SourceInfo.GetExtension().ToUpper();
                     command = IBMi.CurrentSystem.GetValue("DFT_" + type);
                     if (command.Trim() != "")
                     {
                         if (TrueCmd != "") command = TrueCmd;
                         Editor.TheEditor.SetStatus("Compiling " + SourceInfo.GetName() + " with " + command + "...");
+
+                        if (SourceInfo.GetFS() == FileSystem.IFS)
+                            command += "_IFS";
+
                         command = IBMi.CurrentSystem.GetValue(command);
                         if (command.Trim() != "")
                         {
-                            command = command.Replace("&OPENLIB", SourceInfo.GetLibrary());
-                            command = command.Replace("&OPENSPF", SourceInfo.GetObject());
-                            command = command.Replace("&OPENMBR", SourceInfo.GetName());
+                            name = SourceInfo.GetName();
+                            if (name.Length > 10) name.Substring(0, 10);
+
+                            switch (SourceInfo.GetFS())
+                            {
+                                case FileSystem.QSYS:
+                                    command = command.Replace("&OPENLIB", SourceInfo.GetLibrary());
+                                    command = command.Replace("&OPENSPF", SourceInfo.GetObject());
+                                    command = command.Replace("&OPENMBR", SourceInfo.GetName());
+                                    library = SourceInfo.GetLibrary();
+                                    break;
+                                case FileSystem.IFS:
+                                    command = command.Replace("&FILENAME", name);
+                                    command = command.Replace("&FILEPATH", SourceInfo.GetRemoteFile());
+                                    command = command.Replace("&BUILDLIB", IBMi.CurrentSystem.GetValue("buildLib"));
+
+                                    library = IBMi.CurrentSystem.GetValue("buildLib");
+                                    IBMi.SetWorkingDir(IBMi.CurrentSystem.GetValue("homeDir"));
+                                    break;
+                            }
+
                             command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
                             
                             IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
@@ -382,7 +404,7 @@ namespace ILEditor.Classes
                                 if (command.ToUpper().Contains("*EVENTF"))
                                 {
                                     Editor.TheEditor.SetStatus("Fetching errors..");
-                                    Editor.TheEditor.AddTool("Error Listing", new ErrorListing(SourceInfo.GetLibrary(), SourceInfo.GetName()), true);
+                                    Editor.TheEditor.AddTool("Error Listing", new ErrorListing(library, name), true);
                                 }
                                 if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
                                 {

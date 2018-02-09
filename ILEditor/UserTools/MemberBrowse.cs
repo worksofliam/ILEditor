@@ -196,7 +196,7 @@ namespace ILEditor.UserTools
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             if (currentRightClick != null)
             {
-                IBMiUtils.CompileMember(currentRightClick, clickedItem.Text);
+                IBMiUtils.CompileSource(currentRightClick, clickedItem.Text);
             }
         }
 
@@ -206,7 +206,7 @@ namespace ILEditor.UserTools
             {
                 new Thread((ThreadStart)delegate
                 {
-                    IBMiUtils.CompileMember(currentRightClick);
+                    IBMiUtils.CompileSource(currentRightClick);
                 }).Start();
             }
         }
