@@ -40,9 +40,9 @@
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.command_ifs = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -50,10 +50,11 @@
             // 
             // command_qsys
             // 
+            this.command_qsys.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.command_qsys.Location = new System.Drawing.Point(6, 25);
             this.command_qsys.MaxLength = 256;
             this.command_qsys.Name = "command_qsys";
-            this.command_qsys.Size = new System.Drawing.Size(347, 20);
+            this.command_qsys.Size = new System.Drawing.Size(347, 25);
             this.command_qsys.TabIndex = 0;
             // 
             // types
@@ -159,23 +160,6 @@
             this.tabPage2.Text = "IFS";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // command_ifs
-            // 
-            this.command_ifs.Location = new System.Drawing.Point(6, 25);
-            this.command_ifs.MaxLength = 256;
-            this.command_ifs.Name = "command_ifs";
-            this.command_ifs.Size = new System.Drawing.Size(347, 20);
-            this.command_ifs.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Command";
-            // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
@@ -188,6 +172,24 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(347, 56);
             this.listBox2.TabIndex = 9;
+            // 
+            // command_ifs
+            // 
+            this.command_ifs.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.command_ifs.Location = new System.Drawing.Point(6, 25);
+            this.command_ifs.MaxLength = 256;
+            this.command_ifs.Name = "command_ifs";
+            this.command_ifs.Size = new System.Drawing.Size(347, 25);
+            this.command_ifs.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Command";
             // 
             // EditCommand
             // 
