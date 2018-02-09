@@ -46,6 +46,10 @@ namespace ILEditor.Forms
             dataConnectionType.SelectedItem = IBMi.CurrentSystem.GetValue("transferMode");
             ftpes.Checked = (Program.Config.GetValue("useFTPES") == "true");
 
+            homeDir.Text = IBMi.CurrentSystem.GetValue("homeDir");
+            buildLib.Text = IBMi.CurrentSystem.GetValue("buildLib");
+            tempSpf.Text = IBMi.CurrentSystem.GetValue("tempSpf");
+
             selectedFont.SelectedItem = IBMi.CurrentSystem.GetValue("FONT");
             cur_size.Text = IBMi.CurrentSystem.GetValue("ZOOM");
             indent_size.Value = decimal.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
@@ -75,6 +79,10 @@ namespace ILEditor.Forms
             
             IBMi.CurrentSystem.SetValue("transferMode", dataConnectionType.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("useFTPES", ftpes.Checked.ToString().ToLower());
+
+            IBMi.CurrentSystem.SetValue("homeDir", homeDir.Text);
+            IBMi.CurrentSystem.SetValue("buildLib", buildLib.Text);
+            IBMi.CurrentSystem.SetValue("tempSpf", tempSpf.Text);
 
             IBMi.CurrentSystem.SetValue("FONT", selectedFont.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());

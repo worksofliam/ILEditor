@@ -51,6 +51,7 @@
             this.validACS = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.systemInfo = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -74,7 +75,13 @@
             this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.systemInfo = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buildLib = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tempSpf = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.homeDir = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -83,6 +90,7 @@
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // save
@@ -294,6 +302,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -323,6 +332,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // systemInfo
+            // 
+            this.systemInfo.AutoSize = true;
+            this.systemInfo.Location = new System.Drawing.Point(8, 13);
+            this.systemInfo.Name = "systemInfo";
+            this.systemInfo.Size = new System.Drawing.Size(57, 13);
+            this.systemInfo.TabIndex = 15;
+            this.systemInfo.Text = "systemInfo";
             // 
             // label16
             // 
@@ -581,14 +599,73 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // systemInfo
+            // tabPage5
             // 
-            this.systemInfo.AutoSize = true;
-            this.systemInfo.Location = new System.Drawing.Point(8, 13);
-            this.systemInfo.Name = "systemInfo";
-            this.systemInfo.Size = new System.Drawing.Size(57, 13);
-            this.systemInfo.TabIndex = 15;
-            this.systemInfo.Text = "systemInfo";
+            this.tabPage5.Controls.Add(this.label21);
+            this.tabPage5.Controls.Add(this.homeDir);
+            this.tabPage5.Controls.Add(this.tempSpf);
+            this.tabPage5.Controls.Add(this.label18);
+            this.tabPage5.Controls.Add(this.buildLib);
+            this.tabPage5.Controls.Add(this.label17);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(361, 211);
+            this.tabPage5.TabIndex = 6;
+            this.tabPage5.Text = "IFS";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // buildLib
+            // 
+            this.buildLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.buildLib.Location = new System.Drawing.Point(253, 40);
+            this.buildLib.MaxLength = 10;
+            this.buildLib.Name = "buildLib";
+            this.buildLib.Size = new System.Drawing.Size(100, 20);
+            this.buildLib.TabIndex = 19;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 43);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(64, 13);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "Build Library";
+            // 
+            // tempSpf
+            // 
+            this.tempSpf.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tempSpf.Location = new System.Drawing.Point(253, 66);
+            this.tempSpf.MaxLength = 10;
+            this.tempSpf.Name = "tempSpf";
+            this.tempSpf.Size = new System.Drawing.Size(100, 20);
+            this.tempSpf.TabIndex = 19;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(12, 69);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(191, 13);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Temporary SPF (for IFS CL, DSPF, etc)";
+            // 
+            // homeDir
+            // 
+            this.homeDir.Location = new System.Drawing.Point(125, 14);
+            this.homeDir.MaxLength = 256;
+            this.homeDir.Name = "homeDir";
+            this.homeDir.Size = new System.Drawing.Size(228, 20);
+            this.homeDir.TabIndex = 20;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(12, 17);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(80, 13);
+            this.label21.TabIndex = 21;
+            this.label21.Text = "Home Directory";
             // 
             // Connection
             // 
@@ -616,6 +693,8 @@
             this.groupBox1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -668,5 +747,12 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox ftpes;
         private System.Windows.Forms.Label systemInfo;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox homeDir;
+        private System.Windows.Forms.TextBox tempSpf;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox buildLib;
+        private System.Windows.Forms.Label label17;
     }
 }
