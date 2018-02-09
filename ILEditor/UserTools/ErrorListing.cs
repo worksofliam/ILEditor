@@ -94,6 +94,7 @@ namespace ILEditor.UserTools
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            string name = "";
             if (e.Node.Tag == null) { }
             else
             {
@@ -106,7 +107,11 @@ namespace ILEditor.UserTools
                 error = e.Node.Text;
                 if (col > 0) col--;
 
-                onSelectError(e.Node.Parent.Text, line, col, error);
+                name = e.Node.Parent.Text;
+                if (name.Substring(0, 1) == "/")
+                    name = name.Split('/').Last();
+
+                onSelectError(name, line, col, error);
             }
         }
 
