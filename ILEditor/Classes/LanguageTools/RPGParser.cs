@@ -36,7 +36,7 @@ namespace ILEditor.Classes.LanguageTools
             char[] chars = input.ToCharArray();
 
             string line = input.Substring(8).Trim();
-            string name = input.Substring(8, 16).Trim();
+            string name = input.Substring(7, 16).Trim();
             string len = "";
             string type = "";
             string decimals = "";
@@ -68,6 +68,9 @@ namespace ILEditor.Classes.LanguageTools
                 case 'H':
                     keywords = input.Substring(7);
                     output = "Ctl-Opt " + keywords.Trim() + ';';
+                    break;
+                case 'F':
+                    
                     break;
                 case 'D':
                     len = input.Substring(33, 7).Trim();
