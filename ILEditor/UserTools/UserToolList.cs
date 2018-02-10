@@ -40,7 +40,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.AddTool("Program Listing", new ObjectBrowse());
                         break;
                     case "TREE":
-                        Editor.TheEditor.AddTool("Tree Browser", new TreeBrowse());
+                        Editor.TheEditor.AddTool("QSYS Browser", new TreeBrowse());
                         break;
                     case "SPL":
                         Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
