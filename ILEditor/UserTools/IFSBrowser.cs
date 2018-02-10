@@ -27,23 +27,30 @@ namespace ILEditor.UserTools
         {
             Boolean exists;
             TreeNode node;
-            new Thread((ThreadStart)delegate
+            if (IBMi.IsConnected())
             {
-                exists = IBMi.DirExists(RootDirectory);
-                this.Invoke((MethodInvoker)delegate
+                new Thread((ThreadStart)delegate
                 {
-                    if (exists)
+                    exists = IBMi.DirExists(RootDirectory);
+                    this.Invoke((MethodInvoker)delegate
                     {
-                        node = new TreeNode(RootDirectory, new[] { new TreeNode("Loading..", 2, 2) });
-                        node.Tag = RootDirectory;
-                        node.ImageIndex = 0;
-                        node.SelectedImageIndex = 0;
-                        files.Nodes.Add(node);
-                    } 
-                    else
-                        files.Nodes.Add(new TreeNode("Home directory (" + RootDirectory + ") does not exist.", 3, 3));
-                });
-            }).Start();
+                        if (exists)
+                        {
+                            node = new TreeNode(RootDirectory, new[] { new TreeNode("Loading..", 2, 2) });
+                            node.Tag = RootDirectory;
+                            node.ImageIndex = 0;
+                            node.SelectedImageIndex = 0;
+                            files.Nodes.Add(node);
+                        }
+                        else
+                            files.Nodes.Add(new TreeNode("Home directory (" + RootDirectory + ") does not exist.", 3, 3));
+                    });
+                }).Start();
+            }
+            else
+            {
+                files.Nodes.Add(new TreeNode("IFS Browsing only works when connected to the remote system.", 3, 3));
+            }
         }
 
         private void files_AfterExpand(object sender, TreeViewEventArgs e)
@@ -89,9 +96,8 @@ namespace ILEditor.UserTools
         private void files_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (files.SelectedNode != null)
-            {
-                Editor.OpenSource(new RemoteSource("", files.SelectedNode.Tag.ToString()));
-            }
+                if (files.SelectedNode.Tag != null)
+                    Editor.OpenSource(new RemoteSource("", files.SelectedNode.Tag.ToString()));
         }
 
         private void files_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
