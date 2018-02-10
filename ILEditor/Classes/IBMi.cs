@@ -230,6 +230,47 @@ namespace ILEditor.Classes
         {
             return Client.FileExists(remoteFile);
         }
+        public static bool DirExists(string remoteDir)
+        {
+            return Client.DirectoryExists(remoteDir);
+        }
+        public static FtpListItem[] GetListing(string remoteDir)
+        {
+            return Client.GetListing(remoteDir);
+        }
+
+        public static string RenameDir(string remoteDir, string newName)
+        {
+            string[] pieces = remoteDir.Split('/');
+            pieces[pieces.Length - 1] = newName;
+            newName = String.Join("/", pieces);
+
+            if (Client.MoveDirectory(remoteDir, String.Join("/", pieces)))
+                return newName;
+            else
+                return remoteDir;
+        }
+        public static string RenameFile(string remoteFile, string newName)
+        {
+            string[] pieces = remoteFile.Split('/');
+            pieces[pieces.Length - 1] = newName;
+            newName = String.Join("/", pieces);
+
+            if (Client.MoveFile(remoteFile, newName))
+                return newName;
+            else
+                return remoteFile;
+        }
+
+        public static void DeleteDir(string remoteDir)
+        {
+            Client.DeleteDirectory(remoteDir);
+        }
+
+        public static void DeleteFile(string remoteFile)
+        {
+            Client.DeleteFile(remoteFile);
+        }
 
         public static void SetWorkingDir(string RemoteDir)
         {

@@ -158,6 +158,12 @@
     <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
       <DependentUpon>NewType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CreateDirectory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateDirectory.Designer.cs">
+      <DependentUpon>CreateDirectory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FirewallHelp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,6 +316,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserTools\IFSBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserTools\IFSBrowser.Designer.cs">
+      <DependentUpon>IFSBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\MemberSearchListing.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -378,6 +390,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
       <DependentUpon>NewType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateDirectory.resx">
+      <DependentUpon>CreateDirectory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateStreamFile.resx">
       <DependentUpon>CreateStreamFile.cs</DependentUpon>
@@ -460,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ErrorListing.resx">
       <DependentUpon>ErrorListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\IFSBrowser.resx">
+      <DependentUpon>IFSBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\MemberBrowse.resx">
       <DependentUpon>MemberBrowse.cs</DependentUpon>

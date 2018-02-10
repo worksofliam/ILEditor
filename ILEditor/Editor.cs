@@ -584,7 +584,7 @@ namespace ILEditor
             }
         }
 
-        private void AddSourceEditor(RemoteSource SourceInfo, ILELanguage Language = ILELanguage.None)
+        public void AddSourceEditor(RemoteSource SourceInfo, ILELanguage Language = ILELanguage.None)
         {
             string pageName = "";
             switch (SourceInfo.GetFS())

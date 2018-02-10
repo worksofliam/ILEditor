@@ -45,6 +45,9 @@ namespace ILEditor.UserTools
                     case "SPL":
                         Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
                         break;
+                    case "IFS":
+                        Editor.TheEditor.AddTool("IFS Browser", new IFSBrowser());
+                        break;
                 }
             }
         }

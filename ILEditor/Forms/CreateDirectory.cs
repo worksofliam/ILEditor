@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,36 +11,26 @@ using System.Windows.Forms;
 
 namespace ILEditor.Forms
 {
-    public partial class CreateStreamFile : Form
+    public partial class CreateDirectory : Form
     {
-        public RemoteSource result = null;
-        public CreateStreamFile(string PrePath = "")
+        public CreateDirectory(string Path = "")
         {
             InitializeComponent();
 
-            stmfPath.Text = PrePath;
-        }
-
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            path.Text = Path;
         }
 
         private void open_Click(object sender, EventArgs e)
         {
-            stmfPath.Text = stmfPath.Text.Trim();
-
-            if (stmfPath.Text == "")
+            if (path.Text == "")
             {
                 MessageBox.Show("Path cannot be blank");
             }
             else
             {
-                if (!IBMi.FileExists(stmfPath.Text))
+                if (!IBMi.DirExists(path.Text))
                 {
-                    string filetemp = Path.Combine(IBMiUtils.GetLocalDir("IFS"), Path.GetFileName(stmfPath.Text));
-                    File.Create(filetemp).Close();
-                    result = new RemoteSource(filetemp, stmfPath.Text);
+                    IBMi.CreateDirecory(path.Text);
                     this.Close();
                 }
                 else
@@ -49,6 +38,11 @@ namespace ILEditor.Forms
                     MessageBox.Show("Chosen path already exists.");
                 }
             }
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
