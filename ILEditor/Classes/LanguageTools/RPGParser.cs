@@ -41,8 +41,9 @@ namespace ILEditor.Classes.LanguageTools
             string type = "";
             string decimals = "";
             string keywords = input.Substring(44).Trim();
-            string output = "";
             string field = "";
+            string device;
+            string output = "";
 
             string factor1 = "", factor2 = "", result = "", opcode = "", plainOp = "", extended = "";
             string ind1, ind2, ind3;
@@ -70,8 +71,54 @@ namespace ILEditor.Classes.LanguageTools
                     output = "Ctl-Opt " + keywords.Trim() + ';';
                     break;
                 case 'F':
+                    name = input.Substring(7, 10).Trim(); //File name
+                    type = input.Substring(17, 1).ToUpper(); // I, U, O, C
+                    field = input.Substring(34, 1).ToUpper(); //KEYED
+                    device = input.Substring(36, 7).ToUpper().Trim(); //device: DISK, WORKSTN
+
+                    output = "Dcl-F " + name;
+
+                    switch (type)
+                    {
+                        case "I":
+                            type = "*Input";
+                            break;
+                        case "U":
+                            type = "*Update:*Delete:*Output";
+                            break;
+                        case "O":
+                            if (device != "PRINTER")
+                                type = "*Output";
+                            else
+                                type = "";
+                            break;
+                        case "C":
+                            if (device != "WORKSTN")
+                                type = "*INPUT:*OUTPUT";
+                            else
+                                type = "";
+                            break;
+
+                        default:
+                            type = "";
+                            break;
+                    }
+
+                    if (device != "DISK")
+                        output += ' ' + device;
+
+                    if (type != "")
+                        output += " Usage(" + type + ")";
+
+                    if (field == "K")
+                        output += " Keyed";
                     
+                    if (keywords != "")
+                        output += " " + keywords;
+
+                    output += ';';
                     break;
+
                 case 'D':
                     len = input.Substring(33, 7).Trim();
                     type = input.Substring(40, 1).Trim();
