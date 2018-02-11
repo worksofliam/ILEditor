@@ -216,6 +216,21 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;SyntaxDefinition name=&quot;Python&quot; extensions=&quot;.py;.pyw&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;# comment&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;Gray&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
+        ///	&lt;Color name=&quot;MethodCall&quot; foreground=&quot;Purple&quot; exampleText=&quot;def Hello()&quot;/&gt;
+        ///	&lt;Color name=&quot;NumberLiteral&quot; foreground=&quot;DarkBlue&quot; exampleText=&quot;3.1415f&quot;/&gt;
+        ///	&lt;Color name=&quot;Keywords&quot; fontWeight=&quot;bold&quot; foreground=&quot;Blue&quot; exampleText=&quot;if&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string darkPython {
+            get {
+                return ResourceManager.GetString("darkPython", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
         ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
         ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;#4FB548&quot; /&gt;
@@ -424,6 +439,21 @@ namespace ILEditor.Properties {
         public static string lightCPP {
             get {
                 return ResourceManager.GetString("lightCPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;SyntaxDefinition name=&quot;Python&quot; extensions=&quot;.py;.pyw&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;# comment&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;Gray&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
+        ///	&lt;Color name=&quot;MethodCall&quot; foreground=&quot;Purple&quot; exampleText=&quot;def Hello()&quot;/&gt;
+        ///	&lt;Color name=&quot;NumberLiteral&quot; foreground=&quot;DarkBlue&quot; exampleText=&quot;3.1415f&quot;/&gt;
+        ///	&lt;Color name=&quot;Keywords&quot; fontWeight=&quot;bold&quot; foreground=&quot;Blue&quot; exampleText=&quot;if&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string lightPython {
+            get {
+                return ResourceManager.GetString("lightPython", resourceCulture);
             }
         }
         

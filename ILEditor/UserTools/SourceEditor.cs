@@ -17,24 +17,26 @@ using ILEditor.Forms;
 
 namespace ILEditor.UserTools
 {
-    public enum ILELanguage
+
+    public enum Language
     {
         None,
         CL,
         CPP,
         RPG,
         SQL,
-        COBOL
+        COBOL,
+        Python
     }
 
     public partial class SourceEditor : UserControl
     {
         private TextEditor textEditor = null;
-        private ILELanguage Language;
+        private Language Language;
         private int RcdLen;
         private string LocalPath;
 
-        public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
+        public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0)
         {
             InitializeComponent();
 
@@ -86,22 +88,15 @@ namespace ILEditor.UserTools
 
             switch (Language)
             {
-                case ILELanguage.RPG:
-                    lang += "RPG";
+                case Language.SQL:
+                case Language.RPG:
+                case Language.CPP:
+                case Language.CL:
+                case Language.COBOL:
+                case Language.Python:
+                    lang += Language.ToString();
                     break;
-                case ILELanguage.SQL:
-                    lang += "SQL";
-                    break;
-                case ILELanguage.CPP:
-                    lang += "CPP";
-                    break;
-                case ILELanguage.CL:
-                    lang += "CL";
-                    break;
-                case ILELanguage.COBOL:
-                    lang += "COBOL";
-                    break;
-                case ILELanguage.None:
+                case Language.None:
                     lang = "";
                     break;
             }
@@ -319,7 +314,7 @@ namespace ILEditor.UserTools
             int index = 0;
             switch (Language)
             {
-                case ILELanguage.RPG:
+                case Language.RPG:
                     for (int i = 0; i < lines.Length; i++)
                     {
                         if (lines[i].Trim() != "")
@@ -331,9 +326,9 @@ namespace ILEditor.UserTools
                     textEditor.SelectedText = String.Join(Environment.NewLine, lines);
                     break;
 
-                case ILELanguage.CL:
-                case ILELanguage.CPP:
-                    if (lines.Length == 1 && Language != ILELanguage.CL)
+                case Language.CL:
+                case Language.CPP:
+                    if (lines.Length == 1 && Language != Language.CL)
                     {
                         index = GetSpaces(lines[0]);
                         lines[0] = lines[0].Insert(index, "//");
@@ -346,7 +341,7 @@ namespace ILEditor.UserTools
                     textEditor.SelectedText = String.Join(Environment.NewLine, lines);
                     break;
 
-                case ILELanguage.SQL:
+                case Language.SQL:
                     for (int i = 0; i < lines.Length; i++)
                     {
                         if (lines[i].Trim() != "")

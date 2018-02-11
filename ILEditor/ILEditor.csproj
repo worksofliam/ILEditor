@@ -572,6 +572,8 @@
     <None Include="Resources\NewIcons\search.png" />
     <None Include="Resources\NewIcons\refresh.png" />
     <None Include="Resources\NewIcons\filedelete.png" />
+    <Content Include="Resources\Highlighting\Dark\darkPython.xml" />
+    <Content Include="Resources\Highlighting\Light\lightPython.xml" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -176,30 +176,32 @@ namespace ILEditor
         }
 
         #region SourceInfo
-        public static readonly Dictionary<string, ILELanguage> LangTypes = new Dictionary<string, ILELanguage>()
+        public static readonly Dictionary<string, Language> LangTypes = new Dictionary<string, Language>()
         {
-            { "RPG", ILELanguage.RPG },
-            { "RPGLE", ILELanguage.RPG },
-            { "SQLRPGLE", ILELanguage.RPG },
-            { "CL", ILELanguage.CL },
-            { "CLLE", ILELanguage.CL },
-            { "CLP", ILELanguage.CL },
-            { "CMD", ILELanguage.CL },
-            { "CPP", ILELanguage.CPP },
-            { "C", ILELanguage.CPP },
-            { "SQL", ILELanguage.SQL },
-            { "CBL", ILELanguage.COBOL },
-            { "COBOL", ILELanguage.COBOL },
-            { "CBLLE", ILELanguage.COBOL }
+            { "RPG", Language.RPG },
+            { "RPGLE", Language.RPG },
+            { "SQLRPGLE", Language.RPG },
+            { "CL", Language.CL },
+            { "CLLE", Language.CL },
+            { "CLP", Language.CL },
+            { "CMD", Language.CL },
+            { "CPP", Language.CPP },
+            { "C", Language.CPP },
+            { "SQL", Language.SQL },
+            { "CBL", Language.COBOL },
+            { "COBOL", Language.COBOL },
+            { "CBLLE", Language.COBOL },
+            { "PYTHON", Language.Python },
+            { "PY", Language.Python }
         };
 
-        public static ILELanguage GetBoundLangType(string Obj)
+        public static Language GetBoundLangType(string Obj)
         {
             Obj = Obj.ToUpper();
             if (LangTypes.ContainsKey(Obj))
                 return LangTypes[Obj];
             else
-                return ILELanguage.None;
+                return Language.None;
         }
         #endregion
 
@@ -248,8 +250,8 @@ namespace ILEditor
             if (this.LastEditing.Tag != null)
             {
                 RemoteSource SourceInfo = (RemoteSource)this.LastEditing.Tag;
-                ILELanguage Language = GetBoundLangType(SourceInfo.GetExtension());
-                if (Language == ILELanguage.RPG)
+                Language Language = GetBoundLangType(SourceInfo.GetExtension());
+                if (Language == Language.RPG)
                 {
                     SetStatus("Converting RPG in " + SourceInfo.GetName());
                     LastEditing.ConvertSelectedRPG();
@@ -262,8 +264,8 @@ namespace ILEditor
             if (this.LastEditing.Tag != null)
             {
                 RemoteSource SourceInfo = (RemoteSource)this.LastEditing.Tag;
-                ILELanguage Language = Editor.GetBoundLangType(SourceInfo.GetExtension());
-                if (Language == ILELanguage.CL)
+                Language Language = Editor.GetBoundLangType(SourceInfo.GetExtension());
+                if (Language == Language.CL)
                 {
                     SetStatus("Formatting CL in " + SourceInfo.GetName());
                     LastEditing.FormatCL();
@@ -548,7 +550,7 @@ namespace ILEditor
             editortabs.Panel2Collapsed = (editortabsright.TabPages.Count == 0);
         }
 
-        private void AddFileEditor(string FilePath, ILELanguage Language)
+        private void AddFileEditor(string FilePath, Language Language)
         {
             string pageName = Path.GetFileName(FilePath);
             OpenTab currentTab = EditorContains(pageName);
@@ -584,7 +586,7 @@ namespace ILEditor
             }
         }
 
-        public void AddSourceEditor(RemoteSource SourceInfo, ILELanguage Language = ILELanguage.None)
+        public void AddSourceEditor(RemoteSource SourceInfo, Language Language = Language.None)
         {
             string pageName = "";
             switch (SourceInfo.GetFS())
