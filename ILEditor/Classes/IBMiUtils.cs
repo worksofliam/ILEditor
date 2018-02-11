@@ -310,9 +310,10 @@ namespace ILEditor.Classes
 
                 if (Lib != "" && Obj != "")
                 {
-                    UsingQTEMPFiles(new[] { "SPOOL" });
-
                     Editor.TheEditor.SetStatus("Fetching spool file listing.. (can take a moment)");
+
+                    UsingQTEMPFiles(new[] { "SPOOL" });
+                    IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d, Char(FILE_NUMBER) as e FROM TABLE(QSYS2.OUTPUT_QUEUE_ENTRIES(''" + Lib + "'', ''" + Obj + "'', ''*NO'')) A WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 25 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
                     file = DownloadMember("QTEMP", "SPOOL", "SPOOL");
                     Editor.TheEditor.SetStatus("Finished fetching spool file listing.");
                 }
@@ -483,7 +484,7 @@ namespace ILEditor.Classes
                 Editor.TheEditor.SetStatus("Downloading spool file " + Name + "..");
                 IBMi.RemoteCommand("CPYSPLF FILE(" + Name + ") JOB(" + Job + ") SPLNBR(" + Number.ToString() + ") TOFILE(*TOSTMF) TOSTMF('" + remoteTemp + "') STMFOPT(*REPLACE)");
 
-                if (IBMi.DownloadFile(filetemp, remoteTemp))
+                if (!IBMi.DownloadFile(filetemp, remoteTemp))
                 {
                     Editor.TheEditor.SetStatus("Downloaded spool file " + Name + ".");
                     return filetemp;
