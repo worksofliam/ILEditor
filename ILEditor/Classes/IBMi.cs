@@ -109,6 +109,8 @@ namespace ILEditor.Classes
 
                     //Change the user library list on connection
                     RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+
+                    KeepAlive();
                 }
 
                 result = true;
@@ -125,6 +127,11 @@ namespace ILEditor.Classes
         {
             if (Client.IsConnected)
                 Client.Disconnect();
+        }
+
+        private static void KeepAlive()
+        {
+            new System.Threading.Timer(e => Client.Execute("NOOP"), null, TimeSpan.Zero, TimeSpan.FromMinutes(4));
         }
 
         public static string GetSystem()
