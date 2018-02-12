@@ -837,6 +837,22 @@ namespace ILEditor
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             MemberCache.Export();
+
+            //Unlock any members still open when application ends
+            RemoteSource source = null;
+            foreach (TabPage tab in editortabsleft.TabPages)
+                if (tab.Tag is RemoteSource)
+                {
+                    source = tab.Tag as RemoteSource;
+                    source.Unlock();
+                }
+
+            foreach (TabPage tab in editortabsright.TabPages)
+                if (tab.Tag is RemoteSource)
+                {
+                    source = tab.Tag as RemoteSource;
+                    source.Unlock();
+                }
         }
 
         #region Help
