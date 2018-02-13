@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using ILEditor.Classes;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class SpoolListing : UserControl
+    public partial class SpoolListing : DockContent
     {
         public SpoolListing()
         {
             InitializeComponent();
+
+            this.Text = "Spool Listing";
+
             RefreshList();
         }
 
@@ -77,7 +81,7 @@ namespace ILEditor.UserTools
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                Editor.TheEditor.AddSpoolFile(spool.getName(), SpoolFile);
+                                //TODO: AddTool for spool file!!
                             });
                         }
                         else

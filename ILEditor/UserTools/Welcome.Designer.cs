@@ -181,6 +181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(873, 490);
             this.Controls.Add(this.linkLabel5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.devNews);
@@ -193,7 +194,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Welcome";
-            this.Size = new System.Drawing.Size(889, 529);
+            this.Text = "Welcome";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -405,7 +405,7 @@ namespace ILEditor.Classes
                                 if (command.ToUpper().Contains("*EVENTF"))
                                 {
                                     Editor.TheEditor.SetStatus("Fetching errors..");
-                                    Editor.TheEditor.AddTool("Error Listing", new ErrorListing(library, name), true);
+                                    Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockRight, true);
                                 }
                                 if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
                                 {

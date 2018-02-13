@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ILEditor.Classes;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class ErrorListing : UserControl
+    public partial class ErrorListing : DockContent
     {
         private string Library;
         private string Object;
@@ -21,6 +22,8 @@ namespace ILEditor.UserTools
             InitializeComponent();
             Library = Lib;
             Object = Obj;
+
+            this.Text = Lib + "/" + Obj + " Error Listing";
         }
         
         private void ErrorListing_Load(object sender, EventArgs e)
@@ -117,12 +120,12 @@ namespace ILEditor.UserTools
 
         private void onSelectError(string File, int Line, int Col, string ErrorText)
         {
-            OpenTab theTab = Editor.TheEditor.EditorContains(File);
+            Boolean theTab = Editor.TheEditor.EditorContains(File);
 
-            if (theTab != null)
+            if (theTab == true)
             {
-                Editor.TheEditor.SwitchToTab(theTab.getSide(), theTab.getIndex());
-                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(theTab);
+                Editor.TheEditor.SwitchToTab(File);
+                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(File);
 
                 SourceEditor.Focus();
                 SourceEditor.GotoLine(Line, Col);

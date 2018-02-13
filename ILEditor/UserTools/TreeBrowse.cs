@@ -10,14 +10,16 @@ using System.Windows.Forms;
 using ILEditor.Forms;
 using ILEditor.Classes;
 using System.Threading;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class TreeBrowse : UserControl
+    public partial class TreeBrowse : DockContent
     {
         public TreeBrowse()
         {
             InitializeComponent();
+            this.Text = "Tree Browser";
         }
 
         private SPFSelect window;

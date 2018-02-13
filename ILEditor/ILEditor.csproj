@@ -96,6 +96,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
@@ -114,6 +115,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\packages\DockPanelSuite.3.0.4\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
@@ -132,188 +136,244 @@
     <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
-    <Compile Include="Forms\About.cs" />
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CloneWindow.cs" />
+    <Compile Include="Forms\CloneWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CloneWindow.Designer.cs">
       <DependentUpon>CloneWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CompileOptionForms\EditCommand.cs" />
+    <Compile Include="Forms\CompileOptionForms\EditCommand.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CompileOptionForms\EditCommand.Designer.cs">
       <DependentUpon>EditCommand.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CompileOptionForms\NewType.cs" />
+    <Compile Include="Forms\CompileOptionForms\NewType.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
       <DependentUpon>NewType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CreateDirectory.cs" />
+    <Compile Include="Forms\CreateDirectory.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CreateDirectory.Designer.cs">
       <DependentUpon>CreateDirectory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FirewallHelp.cs" />
+    <Compile Include="Forms\FirewallHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FirewallHelp.Designer.cs">
       <DependentUpon>FirewallHelp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FirewallPrompt.cs" />
+    <Compile Include="Forms\FirewallPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FirewallPrompt.Designer.cs">
       <DependentUpon>FirewallPrompt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LibraryList.cs" />
+    <Compile Include="Forms\LibraryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\LibraryList.Designer.cs">
       <DependentUpon>LibraryList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Connection.cs" />
+    <Compile Include="Forms\Connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Connection.Designer.cs">
       <DependentUpon>Connection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MemberCompareDisplay.cs" />
+    <Compile Include="Forms\MemberCompareDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MemberCompareDisplay.Designer.cs">
       <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MemberCompareSelect.cs" />
+    <Compile Include="Forms\MemberCompareSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MemberCompareSelect.Designer.cs">
       <DependentUpon>MemberCompareSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MemberSearch.cs" />
+    <Compile Include="Forms\MemberSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\MemberSearch.Designer.cs">
       <DependentUpon>MemberSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NewMember.cs" />
+    <Compile Include="Forms\NewMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\NewMember.Designer.cs">
       <DependentUpon>NewMember.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NewSPF.cs" />
+    <Compile Include="Forms\NewSPF.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\NewSPF.Designer.cs">
       <DependentUpon>NewSPF.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ObjectInformation.cs" />
+    <Compile Include="Forms\ObjectInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\ObjectInformation.Designer.cs">
       <DependentUpon>ObjectInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FileSelect.cs" />
+    <Compile Include="Forms\FileSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FileSelect.Designer.cs">
       <DependentUpon>FileSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\OpenSource.cs" />
+    <Compile Include="Forms\OpenSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\OpenSource.Designer.cs">
       <DependentUpon>OpenSource.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\HelpWindow.cs" />
+    <Compile Include="Forms\HelpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CreateStreamFile.cs" />
+    <Compile Include="Forms\CreateStreamFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CreateStreamFile.Designer.cs">
       <DependentUpon>CreateStreamFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PushWindow.cs" />
+    <Compile Include="Forms\PushWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\PushWindow.Designer.cs">
       <DependentUpon>PushWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\QuickMemberSearch.cs" />
+    <Compile Include="Forms\QuickMemberSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\QuickMemberSearch.Designer.cs">
       <DependentUpon>QuickMemberSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SaveAs.cs" />
+    <Compile Include="Forms\SaveAs.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\SaveAs.Designer.cs">
       <DependentUpon>SaveAs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ServiceGenerator.cs" />
+    <Compile Include="Forms\ServiceGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\ServiceGenerator.Designer.cs">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SPFSelect.cs" />
+    <Compile Include="Forms\SPFSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\SPFSelect.Designer.cs">
       <DependentUpon>SPFSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\BindingDirectory.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\BindingDirectory.Designer.cs">
       <DependentUpon>BindingDirectory.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\CompileOptions.Designer.cs">
       <DependentUpon>CompileOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\ErrorListing.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\ErrorListing.Designer.cs">
       <DependentUpon>ErrorListing.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor.cs" />
-    <Compile Include="Editor.Designer.cs">
-      <DependentUpon>Editor.cs</DependentUpon>
+    <Compile Include="Forms\HostSelect.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\HostSelect.cs" />
     <Compile Include="Forms\HostSelect.Designer.cs">
       <DependentUpon>HostSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\NewSystem.cs" />
+    <Compile Include="Forms\NewSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\NewSystem.Designer.cs">
       <DependentUpon>NewSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserTools\IFSBrowser.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\IFSBrowser.Designer.cs">
       <DependentUpon>IFSBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\MemberSearchListing.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\MemberSearchListing.Designer.cs">
       <DependentUpon>MemberSearchListing.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\ObjectBrowse.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\ObjectBrowse.Designer.cs">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\SourceEditor.Designer.cs">
       <DependentUpon>SourceEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\MemberBrowse.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\MemberBrowse.Designer.cs">
       <DependentUpon>MemberBrowse.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SpoolListing.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\SpoolListing.Designer.cs">
       <DependentUpon>SpoolListing.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SpoolViewer.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\SpoolViewer.Designer.cs">
       <DependentUpon>SpoolViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\TreeBrowse.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\TreeBrowse.Designer.cs">
       <DependentUpon>TreeBrowse.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\UserToolList.cs" />
+    <Compile Include="UserTools\UserToolList.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserTools\UserToolList.Designer.cs">
       <DependentUpon>UserToolList.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\Welcome.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserTools\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>

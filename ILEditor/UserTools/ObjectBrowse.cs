@@ -9,14 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILEditor.Classes;
 using System.Threading;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class ObjectBrowse : UserControl
+    public partial class ObjectBrowse : DockContent
     {
         public ObjectBrowse()
         {
             InitializeComponent();
+            this.Text = "Object Browser";
         }
 
         private readonly Dictionary<string, int> IconKeys = new Dictionary<string, int>()
@@ -93,7 +95,7 @@ namespace ILEditor.UserTools
                 return;
             }
 
-            this.Parent.Text = library.Text + " [Listing]";
+            this.Text = library.Text + " [Listing]";
             UpdateListing(library.Text);
         }
 
@@ -139,7 +141,7 @@ namespace ILEditor.UserTools
                 switch (currentRightClick.Type)
                 {
                     case "*BNDDIR":
-                        Editor.TheEditor.AddBindingList(currentRightClick.Library, currentRightClick.Name);
+                        //TODO: Add binding list
                         break;
                     default:
                         Editor.OpenSource(new RemoteSource("", currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension));

@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ILEditor.Classes;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class SpoolViewer : UserControl
+    public partial class SpoolViewer : DockContent
     {
-        public SpoolViewer(string FileLoc)
+        public SpoolViewer(string Title, string FileLoc)
         {
             InitializeComponent();
+            this.Text = Title;
+
             spoolText.Text = File.ReadAllText(FileLoc);
         }
     }

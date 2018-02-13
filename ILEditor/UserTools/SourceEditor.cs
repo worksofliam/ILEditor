@@ -14,6 +14,7 @@ using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
 using System.Windows.Media;
 using ILEditor.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
@@ -29,17 +30,18 @@ namespace ILEditor.UserTools
         Python
     }
 
-    public partial class SourceEditor : UserControl
+    public partial class SourceEditor : DockContent
     {
         private TextEditor textEditor = null;
         private Language Language;
         private int RcdLen;
         private string LocalPath;
-
+        
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0)
         {
             InitializeComponent();
 
+            //TODO: TITLE
             //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
 
             this.Language = Language;
@@ -174,7 +176,7 @@ namespace ILEditor.UserTools
 
         private void TextEditor_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            Editor.TheEditor.LastEditing = this;
+            Editor.LastEditing = this;
         }
 
         public void SaveAs()
