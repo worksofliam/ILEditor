@@ -74,11 +74,11 @@ namespace ILEditor
             Content.Show(dockPanel1, dock);
         }
 
-        public void OpenSource(RemoteSource Source)
+        public static void OpenSource(RemoteSource Source)
         {
             string resultFile = "";
             string text = "";
-            Thread gothread = new Thread((ThreadStart)delegate {
+            //Thread gothread = new Thread((ThreadStart)delegate {
                 switch (Source.GetFS())
                 {
                     case FileSystem.QSYS:
@@ -100,7 +100,7 @@ namespace ILEditor
                     sourcePanel.Text = text;
 
                     Source.Lock();
-                    dockPanel1.Invoke((MethodInvoker)delegate
+                    Editor.TheEditor.Invoke((MethodInvoker)delegate
                     {
                         TheEditor.AddTool(sourcePanel, DockState.Document, true);
                     });
@@ -115,9 +115,11 @@ namespace ILEditor
                     }
                 }
 
-            });
-            gothread.SetApartmentState(ApartmentState.STA);
-            gothread.Start();
+            //TODO: make multithreaded at some point!!
+            //});
+            //gothread.SetApartmentState(ApartmentState.STA);
+            //gothread.IsBackground = true;
+            //gothread.Start();
         }
 
         public Boolean EditorContains(string Title)
