@@ -301,13 +301,15 @@ namespace ILEditor
         private void compareMembersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string lib = "", spf = "", mbr = "";
-            if (this.LastEditing.Tag != null)
-            {
-                RemoteSource MemberInfo = (RemoteSource)this.LastEditing.Tag;
-                lib = MemberInfo.GetLibrary();
-                spf = MemberInfo.GetObject();
-                mbr = MemberInfo.GetName();
-            }
+            if (this.LastEditing != null)
+                if (this.LastEditing.Tag != null)
+                {
+                    RemoteSource MemberInfo = (RemoteSource)this.LastEditing.Tag;
+                    lib = MemberInfo.GetLibrary();
+                    spf = MemberInfo.GetObject();
+                    mbr = MemberInfo.GetName();
+                }
+
             new MemberCompareSelect(lib, spf, mbr).ShowDialog();
         }
         
