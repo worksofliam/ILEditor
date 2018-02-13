@@ -2,14 +2,7 @@
 using ILEditor.UserTools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -54,7 +47,12 @@ namespace ILEditor
         {
             InitializeComponent();
             TheEditor = this;
-            
+
+            if (Program.Config.GetValue("darkmode") == "true")
+                dockPanel1.Theme = new VS2015DarkTheme();
+            else
+                dockPanel1.Theme = new VS2015LightTheme();
+
             AddTool(new UserTools.Welcome());
             AddTool(new UserTools.UserToolList(), DockState.DockLeft);
         }
