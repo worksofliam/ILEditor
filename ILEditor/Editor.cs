@@ -87,6 +87,17 @@ namespace ILEditor
         public void AddTool(DockContent Content, DockState dock = DockState.Document, Boolean Replace = false)
         {
             //TODO: Replace
+
+            if (Replace)
+            {
+                foreach (DockPane panel in dockingPanel.Panes)
+                {
+                    Console.WriteLine(panel.CaptionText);
+                    if (Content.Text == panel.CaptionText)
+                        panel.CloseActiveContent();
+                }
+            }
+
             Content.Show(dockingPanel, dock);
         }
 
@@ -170,22 +181,34 @@ namespace ILEditor
             }
         }
 
-        public Boolean EditorContains(string Title)
+        public int EditorContainsSource(string Title)
         {
-            //TODO: Editor Contains where Page title is Title
-            return false;
+            
+            foreach (DockPane panel in dockingPanel.Panes)
+            {
+                Console.WriteLine(panel.CaptionText);
+                if (panel.CaptionText.StartsWith(Title))
+                    return panel.TabIndex;
+            }
+            return -1;
         }
 
-        public void SwitchToTab(string Title)
+        public void SwitchToTab(int Index)
         {
-            //TODO: SWITCH TO TAB
+            dockingPanel.Panes[Index].Focus();
         }
 
-        public UserTools.SourceEditor GetTabEditor(string Title)
+        public SourceEditor GetTabEditor(int Index)
         {
-            //TODO: Return sourcetab
+            if (dockingPanel.Panes[Index].Controls.Count > 0)
+                foreach (Control ctrl in dockingPanel.Panes[Index].Controls)
+                    if (ctrl is SourceEditor)
+                        return ctrl as SourceEditor;
+
             return null;
         }
+
+        #region File Dropdown
 
         private void memberToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -257,5 +280,55 @@ namespace ILEditor
         {
             Application.Restart();
         }
+
+        #endregion
+
+        #region Compile Dropdown
+        private void compileAnyHandle(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            if (LastEditing.Tag != null)
+            {
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
+                new Thread((ThreadStart)delegate
+                {
+                    IBMiUtils.CompileSource(SourceInfo, clickedItem.Text);
+                }).Start();
+            }
+        }
+
+        private void compileToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+            {
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
+                new Thread((ThreadStart)delegate
+                {
+                    IBMiUtils.CompileSource(SourceInfo);
+                }).Start();
+            }
+        }
+
+        private void compileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            compileOptionsToolStripMenuItem.DropDownItems.Clear();
+            List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
+            if (LastEditing != null)
+            {
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
+                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + SourceInfo.GetExtension()).Split('|');
+                foreach (string Item in Items)
+                {
+                    if (Item.Trim() == "") continue;
+                    Compiles.Add(new ToolStripMenuItem(Item, null, compileAnyHandle));
+                }
+            }
+
+            compileToolStripMenuItem1.Enabled = (Compiles.Count > 0);
+            compileOptionsToolStripMenuItem.Enabled = (Compiles.Count > 0);
+            compileOptionsToolStripMenuItem.DropDownItems.AddRange(Compiles.ToArray());
+        }
+
+        #endregion
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ILEditor.Classes
 {
@@ -405,7 +406,10 @@ namespace ILEditor.Classes
                                 if (command.ToUpper().Contains("*EVENTF"))
                                 {
                                     Editor.TheEditor.SetStatus("Fetching errors..");
-                                    Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockRight, true);
+                                    Editor.TheEditor.Invoke((MethodInvoker)delegate
+                                    {
+                                        Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockBottom, true);
+                                    });
                                 }
                                 if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
                                 {

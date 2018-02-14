@@ -22,14 +22,10 @@ namespace ILEditor.UserTools
             InitializeComponent();
             Library = Lib;
             Object = Obj;
-
-            this.Text = Lib + "/" + Obj + " Error Listing";
         }
         
         private void ErrorListing_Load(object sender, EventArgs e)
         {
-            this.Parent.Text = "Error Listing";
-
             Thread gothread = new Thread((ThreadStart)delegate
             {
                 ErrorHandle.getErrors(Library, Object);
@@ -113,6 +109,11 @@ namespace ILEditor.UserTools
                 name = e.Node.Parent.Text;
                 if (name.Substring(0, 1) == "/")
                     name = name.Split('/').Last();
+                else
+                {
+                    name = name.Split('(').Last();
+                    name = name.Substring(0, name.Length-1);
+                }
 
                 onSelectError(name, line, col, error);
             }
@@ -120,12 +121,12 @@ namespace ILEditor.UserTools
 
         private void onSelectError(string File, int Line, int Col, string ErrorText)
         {
-            Boolean theTab = Editor.TheEditor.EditorContains(File);
+            int theTab = Editor.TheEditor.EditorContainsSource(File);
 
-            if (theTab == true)
+            if (theTab >= 0)
             {
-                Editor.TheEditor.SwitchToTab(File);
-                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(File);
+                Editor.TheEditor.SwitchToTab(theTab);
+                SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(theTab);
 
                 SourceEditor.Focus();
                 SourceEditor.GotoLine(Line, Col);

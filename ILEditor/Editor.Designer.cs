@@ -47,6 +47,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.localFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -55,7 +58,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.compileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(584, 24);
@@ -199,6 +203,31 @@
             this.localFileToolStripMenuItem.Text = "Local File";
             this.localFileToolStripMenuItem.Click += new System.EventHandler(this.localFileToolStripMenuItem_Click);
             // 
+            // compileToolStripMenuItem
+            // 
+            this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileToolStripMenuItem1,
+            this.compileOptionsToolStripMenuItem});
+            this.compileToolStripMenuItem.Name = "compileToolStripMenuItem";
+            this.compileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.compileToolStripMenuItem.Text = "Compile";
+            this.compileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.compileToolStripMenuItem_DropDownOpening);
+            // 
+            // compileToolStripMenuItem1
+            // 
+            this.compileToolStripMenuItem1.Name = "compileToolStripMenuItem1";
+            this.compileToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.C)));
+            this.compileToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
+            this.compileToolStripMenuItem1.Text = "Compile";
+            this.compileToolStripMenuItem1.Click += new System.EventHandler(this.compileToolStripMenuItem1_Click);
+            // 
+            // compileOptionsToolStripMenuItem
+            // 
+            this.compileOptionsToolStripMenuItem.Name = "compileOptionsToolStripMenuItem";
+            this.compileOptionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.compileOptionsToolStripMenuItem.Text = "Compile Options";
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,5 +271,8 @@
         private System.Windows.Forms.Panel panel1;
         private WeifenLuo.WinFormsUI.Docking.DockPanel dockingPanel;
         private System.Windows.Forms.ToolStripMenuItem localFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem compileOptionsToolStripMenuItem;
     }
 }
