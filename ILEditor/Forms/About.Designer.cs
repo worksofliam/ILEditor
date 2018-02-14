@@ -97,10 +97,10 @@
             this.linkLabel4.AutoSize = true;
             this.linkLabel4.Location = new System.Drawing.Point(341, 294);
             this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(80, 13);
+            this.linkLabel4.Size = new System.Drawing.Size(84, 13);
             this.linkLabel4.TabIndex = 6;
             this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "tabcontrol-extra";
+            this.linkLabel4.Text = "DockPanelSuite";
             this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
             // 
             // label3

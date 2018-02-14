@@ -32,24 +32,44 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.switchSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourcePhysicalFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.streamFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.streamFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.localFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWelcomeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.start5250SessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sPFCloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sPFPushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.memberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cLFormattingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutILEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sessionFTPLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.columnText = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.localFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -59,7 +79,10 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.compileToolStripMenuItem});
+            this.toolsToolStripMenuItem,
+            this.sourceToolStripMenuItem,
+            this.compileToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(584, 24);
@@ -88,6 +111,28 @@
             this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
+            // memberToolStripMenuItem
+            // 
+            this.memberToolStripMenuItem.Name = "memberToolStripMenuItem";
+            this.memberToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.memberToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.memberToolStripMenuItem.Text = "Member";
+            this.memberToolStripMenuItem.Click += new System.EventHandler(this.memberToolStripMenuItem_Click);
+            // 
+            // sourcePhysicalFileToolStripMenuItem
+            // 
+            this.sourcePhysicalFileToolStripMenuItem.Name = "sourcePhysicalFileToolStripMenuItem";
+            this.sourcePhysicalFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
+            this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
+            // 
+            // streamFileToolStripMenuItem
+            // 
+            this.streamFileToolStripMenuItem.Name = "streamFileToolStripMenuItem";
+            this.streamFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.streamFileToolStripMenuItem.Text = "Stream file";
+            this.streamFileToolStripMenuItem.Click += new System.EventHandler(this.streamFileToolStripMenuItem_Click);
+            // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -97,6 +142,28 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
+            // 
+            // memberToolStripMenuItem1
+            // 
+            this.memberToolStripMenuItem1.Name = "memberToolStripMenuItem1";
+            this.memberToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.memberToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.memberToolStripMenuItem1.Text = "Member";
+            this.memberToolStripMenuItem1.Click += new System.EventHandler(this.memberToolStripMenuItem1_Click);
+            // 
+            // streamFileToolStripMenuItem1
+            // 
+            this.streamFileToolStripMenuItem1.Name = "streamFileToolStripMenuItem1";
+            this.streamFileToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.streamFileToolStripMenuItem1.Text = "Stream File";
+            this.streamFileToolStripMenuItem1.Click += new System.EventHandler(this.streamFileToolStripMenuItem1_Click);
+            // 
+            // localFileToolStripMenuItem
+            // 
+            this.localFileToolStripMenuItem.Name = "localFileToolStripMenuItem";
+            this.localFileToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.localFileToolStripMenuItem.Text = "Local File";
+            this.localFileToolStripMenuItem.Click += new System.EventHandler(this.localFileToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -120,40 +187,185 @@
             this.switchSystemToolStripMenuItem.Text = "Switch System";
             this.switchSystemToolStripMenuItem.Click += new System.EventHandler(this.switchSystemToolStripMenuItem_Click);
             // 
-            // memberToolStripMenuItem
+            // toolsToolStripMenuItem
             // 
-            this.memberToolStripMenuItem.Name = "memberToolStripMenuItem";
-            this.memberToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.memberToolStripMenuItem.Text = "Member";
-            this.memberToolStripMenuItem.Click += new System.EventHandler(this.memberToolStripMenuItem_Click);
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolboxToolStripMenuItem,
+            this.openWelcomeToolStripMenuItem,
+            this.connectionSettingsToolStripMenuItem,
+            this.libraryListToolStripMenuItem,
+            this.start5250SessionToolStripMenuItem,
+            this.quickMemberSearchToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // sourcePhysicalFileToolStripMenuItem
+            // openToolboxToolStripMenuItem
             // 
-            this.sourcePhysicalFileToolStripMenuItem.Name = "sourcePhysicalFileToolStripMenuItem";
-            this.sourcePhysicalFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
-            this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
+            this.openToolboxToolStripMenuItem.Name = "openToolboxToolStripMenuItem";
+            this.openToolboxToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.openToolboxToolStripMenuItem.Text = "Open Toolbox";
+            this.openToolboxToolStripMenuItem.Click += new System.EventHandler(this.openToolboxToolStripMenuItem_Click);
             // 
-            // streamFileToolStripMenuItem
+            // openWelcomeToolStripMenuItem
             // 
-            this.streamFileToolStripMenuItem.Name = "streamFileToolStripMenuItem";
-            this.streamFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.streamFileToolStripMenuItem.Text = "Stream file";
-            this.streamFileToolStripMenuItem.Click += new System.EventHandler(this.streamFileToolStripMenuItem_Click);
+            this.openWelcomeToolStripMenuItem.Name = "openWelcomeToolStripMenuItem";
+            this.openWelcomeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.openWelcomeToolStripMenuItem.Text = "Open Welcome";
+            this.openWelcomeToolStripMenuItem.Click += new System.EventHandler(this.openWelcomeToolStripMenuItem_Click);
             // 
-            // memberToolStripMenuItem1
+            // connectionSettingsToolStripMenuItem
             // 
-            this.memberToolStripMenuItem1.Name = "memberToolStripMenuItem1";
-            this.memberToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.memberToolStripMenuItem1.Text = "Member";
-            this.memberToolStripMenuItem1.Click += new System.EventHandler(this.memberToolStripMenuItem1_Click);
+            this.connectionSettingsToolStripMenuItem.Name = "connectionSettingsToolStripMenuItem";
+            this.connectionSettingsToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.connectionSettingsToolStripMenuItem.Text = "Connection Settings";
+            this.connectionSettingsToolStripMenuItem.Click += new System.EventHandler(this.connectionSettingsToolStripMenuItem_Click);
             // 
-            // streamFileToolStripMenuItem1
+            // libraryListToolStripMenuItem
             // 
-            this.streamFileToolStripMenuItem1.Name = "streamFileToolStripMenuItem1";
-            this.streamFileToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.streamFileToolStripMenuItem1.Text = "Stream File";
-            this.streamFileToolStripMenuItem1.Click += new System.EventHandler(this.streamFileToolStripMenuItem1_Click);
+            this.libraryListToolStripMenuItem.Name = "libraryListToolStripMenuItem";
+            this.libraryListToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.libraryListToolStripMenuItem.Text = "Library List";
+            this.libraryListToolStripMenuItem.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
+            // 
+            // start5250SessionToolStripMenuItem
+            // 
+            this.start5250SessionToolStripMenuItem.Name = "start5250SessionToolStripMenuItem";
+            this.start5250SessionToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.start5250SessionToolStripMenuItem.Text = "Start 5250 Emulator (ACS)";
+            this.start5250SessionToolStripMenuItem.Click += new System.EventHandler(this.start5250SessionToolStripMenuItem_Click);
+            // 
+            // sourceToolStripMenuItem
+            // 
+            this.sourceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.localCopiesToolStripMenuItem,
+            this.languageToolsToolStripMenuItem,
+            this.quickCommentToolStripMenuItem});
+            this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
+            this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.sourceToolStripMenuItem.Text = "Source";
+            // 
+            // localCopiesToolStripMenuItem
+            // 
+            this.localCopiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sPFCloneToolStripMenuItem,
+            this.sPFPushToolStripMenuItem,
+            this.memberSearchToolStripMenuItem});
+            this.localCopiesToolStripMenuItem.Name = "localCopiesToolStripMenuItem";
+            this.localCopiesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.localCopiesToolStripMenuItem.Text = "Local Copies";
+            // 
+            // sPFCloneToolStripMenuItem
+            // 
+            this.sPFCloneToolStripMenuItem.Name = "sPFCloneToolStripMenuItem";
+            this.sPFCloneToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.sPFCloneToolStripMenuItem.Text = "SPF Clone";
+            this.sPFCloneToolStripMenuItem.Click += new System.EventHandler(this.sPFCloneToolStripMenuItem_Click);
+            // 
+            // sPFPushToolStripMenuItem
+            // 
+            this.sPFPushToolStripMenuItem.Name = "sPFPushToolStripMenuItem";
+            this.sPFPushToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.sPFPushToolStripMenuItem.Text = "SPF Push";
+            this.sPFPushToolStripMenuItem.Click += new System.EventHandler(this.sPFPushToolStripMenuItem_Click);
+            // 
+            // memberSearchToolStripMenuItem
+            // 
+            this.memberSearchToolStripMenuItem.Name = "memberSearchToolStripMenuItem";
+            this.memberSearchToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.memberSearchToolStripMenuItem.Text = "Member Search";
+            this.memberSearchToolStripMenuItem.Click += new System.EventHandler(this.memberSearchToolStripMenuItem_Click);
+            // 
+            // languageToolsToolStripMenuItem
+            // 
+            this.languageToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.rPGConversionToolStripMenuItem,
+            this.cLFormattingToolStripMenuItem,
+            this.generateSQLToolStripMenuItem});
+            this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
+            this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.languageToolsToolStripMenuItem.Text = "Language Tools";
+            // 
+            // rPGConversionToolStripMenuItem
+            // 
+            this.rPGConversionToolStripMenuItem.Name = "rPGConversionToolStripMenuItem";
+            this.rPGConversionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.C)));
+            this.rPGConversionToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.rPGConversionToolStripMenuItem.Text = "RPG Conversion";
+            this.rPGConversionToolStripMenuItem.Click += new System.EventHandler(this.rPGConversionToolStripMenuItem_Click);
+            // 
+            // cLFormattingToolStripMenuItem
+            // 
+            this.cLFormattingToolStripMenuItem.Name = "cLFormattingToolStripMenuItem";
+            this.cLFormattingToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.X)));
+            this.cLFormattingToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.cLFormattingToolStripMenuItem.Text = "CL Formatter";
+            this.cLFormattingToolStripMenuItem.Click += new System.EventHandler(this.cLFormattingToolStripMenuItem_Click);
+            // 
+            // generateSQLToolStripMenuItem
+            // 
+            this.generateSQLToolStripMenuItem.Name = "generateSQLToolStripMenuItem";
+            this.generateSQLToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.generateSQLToolStripMenuItem.Text = "Generate SQL";
+            this.generateSQLToolStripMenuItem.Click += new System.EventHandler(this.generateSQLToolStripMenuItem_Click);
+            // 
+            // quickCommentToolStripMenuItem
+            // 
+            this.quickCommentToolStripMenuItem.Name = "quickCommentToolStripMenuItem";
+            this.quickCommentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.quickCommentToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.quickCommentToolStripMenuItem.Text = "Quick Comment";
+            this.quickCommentToolStripMenuItem.Click += new System.EventHandler(this.quickCommentToolStripMenuItem_Click);
+            // 
+            // compileToolStripMenuItem
+            // 
+            this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileToolStripMenuItem1,
+            this.compileOptionsToolStripMenuItem});
+            this.compileToolStripMenuItem.Name = "compileToolStripMenuItem";
+            this.compileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.compileToolStripMenuItem.Text = "Compile";
+            this.compileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.compileToolStripMenuItem_DropDownOpening);
+            // 
+            // compileToolStripMenuItem1
+            // 
+            this.compileToolStripMenuItem1.Name = "compileToolStripMenuItem1";
+            this.compileToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.C)));
+            this.compileToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
+            this.compileToolStripMenuItem1.Text = "Compile";
+            this.compileToolStripMenuItem1.Click += new System.EventHandler(this.compileToolStripMenuItem1_Click);
+            // 
+            // compileOptionsToolStripMenuItem
+            // 
+            this.compileOptionsToolStripMenuItem.Name = "compileOptionsToolStripMenuItem";
+            this.compileOptionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.compileOptionsToolStripMenuItem.Text = "Compile Options";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutILEditorToolStripMenuItem,
+            this.sessionFTPLogToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutILEditorToolStripMenuItem
+            // 
+            this.aboutILEditorToolStripMenuItem.Name = "aboutILEditorToolStripMenuItem";
+            this.aboutILEditorToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.aboutILEditorToolStripMenuItem.Text = "About ILEditor";
+            this.aboutILEditorToolStripMenuItem.Click += new System.EventHandler(this.aboutILEditorToolStripMenuItem_Click);
+            // 
+            // sessionFTPLogToolStripMenuItem
+            // 
+            this.sessionFTPLogToolStripMenuItem.Name = "sessionFTPLogToolStripMenuItem";
+            this.sessionFTPLogToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.sessionFTPLogToolStripMenuItem.Text = "Session FTP Log";
+            this.sessionFTPLogToolStripMenuItem.Click += new System.EventHandler(this.sessionFTPLogToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -195,38 +407,16 @@
             this.dockingPanel.Name = "dockingPanel";
             this.dockingPanel.Size = new System.Drawing.Size(584, 464);
             this.dockingPanel.TabIndex = 10;
+            this.dockingPanel.ContentRemoved += new System.EventHandler<WeifenLuo.WinFormsUI.Docking.DockContentEventArgs>(this.dockingPanel_ContentRemoved);
             // 
-            // localFileToolStripMenuItem
+            // quickMemberSearchToolStripMenuItem
             // 
-            this.localFileToolStripMenuItem.Name = "localFileToolStripMenuItem";
-            this.localFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.localFileToolStripMenuItem.Text = "Local File";
-            this.localFileToolStripMenuItem.Click += new System.EventHandler(this.localFileToolStripMenuItem_Click);
-            // 
-            // compileToolStripMenuItem
-            // 
-            this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.compileToolStripMenuItem1,
-            this.compileOptionsToolStripMenuItem});
-            this.compileToolStripMenuItem.Name = "compileToolStripMenuItem";
-            this.compileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.compileToolStripMenuItem.Text = "Compile";
-            this.compileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.compileToolStripMenuItem_DropDownOpening);
-            // 
-            // compileToolStripMenuItem1
-            // 
-            this.compileToolStripMenuItem1.Name = "compileToolStripMenuItem1";
-            this.compileToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.C)));
-            this.compileToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
-            this.compileToolStripMenuItem1.Text = "Compile";
-            this.compileToolStripMenuItem1.Click += new System.EventHandler(this.compileToolStripMenuItem1_Click);
-            // 
-            // compileOptionsToolStripMenuItem
-            // 
-            this.compileOptionsToolStripMenuItem.Name = "compileOptionsToolStripMenuItem";
-            this.compileOptionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.compileOptionsToolStripMenuItem.Text = "Compile Options";
+            this.quickMemberSearchToolStripMenuItem.Name = "quickMemberSearchToolStripMenuItem";
+            this.quickMemberSearchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.quickMemberSearchToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.quickMemberSearchToolStripMenuItem.Text = "Quick Member Search";
+            this.quickMemberSearchToolStripMenuItem.Visible = false;
+            this.quickMemberSearchToolStripMenuItem.Click += new System.EventHandler(this.quickMemberSearchToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -274,5 +464,25 @@
         private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem compileOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolboxToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openWelcomeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectionSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem libraryListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem start5250SessionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem localCopiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quickCommentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sPFPushToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem memberSearchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rPGConversionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cLFormattingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateSQLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutILEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
     }
 }

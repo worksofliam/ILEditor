@@ -408,7 +408,7 @@ namespace ILEditor.Classes
                                     Editor.TheEditor.SetStatus("Fetching errors..");
                                     Editor.TheEditor.Invoke((MethodInvoker)delegate
                                     {
-                                        Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockBottom, true);
+                                        Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockLeft, true);
                                     });
                                 }
                                 if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")

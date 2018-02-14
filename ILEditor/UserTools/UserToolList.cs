@@ -35,7 +35,7 @@ namespace ILEditor.UserTools
                         new Forms.Connection().ShowDialog();
                         break;
                     case "CMP":
-                        Editor.TheEditor.AddTool(new CompileOptions(), DockState.DockRight);
+                        Editor.TheEditor.AddTool(new CompileOptions(), DockState.DockLeft);
                         break;
                     case "PGM":
                         Editor.TheEditor.AddTool(new ObjectBrowse(), DockState.DockRight);

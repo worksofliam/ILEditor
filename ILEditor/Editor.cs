@@ -3,6 +3,7 @@ using ILEditor.Forms;
 using ILEditor.UserTools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -86,19 +87,27 @@ namespace ILEditor
         
         public void AddTool(DockContent Content, DockState dock = DockState.Document, Boolean Replace = false)
         {
-            //TODO: Replace
+            DockPane currentPane;
+            DockPanel content = null;
 
             if (Replace)
             {
-                foreach (DockPane panel in dockingPanel.Panes)
+                for (int x = 0; x < dockingPanel.Panes.Count; x++)
                 {
-                    Console.WriteLine(panel.CaptionText);
-                    if (Content.Text == panel.CaptionText)
-                        panel.CloseActiveContent();
+                    currentPane = dockingPanel.Panes[x];
+                    if (Content.Text == currentPane.CaptionText)
+                    {
+                        content = currentPane.DockPanel;
+                        dock = currentPane.DockState;
+                        currentPane.CloseActiveContent();
+                    }
                 }
             }
 
-            Content.Show(dockingPanel, dock);
+            if (content == null)
+                Content.Show(dockingPanel, dock);
+            else
+                Content.Show(content, dock);
         }
 
         public static void OpenSource(RemoteSource Source)
@@ -181,16 +190,22 @@ namespace ILEditor
             }
         }
 
-        public int EditorContainsSource(string Title)
+        public DockContent GetTabByName(string Title, bool Focus = false)
         {
-            
-            foreach (DockPane panel in dockingPanel.Panes)
+            foreach (DockPane pane in dockingPanel.Panes)
             {
-                Console.WriteLine(panel.CaptionText);
-                if (panel.CaptionText.StartsWith(Title))
-                    return panel.TabIndex;
+                foreach (DockContent window in pane.Contents)
+                {
+                    if (window.Text.StartsWith(Title))
+                    {
+                        if (Focus)
+                            window.Show();
+
+                        return window;
+                    }
+                }
             }
-            return -1;
+            return null;
         }
 
         public void SwitchToTab(int Index)
@@ -198,14 +213,28 @@ namespace ILEditor
             dockingPanel.Panes[Index].Focus();
         }
 
-        public SourceEditor GetTabEditor(int Index)
+        public SourceEditor GetTabEditor(DockContent Tab)
         {
-            if (dockingPanel.Panes[Index].Controls.Count > 0)
-                foreach (Control ctrl in dockingPanel.Panes[Index].Controls)
-                    if (ctrl is SourceEditor)
-                        return ctrl as SourceEditor;
+            if (Tab is SourceEditor)
+                return Tab as SourceEditor;
 
             return null;
+        }
+        
+        private void dockingPanel_ContentRemoved(object sender, DockContentEventArgs e)
+        {
+            DockPanel panel = sender as DockPanel;
+            RemoteSource src;
+
+            if (panel != null)
+            {
+                if (panel.ActiveContent is SourceEditor)
+                {
+                    src = (panel.ActiveContent as SourceEditor).Tag as RemoteSource;
+                    if (src != null)
+                        src.Unlock();
+                }
+            }
         }
 
         #region File Dropdown
@@ -329,6 +358,132 @@ namespace ILEditor
             compileOptionsToolStripMenuItem.DropDownItems.AddRange(Compiles.ToArray());
         }
 
+        #endregion
+
+        #region Tools dropdown
+        private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddTool(new UserTools.UserToolList(), DockState.DockLeft);
+        }
+
+        private void openWelcomeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddTool(new UserTools.Welcome());
+        }
+
+        private void connectionSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Connection().ShowDialog();
+        }
+
+        private void libraryListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Forms.LibraryList().ShowDialog();
+        }
+
+        private void start5250SessionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = Program.Config.GetValue("acspath");
+            if (path == "false")
+                MessageBox.Show("Please setup the ACS path in the Connection Settings.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                try
+                {
+                    Process.Start(path, " /plugin=5250 /sso /system=" + IBMi.CurrentSystem.GetValue("system"));
+                }
+                catch
+                {
+                    MessageBox.Show("Something went wrong launching the 5250 session.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+        
+        private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new QuickMemberSearch().Show();
+        }
+        #endregion
+
+        #region Source dropdown
+        private void sPFCloneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new CloneWindow().ShowDialog();
+        }
+
+        private void sPFPushToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new PushWindow().ShowDialog();
+        }
+
+        private void memberSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new MemberSearch().ShowDialog();
+        }
+
+        private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+            {
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
+                Language Language = GetBoundLangType(SourceInfo.GetExtension());
+                if (Language == Language.RPG)
+                {
+                    SetStatus("Converting RPG in " + SourceInfo.GetName());
+                    LastEditing.ConvertSelectedRPG();
+                }
+            }
+        }
+
+        private void cLFormattingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+            {
+                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
+                Language Language = GetBoundLangType(SourceInfo.GetExtension());
+                if (Language == Language.CL)
+                {
+                    SetStatus("Formatting CL in " + SourceInfo.GetName());
+                    LastEditing.FormatCL();
+                }
+            }
+        }
+
+        private void generateSQLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileSelect SelectFile = new FileSelect();
+            SelectFile.ShowDialog();
+
+            if (SelectFile.Success)
+            {
+                if (IBMi.RemoteCommand(SelectFile.getCommand()))
+                {
+                    OpenSource(new RemoteSource("", "QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL", false));
+                }
+                else
+                {
+                    MessageBox.Show("Error generating SQL source.");
+                }
+            }
+        }
+
+        private void quickCommentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+                LastEditing.CommentOutSelected();
+        }
+        #endregion
+
+        #region Help dropdown
+        private void aboutILEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new About().ShowDialog();
+        }
+
+        private void sessionFTPLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(IBMi.FTPFile);
+        }
         #endregion
     }
 }

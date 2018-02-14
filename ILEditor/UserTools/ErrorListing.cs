@@ -121,11 +121,10 @@ namespace ILEditor.UserTools
 
         private void onSelectError(string File, int Line, int Col, string ErrorText)
         {
-            int theTab = Editor.TheEditor.EditorContainsSource(File);
+            DockContent theTab = Editor.TheEditor.GetTabByName(File, true);
 
-            if (theTab >= 0)
+            if (theTab != null)
             {
-                Editor.TheEditor.SwitchToTab(theTab);
                 SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(theTab);
 
                 SourceEditor.Focus();

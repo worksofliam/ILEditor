@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 using FluentFTP;
 using System.Net.Sockets;
+using System.Timers;
 
 namespace ILEditor.Classes
 {
@@ -74,7 +74,7 @@ namespace ILEditor.Classes
             else
                 return FtpDataConnectionType.AutoActive;
         }
-
+        
         public static bool IsConnected() => Client.IsConnected;
         public static string FTPFile = "";
         public static bool Connect(bool OfflineMode = false)
@@ -110,7 +110,10 @@ namespace ILEditor.Classes
                     //Change the user library list on connection
                     RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
 
-                    KeepAlive();
+                    System.Timers.Timer timer = new System.Timers.Timer();
+                    timer.Interval = 60000;
+                    timer.Elapsed += new ElapsedEventHandler(KeepAliveFunc);
+                    timer.Start();
                 }
 
                 result = true;
@@ -126,12 +129,15 @@ namespace ILEditor.Classes
         public static void Disconnect()
         {
             if (Client.IsConnected)
+            {
                 Client.Disconnect();
+            }
         }
 
-        private static void KeepAlive()
+        private static void KeepAliveFunc(object sender, ElapsedEventArgs e)
         {
-            new System.Threading.Timer(e => Client.Execute("NOOP"), null, TimeSpan.Zero, TimeSpan.FromMinutes(4));
+            if (Client.IsConnected)
+                Client.Execute("NOOP");
         }
 
         public static string GetSystem()

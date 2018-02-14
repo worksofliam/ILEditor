@@ -35,7 +35,7 @@ namespace ILEditor.Forms
 
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/tradewright/tabcontrol-extra");
+            Process.Start("http://dockpanelsuite.com/");
         }
 
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

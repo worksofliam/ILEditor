@@ -199,18 +199,6 @@
     <Compile Include="Forms\Connection.Designer.cs">
       <DependentUpon>Connection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MemberCompareDisplay.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MemberCompareDisplay.Designer.cs">
-      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MemberCompareSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MemberCompareSelect.Designer.cs">
-      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MemberSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -413,12 +401,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LibraryList.resx">
       <DependentUpon>LibraryList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MemberCompareDisplay.resx">
-      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MemberCompareSelect.resx">
-      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberSearch.resx">
       <DependentUpon>MemberSearch.cs</DependentUpon>
