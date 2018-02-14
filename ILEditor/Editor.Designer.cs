@@ -46,6 +46,7 @@
             this.columnText = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.localFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -87,7 +88,8 @@
             // 
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.memberToolStripMenuItem1,
-            this.streamFileToolStripMenuItem1});
+            this.streamFileToolStripMenuItem1,
+            this.localFileToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
@@ -105,42 +107,49 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save-As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // switchSystemToolStripMenuItem
             // 
             this.switchSystemToolStripMenuItem.Name = "switchSystemToolStripMenuItem";
             this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.switchSystemToolStripMenuItem.Text = "Switch System";
+            this.switchSystemToolStripMenuItem.Click += new System.EventHandler(this.switchSystemToolStripMenuItem_Click);
             // 
             // memberToolStripMenuItem
             // 
             this.memberToolStripMenuItem.Name = "memberToolStripMenuItem";
             this.memberToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.memberToolStripMenuItem.Text = "Member";
+            this.memberToolStripMenuItem.Click += new System.EventHandler(this.memberToolStripMenuItem_Click);
             // 
             // sourcePhysicalFileToolStripMenuItem
             // 
             this.sourcePhysicalFileToolStripMenuItem.Name = "sourcePhysicalFileToolStripMenuItem";
             this.sourcePhysicalFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.sourcePhysicalFileToolStripMenuItem.Text = "Source-Physical File";
+            this.sourcePhysicalFileToolStripMenuItem.Click += new System.EventHandler(this.sourcePhysicalFileToolStripMenuItem_Click);
             // 
             // streamFileToolStripMenuItem
             // 
             this.streamFileToolStripMenuItem.Name = "streamFileToolStripMenuItem";
             this.streamFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.streamFileToolStripMenuItem.Text = "Stream file";
+            this.streamFileToolStripMenuItem.Click += new System.EventHandler(this.streamFileToolStripMenuItem_Click);
             // 
             // memberToolStripMenuItem1
             // 
             this.memberToolStripMenuItem1.Name = "memberToolStripMenuItem1";
             this.memberToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.memberToolStripMenuItem1.Text = "Member";
+            this.memberToolStripMenuItem1.Click += new System.EventHandler(this.memberToolStripMenuItem1_Click);
             // 
             // streamFileToolStripMenuItem1
             // 
             this.streamFileToolStripMenuItem1.Name = "streamFileToolStripMenuItem1";
             this.streamFileToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.streamFileToolStripMenuItem1.Text = "Stream File";
+            this.streamFileToolStripMenuItem1.Click += new System.EventHandler(this.streamFileToolStripMenuItem1_Click);
             // 
             // statusStrip1
             // 
@@ -182,6 +191,13 @@
             this.dockingPanel.Name = "dockingPanel";
             this.dockingPanel.Size = new System.Drawing.Size(584, 464);
             this.dockingPanel.TabIndex = 10;
+            // 
+            // localFileToolStripMenuItem
+            // 
+            this.localFileToolStripMenuItem.Name = "localFileToolStripMenuItem";
+            this.localFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.localFileToolStripMenuItem.Text = "Local File";
+            this.localFileToolStripMenuItem.Click += new System.EventHandler(this.localFileToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -225,5 +241,6 @@
         private System.Windows.Forms.ToolStripStatusLabel columnText;
         private System.Windows.Forms.Panel panel1;
         private WeifenLuo.WinFormsUI.Docking.DockPanel dockingPanel;
+        private System.Windows.Forms.ToolStripMenuItem localFileToolStripMenuItem;
     }
 }
