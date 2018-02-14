@@ -81,7 +81,7 @@ namespace ILEditor.UserTools
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                //TODO: AddTool for spool file!!
+                                Editor.TheEditor.AddTool(new SpoolViewer(spool.getName(), SpoolFile));
                             });
                         }
                         else

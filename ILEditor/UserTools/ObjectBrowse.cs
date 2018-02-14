@@ -141,7 +141,7 @@ namespace ILEditor.UserTools
                 switch (currentRightClick.Type)
                 {
                     case "*BNDDIR":
-                        //TODO: Add binding list
+                        Editor.TheEditor.AddTool(new BindingDirectory(currentRightClick.Library, currentRightClick.Name));
                         break;
                     default:
                         Editor.OpenSource(new RemoteSource("", currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension));

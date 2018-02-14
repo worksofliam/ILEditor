@@ -589,11 +589,5 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TabControlExtra\TabControlExtra.csproj">
-      <Project>{4dbfe2cf-45e4-4594-8e6a-5ebc2eef85ae}</Project>
-      <Name>TabControlExtra</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILEditor", "ILEditor\ILEditor.csproj", "{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabControlExtra", "TabControlExtra\TabControlExtra.csproj", "{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +21,6 @@ Global
 		{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F66C8A3-C1D9-4CF0-B6F4-A7B9B8E802BB}.Release|x86.Build.0 = Release|Any CPU
-		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|x86.ActiveCfg = Debug|x86
-		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Debug|x86.Build.0 = Debug|x86
-		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|Any CPU.ActiveCfg = Release|x86
-		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|x86.ActiveCfg = Release|x86
-		{4DBFE2CF-45E4-4594-8E6A-5EBC2EEF85AE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -40,21 +40,25 @@ namespace ILEditor.UserTools
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0)
         {
             InitializeComponent();
-
-            //TODO: TITLE
+            
             //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
 
             this.Language = Language;
             this.RcdLen = RecordLength;
             this.LocalPath = LocalFile;
 
+            CreateForm();
+        }
+
+        public void CreateForm()
+        {
             textEditor = new TextEditor();
             textEditor.ShowLineNumbers = true;
             //textEditor.Encoding = Encoding.GetEncoding(1252);
             //textEditor.Encoding = Encoding.GetEncoding(28591);
             //textEditor.Encoding = Encoding.GetEncoding("IBM437");
             textEditor.Encoding = Encoding.GetEncoding("iso-8859-1");
-            textEditor.Text = File.ReadAllText(LocalFile, textEditor.Encoding);
+            textEditor.Text = File.ReadAllText(this.LocalPath, textEditor.Encoding);
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
@@ -70,7 +74,7 @@ namespace ILEditor.UserTools
             textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
 
             textEditor.Options.AllowScrollBelowDocument = true;
-            
+
             if (this.RcdLen > 0)
             {
                 textEditor.Options.ShowColumnRuler = true;
@@ -111,8 +115,8 @@ namespace ILEditor.UserTools
 
             if (lang != "")
                 using (Stream s = new MemoryStream(Encoding.ASCII.GetBytes(Properties.Resources.ResourceManager.GetString(lang))))
-                    using (XmlTextReader reader = new XmlTextReader(s))
-                        textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                using (XmlTextReader reader = new XmlTextReader(s))
+                    textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
 
             ElementHost host = new ElementHost();
             host.Dock = DockStyle.Fill;
@@ -151,20 +155,10 @@ namespace ILEditor.UserTools
             }
         }
 
-        private Control GetParent()
-        {
-            return this.Parent;
-        }
-
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
-            if (GetParent() != null)
-            {
-                if (!GetParent().Text.EndsWith("*"))
-                {
-                    GetParent().Text += "*";
-                }
-            }
+            if (!this.Text.EndsWith("*"))
+                this.Text += "*";
         }
         
         private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
@@ -181,7 +175,7 @@ namespace ILEditor.UserTools
 
         public void SaveAs()
         {
-            if (!GetParent().Text.EndsWith("*"))
+            if (!this.Text.EndsWith("*"))
             {
                 RemoteSource MemberInfo = (RemoteSource)this.Tag;
                 if (MemberInfo != null)
@@ -272,8 +266,8 @@ namespace ILEditor.UserTools
                             {
                                 this.Invoke((MethodInvoker)delegate
                                 {
-                                    if (GetParent().Text.EndsWith("*"))
-                                        GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
+                                    if (this.Text.EndsWith("*"))
+                                        this.Text = this.Text.Substring(0, this.Text.Length - 1);
                                 });
                             }
 
@@ -297,8 +291,8 @@ namespace ILEditor.UserTools
             else
             {
                 File.WriteAllText(this.LocalPath, this.GetText(), textEditor.Encoding);
-                if (GetParent().Text.EndsWith("*"))
-                    GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
+                if (this.Text.EndsWith("*"))
+                    this.Text = this.Text.Substring(0, this.Text.Length - 1);
                 Editor.TheEditor.SetStatus("File saved locally.");
             }
         }
