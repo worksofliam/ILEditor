@@ -452,7 +452,7 @@ namespace ILEditor
 
         #region ToolStrip
         private void newMember_Click(object sender, EventArgs e) => memberToolStripMenuItem.PerformClick();
-        private void saveSource_Click(object sender, EventArgs e) => saveAsToolStripMenuItem.PerformClick();
+        private void saveSource_Click(object sender, EventArgs e) => saveToolStripMenuItem.PerformClick();
         private void liblButton_Click(object sender, EventArgs e) => libraryListToolStripMenuItem.PerformClick();
         private void compileButton_Click(object sender, EventArgs e) => compileToolStripMenuItem1.PerformClick();
         private void acsButton_Click(object sender, EventArgs e) => start5250SessionToolStripMenuItem.PerformClick();
