@@ -15,7 +15,7 @@ namespace ILEditor.Classes
         private static List<string> QTEMPListing = new List<string>();
         //This method is used to determine whether a file in QTEMP needs to be deleted
         //If it's already exists in QTEMP, we delete it - otherwise we delete it next time
-        private static void UsingQTEMPFiles(string[] Objects)
+        public static void UsingQTEMPFiles(string[] Objects)
         {
             foreach (string Object in Objects) 
                 if (QTEMPListing.Contains(Object))

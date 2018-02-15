@@ -236,6 +236,33 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///	&lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///	&lt;title&gt;&lt;/title&gt;
+        ///	&lt;style&gt;
+        ///		body {
+        ///			font-family: Arial, Helvetica, sans-serif;
+        ///		}
+        ///	&lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///	&lt;h3&gt;Enabling Dark Mode&lt;/h3&gt;
+        ///	&lt;p&gt;ILEditor has a built in Dark Mode, which turns tabs and editor dark.&lt;/p&gt;
+        ///	&lt;ol&gt;
+        ///		&lt;li&gt;Open up the Connection Settings: Tools-&gt;Connection Settings, or access via the Toolbox&lt;/li&gt;
+        ///		&lt;li&gt;Click on the ILEditor tab&lt;/li&gt;
+        ///		&lt;li&gt;Click on the Dark Mode chec [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DarkMode {
+            get {
+                return ResourceManager.GetString("DarkMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;SyntaxDefinition name=&quot;Python&quot; extensions=&quot;.py;.pyw&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
         ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;#6272a9&quot; exampleText=&quot;# comment&quot; /&gt;
@@ -339,33 +366,6 @@ namespace ILEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///
-        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;&lt;/title&gt;
-        ///    &lt;style&gt;
-        ///        body {
-        ///            font-family: Arial, Helvetica, sans-serif;
-        ///        }
-        ///    &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h3&gt;Something not working?&lt;/h3&gt;
-        ///    &lt;p&gt;Are you seeing this error message?&lt;/p&gt;
-        ///    &lt;img width=&quot;100%&quot; src=&quot;https://i.imgur.com/qA7Dhqt.png&quot; /&gt;
-        ///    &lt;p&gt;This may be because the Windows Firewall is blocking either:&lt;/p&gt;
-        ///    &lt;ul&gt;
-        ///        &lt;li&gt;ftp.exe ( [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string FTP {
-            get {
-                return ResourceManager.GetString("FTP", resourceCulture);
             }
         }
         

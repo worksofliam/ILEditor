@@ -15,6 +15,7 @@ using ICSharpCode.AvalonEdit.Highlighting;
 using System.Windows.Media;
 using ILEditor.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace ILEditor.UserTools
 {
@@ -29,15 +30,18 @@ namespace ILEditor.UserTools
         COBOL,
         Python
     }
-
+    
     public partial class SourceEditor : DockContent
     {
+        private static bool CurrentSaving = false;
+
         private TextEditor textEditor = null;
         private Language Language;
         private int RcdLen;
         private string LocalPath;
+        private bool ReadOnly;
         
-        public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0)
+        public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
             InitializeComponent();
             
@@ -46,8 +50,7 @@ namespace ILEditor.UserTools
             this.Language = Language;
             this.RcdLen = RecordLength;
             this.LocalPath = LocalFile;
-
-            CreateForm();
+            this.ReadOnly = isReadOnly;
         }
 
         public void CreateForm()
@@ -81,8 +84,12 @@ namespace ILEditor.UserTools
                 textEditor.Options.ColumnRulerPosition = this.RcdLen;
             }
 
-            //SearchPanel.Install(textEditor);
-            SearchReplacePanel.Install(textEditor);
+            textEditor.IsReadOnly = this.ReadOnly;
+
+            if (this.ReadOnly)
+                SearchPanel.Install(textEditor);
+            else
+                SearchReplacePanel.Install(textEditor);
 
             string lang = "";
             bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
@@ -124,9 +131,9 @@ namespace ILEditor.UserTools
             this.Controls.Add(host);
         }
 
-        public void SetReadOnly(bool ReadOnly)
+        private void SourceEditor_Load(object sender, EventArgs e)
         {
-            textEditor.IsReadOnly = ReadOnly;
+            CreateForm();
         }
 
         public string GetText()
@@ -177,19 +184,19 @@ namespace ILEditor.UserTools
         {
             if (!this.Text.EndsWith("*"))
             {
-                RemoteSource MemberInfo = (RemoteSource)this.Tag;
-                if (MemberInfo != null)
+                if (!CurrentSaving)
                 {
-                    switch (MemberInfo.GetFS())
+                    RemoteSource MemberInfo = this.Tag as RemoteSource;
+                    if (MemberInfo != null)
                     {
-                        case FileSystem.QSYS:
-                            if (!MemberInfo._IsBeingSaved)
-                            {
+                        switch (MemberInfo.GetFS())
+                        {
+                            case FileSystem.QSYS:
                                 SaveAs SaveAsWindow = new SaveAs();
                                 SaveAsWindow.ShowDialog();
                                 if (SaveAsWindow.Success)
                                 {
-                                    MemberInfo._IsBeingSaved = true;
+                                    CurrentSaving = true;
 
                                     Editor.TheEditor.SetStatus("Saving " + SaveAsWindow.Mbr + "..");
                                     Thread gothread = new Thread((ThreadStart)delegate
@@ -202,24 +209,24 @@ namespace ILEditor.UserTools
                                         {
                                             Editor.TheEditor.SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
                                         });
-
-                                        MemberInfo._IsBeingSaved = false;
+                                        
+                                        CurrentSaving = false;
                                     });
 
                                     gothread.Start();
                                 }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Save as is not available for local source.");
-                            }
-                            break;
+                                else
+                                {
+                                    MessageBox.Show("Save as is not available for local source.");
+                                }
+                                break;
 
-                        case FileSystem.IFS:
-                            MessageBox.Show("Save as is not available for stream files yet.");
-                            break;
+                            case FileSystem.IFS:
+                                MessageBox.Show("Save as is not available for stream files yet.");
+                                break;
+                        }
+
                     }
-                    
                 }
             }
             else
@@ -237,9 +244,9 @@ namespace ILEditor.UserTools
             {
                 if (SourceInfo.IsEditable())
                 {
-                    if (!SourceInfo._IsBeingSaved)
+                    if (!CurrentSaving)
                     {
-                        SourceInfo._IsBeingSaved = true;
+                        CurrentSaving = true;
 
                         Editor.TheEditor.SetStatus("Saving " + SourceInfo.GetName() + "..");
                         Thread gothread = new Thread((ThreadStart)delegate
@@ -276,10 +283,14 @@ namespace ILEditor.UserTools
                                 Editor.TheEditor.SetStatus(SourceInfo.GetName() + " " + (UploadResult ? "" : "not ") + "saved.");
                             });
 
-                            SourceInfo._IsBeingSaved = false;
+                            CurrentSaving = false;
                         });
 
                         gothread.Start();
+                    }
+                    else
+                    {
+                        Editor.TheEditor.SetStatus("Please wait until previous save has finished.");
                     }
 
                 }
@@ -299,6 +310,8 @@ namespace ILEditor.UserTools
 
         public void CommentOutSelected()
         {
+            if (this.ReadOnly) return;
+
             if (textEditor.SelectionLength == 0)
             {
                 DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
@@ -366,6 +379,8 @@ namespace ILEditor.UserTools
 
         public void ConvertSelectedRPG()
         {
+            if (this.ReadOnly) return;
+
             if (textEditor.SelectedText == "")
             {
                 MessageBox.Show("Please highlight the code you want to convert and then try the conversion again.", "Fixed-To-Free", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -406,6 +421,8 @@ namespace ILEditor.UserTools
 
         public void FormatCL()
         {
+            if (this.ReadOnly) return;
+
             string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
             textEditor.SelectAll();
             textEditor.SelectedText = "";
@@ -413,5 +430,6 @@ namespace ILEditor.UserTools
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }
         #endregion
+
     }
 }

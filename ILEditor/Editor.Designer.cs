@@ -121,7 +121,7 @@
             this.sourcePhysicalFileToolStripMenuItem,
             this.streamFileToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // memberToolStripMenuItem
@@ -153,7 +153,7 @@
             this.streamFileToolStripMenuItem1,
             this.localFileToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // memberToolStripMenuItem1
@@ -182,21 +182,21 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save-As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // switchSystemToolStripMenuItem
             // 
             this.switchSystemToolStripMenuItem.Name = "switchSystemToolStripMenuItem";
-            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.switchSystemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.switchSystemToolStripMenuItem.Text = "Switch System";
             this.switchSystemToolStripMenuItem.Click += new System.EventHandler(this.switchSystemToolStripMenuItem_Click);
             // 
@@ -455,7 +455,7 @@
             this.zoomInButton});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(185, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(216, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // newMember
@@ -467,6 +467,7 @@
             this.newMember.Size = new System.Drawing.Size(23, 22);
             this.newMember.Text = "New Member";
             this.newMember.ToolTipText = "New Member";
+            this.newMember.Click += new System.EventHandler(this.newMember_Click);
             // 
             // saveSource
             // 
@@ -476,6 +477,7 @@
             this.saveSource.Name = "saveSource";
             this.saveSource.Size = new System.Drawing.Size(23, 22);
             this.saveSource.Text = "Save Source";
+            this.saveSource.Click += new System.EventHandler(this.saveSource_Click);
             // 
             // liblButton
             // 
@@ -485,6 +487,7 @@
             this.liblButton.Name = "liblButton";
             this.liblButton.Size = new System.Drawing.Size(23, 22);
             this.liblButton.Text = "Library List";
+            this.liblButton.Click += new System.EventHandler(this.liblButton_Click);
             // 
             // compileButton
             // 
@@ -494,6 +497,7 @@
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(23, 22);
             this.compileButton.Text = "Compile Source";
+            this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -508,6 +512,7 @@
             this.acsButton.Name = "acsButton";
             this.acsButton.Size = new System.Drawing.Size(23, 22);
             this.acsButton.Text = "Launch ACS";
+            this.acsButton.Click += new System.EventHandler(this.acsButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -523,6 +528,7 @@
             this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
             this.zoomOutButton.Text = "Zoom Out";
             this.zoomOutButton.ToolTipText = "Zoom Out";
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // zoomInButton
             // 
@@ -532,6 +538,7 @@
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(23, 22);
             this.zoomInButton.Text = "Zoom In";
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // Editor
             // 

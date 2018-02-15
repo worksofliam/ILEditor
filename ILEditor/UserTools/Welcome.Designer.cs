@@ -37,10 +37,10 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.devNews = new System.Windows.Forms.WebBrowser();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -122,18 +122,6 @@
             this.linkLabel3.Text = "Compiling a program";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
-            // linkLabel4
-            // 
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Location = new System.Drawing.Point(44, 181);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(129, 13);
-            this.linkLabel4.TabIndex = 6;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Tag = "FTP";
-            this.linkLabel4.Text = "Getting an FTP error?";
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
-            // 
             // devNews
             // 
             this.devNews.AllowWebBrowserDrop = false;
@@ -176,16 +164,28 @@
             this.linkLabel5.Text = "Using Offline Mode";
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // linkLabel4
+            // 
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Location = new System.Drawing.Point(45, 181);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(121, 13);
+            this.linkLabel4.TabIndex = 10;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Tag = "DARK";
+            this.linkLabel4.Text = "Enabling Dark Mode";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(873, 490);
+            this.Controls.Add(this.linkLabel4);
             this.Controls.Add(this.linkLabel5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.devNews);
-            this.Controls.Add(this.linkLabel4);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
@@ -208,10 +208,10 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel3;
-        private System.Windows.Forms.LinkLabel linkLabel4;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.WebBrowser devNews;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel5;
+        private System.Windows.Forms.LinkLabel linkLabel4;
     }
 }

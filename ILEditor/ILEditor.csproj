@@ -175,18 +175,6 @@
     <Compile Include="Forms\CreateDirectory.Designer.cs">
       <DependentUpon>CreateDirectory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FirewallHelp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FirewallHelp.Designer.cs">
-      <DependentUpon>FirewallHelp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FirewallPrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FirewallPrompt.Designer.cs">
-      <DependentUpon>FirewallPrompt.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\LibraryList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,12 +333,6 @@
     <Compile Include="UserTools\SpoolListing.Designer.cs">
       <DependentUpon>SpoolListing.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\SpoolViewer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserTools\SpoolViewer.Designer.cs">
-      <DependentUpon>SpoolViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserTools\TreeBrowse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -389,12 +371,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateStreamFile.resx">
       <DependentUpon>CreateStreamFile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FirewallHelp.resx">
-      <DependentUpon>FirewallHelp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FirewallPrompt.resx">
-      <DependentUpon>FirewallPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HostSelect.resx">
       <DependentUpon>HostSelect.cs</DependentUpon>
@@ -481,9 +457,6 @@
     <EmbeddedResource Include="UserTools\SpoolListing.resx">
       <DependentUpon>SpoolListing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\SpoolViewer.resx">
-      <DependentUpon>SpoolViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserTools\TreeBrowse.resx">
       <DependentUpon>TreeBrowse.cs</DependentUpon>
     </EmbeddedResource>
@@ -531,7 +504,7 @@
     <Content Include="Resources\AutoComplete\CPP.txt" />
     <Content Include="Resources\AutoComplete\RPG.txt" />
     <Content Include="Resources\Help\Compiling.html" />
-    <Content Include="Resources\Help\FTP.html" />
+    <Content Include="Resources\Help\DarkMode.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OfflineMode.html" />
     <Content Include="Resources\Help\OpenMember.html" />

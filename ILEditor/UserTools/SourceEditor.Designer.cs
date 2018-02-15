@@ -34,8 +34,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(528, 449);
             this.Name = "SourceEditor";
-            this.Size = new System.Drawing.Size(544, 488);
+            this.Load += new System.EventHandler(this.SourceEditor_Load);
             this.ResumeLayout(false);
 
         }

@@ -109,7 +109,7 @@ namespace ILEditor
             else
                 Content.Show(content, dock);
         }
-
+        
         public static void OpenSource(RemoteSource Source)
         {
             SourceEditor sourcePanel;
@@ -119,46 +119,54 @@ namespace ILEditor
             text = Path.GetFileName(Source.GetName() + "." + Source.GetExtension().ToLower());
             Editor.TheEditor.SetStatus("Fetching file " + text + "...");
 
-            switch (Source.GetFS())
-            {
-                case FileSystem.QSYS:
-                    resultFile = IBMiUtils.DownloadMember(Source.GetLibrary(), Source.GetObject(), Source.GetName(), Source.GetExtension());
-                    break;
-                case FileSystem.IFS:
-                    resultFile = IBMiUtils.DownloadFile(Source.GetRemoteFile());
-                    break;
-            }
-
-            if (resultFile != "")
-            {
-                Editor.TheEditor.SetStatus("Opening file " + text + "...");
-                Source._Local = resultFile;
-                sourcePanel = new SourceEditor(Source.GetLocalFile(), GetBoundLangType(Source.GetExtension()), Source.GetRecordLength());
-
-                sourcePanel.Tag = Source;
-                sourcePanel.Text = text;
-
-                Source.Lock();
-                TheEditor.AddTool(sourcePanel, DockState.Document, true);
-            }
-            else
+            new Thread((ThreadStart)delegate
             {
                 switch (Source.GetFS())
                 {
                     case FileSystem.QSYS:
-                        MessageBox.Show("Unable to download member " + Source.GetLibrary() + "/" + Source.GetObject() + "." + Source.GetName() + ". Please check it exists and that you have access to the remote system.");
+                        resultFile = IBMiUtils.DownloadMember(Source.GetLibrary(), Source.GetObject(), Source.GetName(), Source.GetExtension());
+                        break;
+                    case FileSystem.IFS:
+                        resultFile = IBMiUtils.DownloadFile(Source.GetRemoteFile());
                         break;
                 }
-            }
+
+                if (resultFile != "")
+                {
+                    Editor.TheEditor.SetStatus("Opening file " + text + "...");
+
+                    Source._Local = resultFile;
+                    Source.Lock();
+
+                    sourcePanel = new SourceEditor(Source.GetLocalFile(), GetBoundLangType(Source.GetExtension()), Source.GetRecordLength(), !Source.IsEditable());
+
+                    sourcePanel.Tag = Source;
+                    sourcePanel.Text = text;
+
+                    Editor.TheEditor.Invoke((MethodInvoker)delegate
+                    {
+                        TheEditor.AddTool(sourcePanel, DockState.Document, true);
+                    });
+                }
+                else
+                {
+                    switch (Source.GetFS())
+                    {
+                        case FileSystem.QSYS:
+                            MessageBox.Show("Unable to download member " + Source.GetLibrary() + "/" + Source.GetObject() + "." + Source.GetName() + ". Please check it exists and that you have access to the remote system.");
+                            break;
+                    }
+                }
+            }).Start();
         }
 
-        public static void OpenExistingSource(RemoteSource Source, Language Language = Language.None)
+        public static void OpenExistingSource(RemoteSource Source)
         {
             string text = Path.GetFileName(Source.GetName() + "." + Source.GetExtension().ToLower());
 
             if (File.Exists(Source.GetLocalFile()))
             {
-                SourceEditor sourcePanel = new SourceEditor(Source.GetLocalFile(), GetBoundLangType(Source.GetExtension()), Source.GetRecordLength());
+                SourceEditor sourcePanel = new SourceEditor(Source.GetLocalFile(), GetBoundLangType(Source.GetExtension()), Source.GetRecordLength(), !Source.IsEditable());
 
                 sourcePanel.Tag = Source;
                 sourcePanel.Text = text;
@@ -172,15 +180,18 @@ namespace ILEditor
             }
         }
 
-        public static void OpenLocalSource(string FilePath, Language Language)
+        public static void OpenLocalSource(string FilePath, Language Language, string Title = null, bool ReadOnly = false)
         {
             string text = Path.GetFileName(FilePath);
 
             if (File.Exists(FilePath))
             {
-                SourceEditor sourcePanel = new SourceEditor(FilePath, Language);
-                
-                sourcePanel.Text = text;
+                SourceEditor sourcePanel = new SourceEditor(FilePath, Language, 0, ReadOnly);
+
+                if (Title != null)
+                    sourcePanel.Text = Title;
+                else
+                    sourcePanel.Text = text;
                 
                 TheEditor.AddTool(sourcePanel, DockState.Document);
             }
@@ -206,11 +217,6 @@ namespace ILEditor
                 }
             }
             return null;
-        }
-
-        public void SwitchToTab(int Index)
-        {
-            dockingPanel.Panes[Index].Focus();
         }
 
         public SourceEditor GetTabEditor(DockContent Tab)
@@ -259,23 +265,14 @@ namespace ILEditor
             window.ShowDialog();
 
             if (window.result != null)
-                OpenExistingSource(window.result, GetBoundLangType(window.result.GetExtension()));
+                OpenExistingSource(window.result);
         }
 
-        private void sourcePhysicalFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new NewSPF().ShowDialog();
-        }
+        private void sourcePhysicalFileToolStripMenuItem_Click(object sender, EventArgs e) => new NewSPF().ShowDialog();
 
-        private void memberToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            new OpenSource(0).ShowDialog();
-        }
+        private void memberToolStripMenuItem1_Click(object sender, EventArgs e) => new OpenSource(0).ShowDialog();
 
-        private void streamFileToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            new OpenSource(1).ShowDialog();
-        }
+        private void streamFileToolStripMenuItem1_Click(object sender, EventArgs e) => new OpenSource(1).ShowDialog();
 
         private void localFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -305,10 +302,7 @@ namespace ILEditor
                 LastEditing.SaveAs();
         }
 
-        private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Restart();
-        }
+        private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e) => Application.Restart();
 
         #endregion
 
@@ -361,25 +355,13 @@ namespace ILEditor
         #endregion
 
         #region Tools dropdown
-        private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddTool(new UserTools.UserToolList(), DockState.DockLeft);
-        }
+        private void openToolboxToolStripMenuItem_Click(object sender, EventArgs e) => AddTool(new UserTools.UserToolList(), DockState.DockLeft);
 
-        private void openWelcomeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddTool(new UserTools.Welcome());
-        }
+        private void openWelcomeToolStripMenuItem_Click(object sender, EventArgs e) => AddTool(new UserTools.Welcome());
 
-        private void connectionSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Connection().ShowDialog();
-        }
+        private void connectionSettingsToolStripMenuItem_Click(object sender, EventArgs e) => new Connection().ShowDialog();
 
-        private void libraryListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new Forms.LibraryList().ShowDialog();
-        }
+        private void libraryListToolStripMenuItem_Click(object sender, EventArgs e) => new Forms.LibraryList().ShowDialog();
 
         private void start5250SessionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -398,28 +380,16 @@ namespace ILEditor
                 }
             }
         }
-        
-        private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new QuickMemberSearch().Show();
-        }
+
+        private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new QuickMemberSearch().Show();
         #endregion
 
         #region Source dropdown
-        private void sPFCloneToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new CloneWindow().ShowDialog();
-        }
+        private void sPFCloneToolStripMenuItem_Click(object sender, EventArgs e) => new CloneWindow().ShowDialog();
 
-        private void sPFPushToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new PushWindow().ShowDialog();
-        }
+        private void sPFPushToolStripMenuItem_Click(object sender, EventArgs e) => new PushWindow().ShowDialog();
 
-        private void memberSearchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new MemberSearch().ShowDialog();
-        }
+        private void memberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new MemberSearch().ShowDialog();
 
         private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -456,6 +426,7 @@ namespace ILEditor
 
             if (SelectFile.Success)
             {
+                IBMiUtils.UsingQTEMPFiles(new[] { "Q_GENSQL" });
                 if (IBMi.RemoteCommand(SelectFile.getCommand()))
                 {
                     OpenSource(new RemoteSource("", "QTEMP", "Q_GENSQL", "Q_GENSQL", "SQL", false));
@@ -475,15 +446,28 @@ namespace ILEditor
         #endregion
 
         #region Help dropdown
-        private void aboutILEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new About().ShowDialog();
-        }
+        private void aboutILEditorToolStripMenuItem_Click(object sender, EventArgs e) => new About().ShowDialog();
+        private void sessionFTPLogToolStripMenuItem_Click(object sender, EventArgs e) => Process.Start(IBMi.FTPFile);
+        #endregion
 
-        private void sessionFTPLogToolStripMenuItem_Click(object sender, EventArgs e)
+        #region ToolStrip
+        private void newMember_Click(object sender, EventArgs e) => memberToolStripMenuItem.PerformClick();
+        private void saveSource_Click(object sender, EventArgs e) => saveAsToolStripMenuItem.PerformClick();
+        private void liblButton_Click(object sender, EventArgs e) => libraryListToolStripMenuItem.PerformClick();
+        private void compileButton_Click(object sender, EventArgs e) => compileToolStripMenuItem1.PerformClick();
+        private void acsButton_Click(object sender, EventArgs e) => start5250SessionToolStripMenuItem.PerformClick();
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
         {
-            Process.Start(IBMi.FTPFile);
+            if (LastEditing != null)
+                LastEditing.Zoom(-1f);
+        }
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+                LastEditing.Zoom(+1f);
         }
         #endregion
+
     }
 }
