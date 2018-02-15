@@ -71,6 +71,16 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap books {
+            get {
+                object obj = ResourceManager.GetObject("books", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDACC|Add Access Code|2
         ///ADDAJE|Add Autostart Job Entry|2
         ///ADDALRACNE|Add Alert Action Entry|2
@@ -124,6 +134,16 @@ namespace ILEditor.Properties {
         public static string Compiling {
             get {
                 return ResourceManager.GetString("Compiling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap computer {
+            get {
+                object obj = ResourceManager.GetObject("computer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -216,13 +236,42 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///	&lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///	&lt;title&gt;&lt;/title&gt;
+        ///	&lt;style&gt;
+        ///		body {
+        ///			font-family: Arial, Helvetica, sans-serif;
+        ///		}
+        ///	&lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///	&lt;h3&gt;Enabling Dark Mode&lt;/h3&gt;
+        ///	&lt;p&gt;ILEditor has a built in Dark Mode, which turns tabs and editor dark.&lt;/p&gt;
+        ///	&lt;ol&gt;
+        ///		&lt;li&gt;Open up the Connection Settings: Tools-&gt;Connection Settings, or access via the Toolbox&lt;/li&gt;
+        ///		&lt;li&gt;Click on the ILEditor tab&lt;/li&gt;
+        ///		&lt;li&gt;Click on the Dark Mode chec [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DarkMode {
+            get {
+                return ResourceManager.GetString("DarkMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;SyntaxDefinition name=&quot;Python&quot; extensions=&quot;.py;.pyw&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;# comment&quot; /&gt;
-        ///	&lt;Color name=&quot;String&quot; foreground=&quot;Gray&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
-        ///	&lt;Color name=&quot;MethodCall&quot; foreground=&quot;Purple&quot; exampleText=&quot;def Hello()&quot;/&gt;
-        ///	&lt;Color name=&quot;NumberLiteral&quot; foreground=&quot;DarkBlue&quot; exampleText=&quot;3.1415f&quot;/&gt;
-        ///	&lt;Color name=&quot;Keywords&quot; fontWeight=&quot;bold&quot; foreground=&quot;Blue&quot; exampleText=&quot;if&quot; [rest of string was truncated]&quot;;.
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;#6272a9&quot; exampleText=&quot;# comment&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;#047b22&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
+        ///	&lt;Color name=&quot;MethodCall&quot; foreground=&quot;#8585e0&quot; exampleText=&quot;def Hello()&quot;/&gt;
+        ///	&lt;Color name=&quot;NumberLiteral&quot; foreground=&quot;#72a6ff&quot; exampleText=&quot;3.1415f&quot;/&gt;
+        ///	&lt;Color name=&quot;Keywords&quot; foreground=&quot;#ffb86c&quot; exampleText=&quot;if&quot;/&gt;
+        ///
+        ///	&lt;Pr [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkPython {
             get {
@@ -317,33 +366,6 @@ namespace ILEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///
-        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;&lt;/title&gt;
-        ///    &lt;style&gt;
-        ///        body {
-        ///            font-family: Arial, Helvetica, sans-serif;
-        ///        }
-        ///    &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h3&gt;Something not working?&lt;/h3&gt;
-        ///    &lt;p&gt;Are you seeing this error message?&lt;/p&gt;
-        ///    &lt;img width=&quot;100%&quot; src=&quot;https://i.imgur.com/qA7Dhqt.png&quot; /&gt;
-        ///    &lt;p&gt;This may be because the Windows Firewall is blocking either:&lt;/p&gt;
-        ///    &lt;ul&gt;
-        ///        &lt;li&gt;ftp.exe ( [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string FTP {
-            get {
-                return ResourceManager.GetString("FTP", resourceCulture);
             }
         }
         

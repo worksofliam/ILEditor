@@ -24,10 +24,10 @@ ILEditor is an editor for development of ILE applications on IBM i. ILEditor wil
 
 ## Libraries used
 
-* [FluentFTP](https://github.com/robinrodricks/FluentFTP)
 * [flaticon](https://www.flaticon.com/authors/simpleicon)
+* [FluentFTP](https://github.com/robinrodricks/FluentFTP)
 * [AvalonEdit](https://github.com/icsharpcode/AvalonEdit)
-* [tabcontrol-extra](https://github.com/tradewright/tabcontrol-extra)
+* [DockPanelSuite](http://dockpanelsuite.com/)
 
 ## Notes
 

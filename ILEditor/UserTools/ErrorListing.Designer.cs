@@ -47,7 +47,7 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(381, 309);
+            this.treeView1.Size = new System.Drawing.Size(365, 270);
             this.treeView1.TabIndex = 1;
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
@@ -65,10 +65,10 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 287);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 248);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(381, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(365, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -92,10 +92,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(365, 270);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.treeView1);
             this.Name = "ErrorListing";
-            this.Size = new System.Drawing.Size(381, 309);
+            this.Text = "Error Listing";
             this.Load += new System.EventHandler(this.ErrorListing_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

@@ -20,12 +20,14 @@ namespace ILEditor.Forms.CompileOptionForms
 
         private void create_Click(object sender, EventArgs e)
         {
+            List<string> items = IBMi.CurrentSystem.GetValue("CMPTYPES").Split('|').ToList();
             type.Text = type.Text.Trim();
             if (type.Text.Trim() != "")
             {
-                if (!IBMi.CurrentSystem.GetValue("CMPTYPES").Contains(type.Text))
+                if (!items.Contains(type.Text))
                 {
-                    IBMi.CurrentSystem.SetValue("CMPTYPES", IBMi.CurrentSystem.GetValue("CMPTYPES") + "|" + type.Text);
+                    items.Add(type.Text);
+                    IBMi.CurrentSystem.SetValue("CMPTYPES", String.Join("|", items));
                     this.Close();
                 }
             }

@@ -11,20 +11,23 @@ using System.Threading;
 using ILEditor.Classes;
 using System.IO;
 using ILEditor.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class MemberBrowse : UserControl
+    public partial class MemberBrowse : DockContent
     {
         public MemberBrowse(string Lib = "", string Obj = "") 
         {
             InitializeComponent();
+            this.Text = "Member Browser";
 
             if (Lib != "" && Obj != "")
             {
                 library.Text = Lib;
                 spf.Text = Obj;
             }
+            
         }
         
         private void MemberBrowse_Load(object sender, EventArgs e)
@@ -121,7 +124,7 @@ namespace ILEditor.UserTools
                 return;
             }
 
-            this.Parent.Text = library.Text + "/" + spf.Text + " [Listing]";
+            this.Text = library.Text + "/" + spf.Text + " [Listing]";
             UpdateListing(library.Text, spf.Text);
             Welcome.JustOpened(library.Text, spf.Text);
         }

@@ -11,15 +11,17 @@ using System.Threading;
 using ILEditor.Classes;
 using FluentFTP;
 using ILEditor.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class IFSBrowser : UserControl
+    public partial class IFSBrowser : DockContent
     {
         private string RootDirectory = "";
         public IFSBrowser()
         {
             InitializeComponent();
+            this.Text = "IFS Browser";
             RootDirectory = IBMi.CurrentSystem.GetValue("homeDir");
         }
 
@@ -97,7 +99,8 @@ namespace ILEditor.UserTools
         {
             if (files.SelectedNode != null)
                 if (files.SelectedNode.Tag != null)
-                    Editor.OpenSource(new RemoteSource("", files.SelectedNode.Tag.ToString()));
+                    if (files.SelectedNode.Nodes.Count == 0)
+                        Editor.OpenSource(new RemoteSource("", files.SelectedNode.Tag.ToString()));
         }
 
         private void files_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -173,7 +176,7 @@ namespace ILEditor.UserTools
                 window.ShowDialog();
 
                 if (window.result != null)
-                    Editor.TheEditor.AddSourceEditor(window.result, Editor.GetBoundLangType(window.result.GetExtension()));
+                    Editor.OpenSource(window.result);
             }
         }
 

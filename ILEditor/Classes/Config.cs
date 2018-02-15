@@ -74,8 +74,8 @@ namespace ILEditor.Classes
             CheckExist("homeDir", "/home/" + Data["username"] + "/");
             CheckExist("tempSpf", "QSOURCE");
 
-            CheckExist("printerLib", "");
-            CheckExist("printerObj", "");
+            CheckExist("printerLib", "QGPL");
+            CheckExist("printerObj", "QPRINT");
             CheckExist("fetchJobLog", "false");
 
             CheckExist("TREE_LIST", "");

@@ -27,7 +27,6 @@ namespace ILEditor.Classes
 
         public string _Text;
         private Boolean _isEditable;
-        public Boolean _IsBeingSaved;
 
         private Boolean _isLocked;
 
@@ -42,7 +41,6 @@ namespace ILEditor.Classes
             this._Ext = Ext;
             this._RecordLength = RecordLength;
             this._isEditable = isEditable;
-            this._IsBeingSaved = false;
 
             this._isLocked = false;
             this._IFSPath = "";
@@ -67,7 +65,6 @@ namespace ILEditor.Classes
             }
 
             this._RecordLength = 0;
-            this._IsBeingSaved = false;
             this._isLocked = false;
 
             this._Lib = "";

@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ILEditor.Classes;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class ErrorListing : UserControl
+    public partial class ErrorListing : DockContent
     {
         private string Library;
         private string Object;
@@ -25,8 +26,6 @@ namespace ILEditor.UserTools
         
         private void ErrorListing_Load(object sender, EventArgs e)
         {
-            this.Parent.Text = "Error Listing";
-
             Thread gothread = new Thread((ThreadStart)delegate
             {
                 ErrorHandle.getErrors(Library, Object);
@@ -110,6 +109,11 @@ namespace ILEditor.UserTools
                 name = e.Node.Parent.Text;
                 if (name.Substring(0, 1) == "/")
                     name = name.Split('/').Last();
+                else
+                {
+                    name = name.Split('(').Last();
+                    name = name.Substring(0, name.Length-1);
+                }
 
                 onSelectError(name, line, col, error);
             }
@@ -117,11 +121,10 @@ namespace ILEditor.UserTools
 
         private void onSelectError(string File, int Line, int Col, string ErrorText)
         {
-            OpenTab theTab = Editor.TheEditor.EditorContains(File);
+            DockContent theTab = Editor.TheEditor.GetTabByName(File, true);
 
             if (theTab != null)
             {
-                Editor.TheEditor.SwitchToTab(theTab.getSide(), theTab.getIndex());
                 SourceEditor SourceEditor = Editor.TheEditor.GetTabEditor(theTab);
 
                 SourceEditor.Focus();

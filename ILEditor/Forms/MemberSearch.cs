@@ -47,7 +47,7 @@ namespace ILEditor.Forms
                 return;
             }
 
-            Editor.TheEditor.AddTool(lib.Text + "/" + spf.Text + " search", new MemberSearchListing(lib.Text, spf.Text, searchVal.Text, caseSense.Checked));
+            Editor.TheEditor.AddTool(new MemberSearchListing(lib.Text, spf.Text, searchVal.Text, caseSense.Checked), WeifenLuo.WinFormsUI.Docking.DockState.DockBottom);
             this.Close();
         }
     }

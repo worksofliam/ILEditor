@@ -31,7 +31,8 @@ namespace ILEditor.Forms
             Boolean valid = true;
             string Lib = lib.Text.Trim();
             string Obj = obj.Text.Trim();
-            string Type = sqlType.Text.Trim();
+            string Type = sqlType.Text.Trim().ToUpper();
+            List<string> Options = new List<string>();
 
             if (!IBMiUtils.IsValueObjectName(Lib))
                 valid = false;
@@ -45,7 +46,12 @@ namespace ILEditor.Forms
             }
             else
             {
-                this.Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" + Obj + "'', ''" + Lib + "'', ''" + Type + "'', REPLACE_OPTION => ''0'')')";
+                if (Type == "VIEW")
+                    Options.Add("index_instead_of_view_option => ''1''");
+
+                Options.Add("REPLACE_OPTION => ''1''");
+
+                this.Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" + Obj + "'', ''" + Lib + "'', ''" + Type + "'', " + String.Join(", ", Options) + ")')";
                 this.Success = true;
                 this.Close();
             }

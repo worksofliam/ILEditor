@@ -10,10 +10,11 @@ using System.Windows.Forms;
 using System.IO;
 using ILEditor.Classes;
 using System.Threading;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class MemberSearchListing : UserControl
+    public partial class MemberSearchListing : DockContent
     {
         private string Library;
         private string SPF;
@@ -23,6 +24,9 @@ namespace ILEditor.UserTools
         public MemberSearchListing(string Lib, string Spf, string Value, Boolean CaseSensitive = false)
         {
             InitializeComponent();
+
+            this.Text = "'" + Value + "' Search";
+
             Library = Lib;
             SPF = Spf;
             Sensitive = CaseSensitive;

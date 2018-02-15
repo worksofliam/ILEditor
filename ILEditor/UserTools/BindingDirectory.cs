@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILEditor.Classes;
 using System.Threading;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class BindingDirectory : UserControl
+    public partial class BindingDirectory : DockContent
     {
         private string Library;
         private string Object;
@@ -21,6 +22,8 @@ namespace ILEditor.UserTools
         {
             InitializeComponent();
             UpdateListing(Lib, Obj);
+
+            this.Text = Lib + "/" + Obj + " Binding Directory";
 
             Library = Lib;
             Object = Obj;
