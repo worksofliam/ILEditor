@@ -145,7 +145,7 @@ namespace ILEditor
 
                     Editor.TheEditor.Invoke((MethodInvoker)delegate
                     {
-                        TheEditor.AddTool(sourcePanel, DockState.Document, true);
+                        TheEditor.AddTool(sourcePanel, DockState.Document, false);
                     });
                 }
                 else
