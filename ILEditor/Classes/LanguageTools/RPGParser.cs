@@ -42,6 +42,10 @@ namespace ILEditor.Classes.LanguageTools
                                 break;
                             case "DCL-S":
                                 if (Tokens.Count < 3) break;
+                                if (Tokens[2].Value == "LIKE")
+                                    if (Tokens[2].Block != null)
+                                        if (Tokens[2].Block.Count > 0)
+                                            Tokens[2].Value = Tokens[2].Block[0].Value;
                                 CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
                                 break;
                             case "DCL-C":
