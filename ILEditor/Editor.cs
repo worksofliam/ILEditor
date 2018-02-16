@@ -77,7 +77,7 @@ namespace ILEditor
                 dockingPanel.Theme = new VS2015DarkTheme();
             else
                 dockingPanel.Theme = new VS2015LightTheme();
-
+            
             AddTool(new UserTools.Welcome());
             AddTool(new UserTools.UserToolList(), DockState.DockLeft);
         }
@@ -210,7 +210,7 @@ namespace ILEditor
                     if (window.Text.StartsWith(Title))
                     {
                         if (Focus)
-                            window.Show();
+                            window.Activate();
 
                         return window;
                     }
@@ -293,13 +293,13 @@ namespace ILEditor
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)
-                LastEditing.Save();
+                LastEditing.DoAction(EditorAction.Save);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)
-                LastEditing.SaveAs();
+                LastEditing.DoAction(EditorAction.Save_As);
         }
 
         private void switchSystemToolStripMenuItem_Click(object sender, EventArgs e) => Application.Restart();
@@ -400,7 +400,7 @@ namespace ILEditor
                 if (Language == Language.RPG)
                 {
                     SetStatus("Converting RPG in " + SourceInfo.GetName());
-                    LastEditing.ConvertSelectedRPG();
+                    LastEditing.DoAction(EditorAction.Convert_Selected_RPG);
                 }
             }
         }
@@ -414,7 +414,7 @@ namespace ILEditor
                 if (Language == Language.CL)
                 {
                     SetStatus("Formatting CL in " + SourceInfo.GetName());
-                    LastEditing.FormatCL();
+                    LastEditing.DoAction(EditorAction.Format_CL);
                 }
             }
         }
@@ -441,7 +441,13 @@ namespace ILEditor
         private void quickCommentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)
-                LastEditing.CommentOutSelected();
+                LastEditing.DoAction(EditorAction.Comment_Out_Selected);
+        }
+
+        private void duplicateLineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+                LastEditing.DoAction(EditorAction.Dupe_Line);
         }
         #endregion
 
@@ -460,13 +466,27 @@ namespace ILEditor
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)
-                LastEditing.Zoom(-1f);
+                LastEditing.DoAction(EditorAction.Zoom_Out);
         }
         private void zoomInButton_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)
-                LastEditing.Zoom(+1f);
+                LastEditing.DoAction(EditorAction.Zoom_In);
         }
+
+        private void undoButton_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+                LastEditing.DoAction(EditorAction.Undo);
+        }
+
+        private void redoButton_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+                LastEditing.DoAction(EditorAction.Redo);
+        }
+
+        private void commentButton_Click(object sender, EventArgs e) => quickCommentToolStripMenuItem.PerformClick();
         #endregion
 
     }

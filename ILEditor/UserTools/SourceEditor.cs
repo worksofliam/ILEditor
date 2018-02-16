@@ -20,6 +20,20 @@ using ICSharpCode.AvalonEdit.Search;
 namespace ILEditor.UserTools
 {
 
+    public enum EditorAction
+    {
+        Zoom_In,
+        Zoom_Out,
+        Save,
+        Save_As,
+        Comment_Out_Selected,
+        Convert_Selected_RPG,
+        Format_CL,
+        Undo,
+        Redo,
+        Dupe_Line
+    }
+
     public enum Language
     {
         None,
@@ -153,15 +167,6 @@ namespace ILEditor.UserTools
             }
         }
 
-        public void Zoom(float change)
-        {
-            if (textEditor.FontSize + change > 5 && textEditor.FontSize + change < 100)
-            {
-                textEditor.FontSize += change;
-                IBMi.CurrentSystem.SetValue("ZOOM", textEditor.FontSize.ToString());
-            }
-        }
-
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
             if (!this.Text.EndsWith("*"))
@@ -180,7 +185,63 @@ namespace ILEditor.UserTools
             Editor.LastEditing = this;
         }
 
-        public void SaveAs()
+        public void DoAction(EditorAction Action)
+        {
+            switch (Action)
+            {
+                case EditorAction.Comment_Out_Selected:
+                    CommentOutSelected();
+                    break;
+                case EditorAction.Convert_Selected_RPG:
+                    ConvertSelectedRPG();
+                    break;
+                case EditorAction.Format_CL:
+                    FormatCL();
+                    break;
+                case EditorAction.Save:
+                    Save();
+                    break;
+                case EditorAction.Save_As:
+                    SaveAs();
+                    break;
+                case EditorAction.Zoom_In:
+                    Zoom(+1f);
+                    break;
+                case EditorAction.Zoom_Out:
+                    Zoom(-1f);
+                    break;
+                case EditorAction.Undo:
+                    textEditor.Undo();
+                    break;
+                case EditorAction.Redo:
+                    textEditor.Redo();
+                    break;
+                case EditorAction.Dupe_Line:
+                    DuplicateLine();
+                    break;
+            }
+        }
+
+        private void DuplicateLine()
+        {
+            DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+            textEditor.Select(line.Offset, line.Length);
+            string value = textEditor.SelectedText;
+            value += Environment.NewLine + value;
+            textEditor.SelectedText = value;
+            textEditor.SelectionLength = 0;
+        }
+
+        private void Zoom(float change)
+        {
+            if (textEditor.FontSize + change > 5 && textEditor.FontSize + change < 100)
+            {
+                textEditor.FontSize += change;
+                IBMi.CurrentSystem.SetValue("ZOOM", textEditor.FontSize.ToString());
+            }
+        }
+
+        private void SaveAs()
         {
             if (!this.Text.EndsWith("*"))
             {
@@ -235,7 +296,7 @@ namespace ILEditor.UserTools
             }
         }
 
-        public void Save()
+        private void Save()
         {
             RemoteSource SourceInfo = (RemoteSource)this.Tag;
             bool UploadResult = true;
@@ -308,7 +369,7 @@ namespace ILEditor.UserTools
             }
         }
 
-        public void CommentOutSelected()
+        private void CommentOutSelected()
         {
             if (this.ReadOnly) return;
 
@@ -377,7 +438,7 @@ namespace ILEditor.UserTools
 
         #region RPG
 
-        public void ConvertSelectedRPG()
+        private void ConvertSelectedRPG()
         {
             if (this.ReadOnly) return;
 
@@ -419,7 +480,7 @@ namespace ILEditor.UserTools
 
         #region CL
 
-        public void FormatCL()
+        private void FormatCL()
         {
             if (this.ReadOnly) return;
 

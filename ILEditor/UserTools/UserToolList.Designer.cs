@@ -67,7 +67,7 @@
             this.toollist.Location = new System.Drawing.Point(0, 0);
             this.toollist.MultiSelect = false;
             this.toollist.Name = "toollist";
-            this.toollist.Size = new System.Drawing.Size(329, 295);
+            this.toollist.Size = new System.Drawing.Size(258, 295);
             this.toollist.SmallImageList = this.imageList1;
             this.toollist.TabIndex = 0;
             this.toollist.UseCompatibleStateImageBehavior = false;
@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 295);
+            this.ClientSize = new System.Drawing.Size(258, 295);
             this.Controls.Add(this.toollist);
             this.Name = "UserToolList";
             this.Text = "Toolbox";

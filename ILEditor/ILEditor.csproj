@@ -538,6 +538,9 @@
     <Content Include="Resources\Highlighting\Light\lightPython.xml" />
     <None Include="Resources\NewIcons\books.png" />
     <None Include="Resources\NewIcons\computer.png" />
+    <None Include="Resources\NewIcons\undo.png" />
+    <None Include="Resources\NewIcons\redo.png" />
+    <None Include="Resources\NewIcons\divide-mathematical-sign.png" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>
