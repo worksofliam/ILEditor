@@ -31,7 +31,9 @@ namespace ILEditor.UserTools
         Format_CL,
         Undo,
         Redo,
-        Dupe_Line
+        Dupe_Line,
+        OutlineUpdate,
+        ParseCode
     }
 
     public enum Language
@@ -54,6 +56,7 @@ namespace ILEditor.UserTools
         private int RcdLen;
         private string LocalPath;
         private bool ReadOnly;
+        private Function[] Functions;
         
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
@@ -143,6 +146,9 @@ namespace ILEditor.UserTools
             host.Dock = DockStyle.Fill;
             host.Child = textEditor;
             this.Controls.Add(host);
+
+            DoAction(EditorAction.ParseCode);
+            DoAction(EditorAction.OutlineUpdate);
         }
 
         private void SourceEditor_Load(object sender, EventArgs e)
@@ -219,7 +225,31 @@ namespace ILEditor.UserTools
                 case EditorAction.Dupe_Line:
                     DuplicateLine();
                     break;
+                case EditorAction.ParseCode:
+                    Parse();
+                    break;
+                case EditorAction.OutlineUpdate:
+                    OutlineUpdate();
+                    break;
             }
+        }
+        
+        private void Parse()
+        {
+            string code = "";
+            this.Invoke((MethodInvoker)delegate
+            {
+                code = GetText().ToUpper();
+            });
+            this.Functions = RPGParser.Parse(code);
+        }
+
+        private void OutlineUpdate()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                Editor.OutlineView.Display(this.Text, this.Functions);
+            });
         }
 
         private void DuplicateLine()
@@ -337,6 +367,8 @@ namespace ILEditor.UserTools
                                     if (this.Text.EndsWith("*"))
                                         this.Text = this.Text.Substring(0, this.Text.Length - 1);
                                 });
+                                DoAction(EditorAction.ParseCode);
+                                DoAction(EditorAction.OutlineUpdate);
                             }
 
                             this.Invoke((MethodInvoker)delegate

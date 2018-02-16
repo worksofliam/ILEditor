@@ -103,7 +103,7 @@ namespace ILEditor.UserTools
 
                 line = int.Parse(data[0]) - 1;
                 col = int.Parse(data[1]);
-                error = e.Node.Text;
+                //error = e.Node.Text;
                 if (col > 0) col--;
 
                 name = e.Node.Parent.Text;
@@ -115,11 +115,11 @@ namespace ILEditor.UserTools
                     name = name.Substring(0, name.Length-1);
                 }
 
-                onSelectError(name, line, col, error);
+                onSelectError(name, line, col);
             }
         }
 
-        private void onSelectError(string File, int Line, int Col, string ErrorText)
+        private void onSelectError(string File, int Line, int Col)
         {
             DockContent theTab = Editor.TheEditor.GetTabByName(File, true);
 
