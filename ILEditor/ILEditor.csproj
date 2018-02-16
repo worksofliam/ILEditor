@@ -133,6 +133,8 @@
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
+    <Compile Include="Classes\LanguageTools\CLLexer.cs" />
+    <Compile Include="Classes\LanguageTools\CLParser.cs" />
     <Compile Include="Classes\LanguageTools\RPGLexer.cs" />
     <Compile Include="Classes\LanguageTools\RPGFree.cs" />
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />

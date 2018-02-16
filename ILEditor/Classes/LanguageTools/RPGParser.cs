@@ -35,21 +35,27 @@ namespace ILEditor.Classes.LanguageTools
                         switch (token.Value)
                         {
                             case "DCL-F":
+                                if (Tokens.Count < 2) break;
                                 CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "File", StorageType.File, line));
                                 break;
                             case "DCL-S":
+                                if (Tokens.Count < 3) break;
                                 CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
                                 break;
                             case "DCL-C":
+                                if (Tokens.Count < 3) break;
                                 CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Const, line));
                                 break;
                             case "DCL-DS":
+                                if (Tokens.Count < 2) break;
                                 CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "Data-Structure", StorageType.Struct, line));
                                 break;
                             case "BEGSR":
+                                if (Tokens.Count < 2) break;
                                 CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "Subroutine", StorageType.Subroutine, line));
                                 break;
                             case "DCL-PROC":
+                                if (Tokens.Count < 2) break;
                                 Procedures.Add(CurrentProcedure);
                                 CurrentProcedure = new Function(Tokens[1].Value, line);
                                 break;
