@@ -245,7 +245,10 @@ namespace ILEditor.Classes
         }
         public static bool DirExists(string remoteDir)
         {
-            return Client.DirectoryExists(remoteDir);
+            try
+            {
+                return Client.DirectoryExists(remoteDir);
+            } catch { return false; }
         }
         public static FtpListItem[] GetListing(string remoteDir)
         {
