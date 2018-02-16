@@ -16,6 +16,7 @@ namespace ILEditor
     {
         public static Editor TheEditor;
         public static UserTools.SourceEditor LastEditing;
+        public static UserTools.OutlineView OutlineView;
 
         #region SourceInfo
         public static readonly Dictionary<string, Language> LangTypes = new Dictionary<string, Language>()
@@ -80,6 +81,9 @@ namespace ILEditor
             
             AddTool(new UserTools.Welcome());
             AddTool(new UserTools.UserToolList(), DockState.DockLeft);
+
+            OutlineView = new UserTools.OutlineView();
+            AddTool(OutlineView, DockState.DockRightAutoHide);
         }
 
         public void SetStatus(string Text) => statusText.Text = Text;

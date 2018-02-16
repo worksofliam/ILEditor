@@ -78,6 +78,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.outlineEnabled = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -490,6 +492,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.outlineEnabled);
             this.tabPage2.Controls.Add(this.selectedFont);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.cur_size);
@@ -620,6 +624,25 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
+            // outlineEnabled
+            // 
+            this.outlineEnabled.AutoSize = true;
+            this.outlineEnabled.Location = new System.Drawing.Point(220, 137);
+            this.outlineEnabled.Name = "outlineEnabled";
+            this.outlineEnabled.Size = new System.Drawing.Size(65, 17);
+            this.outlineEnabled.TabIndex = 10;
+            this.outlineEnabled.Text = "Enabled";
+            this.outlineEnabled.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 138);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(108, 13);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Outline View Enabled";
+            // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -703,5 +726,7 @@
         private System.Windows.Forms.TextBox homeDir;
         private System.Windows.Forms.TextBox buildLib;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox outlineEnabled;
+        private System.Windows.Forms.Label label14;
     }
 }
