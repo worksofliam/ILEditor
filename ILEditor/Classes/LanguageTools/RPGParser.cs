@@ -27,38 +27,34 @@ namespace ILEditor.Classes.LanguageTools
                 lexer = new RPGLexer();
                 lexer.Lex(CurrentLine);
                 Tokens = lexer.GetTokens();
-
-                for (int x = 0; x < Tokens.Count; x++)
+                
+                token = Tokens[0];
+                switch (token.Type)
                 {
-                    token = Tokens[x];
-
-                    switch (token.Type)
-                    {
-                        case RPGLexer.Type.OPERATION:
-                            switch (token.Value)
-                            {
-                                case "DCL-F":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "File", StorageType.File, line));
-                                    break;
-                                case "DCL-S":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, Tokens[x + 2].Value, StorageType.Normal, line));
-                                    break;
-                                case "DCL-C":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, Tokens[x + 2].Value, StorageType.Const, line));
-                                    break;
-                                case "DCL-DS":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "Data-Structure", StorageType.Struct, line));
-                                    break;
-                                case "BEGSR":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "Subroutine", StorageType.Subroutine, line));
-                                    break;
-                                case "DCL-PROC":
-                                    Procedures.Add(CurrentProcedure);
-                                    CurrentProcedure = new Function(Tokens[x + 1].Value, line);
-                                    break;
-                            }
-                            break;
-                    }
+                    case RPGLexer.Type.OPERATION:
+                        switch (token.Value)
+                        {
+                            case "DCL-F":
+                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "File", StorageType.File, line));
+                                break;
+                            case "DCL-S":
+                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
+                                break;
+                            case "DCL-C":
+                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Const, line));
+                                break;
+                            case "DCL-DS":
+                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "Data-Structure", StorageType.Struct, line));
+                                break;
+                            case "BEGSR":
+                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "Subroutine", StorageType.Subroutine, line));
+                                break;
+                            case "DCL-PROC":
+                                Procedures.Add(CurrentProcedure);
+                                CurrentProcedure = new Function(Tokens[1].Value, line);
+                                break;
+                        }
+                        break;
                 }
             }
 
