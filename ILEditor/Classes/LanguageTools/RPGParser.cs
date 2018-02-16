@@ -27,7 +27,9 @@ namespace ILEditor.Classes.LanguageTools
                 lexer = new RPGLexer();
                 lexer.Lex(CurrentLine);
                 Tokens = lexer.GetTokens();
-                
+
+                if (Tokens.Count == 0) continue;
+
                 token = Tokens[0];
                 switch (token.Type)
                 {

@@ -95,5 +95,14 @@ namespace ILEditor.UserTools
                 MessageBox.Show("Unable to open error. Please open the source manually first and then try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            if (Editor.LastEditing != null)
+            {
+                Editor.LastEditing.DoAction(EditorAction.ParseCode);
+                Editor.LastEditing.DoAction(EditorAction.OutlineUpdate);
+            }
+        }
     }
 }
