@@ -233,15 +233,19 @@ namespace ILEditor.UserTools
                     break;
             }
         }
-        
+
         private void Parse()
         {
-            string code = "";
-            this.Invoke((MethodInvoker)delegate
-            {
-                code = GetText().ToUpper();
-            });
-            this.Functions = RPGParser.Parse(code);
+            switch (this.Language) {
+                case Language.RPG:
+                    string code = "";
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        code = GetText().ToUpper();
+                    });
+                    this.Functions = RPGParser.Parse(code);
+                    break;
+            }
         }
 
         private void OutlineUpdate()

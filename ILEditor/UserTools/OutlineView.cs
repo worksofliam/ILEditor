@@ -22,6 +22,7 @@ namespace ILEditor.UserTools
         private string File;
         public void Display(string FileName, Function[] Functions)
         {
+            int iconIndex = -1;
             List<TreeNode> total = new List<TreeNode>();
             TreeNode node;
             TreeNode varNode;
@@ -30,10 +31,30 @@ namespace ILEditor.UserTools
             foreach (Function function in Functions)
             {
                 node = new TreeNode(function.GetName(), 0, 0);
+                node.Tag = function.GetLineNumber();
                 foreach (Variable var in function.GetVariables())
                 {
-                    //TODO: different images based on enum type
-                    varNode = new TreeNode(var.GetName() + " " + var.GetType(), 0, 0);
+                    iconIndex = -1;
+                    switch (var.GetStorageType())
+                    {
+                        case StorageType.Const:
+                            iconIndex = 1;
+                            break;
+                        case StorageType.File:
+                            iconIndex = 2;
+                            break;
+                        case StorageType.Normal:
+                            iconIndex = 3;
+                            break;
+                        case StorageType.Struct:
+                            iconIndex = 4;
+                            break;
+                        case StorageType.Subroutine:
+                            iconIndex = 5;
+                            break;
+                    }
+
+                    varNode = new TreeNode(var.GetName() + " " + var.GetType(), iconIndex, iconIndex);
                     varNode.Tag = var.GetLine();
                     node.Nodes.Add(varNode);
                 }
@@ -51,12 +72,8 @@ namespace ILEditor.UserTools
             if (e.Node.Tag == null) { }
             else
             {
-                //Parents don't have tags
-                if (e.Node.Parent != null)
-                {
-                    line = (int) e.Node.Tag;
-                    onSelectError(this.File, line);
-                }
+                line = (int) e.Node.Tag;
+                onSelectError(this.File, line);
             }
         }
 

@@ -16,7 +16,7 @@ namespace ILEditor.Classes.LanguageTools
             RPGToken token;
             int line = -1;
             string CurrentLine;
-            Function CurrentProcedure = new Function("Mainline");
+            Function CurrentProcedure = new Function("Globals", 0);
 
             foreach (string Line in Code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
@@ -38,20 +38,23 @@ namespace ILEditor.Classes.LanguageTools
                             switch (token.Value)
                             {
                                 case "DCL-F":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "File", line));
+                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "File", StorageType.File, line));
                                     break;
                                 case "DCL-S":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, Tokens[x + 2].Value, line));
+                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, Tokens[x + 2].Value, StorageType.Normal, line));
                                     break;
                                 case "DCL-C":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, Tokens[x + 2].Value, line));
+                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, Tokens[x + 2].Value, StorageType.Const, line));
                                     break;
                                 case "DCL-DS":
-                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "Data-Structure", line));
+                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "Data-Structure", StorageType.Struct, line));
+                                    break;
+                                case "BEGSR":
+                                    CurrentProcedure.AddVariable(new Variable(Tokens[x + 1].Value, "Subroutine", StorageType.Subroutine, line));
                                     break;
                                 case "DCL-PROC":
                                     Procedures.Add(CurrentProcedure);
-                                    CurrentProcedure = new Function(Tokens[x + 1].Value);
+                                    CurrentProcedure = new Function(Tokens[x + 1].Value, line);
                                     break;
                             }
                             break;

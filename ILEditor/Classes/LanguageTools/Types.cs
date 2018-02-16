@@ -6,15 +6,26 @@ using System.Threading.Tasks;
 
 namespace ILEditor.Classes.LanguageTools
 {
+    public enum StorageType
+    {
+        Normal,
+        Struct,
+        File,
+        Const,
+        Subroutine
+    }
+
     public class Function
     {
         private string Name;
+        private int Line;
         private List<Variable> Variables;
 
-        public Function(string Name)
+        public Function(string Name, int LineNumber)
         {
             this.Name = Name;
             this.Variables = new List<Variable>();
+            this.Line = LineNumber;
         }
 
         public void AddVariable(Variable var)
@@ -23,24 +34,28 @@ namespace ILEditor.Classes.LanguageTools
         }
 
         public string GetName() => this.Name;
-        public Variable[] GetVariables() => Variables.ToArray();
+        public Variable[] GetVariables() => this.Variables.ToArray();
+        public int GetLineNumber() => this.Line;
     }
 
     public class Variable
     {
         private string Name;
-        //TODO: change Type to an enum
         private string Type;
+        private StorageType varType;
         private int Line;
-        public Variable(string Name, string Type, int LineNumber)
+
+        public Variable(string Name, string Type, StorageType varType, int LineNumber)
         {
             this.Name = Name;
             this.Type = Type;
+            this.varType = varType;
             this.Line = LineNumber;
         }
 
         public string GetName() => this.Name;
         public new string GetType() => this.Type;
         public int GetLine() => this.Line;
+        public StorageType GetStorageType() => this.varType;
     }
 }

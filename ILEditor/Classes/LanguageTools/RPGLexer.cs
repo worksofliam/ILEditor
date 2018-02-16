@@ -18,7 +18,7 @@ namespace ILEditor.Classes.LanguageTools
         private static string[] BLOCK_CLOSE = new[] { ")" };
         private static Dictionary<Type, string[]> Pieces = new Dictionary<Type, string[]>
 {
-{ Type.BLOCK_OPEN, new[] {  "(" } },{ Type.BLOCK_CLOSE, new[] {  ")" } },{ Type.OPERATION, new[] { "**FREE", "DCL-F", "DCL-S", "DCL-C", "DCL-DS", "DCL-PROC" } },{ Type.INT_LITERAL, new[] {  "/[-0-9]+/" } },{ Type.DOUBLE_LITERAL, new[] {  @"/\d+\.?\d*/" } },{ Type.WORD_LITERAL, new[] {  "/.*?/" } },{ Type.PARMS, new[] {  ":" } },{ Type.SEPERATOR, new[] {  ";" } }
+{ Type.BLOCK_OPEN, new[] {  "(" } },{ Type.BLOCK_CLOSE, new[] {  ")" } },{ Type.OPERATION, new[] { "BEGSR", "DCL-F", "DCL-S", "DCL-C", "DCL-DS", "DCL-PROC" } },{ Type.INT_LITERAL, new[] {  "/[-0-9]+/" } },{ Type.DOUBLE_LITERAL, new[] {  @"/\d+\.?\d*/" } },{ Type.WORD_LITERAL, new[] {  "/.*?/" } },{ Type.PARMS, new[] {  ":" } },{ Type.SEPERATOR, new[] {  ";" } }
 };
 
 
