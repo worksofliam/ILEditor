@@ -22,6 +22,8 @@ namespace ILEditor.UserTools
         private string File;
         public void Display(string FileName, Function[] Functions)
         {
+            if (Functions == null) return;
+
             int iconIndex = -1;
             List<TreeNode> total = new List<TreeNode>();
             TreeNode node;

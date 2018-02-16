@@ -236,15 +236,19 @@ namespace ILEditor.UserTools
 
         private void Parse()
         {
-            switch (this.Language) {
-                case Language.RPG:
-                    string code = "";
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        code = GetText().ToUpper();
-                    });
-                    this.Functions = RPGParser.Parse(code);
-                    break;
+            if (IBMi.CurrentSystem.GetValue("OUTLINE_VIEW_ENABLED") == "true")
+            {
+                switch (this.Language)
+                {
+                    case Language.RPG:
+                        string code = "";
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            code = GetText().ToUpper();
+                        });
+                        this.Functions = RPGParser.Parse(code);
+                        break;
+                }
             }
         }
 
