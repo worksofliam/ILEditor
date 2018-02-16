@@ -30,13 +30,14 @@
         {
             this.memberValue = new System.Windows.Forms.TextBox();
             this.memberList = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // memberValue
             // 
             this.memberValue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.memberValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.memberValue.Location = new System.Drawing.Point(12, 12);
+            this.memberValue.Location = new System.Drawing.Point(12, 41);
             this.memberValue.MaxLength = 32;
             this.memberValue.Name = "memberValue";
             this.memberValue.Size = new System.Drawing.Size(330, 26);
@@ -46,24 +47,36 @@
             // 
             // memberList
             // 
-            this.memberList.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.memberList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberList.FormattingEnabled = true;
-            this.memberList.ItemHeight = 18;
+            this.memberList.ItemHeight = 20;
             this.memberList.Items.AddRange(new object[] {
             "Enter search value"});
-            this.memberList.Location = new System.Drawing.Point(12, 44);
+            this.memberList.Location = new System.Drawing.Point(12, 73);
             this.memberList.Name = "memberList";
-            this.memberList.Size = new System.Drawing.Size(330, 202);
+            this.memberList.Size = new System.Drawing.Size(330, 184);
             this.memberList.TabIndex = 1;
             this.memberList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.memberList_KeyDown);
             this.memberList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.memberList_MouseDoubleClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(194, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Search Recent Members..";
             // 
             // QuickMemberSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(354, 263);
+            this.ClientSize = new System.Drawing.Size(354, 269);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.memberList);
             this.Controls.Add(this.memberValue);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -80,5 +93,6 @@
 
         private System.Windows.Forms.TextBox memberValue;
         private System.Windows.Forms.ListBox memberList;
+        private System.Windows.Forms.Label label1;
     }
 }
