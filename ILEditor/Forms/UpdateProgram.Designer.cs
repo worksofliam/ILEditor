@@ -174,7 +174,7 @@
             // 
             // update
             // 
-            this.update.Location = new System.Drawing.Point(568, 293);
+            this.update.Location = new System.Drawing.Point(571, 293);
             this.update.Name = "update";
             this.update.Size = new System.Drawing.Size(75, 23);
             this.update.TabIndex = 10;
@@ -201,7 +201,7 @@
             this.binderSrcBox.Controls.Add(this.bndLib);
             this.binderSrcBox.Controls.Add(this.label1);
             this.binderSrcBox.Controls.Add(this.label3);
-            this.binderSrcBox.Location = new System.Drawing.Point(332, 134);
+            this.binderSrcBox.Location = new System.Drawing.Point(332, 162);
             this.binderSrcBox.Name = "binderSrcBox";
             this.binderSrcBox.Size = new System.Drawing.Size(311, 122);
             this.binderSrcBox.TabIndex = 12;
@@ -284,7 +284,7 @@
             this.groupBox3.Controls.Add(this.bndDirs);
             this.groupBox3.Controls.Add(this.delBnd);
             this.groupBox3.Controls.Add(this.addBnd);
-            this.groupBox3.Location = new System.Drawing.Point(332, 15);
+            this.groupBox3.Location = new System.Drawing.Point(332, 43);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(311, 114);
             this.groupBox3.TabIndex = 13;
@@ -334,7 +334,7 @@
             // actgrp
             // 
             this.actgrp.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.actgrp.Location = new System.Drawing.Point(524, 262);
+            this.actgrp.Location = new System.Drawing.Point(527, 15);
             this.actgrp.MaxLength = 10;
             this.actgrp.Name = "actgrp";
             this.actgrp.Size = new System.Drawing.Size(119, 20);
@@ -344,7 +344,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(329, 265);
+            this.label5.Location = new System.Drawing.Point(333, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 13);
             this.label5.TabIndex = 21;
@@ -354,7 +354,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 327);
+            this.ClientSize = new System.Drawing.Size(658, 325);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.actgrp);
             this.Controls.Add(this.groupBox3);
