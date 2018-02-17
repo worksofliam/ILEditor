@@ -99,7 +99,7 @@ namespace ILEditor.UserTools
             }
             else
             {
-                MessageBox.Show("Unable to open error. Please open the source manually first and then try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Unable to open location. Please open the source manually first and then try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

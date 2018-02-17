@@ -130,12 +130,9 @@ namespace ILEditor.Classes.LanguageTools
                         if (CurrentStruct != null)
                         {
                             if (Tokens.Count < 2) break;
-                            if (Tokens[1].Value == "LIKE")
-                                if (Tokens[1].Block != null)
-                                    if (Tokens[1].Block.Count > 0)
-                                        Tokens[1].Value = Tokens[1].Block[0].Value;
 
-                            CurrentStruct.AddMember(new Variable(Tokens[0].Value, Tokens[1].Value, StorageType.Normal, line));
+                            Type = GetTypeFromToken(Tokens[1]);
+                            CurrentStruct.AddMember(new Variable(Tokens[0].Value, Type, StorageType.Normal, line));
                         }
                         break;
                 }
