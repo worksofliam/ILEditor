@@ -48,11 +48,14 @@ namespace ILEditor.UserTools
                     Items.Add(new ListViewItem("No spool files found."));
                 }
 
-                this.Invoke((MethodInvoker)delegate
+                if (spoolList != null)
                 {
-                    spoolList.Items.Clear();
-                    spoolList.Items.AddRange(Items.ToArray());
-                });
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        spoolList.Items.Clear();
+                        spoolList.Items.AddRange(Items.ToArray());
+                    });
+                }
             });
 
             if (Lib == "" || Obj == "")

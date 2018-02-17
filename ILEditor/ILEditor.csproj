@@ -270,6 +270,12 @@
     <Compile Include="Forms\SPFSelect.Designer.cs">
       <DependentUpon>SPFSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UpdateProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UpdateProgram.Designer.cs">
+      <DependentUpon>UpdateProgram.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\BindingDirectory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -427,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SPFSelect.resx">
       <DependentUpon>SPFSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdateProgram.resx">
+      <DependentUpon>UpdateProgram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

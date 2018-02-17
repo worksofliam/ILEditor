@@ -29,11 +29,12 @@ namespace ILEditor.UserTools
             { "*BNDDIR", 3 }
         };
         private List<ListViewItem> curItems = new List<ListViewItem>();
+        private ILEObject[] Objects;
         public void UpdateListing(string Lib)
         {
             Thread gothread = new Thread((ThreadStart)delegate
             {
-                ILEObject[] objects;
+                
                 ListViewItem curItem;
 
                 curItems.Clear();
@@ -44,16 +45,16 @@ namespace ILEditor.UserTools
                     objectList.Items.Add(new ListViewItem("Loading...", 2));
                 });
 
-                objects = IBMiUtils.GetObjectList(Lib, "*PGM *SRVPGM *MODULE *BNDDIR");
+                Objects = IBMiUtils.GetObjectList(Lib, "*PGM *SRVPGM *MODULE *BNDDIR");
 
                 this.Invoke((MethodInvoker)delegate
                 {
                     objectList.Items.Clear();
                 });
 
-                if (objects != null)
+                if (Objects != null)
                 {
-                    foreach (ILEObject Object in objects)
+                    foreach (ILEObject Object in Objects)
                     {
                         curItem = new ListViewItem(new string[4] { Object.Name, Object.Extension, Object.Type, Object.Text }, 0);
                         curItem.Tag = Object;
@@ -69,7 +70,7 @@ namespace ILEditor.UserTools
                     this.Invoke((MethodInvoker)delegate
                     {
                         objectList.Items.AddRange(curItems.ToArray());
-                        programcount.Text = objects.Length.ToString() + " object" + (objects.Length == 1 ? "" : "s");
+                        programcount.Text = Objects.Length.ToString() + " object" + (Objects.Length == 1 ? "" : "s");
                     });
                 }
                 else
@@ -118,19 +119,21 @@ namespace ILEditor.UserTools
             if (currentRightClick != null)
             {
                 objectInformationToolStripMenuItem.Enabled = true;
+                openSourceToolStripMenuItem.Enabled = false;
+                updateToolStripMenuItem.Enabled = false;
+
                 switch (currentRightClick.Type) {
                     case "*BNDDIR":
                         openSourceToolStripMenuItem.Enabled = true;
+                        break;
+                    case "*PGM":
+                    case "*SRVPGM":
+                        updateToolStripMenuItem.Enabled = true;
                         break;
                     default:
                         openSourceToolStripMenuItem.Enabled = (currentRightClick.SrcMbr != "");
                         break;
                 }
-            }
-            else
-            {
-                objectInformationToolStripMenuItem.Enabled = false;
-                openSourceToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -157,6 +160,15 @@ namespace ILEditor.UserTools
                 new Forms.ObjectInformation(currentRightClick).Show();
             }
         }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentRightClick != null)
+            {
+                new Forms.UpdateProgram(currentRightClick, Objects).Show();
+            }
+        }
         #endregion
+
     }
 }
