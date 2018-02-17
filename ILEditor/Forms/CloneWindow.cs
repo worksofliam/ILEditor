@@ -96,7 +96,7 @@ namespace ILEditor.Forms
                 try
                 {
                     Directory.Delete(Dir, true);
-                } catch (Exception ex) { }
+                } catch { }
             }
 
             foreach (string Dir in LocalSPFs)

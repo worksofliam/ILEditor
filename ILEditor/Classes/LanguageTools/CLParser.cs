@@ -17,6 +17,7 @@ namespace ILEditor.Classes.LanguageTools
             int line = -1;
             string CurrentLine;
             Function CurrentProcedure = new Function("Globals", 0);
+            string name, type;
 
             foreach (string Line in Code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
@@ -28,6 +29,8 @@ namespace ILEditor.Classes.LanguageTools
                 lexer.Lex(CurrentLine);
                 Tokens = lexer.GetTokens();
 
+                if (Tokens.Count == 0) continue;
+
                 token = Tokens[0];
                 switch (token.Type)
                 {
@@ -36,10 +39,17 @@ namespace ILEditor.Classes.LanguageTools
                         {
                             case "DCL":
                                 if (Tokens.Count < 3) break;
-                                if (Tokens[1].Block == null) break;
-                                if (Tokens[2].Block == null) break;
+                                if (Tokens[1].Block == null)
+                                    name = Tokens[1].Value;
+                                else
+                                    name = Tokens[1].Block[0].Value;
 
-                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Block[0].Value, Tokens[2].Block[0].Value, StorageType.Normal, line));
+                                if (Tokens[2].Block == null)
+                                    type = Tokens[2].Value;
+                                else
+                                    type = Tokens[2].Block[0].Value;
+
+                                CurrentProcedure.AddVariable(new Variable(name, type, StorageType.Normal, line));
                                 break;
                             case "SUBR":
                                 if (Tokens.Count < 2) break;

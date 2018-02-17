@@ -99,7 +99,7 @@ namespace ILEditor.UserTools
             {
                 string[] data = e.Node.Tag.ToString().Split(',');
                 int line, col;
-                string error;
+                //string error;
 
                 line = int.Parse(data[0]) - 1;
                 col = int.Parse(data[1]);

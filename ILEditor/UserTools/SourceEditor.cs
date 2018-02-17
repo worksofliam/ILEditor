@@ -239,22 +239,29 @@ namespace ILEditor.UserTools
             if (IBMi.CurrentSystem.GetValue("OUTLINE_VIEW_ENABLED") == "true")
             {
                 string code = "";
-                switch (this.Language)
+
+                if (this.Language == Language.RPG || this.Language == Language.CL)
                 {
-                    case Language.RPG:
+                    try
+                    {
                         this.Invoke((MethodInvoker)delegate
                         {
                             code = GetText().ToUpper();
                         });
-                        this.Functions = RPGParser.Parse(code);
-                        break;
-                    case Language.CL:
-                        this.Invoke((MethodInvoker)delegate
+                        switch (this.Language)
                         {
-                            code = GetText().ToUpper();
-                        });
-                        this.Functions = CLParser.Parse(code);
-                        break;
+                            case Language.RPG:
+                                this.Functions = RPGParser.Parse(code);
+                                break;
+                            case Language.CL:
+                                this.Functions = CLParser.Parse(code);
+                                break;
+                        }
+                    }
+                    catch
+                    {
+                        Editor.TheEditor.SetStatus("Error parsing " + this.Language.ToString() + " for " + this.Text + ".");
+                    }
                 }
             }
         }
