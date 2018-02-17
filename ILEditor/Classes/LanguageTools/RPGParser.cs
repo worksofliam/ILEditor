@@ -8,6 +8,30 @@ namespace ILEditor.Classes.LanguageTools
 {
     class RPGParser
     {
+        private static string GetTypeFromToken(RPGToken Token)
+        {
+            string result = "";
+            if (Token.Value == "LIKE")
+            {
+                if (Token.Block != null)
+                    if (Token.Block.Count > 0)
+                        result = Token.Block[0].Value;
+            }
+            else
+            {
+                result = char.ToUpper(Token.Value[0]) + Token.Value.Substring(1).ToLower();
+                if (Token.Block != null)
+                {
+                    result += "(";
+                    foreach (RPGToken token in Token.Block)
+                        result += token.Value;
+                    result += ")";
+                }
+            }
+
+            return result;
+        }
+
         public static Function[] Parse(string Code)
         {
             RPGLexer lexer;
@@ -15,7 +39,7 @@ namespace ILEditor.Classes.LanguageTools
             List<Function> Procedures = new List<Function>();
             RPGToken token;
             int line = -1;
-            string CurrentLine;
+            string CurrentLine, Type;
 
             Function CurrentProcedure = new Function("Globals", 0);
             Variable CurrentStruct = null;
@@ -44,11 +68,8 @@ namespace ILEditor.Classes.LanguageTools
                                 break;
                             case "DCL-S":
                                 if (Tokens.Count < 3) break;
-                                if (Tokens[2].Value == "LIKE")
-                                    if (Tokens[2].Block != null)
-                                        if (Tokens[2].Block.Count > 0)
-                                            Tokens[2].Value = Tokens[2].Block[0].Value;
-                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
+                                Type = GetTypeFromToken(Tokens[2]);
+                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, Type, StorageType.Normal, line));
                                 break;
                             case "DCL-C":
                                 if (Tokens.Count < 3) break;
@@ -70,7 +91,10 @@ namespace ILEditor.Classes.LanguageTools
                                 if (Tokens[2].Value == "END-PI")
                                     CurrentStruct = null;
                                 else
-                                    CurrentProcedure.SetReturnType(Tokens[2].Value);
+                                {
+                                    Type = GetTypeFromToken(Tokens[2]);
+                                    CurrentProcedure.SetReturnType(Type);
+                                }
 
                                 if (Tokens.Count < 4) break;
                                 if (Tokens[3].Value == ";") break;
@@ -81,16 +105,13 @@ namespace ILEditor.Classes.LanguageTools
                             case "DCL-SUBF":
                             case "DCL-PARM":
                                 if (Tokens.Count < 3) break;
-                                if (Tokens[2].Value == "LIKE")
-                                    if (Tokens[2].Block != null)
-                                        if (Tokens[2].Block.Count > 0)
-                                            Tokens[2].Value = Tokens[2].Block[0].Value;
-
-                                CurrentStruct.AddMember(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
+                                Type = GetTypeFromToken(Tokens[2]);
+                                CurrentStruct.AddMember(new Variable(Tokens[1].Value, Type, StorageType.Normal, line));
                                 break;
                             case "END-PI":
                             case "END-DS":
-                                CurrentProcedure.AddVariable(CurrentStruct);
+                                if (CurrentStruct.GetMembers().Length > 0)
+                                    CurrentProcedure.AddVariable(CurrentStruct);
                                 CurrentStruct = null;
                                 break;
                             case "BEGSR":
