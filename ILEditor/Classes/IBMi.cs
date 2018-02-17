@@ -251,7 +251,7 @@ namespace ILEditor.Classes
             }
             catch (Exception ex)
             {
-                Editor.TheEditor.SetStatus(ex.Message + " please try again");
+                Editor.TheEditor.SetStatus(ex.Message + " - please try again.");
                 return false;
             }
         }
