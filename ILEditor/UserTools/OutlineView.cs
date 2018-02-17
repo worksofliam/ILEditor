@@ -31,7 +31,7 @@ namespace ILEditor.UserTools
 
             foreach (Function function in Functions)
             {
-                node = new TreeNode(function.GetName(), 0, 0);
+                node = new TreeNode(function.GetName() + " " + function.GetReturnType(), 0, 0);
                 node.Tag = function.GetLineNumber();
                 foreach (Variable var in function.GetVariables())
                 {

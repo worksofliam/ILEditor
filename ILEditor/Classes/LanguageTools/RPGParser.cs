@@ -58,6 +58,27 @@ namespace ILEditor.Classes.LanguageTools
                                 if (Tokens.Count < 2) break;
                                 CurrentStruct = new Variable(Tokens[1].Value, "Data-Structure", StorageType.Struct, line);
                                 break;
+                            case "DCL-PI":
+                                if (Tokens.Count < 2) break;
+                                if (Tokens[1].Value == "*N")
+                                    Tokens[1].Value = "";
+
+                                CurrentStruct = new Variable(Tokens[1].Value, "Parameters", StorageType.Struct, line);
+
+                                if (Tokens.Count < 3) break;
+                                if (Tokens[2].Value == ";") break;
+                                if (Tokens[2].Value == "END-PI")
+                                    CurrentStruct = null;
+                                else
+                                    CurrentProcedure.SetReturnType(Tokens[2].Value);
+
+                                if (Tokens.Count < 4) break;
+                                if (Tokens[3].Value == ";") break;
+                                if (Tokens[3].Value == "END-PI")
+                                    CurrentStruct = null;
+                                break;
+
+                            case "DCL-SUBF":
                             case "DCL-PARM":
                                 if (Tokens.Count < 3) break;
                                 if (Tokens[2].Value == "LIKE")
@@ -67,6 +88,7 @@ namespace ILEditor.Classes.LanguageTools
 
                                 CurrentStruct.AddMember(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
                                 break;
+                            case "END-PI":
                             case "END-DS":
                                 CurrentProcedure.AddVariable(CurrentStruct);
                                 CurrentStruct = null;

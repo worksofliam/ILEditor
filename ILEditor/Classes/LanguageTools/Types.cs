@@ -19,6 +19,7 @@ namespace ILEditor.Classes.LanguageTools
     {
         private string Name;
         private int Line;
+        private string ReturnType;
         private List<Variable> Variables;
 
         public Function(string Name, int LineNumber)
@@ -26,16 +27,16 @@ namespace ILEditor.Classes.LanguageTools
             this.Name = Name;
             this.Variables = new List<Variable>();
             this.Line = LineNumber;
+            this.ReturnType = "Void";
         }
 
-        public void AddVariable(Variable var)
-        {
-            this.Variables.Add(var);
-        }
+        public void AddVariable(Variable var) => this.Variables.Add(var);
+        public void SetReturnType(string Type) => this.ReturnType = Type;
 
         public string GetName() => this.Name;
         public Variable[] GetVariables() => this.Variables.ToArray();
         public int GetLineNumber() => this.Line;
+        public string GetReturnType() => this.ReturnType;
     }
 
     public class Variable
