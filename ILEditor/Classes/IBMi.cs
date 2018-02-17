@@ -136,8 +136,21 @@ namespace ILEditor.Classes
 
         private static void KeepAliveFunc(object sender, ElapsedEventArgs e)
         {
+            bool showError = !Client.IsConnected;
             if (Client.IsConnected)
-                Client.Execute("NOOP");
+            {
+                try {
+                    Client.Execute("NOOP");
+                    showError = false;
+                }
+                catch
+                {
+                    showError = true;
+                }
+            }
+
+            if (showError)
+                Editor.TheEditor.SetStatus("Warning! You lost connection " + CurrentSystem.GetValue("system") + "!");
         }
 
         public static string GetSystem()
