@@ -45,17 +45,25 @@ namespace ILEditor.Classes.LanguageTools
         private StorageType varType;
         private int Line;
 
+        private List<Variable> Members; //Subfields for a struct
+
         public Variable(string Name, string Type, StorageType varType, int LineNumber)
         {
             this.Name = Name;
             this.Type = Type;
             this.varType = varType;
             this.Line = LineNumber;
+
+            if (varType == StorageType.Struct)
+                Members = new List<Variable>();
         }
 
         public string GetName() => this.Name;
         public new string GetType() => this.Type;
         public int GetLine() => this.Line;
         public StorageType GetStorageType() => this.varType;
+        public Variable[] GetMembers() => this.Members.ToArray();
+
+        public void AddMember(Variable Member) => this.Members.Add(Member);
     }
 }

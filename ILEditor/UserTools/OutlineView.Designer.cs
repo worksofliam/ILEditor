@@ -62,6 +62,7 @@
             this.imageList1.Images.SetKeyName(3, "cubedark.png");
             this.imageList1.Images.SetKeyName(4, "diagram.png");
             this.imageList1.Images.SetKeyName(5, "compile.png");
+            this.imageList1.Images.SetKeyName(6, "smalldarkcube.png");
             // 
             // toolStrip1
             // 

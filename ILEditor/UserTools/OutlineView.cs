@@ -26,8 +26,7 @@ namespace ILEditor.UserTools
 
             int iconIndex = -1;
             List<TreeNode> total = new List<TreeNode>();
-            TreeNode node;
-            TreeNode varNode;
+            TreeNode node, varNode, memberNode;
             File = FileName;
 
             foreach (Function function in Functions)
@@ -58,6 +57,15 @@ namespace ILEditor.UserTools
 
                     varNode = new TreeNode(var.GetName() + " " + var.GetType(), iconIndex, iconIndex);
                     varNode.Tag = var.GetLine();
+
+                    if (var.GetStorageType() == StorageType.Struct)
+                        foreach (Variable member in var.GetMembers())
+                        {
+                            memberNode = new TreeNode(member.GetName() + " " + member.GetType(), 6, 6);
+                            memberNode.Tag = member.GetLine();
+                            varNode.Nodes.Add(memberNode);
+                        }
+
                     node.Nodes.Add(varNode);
                 }
                 total.Add(node);
@@ -65,7 +73,6 @@ namespace ILEditor.UserTools
 
             funcList.Nodes.Clear();
             funcList.Nodes.AddRange(total.ToArray());
-            funcList.ExpandAll();
         }
 
         private void funcList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)

@@ -16,7 +16,9 @@ namespace ILEditor.Classes.LanguageTools
             RPGToken token;
             int line = -1;
             string CurrentLine;
+
             Function CurrentProcedure = new Function("Globals", 0);
+            Variable CurrentStruct = null;
 
             foreach (string Line in Code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
@@ -54,7 +56,20 @@ namespace ILEditor.Classes.LanguageTools
                                 break;
                             case "DCL-DS":
                                 if (Tokens.Count < 2) break;
-                                CurrentProcedure.AddVariable(new Variable(Tokens[1].Value, "Data-Structure", StorageType.Struct, line));
+                                CurrentStruct = new Variable(Tokens[1].Value, "Data-Structure", StorageType.Struct, line);
+                                break;
+                            case "DCL-PARM":
+                                if (Tokens.Count < 3) break;
+                                if (Tokens[2].Value == "LIKE")
+                                    if (Tokens[2].Block != null)
+                                        if (Tokens[2].Block.Count > 0)
+                                            Tokens[2].Value = Tokens[2].Block[0].Value;
+
+                                CurrentStruct.AddMember(new Variable(Tokens[1].Value, Tokens[2].Value, StorageType.Normal, line));
+                                break;
+                            case "END-DS":
+                                CurrentProcedure.AddVariable(CurrentStruct);
+                                CurrentStruct = null;
                                 break;
                             case "BEGSR":
                                 if (Tokens.Count < 2) break;
@@ -65,6 +80,19 @@ namespace ILEditor.Classes.LanguageTools
                                 Procedures.Add(CurrentProcedure);
                                 CurrentProcedure = new Function(Tokens[1].Value, line);
                                 break;
+                        }
+                        break;
+
+                    default:
+                        if (CurrentStruct != null)
+                        {
+                            if (Tokens.Count < 2) break;
+                            if (Tokens[1].Value == "LIKE")
+                                if (Tokens[1].Block != null)
+                                    if (Tokens[1].Block.Count > 0)
+                                        Tokens[1].Value = Tokens[1].Block[0].Value;
+
+                            CurrentStruct.AddMember(new Variable(Tokens[0].Value, Tokens[1].Value, StorageType.Normal, line));
                         }
                         break;
                 }
