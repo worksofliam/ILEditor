@@ -15,7 +15,7 @@ namespace ILEditor.Classes
     {
         public static Config CurrentSystem;
         private static FtpClient Client;
-        
+
         public readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
         {
             { "425", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions." },
@@ -74,7 +74,7 @@ namespace ILEditor.Classes
             else
                 return FtpDataConnectionType.AutoActive;
         }
-        
+
         public static bool IsConnected() => Client.IsConnected;
         public static string FTPFile = "";
         public static bool Connect(bool OfflineMode = false)
@@ -168,7 +168,7 @@ namespace ILEditor.Classes
                 }
                 Result = true;
             }
-            
+
             return Result;
         }
 
@@ -248,7 +248,12 @@ namespace ILEditor.Classes
             try
             {
                 return Client.DirectoryExists(remoteDir);
-            } catch { return false; }
+            }
+            catch (Exception ex)
+            {
+                Editor.TheEditor.SetStatus(ex.Message + " please try again");
+                return false;
+            }
         }
         public static FtpListItem[] GetListing(string remoteDir)
         {
