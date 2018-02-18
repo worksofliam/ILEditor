@@ -47,6 +47,8 @@ namespace ILEditor.Classes.LanguageTools
             Function CurrentProcedure = new Function("Globals", 0);
             Variable CurrentStruct = null;
 
+            CurrentProcedure.SetReturnType("");
+
             foreach (string Line in Code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 line++;
@@ -105,6 +107,9 @@ namespace ILEditor.Classes.LanguageTools
                                                 foreach (Variable var in func.GetVariables())
                                                 {
                                                     var.SetLine(line);
+                                                    foreach (Variable member in var.GetMembers())
+                                                        member.SetLine(line);
+
                                                     CurrentProcedure.AddVariable(var);
                                                 }
                                 }
