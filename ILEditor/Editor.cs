@@ -240,6 +240,7 @@ namespace ILEditor
             {
                 if (panel.ActiveContent is SourceEditor)
                 {
+                    LastEditing = null;
                     src = (panel.ActiveContent as SourceEditor).Tag as RemoteSource;
                     if (src != null)
                         src.Unlock();
