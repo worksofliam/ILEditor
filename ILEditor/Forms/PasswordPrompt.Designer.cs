@@ -43,7 +43,7 @@
             this.userText.Name = "userText";
             this.userText.Size = new System.Drawing.Size(206, 13);
             this.userText.TabIndex = 0;
-            this.userText.Text = "Please enter your user profile password for\r\n";
+            this.userText.Text = "Please enter your user profile password for";
             // 
             // password
             // 
