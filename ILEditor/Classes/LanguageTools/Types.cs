@@ -9,9 +9,10 @@ namespace ILEditor.Classes.LanguageTools
     public enum StorageType
     {
         Normal,
-        Struct,
+        Prototype,
         File,
         Const,
+        Struct,
         Subroutine
     }
 
@@ -55,7 +56,7 @@ namespace ILEditor.Classes.LanguageTools
             this.varType = varType;
             this.Line = LineNumber;
 
-            if (varType == StorageType.Struct)
+            if (varType == StorageType.Struct || varType == StorageType.Prototype)
                 Members = new List<Variable>();
         }
 
@@ -65,6 +66,7 @@ namespace ILEditor.Classes.LanguageTools
         public StorageType GetStorageType() => this.varType;
         public Variable[] GetMembers() => this.Members.ToArray();
 
+        public void SetType(string Value) => this.Type = Value;
         public void AddMember(Variable Member) => this.Members.Add(Member);
     }
 }

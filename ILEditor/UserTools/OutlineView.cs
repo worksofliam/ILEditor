@@ -53,12 +53,15 @@ namespace ILEditor.UserTools
                         case StorageType.Subroutine:
                             iconIndex = 5;
                             break;
+                        case StorageType.Prototype:
+                            iconIndex = 0;
+                            break;
                     }
 
                     varNode = new TreeNode(var.GetName() + " " + var.GetType(), iconIndex, iconIndex);
                     varNode.Tag = var.GetLine();
 
-                    if (var.GetStorageType() == StorageType.Struct)
+                    if (var.GetStorageType() == StorageType.Struct || var.GetStorageType() == StorageType.Prototype)
                         foreach (Variable member in var.GetMembers())
                         {
                             memberNode = new TreeNode(member.GetName() + " " + member.GetType(), 6, 6);

@@ -78,27 +78,56 @@ namespace ILEditor.Classes.LanguageTools
                             case "DCL-DS":
                                 if (Tokens.Count < 2) break;
                                 CurrentStruct = new Variable(Tokens[1].Value, "Data-Structure", StorageType.Struct, line);
+
+                                if (Tokens.Count < 3) break;
+                                for (int x = 2; x < Tokens.Count; x++)
+                                {
+                                    if (Tokens[x].Value == "LIKEDS")
+                                    {
+                                        CurrentProcedure.AddVariable(CurrentStruct);
+                                        CurrentStruct = null;
+                                    }
+                                }
+                                
                                 break;
+                            case "DCL-PR":
                             case "DCL-PI":
                                 if (Tokens.Count < 2) break;
                                 if (Tokens[1].Value == "*N")
                                     Tokens[1].Value = "";
 
-                                CurrentStruct = new Variable(Tokens[1].Value, "Parameters", StorageType.Struct, line);
+                                switch (token.Value)
+                                {
+                                    case "DCL-PR":
+                                        CurrentStruct = new Variable(Tokens[1].Value, "Prototype", StorageType.Prototype, line);
+                                        break;
+                                    case "DCL-PI":
+                                        CurrentStruct = new Variable(Tokens[1].Value, "Parameters", StorageType.Struct, line);
+                                        break;
+                                }
 
                                 if (Tokens.Count < 3) break;
                                 if (Tokens[2].Value == ";") break;
-                                if (Tokens[2].Value == "END-PI")
+                                if (Tokens[2].Value.StartsWith("END"))
                                     CurrentStruct = null;
                                 else
                                 {
                                     Type = GetTypeFromToken(Tokens[2]);
-                                    CurrentProcedure.SetReturnType(Type);
+                                    if (CurrentStruct.GetStorageType() != StorageType.Prototype)
+                                    {
+                                        CurrentProcedure.SetReturnType(Type);
+                                    }
+                                    else
+                                    {
+                                        if (CurrentStruct.GetStorageType() == StorageType.Prototype)
+                                            CurrentStruct.SetType(Type);
+                                    }
+
                                 }
 
                                 if (Tokens.Count < 4) break;
                                 if (Tokens[3].Value == ";") break;
-                                if (Tokens[3].Value == "END-PI")
+                                if (Tokens[2].Value.StartsWith("END"))
                                     CurrentStruct = null;
                                 break;
 
@@ -108,10 +137,10 @@ namespace ILEditor.Classes.LanguageTools
                                 Type = GetTypeFromToken(Tokens[2]);
                                 CurrentStruct.AddMember(new Variable(Tokens[1].Value, Type, StorageType.Normal, line));
                                 break;
+                            case "END-PR":
                             case "END-PI":
                             case "END-DS":
-                                if (CurrentStruct.GetMembers().Length > 0)
-                                    CurrentProcedure.AddVariable(CurrentStruct);
+                                CurrentProcedure.AddVariable(CurrentStruct);
                                 CurrentStruct = null;
                                 break;
                             case "BEGSR":
