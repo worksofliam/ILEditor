@@ -71,7 +71,8 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("system", host.Text.Trim());
             IBMi.CurrentSystem.SetValue("username", user.Text.Trim());
             password = pass.Text.Trim();
-            password = Password.Encode(password);
+            if (password != "")
+                password = Password.Encode(password);
             IBMi.CurrentSystem.SetValue("password", password);
 
             IBMi.CurrentSystem.SetValue("fetchJobLog", fetchJobLog.Checked.ToString().ToLower());

@@ -40,6 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.ftpes = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // host
@@ -141,12 +142,22 @@
             this.ftpes.Text = "FTPES";
             this.ftpes.UseVisualStyleBackColor = true;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(12, 164);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(166, 26);
+            this.label18.TabIndex = 19;
+            this.label18.Text = "Leave password blank to be \r\nprompted for it before connecting.";
+            // 
             // NewSystem
             // 
             this.AcceptButton = this.save;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 204);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.ftpes);
             this.Controls.Add(this.label4);
@@ -181,5 +192,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox ftpes;
+        private System.Windows.Forms.Label label18;
     }
 }

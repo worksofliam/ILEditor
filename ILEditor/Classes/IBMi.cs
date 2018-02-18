@@ -77,7 +77,7 @@ namespace ILEditor.Classes
 
         public static bool IsConnected() => Client.IsConnected;
         public static string FTPFile = "";
-        public static bool Connect(bool OfflineMode = false)
+        public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
         {
             bool result = false;
             try
@@ -88,7 +88,13 @@ namespace ILEditor.Classes
                 FtpTrace.LogPassword = false;   // hide FTP passwords
                 FtpTrace.LogIP = false; 	// hide FTP server IP addresses
 
-                string password = Password.Decode(CurrentSystem.GetValue("password"));
+                string password = "";
+
+                if (promptedPassword == "")
+                    password = Password.Decode(CurrentSystem.GetValue("password"));
+                else
+                    password = promptedPassword;
+
                 Client = new FtpClient(CurrentSystem.GetValue("system"), CurrentSystem.GetValue("username"), password);
 
                 if (OfflineMode == false)

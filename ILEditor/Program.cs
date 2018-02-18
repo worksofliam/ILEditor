@@ -36,10 +36,13 @@ namespace ILEditor
         [STAThread]
         static void Main()
         {
+            string promptedPassword = "";
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             HostSelect Selector;
+            PasswordPrompt Prompter;
 
             if (!Directory.Exists(APPDIR))
             {
@@ -69,13 +72,15 @@ namespace ILEditor
 
                 if (Selector.SystemSelected)
                 {
-                    if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
+                    if (IBMi.CurrentSystem.GetValue("password") == "")
                     {
-                        MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        new Connection().ShowDialog();
+                        Prompter = new PasswordPrompt(IBMi.CurrentSystem.GetValue("alias"), IBMi.CurrentSystem.GetValue("username"));
+                        Prompter.ShowDialog();
+                        if (Prompter.Success)
+                            promptedPassword = Prompter.GetResult();
                     }
 
-                    Connected = IBMi.Connect(Selector.OfflineModeSelected());
+                    Connected = IBMi.Connect(Selector.OfflineModeSelected(), promptedPassword);
 
                     if (Connected)
                     {
@@ -91,7 +96,7 @@ namespace ILEditor
                             if (Result == DialogResult.Yes)
                             {
                                 IBMi.CurrentSystem.SetValue("useFTPES", "false");
-                                Connected = IBMi.Connect();
+                                Connected = IBMi.Connect(false, promptedPassword);
                                 if (Connected)
                                 {
                                     Application.Run(new Editor());

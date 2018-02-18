@@ -22,13 +22,37 @@ namespace ILEditor.Forms
 
         private void save_Click(object sender, EventArgs e)
         {
-            if (WriteFile(alias.Text.Trim(), host.Text.Trim(), user.Text.Trim(), pass.Text.Trim(), ftpes.Checked.ToString().ToLower()))
+            alias.Text = alias.Text.Trim();
+            host.Text = host.Text.Trim();
+            user.Text = user.Text.Trim();
+
+            if (alias.Text == "")
+            {
+                MessageBox.Show("Alias name cannot be blank.");
+                return;
+            }
+
+            if (host.Text == "")
+            {
+                MessageBox.Show("Host name cannot be blank.");
+                return;
+            }
+
+            if (user.Text == "")
+            {
+                MessageBox.Show("Username cannot be blank.");
+                return;
+            }
+
+            if (WriteFile(alias.Text, host.Text, user.Text, pass.Text, ftpes.Checked.ToString().ToLower()))
                 this.Close();
         }
 
         private Boolean WriteFile(string Alias, string Host, string User, string Pass, string useFTPES)
         {
-            Pass = Password.Encode(Pass);
+            if (Pass != "")
+                Pass = Password.Encode(Pass);
+
             Boolean Successful = false;
             string SystemPath = Program.SYSTEMSDIR + @"\" + Alias;
             string[] lines = new string[5];
