@@ -10,7 +10,7 @@ namespace ILEditor.Classes.LanguageTools
     {
         public enum Type
         {
-            BLOCK, UNKNOWN, OPERATOR, STRING_LITERAL, BLOCK_OPEN, BLOCK_CLOSE, OPERATION, INT_LITERAL, DOUBLE_LITERAL, WORD_LITERAL, PARMS, SEPERATOR
+            BLOCK, UNKNOWN, OPERATOR, DIRECTIVE, STRING_LITERAL, BLOCK_OPEN, BLOCK_CLOSE, OPERATION, INT_LITERAL, DOUBLE_LITERAL, WORD_LITERAL, PARMS, SEPERATOR
         }
         private static string[] OPERATORS = new[] { "(", ")", ";", ":", " " };
         private static char[] STRING_LITERAL = new char[0];
@@ -18,7 +18,7 @@ namespace ILEditor.Classes.LanguageTools
         private static string[] BLOCK_CLOSE = new[] { ")" };
         private static Dictionary<Type, string[]> Pieces = new Dictionary<Type, string[]>
 {
-{ Type.BLOCK_OPEN, new[] {  "(" } },{ Type.BLOCK_CLOSE, new[] {  ")" } },{ Type.OPERATION, new[] { "BEGSR", "DCL-F", "DCL-S", "DCL-C", "DCL-PARM", "DCL-SUBF", "DCL-DS", "END-DS", "DCL-PROC", "DCL-PI", "END-PI", "DCL-PR", "END-PR" } },{ Type.INT_LITERAL, new[] {  "/[-0-9]+/" } },{ Type.DOUBLE_LITERAL, new[] {  @"/\d+\.?\d*/" } },{ Type.WORD_LITERAL, new[] {  "/.*?/" } },{ Type.PARMS, new[] {  ":" } },{ Type.SEPERATOR, new[] {  ";" } }
+{ Type.BLOCK_OPEN, new[] {  "(" } },{ Type.BLOCK_CLOSE, new[] {  ")" } },{ Type.DIRECTIVE, new[] { "/COPY", "/INCLUDE" } }, { Type.OPERATION, new[] { "BEGSR", "DCL-F", "DCL-S", "DCL-C", "DCL-PARM", "DCL-SUBF", "DCL-DS", "END-DS", "DCL-PROC", "DCL-PI", "END-PI", "DCL-PR", "END-PR" } },{ Type.INT_LITERAL, new[] {  "/[-0-9]+/" } },{ Type.DOUBLE_LITERAL, new[] {  @"/\d+\.?\d*/" } },{ Type.WORD_LITERAL, new[] {  "/.*?/" } },{ Type.PARMS, new[] {  ":" } },{ Type.SEPERATOR, new[] {  ";" } }
 };
 
 

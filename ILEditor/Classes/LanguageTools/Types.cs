@@ -66,6 +66,7 @@ namespace ILEditor.Classes.LanguageTools
         public StorageType GetStorageType() => this.varType;
         public Variable[] GetMembers() => this.Members.ToArray();
 
+        public void SetLine(int Line) => this.Line = Line;
         public void SetType(string Value) => this.Type = Value;
         public void AddMember(Variable Member) => this.Members.Add(Member);
     }

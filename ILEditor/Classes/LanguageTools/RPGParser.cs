@@ -34,12 +34,15 @@ namespace ILEditor.Classes.LanguageTools
 
         public static Function[] Parse(string Code)
         {
+            if (Code == "") return null;
+
             RPGLexer lexer;
             List<RPGToken> Tokens;
             List<Function> Procedures = new List<Function>();
             RPGToken token;
             int line = -1;
-            string CurrentLine, Type;
+            string[] data;
+            string CurrentLine, Type, Lib = "*LIBL", Spf = "QRPGLESRC", Mbr = "";
 
             Function CurrentProcedure = new Function("Globals", 0);
             Variable CurrentStruct = null;
@@ -59,6 +62,56 @@ namespace ILEditor.Classes.LanguageTools
                 token = Tokens[0];
                 switch (token.Type)
                 {
+                    case RPGLexer.Type.DIRECTIVE:
+                        switch (token.Value) { 
+                            case "/INCLUDE":
+                            case "/COPY":
+                                Lib = "*LIBL"; Spf = "QRPGLESRC"; Mbr = "";
+
+                                Type = Tokens[1].Value.ToUpper();
+                                if (Type.StartsWith("'") && Type.EndsWith("'"))
+                                {
+                                    //IFS
+                                    //TODO: When saving local IFS files is done, implement this
+                                    Type = Tokens[1].Value.Trim('\'');
+                                }
+                                else
+                                {
+                                    //QSYS
+                                    if (Type.Contains("/"))
+                                    {
+                                        data = Type.Split('/');
+                                        Lib = data[0];
+                                        data = data[1].Split(',');
+                                        Spf = data[0];
+                                        Mbr = data[1];
+                                    }
+                                    else if (Type.Contains(","))
+                                    {
+                                        data = Type.Split(',');
+                                        Spf = data[0];
+                                        Mbr = data[1];
+                                    }
+                                    else
+                                    {
+                                        Mbr = Type;
+                                    }
+                                    Console.WriteLine(Lib + "/" + Spf + "," + Mbr);
+                                    Function[] funcs = Parse(IBMiUtils.GetLocalSource(Lib, Spf, Mbr));
+
+                                    if (funcs != null)
+                                        foreach (Function func in funcs)
+                                            if (func != null)
+                                                foreach (Variable var in func.GetVariables())
+                                                {
+                                                    var.SetLine(line);
+                                                    CurrentProcedure.AddVariable(var);
+                                                }
+                                }
+                                break;
+                        }
+                        break;
+
                     case RPGLexer.Type.OPERATION:
                         switch (token.Value)
                         {

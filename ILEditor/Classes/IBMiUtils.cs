@@ -458,6 +458,40 @@ namespace ILEditor.Classes
             return SPFDir;
         }
 
+        public static string GetLocalSource(string Lib, string Spf, string Mbr)
+        {
+            string result = "";
+            string[] libl;
+            string dir;
+
+            if (Lib == "*LIBL")
+                libl = IBMi.CurrentSystem.GetValue("datalibl").Split(',');
+            else
+                libl = new[] { Lib };
+
+            foreach (string lib in libl)
+            {
+                dir = Path.Combine(Program.SOURCEDIR, IBMi.CurrentSystem.GetValue("system"), lib);
+                if (Directory.Exists(dir))
+                {
+                    dir = Path.Combine(dir, Spf);
+                    if (Directory.Exists(dir))
+                    {
+                        foreach (string FilePath in Directory.GetFiles(dir))
+                        {
+                            if (Path.GetFileNameWithoutExtension(FilePath) == Mbr)
+                            {
+                                result = File.ReadAllText(FilePath).ToUpper();
+                                return result;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public static string GetLocalFile(string Lib, string Obj, string Mbr, string Ext = "")
         {
             Lib = Lib.ToUpper();
