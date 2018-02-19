@@ -2,26 +2,26 @@
 <!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
 <SyntaxDefinition name="C++" extensions=".c;.h;.cc;.cpp;.hpp" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-	<Color name="Comment" foreground="Green" />
-	<Color name="Character" foreground="Fuchsia" />
-	<Color name="String" foreground="LightGreen" />
-	<Color name="Preprocessor" foreground="Green" />
-	<Color name="Punctuation" foreground="LightGreen" />
+	<Color name="Comment" foreground="#4FB548" />
+	<Color name="Character" foreground="#4FB548" />
+	<Color name="String" foreground="#4FB548" />
+	<Color name="Preprocessor" foreground="#9B9B9B" />
+	<Color name="Punctuation" foreground="#C6C6C6" />
 	<Color name="MethodName" foreground="LightBlue" fontWeight="bold" />
-	<Color name="Digits" foreground="Blue" />
+	<Color name="Digits" foreground="LightBlue" />
 	<Color name="CompoundKeywords" foreground="White" fontWeight="bold" />
 	<Color name="This" foreground="White" fontWeight="bold" />
-	<Color name="Operators" foreground="#FF008B8B" fontWeight="bold" />
-	<Color name="Namespace" foreground="#FF008000" fontWeight="bold" />
-	<Color name="Friend" foreground="#FFA52A2A" />
-	<Color name="Modifiers" foreground="#2626ff" fontWeight="bold" />
-	<Color name="TypeKeywords" foreground="#FFFF0000" />
-	<Color name="BooleanConstants" foreground="#2626ff" fontWeight="bold" />
-	<Color name="Keywords" foreground="#2626ff" fontWeight="bold" />
-	<Color name="LoopKeywords" foreground="#2626ff" />
-	<Color name="JumpKeywords" foreground="#2626ff" />
-	<Color name="ExceptionHandling" foreground="#2626ff" fontWeight="bold" />
-	<Color name="ControlFlow" foreground="#2626ff" fontWeight="bold" />
+	<Color name="Operators" foreground="#008B8B" fontWeight="bold" />
+	<Color name="Namespace" foreground="#26A7FF" fontWeight="bold" />
+	<Color name="Friend" foreground="#E57979" />
+	<Color name="Modifiers" foreground="#26A7FF" fontWeight="bold" />
+	<Color name="TypeKeywords" foreground="#26A7FF" />
+	<Color name="BooleanConstants" foreground="#26A7FF" fontWeight="bold" />
+	<Color name="Keywords" foreground="#26A7FF" fontWeight="bold" />
+	<Color name="LoopKeywords" foreground="#26A7FF" />
+	<Color name="JumpKeywords" foreground="#26A7FF" />
+	<Color name="ExceptionHandling" foreground="#26A7FF" fontWeight="bold" />
+	<Color name="ControlFlow" foreground="#26A7FF" fontWeight="bold" />
 	<RuleSet ignoreCase="false">
 		<Rule color="Punctuation">
 			[?,.;()\[\]{}+\-/%*&lt;&gt;^=~!&amp;]+
@@ -113,6 +113,7 @@
 			<Word>class</Word>
 			<Word>enum</Word>
 			<Word>struct</Word>
+      <Word>this</Word>
 		</Keywords>
 		<Keywords color="BooleanConstants">
 			<Word>false</Word>
