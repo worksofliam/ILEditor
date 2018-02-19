@@ -32,6 +32,8 @@ namespace ILEditor.Classes.LanguageTools
             return result;
         }
 
+        public static readonly string[] DSEnders = new[] { "EXTNAME", "LIKEREC" };
+
         public static Function[] Parse(string Code)
         {
             if (Code == "") return null;
@@ -140,7 +142,7 @@ namespace ILEditor.Classes.LanguageTools
                                 if (Tokens.Count < 3) break;
                                 for (int x = 2; x < Tokens.Count; x++)
                                 {
-                                    if (Tokens[x].Value == "LIKEDS")
+                                    if (DSEnders.Contains(Tokens[x].Value))
                                     {
                                         CurrentProcedure.AddVariable(CurrentStruct);
                                         CurrentStruct = null;
@@ -196,9 +198,13 @@ namespace ILEditor.Classes.LanguageTools
                                 CurrentStruct.AddMember(new Variable(Tokens[1].Value, Type, StorageType.Normal, line));
                                 break;
                             case "END-PR":
-                            case "END-PI":
                             case "END-DS":
                                 CurrentProcedure.AddVariable(CurrentStruct);
+                                CurrentStruct = null;
+                                break;
+                            case "END-PI":
+                                if (CurrentStruct.GetMembers().Count() > 0)
+                                    CurrentProcedure.AddVariable(CurrentStruct);
                                 CurrentStruct = null;
                                 break;
                             case "BEGSR":
