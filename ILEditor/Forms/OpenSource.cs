@@ -15,12 +15,18 @@ namespace ILEditor.Forms
 {
     public partial class OpenSource : Form
     {
+        public static string Library = "", SPF = "", Stmf = "";
+
         public OpenSource(int tab = 0)
         {
             InitializeComponent();
             type.Items.AddRange(Editor.LangTypes.Keys.ToArray());
 
             tabs.SelectedIndex = tab;
+
+            lib.Text = Library;
+            spf.Text = SPF;
+            stmfPath.Text = Stmf;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,6 +46,8 @@ namespace ILEditor.Forms
                     if (isValid)
                     {
                         Editor.OpenSource(new RemoteSource("", lib.Text, spf.Text, mbr.Text, type.Text, true));
+                        Library = lib.Text;
+                        SPF = spf.Text;
                         this.Close();
                     }
                     else
@@ -51,6 +59,7 @@ namespace ILEditor.Forms
 
                     if (IBMi.FileExists(stmfPath.Text)) {
                         Editor.OpenSource(new RemoteSource("", stmfPath.Text));
+                        Stmf = stmfPath.Text;
                         this.Close();
                     }
                     else

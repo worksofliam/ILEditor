@@ -14,33 +14,31 @@ namespace ILEditor.Forms
     public partial class SaveAs : Form
     {
         public bool Success = false;
-        public string Lib = "";
-        public string Spf = "";
-        public string Mbr = "";
-        public SaveAs()
+        public SourceSelectBox SourceInfo() => sourceSelectBox;
+        public SaveAs(RemoteSource MemberInfo = null)
         {
             InitializeComponent();
+
+            if (MemberInfo != null)
+            {
+                switch (MemberInfo.GetFS())
+                {
+                    case FileSystem.IFS:
+                        sourceSelectBox.SetSource(MemberInfo.GetRemoteFile());
+                        sourceSelectBox.SetSource("", "", MemberInfo.GetName());
+                        break;
+                    case FileSystem.QSYS:
+                        sourceSelectBox.SetSource("", MemberInfo.GetObject(), MemberInfo.GetName());
+                        break;
+                }
+            }
         }
 
         private void save_Click(object sender, EventArgs e)
         {
-            Boolean valid = true;
-            this.Lib = lib.Text.Trim();
-            this.Spf = spf.Text.Trim();
-            this.Mbr = mbr.Text.Trim();
-
-            if (!IBMiUtils.IsValueObjectName(this.Lib))
-                valid = false;
-
-            if (!IBMiUtils.IsValueObjectName(this.Spf))
-                valid = false;
-
-            if (!IBMiUtils.IsValueObjectName(this.Mbr))
-                valid = false;
-
-            if (!valid)
+            if (!sourceSelectBox.isValid())
             {
-                MessageBox.Show("Member information not valid.");
+                MessageBox.Show("Source information not valid.");
             }
             else
             {

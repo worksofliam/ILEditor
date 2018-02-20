@@ -86,6 +86,7 @@
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
             this.commentButton = new System.Windows.Forms.ToolStripButton();
+            this.sourceDiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -271,7 +272,8 @@
             this.localCopiesToolStripMenuItem,
             this.languageToolsToolStripMenuItem,
             this.quickCommentToolStripMenuItem,
-            this.duplicateLineToolStripMenuItem});
+            this.duplicateLineToolStripMenuItem,
+            this.sourceDiffToolStripMenuItem});
             this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
             this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.sourceToolStripMenuItem.Text = "Source";
@@ -549,7 +551,7 @@
             this.commentButton});
             this.toolStrip2.Location = new System.Drawing.Point(142, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(164, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(133, 25);
             this.toolStrip2.TabIndex = 1;
             // 
             // saveSource
@@ -607,6 +609,13 @@
             this.commentButton.Size = new System.Drawing.Size(23, 22);
             this.commentButton.Text = "Comment Selected";
             this.commentButton.Click += new System.EventHandler(this.commentButton_Click);
+            // 
+            // sourceDiffToolStripMenuItem
+            // 
+            this.sourceDiffToolStripMenuItem.Name = "sourceDiffToolStripMenuItem";
+            this.sourceDiffToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.sourceDiffToolStripMenuItem.Text = "Source Diff";
+            this.sourceDiffToolStripMenuItem.Click += new System.EventHandler(this.sourceDiffToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -698,5 +707,6 @@
         private System.Windows.Forms.ToolStripButton redoButton;
         private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripButton commentButton;
+        private System.Windows.Forms.ToolStripMenuItem sourceDiffToolStripMenuItem;
     }
 }

@@ -30,7 +30,7 @@
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -270,6 +270,20 @@
     <Compile Include="Forms\ServiceGenerator.Designer.cs">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SourceCompareSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SourceCompareSelect.Designer.cs">
+      <DependentUpon>SourceCompareSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SourceSelectBox.cs">
+      <SubType>UserControl</SubType>
+      <Generator>SourceSelectBox</Generator>
+      <CustomToolNamespace>ILEditor</CustomToolNamespace>
+    </Compile>
+    <Compile Include="Forms\SourceSelectBox.Designer.cs">
+      <DependentUpon>SourceSelectBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SPFSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,6 +307,12 @@
     </Compile>
     <Compile Include="UserTools\CompileOptions.Designer.cs">
       <DependentUpon>CompileOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserTools\DiffView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserTools\DiffView.Designer.cs">
+      <DependentUpon>DiffView.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\ErrorListing.cs">
       <SubType>Form</SubType>
@@ -440,6 +460,12 @@
     <EmbeddedResource Include="Forms\ServiceGenerator.resx">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SourceCompareSelect.resx">
+      <DependentUpon>SourceCompareSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SourceSelectBox.resx">
+      <DependentUpon>SourceSelectBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SPFSelect.resx">
       <DependentUpon>SPFSelect.cs</DependentUpon>
     </EmbeddedResource>
@@ -464,6 +490,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\CompileOptions.resx">
       <DependentUpon>CompileOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\DiffView.resx">
+      <DependentUpon>DiffView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ErrorListing.resx">
       <DependentUpon>ErrorListing.cs</DependentUpon>

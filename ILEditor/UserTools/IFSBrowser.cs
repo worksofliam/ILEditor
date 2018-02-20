@@ -176,7 +176,7 @@ namespace ILEditor.UserTools
                 window.ShowDialog();
 
                 if (window.result != null)
-                    Editor.OpenSource(window.result);
+                    Editor.OpenExistingSource(window.result);
             }
         }
 

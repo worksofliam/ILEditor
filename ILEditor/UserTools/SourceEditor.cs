@@ -302,49 +302,57 @@ namespace ILEditor.UserTools
                     RemoteSource MemberInfo = this.Tag as RemoteSource;
                     if (MemberInfo != null)
                     {
-                        switch (MemberInfo.GetFS())
+                        SaveAs SaveAsWindow = new SaveAs(MemberInfo);
+                        SaveAsWindow.ShowDialog();
+                        if (SaveAsWindow.Success)
                         {
-                            case FileSystem.QSYS:
-                                SaveAs SaveAsWindow = new SaveAs();
-                                SaveAsWindow.ShowDialog();
-                                if (SaveAsWindow.Success)
-                                {
-                                    CurrentSaving = true;
-
-                                    Editor.TheEditor.SetStatus("Saving " + SaveAsWindow.Mbr + "..");
-                                    Thread gothread = new Thread((ThreadStart)delegate
+                            Thread gothread = null;
+                            CurrentSaving = true;
+                            Editor.TheEditor.SetStatus("Saving " + MemberInfo.GetName() + "..");
+                            switch (SaveAsWindow.SourceInfo().GetFS())
+                            {
+                                case FileSystem.QSYS:
+                                    gothread = new Thread((ThreadStart)delegate
                                     {
-                                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
+                                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.SourceInfo().GetLibrary(), SaveAsWindow.SourceInfo().GetSPF(), SaveAsWindow.SourceInfo().GetMember());
                                         if (UploadResult == false)
-                                            MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+                                            MessageBox.Show("Failed to upload to " + MemberInfo.GetName() + ".");
 
                                         this.Invoke((MethodInvoker)delegate
                                         {
-                                            Editor.TheEditor.SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                                            Editor.TheEditor.SetStatus(MemberInfo.GetName() + " " + (UploadResult ? "" : "not ") + "saved.");
                                         });
-                                        
+
                                         CurrentSaving = false;
                                     });
+                                    break;
 
-                                    gothread.Start();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Save as is not available for local source.");
-                                }
-                                break;
+                                case FileSystem.IFS:
+                                    gothread = new Thread((ThreadStart)delegate
+                                    {
+                                        bool UploadResult = IBMiUtils.UploadFile(MemberInfo.GetLocalFile(), SaveAsWindow.SourceInfo().GetIFSPath());
+                                        if (UploadResult == false)
+                                            MessageBox.Show("Failed to upload to " + MemberInfo.GetName() + "." + MemberInfo.GetExtension() + ".");
 
-                            case FileSystem.IFS:
-                                MessageBox.Show("Save as is not available for stream files yet.");
-                                break;
+                                        this.Invoke((MethodInvoker)delegate
+                                        {
+                                            Editor.TheEditor.SetStatus(MemberInfo.GetName() + "." + MemberInfo.GetExtension() + " " + (UploadResult ? "" : "not ") + "saved.");
+                                        });
+
+                                        CurrentSaving = false;
+                                    });
+                                    break;
+                            }
+
+                            if (gothread != null)
+                                gothread.Start();
                         }
-
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("You must save the source before you can Save-As.");
+                else
+                {
+                    MessageBox.Show("You must save the source before you can Save-As.");
+                }
             }
         }
 

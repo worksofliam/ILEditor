@@ -29,7 +29,9 @@ namespace ILEditor
             { "CLP", Language.CL },
             { "CMD", Language.CL },
             { "CPP", Language.CPP },
+            { "SQLCPP", Language.CPP },
             { "C", Language.CPP },
+            { "SQLC", Language.CPP },
             { "SQL", Language.SQL },
             { "CBL", Language.COBOL },
             { "COBOL", Language.COBOL },
@@ -387,6 +389,8 @@ namespace ILEditor
         }
 
         private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new QuickMemberSearch().Show();
+
+        private void sourceDiffToolStripMenuItem_Click(object sender, EventArgs e) => new SourceCompareSelect().ShowDialog();
         #endregion
 
         #region Source dropdown
