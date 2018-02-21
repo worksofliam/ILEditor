@@ -8,6 +8,7 @@ using ILEditor.Forms;
 using ILEditor.Classes;
 using System.Deployment.Application;
 using System.Reflection;
+using System.Drawing;
 
 namespace ILEditor
 {

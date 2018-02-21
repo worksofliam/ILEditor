@@ -14,12 +14,12 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class TreeBrowse : DockContent
+    public partial class QSYSBrowser : DockContent
     {
-        public TreeBrowse()
+        public QSYSBrowser()
         {
             InitializeComponent();
-            this.Text = "Tree Browser";
+            this.Text = "QSYS Browser";
         }
 
         private SPFSelect window;

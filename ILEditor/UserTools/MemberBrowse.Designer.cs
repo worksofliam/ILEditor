@@ -116,7 +116,6 @@
             this.columnHeader2,
             this.columnHeader3});
             this.memberList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.memberList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberList.Location = new System.Drawing.Point(0, 25);
             this.memberList.MultiSelect = false;
             this.memberList.Name = "memberList";

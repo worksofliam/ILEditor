@@ -60,6 +60,7 @@
             this.generateSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourceDiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.compileOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,7 +87,6 @@
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
             this.commentButton = new System.Windows.Forms.ToolStripButton();
-            this.sourceDiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -106,7 +106,8 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(681, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -362,6 +363,13 @@
             this.duplicateLineToolStripMenuItem.Visible = false;
             this.duplicateLineToolStripMenuItem.Click += new System.EventHandler(this.duplicateLineToolStripMenuItem_Click);
             // 
+            // sourceDiffToolStripMenuItem
+            // 
+            this.sourceDiffToolStripMenuItem.Name = "sourceDiffToolStripMenuItem";
+            this.sourceDiffToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.sourceDiffToolStripMenuItem.Text = "Source Diff";
+            this.sourceDiffToolStripMenuItem.Click += new System.EventHandler(this.sourceDiffToolStripMenuItem_Click);
+            // 
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -415,9 +423,10 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusText,
             this.columnText});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 488);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 644);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(584, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(681, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -439,11 +448,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.dockingPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(584, 439);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(681, 595);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 24);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(584, 464);
+            this.toolStripContainer1.Size = new System.Drawing.Size(681, 620);
             this.toolStripContainer1.TabIndex = 9;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -458,7 +467,7 @@
             this.dockingPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.dockingPanel.Location = new System.Drawing.Point(0, 0);
             this.dockingPanel.Name = "dockingPanel";
-            this.dockingPanel.Size = new System.Drawing.Size(584, 439);
+            this.dockingPanel.Size = new System.Drawing.Size(681, 595);
             this.dockingPanel.TabIndex = 12;
             // 
             // toolStrip1
@@ -610,21 +619,15 @@
             this.commentButton.Text = "Comment Selected";
             this.commentButton.Click += new System.EventHandler(this.commentButton_Click);
             // 
-            // sourceDiffToolStripMenuItem
-            // 
-            this.sourceDiffToolStripMenuItem.Name = "sourceDiffToolStripMenuItem";
-            this.sourceDiffToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.sourceDiffToolStripMenuItem.Text = "Source Diff";
-            this.sourceDiffToolStripMenuItem.Click += new System.EventHandler(this.sourceDiffToolStripMenuItem_Click);
-            // 
             // Editor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 510);
+            this.ClientSize = new System.Drawing.Size(681, 666);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;

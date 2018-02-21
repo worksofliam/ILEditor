@@ -41,7 +41,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.AddTool(new ObjectBrowse(), DockState.DockRight);
                         break;
                     case "TREE":
-                        Editor.TheEditor.AddTool(new TreeBrowse(), DockState.DockRight);
+                        Editor.TheEditor.AddTool(new QSYSBrowser(), DockState.DockRight);
                         break;
                     case "SPL":
                         Editor.TheEditor.AddTool(new SpoolListing(), DockState.DockRight, true);

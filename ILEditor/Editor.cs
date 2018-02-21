@@ -4,6 +4,7 @@ using ILEditor.UserTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -115,7 +116,7 @@ namespace ILEditor
             else
                 Content.Show(content, dock);
         }
-        
+
         public static void OpenSource(RemoteSource Source)
         {
             SourceEditor sourcePanel;

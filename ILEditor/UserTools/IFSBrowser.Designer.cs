@@ -44,7 +44,6 @@
             // files
             // 
             this.files.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.files.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.files.ImageIndex = 0;
             this.files.ImageList = this.imageList1;
             this.files.LabelEdit = true;

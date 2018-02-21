@@ -52,7 +52,6 @@
             this.columnHeader4,
             this.columnHeader3});
             this.spoolList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spoolList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.spoolList.Location = new System.Drawing.Point(0, 0);
             this.spoolList.MultiSelect = false;
             this.spoolList.Name = "spoolList";

@@ -55,13 +55,12 @@
             this.columnHeader5,
             this.columnHeader6});
             this.entriesList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.entriesList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.entriesList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.entriesList.Location = new System.Drawing.Point(0, 0);
             this.entriesList.MultiSelect = false;
             this.entriesList.Name = "entriesList";
-            this.entriesList.Size = new System.Drawing.Size(672, 494);
+            this.entriesList.Size = new System.Drawing.Size(656, 455);
             this.entriesList.TabIndex = 0;
             this.entriesList.UseCompatibleStateImageBehavior = false;
             this.entriesList.View = System.Windows.Forms.View.Details;
@@ -106,9 +105,9 @@
             this.objectLib,
             this.objectActivation,
             this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 469);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 430);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(672, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(656, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -168,10 +167,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(656, 455);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.entriesList);
             this.Name = "BindingDirectory";
-            this.Size = new System.Drawing.Size(672, 494);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

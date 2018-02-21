@@ -1,6 +1,6 @@
 ﻿namespace ILEditor.UserTools
 {
-    partial class TreeBrowse
+    partial class QSYSBrowser
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeBrowse));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QSYSBrowser));
             this.objectList = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.addSpf = new System.Windows.Forms.ToolStrip();
@@ -40,7 +40,6 @@
             // objectList
             // 
             this.objectList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectList.ImageIndex = 0;
             this.objectList.ImageList = this.imageList1;
             this.objectList.Location = new System.Drawing.Point(0, 0);
