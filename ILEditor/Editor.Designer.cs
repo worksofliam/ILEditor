@@ -469,6 +469,7 @@
             this.dockingPanel.Name = "dockingPanel";
             this.dockingPanel.Size = new System.Drawing.Size(681, 595);
             this.dockingPanel.TabIndex = 12;
+            this.dockingPanel.ContentRemoved += new System.EventHandler<WeifenLuo.WinFormsUI.Docking.DockContentEventArgs>(this.dockingPanel_ContentRemoved);
             // 
             // toolStrip1
             // 
