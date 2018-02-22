@@ -38,7 +38,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.AddTool(new CompileOptions(), DockState.DockLeft);
                         break;
                     case "PGM":
-                        Editor.TheEditor.AddTool(new ObjectBrowse(), DockState.DockRight);
+                        Editor.TheEditor.AddTool(new ObjectBrowse(), DockState.DockLeft);
                         break;
                     case "TREE":
                         Editor.TheEditor.AddTool(new QSYSBrowser(), DockState.DockRight);
