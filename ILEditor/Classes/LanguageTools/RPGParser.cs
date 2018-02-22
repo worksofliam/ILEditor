@@ -32,7 +32,7 @@ namespace ILEditor.Classes.LanguageTools
             return result;
         }
 
-        public static readonly string[] DSEnders = new[] { "EXTNAME", "LIKEREC" };
+        public static readonly string[] DSEnders = new[] { "EXTNAME", "LIKEREC", "LIKEDS" };
 
         public static Function[] Parse(string Code)
         {
@@ -146,6 +146,7 @@ namespace ILEditor.Classes.LanguageTools
                                     {
                                         CurrentProcedure.AddVariable(CurrentStruct);
                                         CurrentStruct = null;
+                                        break;
                                     }
                                 }
                                 
