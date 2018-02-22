@@ -17,12 +17,17 @@ namespace ILEditor.UserTools
 {
     public partial class IFSBrowser : DockContent
     {
-        private string RootDirectory = "";
+        private List<string> DirList;
         public IFSBrowser()
         {
             InitializeComponent();
             this.Text = "IFS Browser";
-            RootDirectory = IBMi.CurrentSystem.GetValue("homeDir");
+            DirList = new List<string>();
+            DirList.Add(IBMi.CurrentSystem.GetValue("homeDir"));
+
+            foreach (string dir in IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|'))
+                if (dir.Trim() != "")
+                    DirList.Add(dir);
         }
 
         private void IFSBrowser_Load(object sender, EventArgs e)
@@ -33,20 +38,25 @@ namespace ILEditor.UserTools
             {
                 new Thread((ThreadStart)delegate
                 {
-                    exists = IBMi.DirExists(RootDirectory);
-                    this.Invoke((MethodInvoker)delegate
+                    foreach (string dir in DirList)
                     {
-                        if (exists)
+                        if (dir.Trim() == "") continue;
+
+                        exists = IBMi.DirExists(dir);
+                        this.Invoke((MethodInvoker)delegate
                         {
-                            node = new TreeNode(RootDirectory, new[] { new TreeNode("Loading..", 2, 2) });
-                            node.Tag = RootDirectory;
-                            node.ImageIndex = 0;
-                            node.SelectedImageIndex = 0;
-                            files.Nodes.Add(node);
-                        }
-                        else
-                            files.Nodes.Add(new TreeNode("Home directory (" + RootDirectory + ") does not exist.", 3, 3));
-                    });
+                            if (exists)
+                            {
+                                node = new TreeNode(dir, new[] { new TreeNode("Loading..", 2, 2) });
+                                node.Tag = dir;
+                                node.ImageIndex = 0;
+                                node.SelectedImageIndex = 0;
+                                files.Nodes.Add(node);
+                            }
+                            else
+                                files.Nodes.Add(new TreeNode("Directory '" + dir + "' was not located.", 3, 3));
+                        });
+                    }
                 }).Start();
             }
             else
@@ -142,6 +152,8 @@ namespace ILEditor.UserTools
                 RightClickedNode = e.Node;
 
                 createToolStripMenuItem.Enabled = (e.Node.Nodes.Count > 0);
+                deleteToolStripMenuItem.Enabled = (e.Node.Parent != null);
+                renameToolStripMenuItem.Enabled = (e.Node.Parent != null);
                 rightClickMenu.Show(Cursor.Position);
             }
         }
@@ -151,12 +163,15 @@ namespace ILEditor.UserTools
             if (RightClickedNode != null)
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to delete '" + RightClickedNode.Tag.ToString() + "'?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                if (RightClickedNode.Nodes.Count == 0)
-                    IBMi.DeleteFile(RightClickedNode.Tag.ToString());
-                else
-                    IBMi.DeleteDir(RightClickedNode.Tag.ToString());
+                if (result == DialogResult.Yes)
+                {
+                    if (RightClickedNode.Nodes.Count == 0)
+                        IBMi.DeleteFile(RightClickedNode.Tag.ToString());
+                    else
+                        IBMi.DeleteDir(RightClickedNode.Tag.ToString());
 
-                RightClickedNode.Remove();
+                    RightClickedNode.Remove();
+                }
             }
         }
 
@@ -190,6 +205,11 @@ namespace ILEditor.UserTools
                 RightClickedNode.Collapse();
                 RightClickedNode.Expand();
             }
+        }
+
+        private void manageDirs_Click(object sender, EventArgs e)
+        {
+            new IFSManager().ShowDialog();
         }
     }
 }

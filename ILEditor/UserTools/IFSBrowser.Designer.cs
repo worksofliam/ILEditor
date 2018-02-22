@@ -38,7 +38,10 @@
             this.directoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addSpf = new System.Windows.Forms.ToolStrip();
+            this.manageDirs = new System.Windows.Forms.ToolStripButton();
             this.rightClickMenu.SuspendLayout();
+            this.addSpf.SuspendLayout();
             this.SuspendLayout();
             // 
             // files
@@ -50,7 +53,7 @@
             this.files.Location = new System.Drawing.Point(0, 0);
             this.files.Name = "files";
             this.files.SelectedImageIndex = 0;
-            this.files.Size = new System.Drawing.Size(260, 318);
+            this.files.Size = new System.Drawing.Size(244, 279);
             this.files.TabIndex = 0;
             this.files.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.files_AfterLabelEdit);
             this.files.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.files_AfterExpand);
@@ -112,16 +115,41 @@
             this.renameToolStripMenuItem.Text = "Rename";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
+            // addSpf
+            // 
+            this.addSpf.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.addSpf.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manageDirs});
+            this.addSpf.Location = new System.Drawing.Point(0, 254);
+            this.addSpf.Name = "addSpf";
+            this.addSpf.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.addSpf.Size = new System.Drawing.Size(244, 25);
+            this.addSpf.TabIndex = 2;
+            this.addSpf.Text = "toolStrip1";
+            // 
+            // manageDirs
+            // 
+            this.manageDirs.Image = global::ILEditor.Properties.Resources.folder;
+            this.manageDirs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.manageDirs.Name = "manageDirs";
+            this.manageDirs.Size = new System.Drawing.Size(129, 22);
+            this.manageDirs.Text = "Manage Directories";
+            this.manageDirs.Click += new System.EventHandler(this.manageDirs_Click);
+            // 
             // IFSBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(244, 279);
+            this.Controls.Add(this.addSpf);
             this.Controls.Add(this.files);
             this.Name = "IFSBrowser";
-            this.Size = new System.Drawing.Size(260, 318);
             this.Load += new System.EventHandler(this.IFSBrowser_Load);
             this.rightClickMenu.ResumeLayout(false);
+            this.addSpf.ResumeLayout(false);
+            this.addSpf.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -135,5 +163,7 @@
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem directoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip addSpf;
+        private System.Windows.Forms.ToolStripButton manageDirs;
     }
 }

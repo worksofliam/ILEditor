@@ -114,6 +114,8 @@ namespace ILEditor.Classes
 
             CheckExist("TYPE_CMD", "CRTCMD");
             CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
+
+            CheckExist("IFS_LINKS", "");
         }
 
         public void SaveConfig()
