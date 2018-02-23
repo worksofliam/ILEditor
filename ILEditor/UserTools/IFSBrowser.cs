@@ -76,6 +76,14 @@ namespace ILEditor.UserTools
 
                 foreach (FtpListItem item in items)
                 {
+                    if (item.Name.Contains("/"))
+                    {
+                        int lastIndex = item.Name.LastIndexOf("/");
+                        string tempName = item.Name.Substring(lastIndex + 1, item.Name.Length - lastIndex - 1);
+                        item.FullName = item.FullName.Substring(0, item.FullName.Length - item.Name.Length - 1) + "/" + tempName;
+                        item.Name = tempName;
+                    }
+
                     node = new TreeNode(item.Name);
                     node.Tag = item.FullName;
                     switch (item.Type)
@@ -85,7 +93,7 @@ namespace ILEditor.UserTools
                             node.SelectedImageIndex = 0;
                             node.Nodes.Add(new TreeNode("Loading..", 2, 2));
                             Listing.Add(node);
-                            break; 
+                            break;
                         case FtpFileSystemObjectType.File:
                             node.ImageIndex = 1;
                             node.SelectedImageIndex = 1;
