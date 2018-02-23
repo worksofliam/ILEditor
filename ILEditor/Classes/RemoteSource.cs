@@ -63,6 +63,10 @@ namespace ILEditor.Classes
                 this._Mbr = data.First();
                 this._Ext = data.Last();
             }
+            else
+            {
+                this._Ext = "";
+            }
 
             this._RecordLength = 0;
             this._isLocked = false;
