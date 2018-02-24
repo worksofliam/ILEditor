@@ -16,6 +16,7 @@ namespace ILEditor.Classes
         private static Dictionary<int, string> _FileIDs;
         private static Dictionary<int, List<LineError>> _Errors;
         private static Dictionary<int, List<expRange>> _Expansions;
+        private static Dictionary<int, bool> _TrackCopies; //Used for embedded sql with copies/includes using *lvl2
         private static Boolean _Success = false;
 
         public static void getErrors(string lib, string obj)
@@ -56,6 +57,8 @@ namespace ILEditor.Classes
             _FileIDs = new Dictionary<int, string>();
             _Errors = new Dictionary<int, List<LineError>>();
             _Expansions = new Dictionary<int, List<expRange>>();
+            _TrackCopies = new Dictionary<int, bool>();
+            expRange copyRange = null;
 
             string err;
             int sev;
@@ -83,6 +86,17 @@ namespace ILEditor.Classes
                             _FileIDs.Add(_FileID, pieces[5]);
                             _Errors.Add(_FileID, new List<LineError>());
                             _Expansions.Add(_FileID, new List<expRange>());
+                            _TrackCopies.Add(_FileID, line.Substring(17, 6) != "000000");
+                            copyRange = new expRange(1, 0);
+                        }
+                        break;
+
+                    case "FILEEND":
+                        if (_TrackCopies[_FileID])
+                        {
+                            copyRange._high = int.Parse(pieces[3]);
+                            if (_Expansions.ContainsKey(999)) //Indicates SQL precompiler temp file
+                                _Expansions[1].Add(copyRange);
                         }
                         break;
 
