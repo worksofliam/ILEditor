@@ -250,6 +250,8 @@ namespace ILEditor
                 }
             }
         }
+        
+        private void Editor_FormClosing(object sender, FormClosingEventArgs e) => MemberCache.Export();
 
         #region File Dropdown
 
@@ -498,6 +500,5 @@ namespace ILEditor
 
         private void commentButton_Click(object sender, EventArgs e) => quickCommentToolStripMenuItem.PerformClick();
         #endregion
-
     }
 }
