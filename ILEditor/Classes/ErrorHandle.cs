@@ -86,6 +86,8 @@ namespace ILEditor.Classes
                             _FileIDs.Add(_FileID, pieces[5]);
                             _Errors.Add(_FileID, new List<LineError>());
                             _Expansions.Add(_FileID, new List<expRange>());
+
+                            //000000 check means that the current FILEID is not an include
                             _TrackCopies.Add(_FileID, line.Substring(17, 6) != "000000");
                             copyRange = new expRange(1, 0);
                         }
