@@ -35,6 +35,7 @@ namespace ILEditor.UserTools
                 node.Tag = function.GetLineNumber();
                 foreach (Variable var in function.GetVariables())
                 {
+                    if (var == null) continue;
                     iconIndex = -1;
                     switch (var.GetStorageType())
                     {
