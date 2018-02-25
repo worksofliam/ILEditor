@@ -43,6 +43,9 @@ namespace ILEditor.Forms
             foreach (string Dir in Dirs)
             {
                 SPF = Path.GetFileName(Dir);
+
+                if (SPF.StartsWith(".")) continue;
+
                 RemoteSource[] MemberList = IBMiUtils.GetMemberList(lib.Text, SPF);
                 if (MemberList == null)
                     CreateSPFs.Add(SPF, 112);
