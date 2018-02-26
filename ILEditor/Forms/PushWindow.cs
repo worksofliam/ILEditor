@@ -55,6 +55,9 @@ namespace ILEditor.Forms
                     Name = SPF + '/' + Path.GetFileNameWithoutExtension(FilePath);
                     Ext = Path.GetExtension(FilePath).TrimStart('.');
 
+                    if (UploadMembers.ContainsKey(Name))
+                        continue;
+
                     if (MemberList == null)
                     {
                         CreateMembers.Add(Name, Ext);

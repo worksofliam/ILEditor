@@ -127,6 +127,9 @@ namespace ILEditor.Classes
 
         public void Lock()
         {
+            if (!IBMi.IsConnected())
+                return;
+
             bool result;
             if (this._isEditable)
             {
@@ -149,6 +152,9 @@ namespace ILEditor.Classes
 
         public void Unlock()
         {
+            if (!IBMi.IsConnected())
+                return;
+
             if (this._isLocked)
                 switch (this.RemoteFS)
                 {
