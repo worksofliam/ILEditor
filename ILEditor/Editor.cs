@@ -81,12 +81,16 @@ namespace ILEditor
                 dockingPanel.Theme = new VS2015DarkTheme();
             else
                 dockingPanel.Theme = new VS2015LightTheme();
-            
-            AddTool(new UserTools.Welcome());
-            AddTool(new UserTools.UserToolList(), DockState.DockLeft);
+
+            if (File.Exists(Program.PanelsXML))
+                dockingPanel.LoadFromXml(Program.PanelsXML, new DeserializeDockContent(GetContentFromPersistString));
+            else
+                AddTool(new UserTools.UserToolList(), DockState.DockLeft, true);
+
+            AddTool(new UserTools.Welcome(), DockState.Document, true);
 
             OutlineView = new UserTools.OutlineView();
-            AddTool(OutlineView, DockState.DockRightAutoHide);
+            AddTool(OutlineView, DockState.DockRightAutoHide, true);
         }
 
         public void SetStatus(string Text) => statusText.Text = Text;
@@ -106,7 +110,7 @@ namespace ILEditor
                     {
                         content = currentPane.DockPanel;
                         dock = currentPane.DockState;
-                        currentPane.CloseActiveContent();
+                        currentPane.Dispose();
                     }
                 }
             }
@@ -251,11 +255,39 @@ namespace ILEditor
             }
         }
         
-        private void Editor_FormClosing(object sender, FormClosingEventArgs e) => MemberCache.Export();
+        private void Editor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MemberCache.Export();
+            dockingPanel.SaveAsXml(Program.PanelsXML);
+        }
 
-        #region File Dropdown
+        private IDockContent GetContentFromPersistString(string persistString)
+        {
+            if (persistString == typeof(CompileOptions).ToString())
+                return new CompileOptions();
+            else if (persistString == typeof(ErrorListing).ToString())
+                return new ErrorListing();
+            else if (persistString == typeof(IFSBrowser).ToString())
+                return new IFSBrowser();
+            else if (persistString == typeof(MemberBrowse).ToString())
+                return new MemberBrowse();
+            else if (persistString == typeof(ObjectBrowse).ToString())
+                return new ObjectBrowse();
+            else if (persistString == typeof(OutlineView).ToString())
+                return new OutlineView();
+            else if (persistString == typeof(QSYSBrowser).ToString())
+                return new QSYSBrowser();
+            else if (persistString == typeof(SpoolListing).ToString())
+                return new SpoolListing();
+            else if (persistString == typeof(UserToolList).ToString())
+                return new UserToolList();
 
-        private void memberToolStripMenuItem_Click(object sender, EventArgs e)
+            return null;
+        }
+
+            #region File Dropdown
+
+            private void memberToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RemoteSource member;
             NewMember newMemberForm = new NewMember();
