@@ -135,6 +135,7 @@ namespace ILEditor.UserTools
             {
                 textEditor.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#1E1E1E");
                 textEditor.Foreground = System.Windows.Media.Brushes.White;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#5151FF");
             }
 
             if (lang != "")

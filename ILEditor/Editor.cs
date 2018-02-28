@@ -144,7 +144,7 @@ namespace ILEditor
 
                 if (resultFile != "")
                 {
-                    Editor.TheEditor.SetStatus("Opening file " + text + "...");
+                    TheEditor.SetStatus("Opening file " + text + "...");
 
                     Source._Local = resultFile;
                     Source.Lock();
@@ -154,7 +154,7 @@ namespace ILEditor
                     sourcePanel.Tag = Source;
                     sourcePanel.Text = text;
 
-                    Editor.TheEditor.Invoke((MethodInvoker)delegate
+                    TheEditor.Invoke((MethodInvoker)delegate
                     {
                         TheEditor.AddTool(sourcePanel, DockState.Document, false);
                     });
