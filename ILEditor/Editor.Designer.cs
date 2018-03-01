@@ -87,6 +87,7 @@
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
             this.commentButton = new System.Windows.Forms.ToolStripButton();
+            this.contentAssistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -274,7 +275,8 @@
             this.languageToolsToolStripMenuItem,
             this.quickCommentToolStripMenuItem,
             this.duplicateLineToolStripMenuItem,
-            this.sourceDiffToolStripMenuItem});
+            this.sourceDiffToolStripMenuItem,
+            this.contentAssistToolStripMenuItem});
             this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
             this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.sourceToolStripMenuItem.Text = "Source";
@@ -620,6 +622,14 @@
             this.commentButton.Text = "Comment Selected";
             this.commentButton.Click += new System.EventHandler(this.commentButton_Click);
             // 
+            // contentAssistToolStripMenuItem
+            // 
+            this.contentAssistToolStripMenuItem.Name = "contentAssistToolStripMenuItem";
+            this.contentAssistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
+            this.contentAssistToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.contentAssistToolStripMenuItem.Text = "Content-Assist";
+            this.contentAssistToolStripMenuItem.Click += new System.EventHandler(this.contentAssistToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -713,5 +723,6 @@
         private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripButton commentButton;
         private System.Windows.Forms.ToolStripMenuItem sourceDiffToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contentAssistToolStripMenuItem;
     }
 }

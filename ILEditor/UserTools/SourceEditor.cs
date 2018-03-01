@@ -16,6 +16,9 @@ using System.Windows.Media;
 using ILEditor.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using ICSharpCode.AvalonEdit.Search;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace ILEditor.UserTools
 {
@@ -33,7 +36,8 @@ namespace ILEditor.UserTools
         Redo,
         Dupe_Line,
         OutlineUpdate,
-        ParseCode
+        ParseCode,
+        ShowContentAssist
     }
 
     public enum Language
@@ -56,8 +60,10 @@ namespace ILEditor.UserTools
         private int RcdLen;
         private string LocalPath;
         private bool ReadOnly;
-        private Function[] Functions;
         
+        private Function[] Functions;
+        private CompletionWindow completionWindow;
+
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
             InitializeComponent();
@@ -83,6 +89,7 @@ namespace ILEditor.UserTools
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
 
+            textEditor.TextArea.TextEntering += TextArea_TextEntering;
             textEditor.TextChanged += TextEditor_TextChanged;
             textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
             textEditor.GotFocus += TextEditor_GotFocus;
@@ -179,6 +186,22 @@ namespace ILEditor.UserTools
                 this.Text += "*";
         }
         
+        private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)
+        {
+            if (completionWindow != null)
+            {
+                if (e.Text.Length > 0)
+                {
+                    if (!char.IsLetterOrDigit(e.Text[0]))
+                    {
+                        // Whenever a non-letter is typed while the completion window is open,
+                        // insert the currently selected element.
+                        completionWindow.CompletionList.RequestInsertion(e);
+                    }
+                }
+            }
+        }
+
         private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
         {
             DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
@@ -231,6 +254,9 @@ namespace ILEditor.UserTools
                 case EditorAction.OutlineUpdate:
                     OutlineUpdate();
                     break;
+                case EditorAction.ShowContentAssist:
+                    ShowContentAssist();
+                    break;
             }
         }
 
@@ -272,6 +298,58 @@ namespace ILEditor.UserTools
             {
                 Editor.OutlineView.Display(this.Text, this.Functions);
             });
+        }
+
+        private void ShowContentAssist()
+        {
+            if (Functions == null) return;
+
+            completionWindow = new CompletionWindow(textEditor.TextArea);
+            IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+            string content = "";
+
+            foreach (Function func in Functions)
+            {
+                content = "Function\nReturns " + func.GetReturnType();
+                content += "\nParameters:";
+
+                foreach (Variable var in func.GetVariables())
+                {
+                    if (var == null) continue;
+                    switch (var.GetStorageType())
+                    {
+                        case StorageType.Struct:
+                            data.Add(new AutoCompleteData(var.GetName(), "Part of " + func.GetName() + "\n" + var.GetType() + " type"));
+                            foreach (Variable param in var.GetMembers())
+                                data.Add(new AutoCompleteData(param.GetName(), func.GetName() + "->" + var.GetName() + "\n" + param.GetType() + " type"));
+                            break;
+
+                        case StorageType.Prototype:
+                            foreach (Variable param in var.GetMembers())
+                                if (param.GetName() != "*N")
+                                {
+                                    data.Add(new AutoCompleteData(param.GetName(), "Part of " + func.GetName() + "\n" + param.GetType() + " type"));
+                                    content += "\n\t- " + param.GetType() + " " + param.GetName();
+                                }
+                            break;
+
+                        default:
+                            data.Add(new AutoCompleteData(var.GetName(), func.GetName() + "\n" + var.GetType() + " type"));
+                            break;
+                    }
+                }
+
+                if (func.GetName() != "Globals")
+                {
+                    data.Add(new AutoCompleteData(func.GetName(), content));
+                }
+
+            }
+
+            completionWindow.Show();
+            completionWindow.Closed += delegate {
+                completionWindow = null;
+            };
         }
 
         private void DuplicateLine()

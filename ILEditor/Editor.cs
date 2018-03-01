@@ -506,6 +506,12 @@ namespace ILEditor
             if (LastEditing != null)
                 LastEditing.DoAction(EditorAction.Dupe_Line);
         }
+
+        private void contentAssistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastEditing != null)
+                LastEditing.DoAction(EditorAction.ShowContentAssist);
+        }
         #endregion
 
         #region Help dropdown
@@ -545,5 +551,6 @@ namespace ILEditor
 
         private void commentButton_Click(object sender, EventArgs e) => quickCommentToolStripMenuItem.PerformClick();
         #endregion
+
     }
 }
