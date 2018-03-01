@@ -613,7 +613,7 @@
             // commentButton
             // 
             this.commentButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.commentButton.Image = global::ILEditor.Properties.Resources.divide_mathematical_sign;
+            this.commentButton.Image = global::ILEditor.Properties.Resources.comment_sign;
             this.commentButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.commentButton.Name = "commentButton";
             this.commentButton.Size = new System.Drawing.Size(23, 22);

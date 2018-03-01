@@ -104,6 +104,16 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap comment_sign {
+            get {
+                object obj = ResourceManager.GetObject("comment_sign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap compile {
             get {
                 object obj = ResourceManager.GetObject("compile", resourceCulture);
@@ -223,11 +233,11 @@ namespace ILEditor.Properties {
         ///&lt;!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger --&gt;
         ///&lt;!-- converted to AvalonEdit format by Siegfried Pammer in 2010 --&gt;
         ///&lt;SyntaxDefinition name=&quot;C++&quot; extensions=&quot;.c;.h;.cc;.cpp;.hpp&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
-        ///	&lt;Color name=&quot;Character&quot; foreground=&quot;Fuchsia&quot; /&gt;
-        ///	&lt;Color name=&quot;String&quot; foreground=&quot;LightGreen&quot; /&gt;
-        ///	&lt;Color name=&quot;Preprocessor&quot; foreground=&quot;Green&quot; /&gt;
-        ///	&lt;Color name=&quot;Punc [rest of string was truncated]&quot;;.
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;#4FB548&quot; /&gt;
+        ///	&lt;Color name=&quot;Character&quot; foreground=&quot;#4FB548&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;#4FB548&quot; /&gt;
+        ///	&lt;Color name=&quot;Preprocessor&quot; foreground=&quot;#9B9B9B&quot; /&gt;
+        ///	&lt;Color name=&quot;Pun [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkCPP {
             get {
@@ -316,16 +326,6 @@ namespace ILEditor.Properties {
         public static string darkSQL {
             get {
                 return ResourceManager.GetString("darkSQL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap divide_mathematical_sign {
-            get {
-                object obj = ResourceManager.GetObject("divide-mathematical-sign", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
