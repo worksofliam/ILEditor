@@ -17,45 +17,49 @@ namespace ILEditor.UserTools
 {
     public partial class IFSBrowser : DockContent
     {
-        private List<string> DirList;
         public IFSBrowser()
         {
             InitializeComponent();
             this.Text = "IFS Browser";
-            DirList = new List<string>();
-            DirList.Add(IBMi.CurrentSystem.GetValue("homeDir"));
-
-            foreach (string dir in IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|'))
-                if (dir.Trim() != "")
-                    DirList.Add(dir);
         }
 
-        private void IFSBrowser_Load(object sender, EventArgs e)
+        public void Reload()
         {
             Boolean exists;
             TreeNode node;
+            List<string> DirList = new List<string>();
+
+            files.Nodes.Clear();
             if (IBMi.IsConnected())
             {
                 new Thread((ThreadStart)delegate
                 {
+                    DirList.Add(IBMi.CurrentSystem.GetValue("homeDir"));
+                    foreach (string dir in IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|'))
+                        if (dir.Trim() != "")
+                            DirList.Add(dir);
+
                     foreach (string dir in DirList)
                     {
-                        if (dir.Trim() == "") continue;
-
-                        exists = IBMi.DirExists(dir);
-                        this.Invoke((MethodInvoker)delegate
+                        if (dir.Trim() != "")
                         {
-                            if (exists)
+                            if (dir.Trim() == "") continue;
+
+                            exists = IBMi.DirExists(dir);
+                            this.Invoke((MethodInvoker)delegate
                             {
-                                node = new TreeNode(dir, new[] { new TreeNode("Loading..", 2, 2) });
-                                node.Tag = dir;
-                                node.ImageIndex = 0;
-                                node.SelectedImageIndex = 0;
-                                files.Nodes.Add(node);
-                            }
-                            else
-                                files.Nodes.Add(new TreeNode("Directory '" + dir + "' was not located.", 3, 3));
-                        });
+                                if (exists)
+                                {
+                                    node = new TreeNode(dir, new[] { new TreeNode("Loading..", 2, 2) });
+                                    node.Tag = dir;
+                                    node.ImageIndex = 0;
+                                    node.SelectedImageIndex = 0;
+                                    files.Nodes.Add(node);
+                                }
+                                else
+                                    files.Nodes.Add(new TreeNode("Directory '" + dir + "' was not located.", 3, 3));
+                            });
+                        }
                     }
                 }).Start();
             }
@@ -63,6 +67,11 @@ namespace ILEditor.UserTools
             {
                 files.Nodes.Add(new TreeNode("IFS Browsing only works when connected to the remote system.", 3, 3));
             }
+        }
+
+        private void IFSBrowser_Load(object sender, EventArgs e)
+        {
+            Reload();
         }
 
         private void files_AfterExpand(object sender, TreeViewEventArgs e)
@@ -162,6 +171,7 @@ namespace ILEditor.UserTools
                 createToolStripMenuItem.Enabled = (e.Node.Nodes.Count > 0);
                 deleteToolStripMenuItem.Enabled = (e.Node.Parent != null);
                 renameToolStripMenuItem.Enabled = (e.Node.Parent != null);
+                makeShortcutToolStripMenuItem.Enabled = (e.Node.Parent != null && e.Node.Nodes.Count > 0);
                 rightClickMenu.Show(Cursor.Position);
             }
         }
@@ -214,10 +224,23 @@ namespace ILEditor.UserTools
                 RightClickedNode.Expand();
             }
         }
+        
+        private void makeShortcutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (RightClickedNode != null)
+            {
+                List<string> Dirs = IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|').ToList();
+                Dirs.Add(RightClickedNode.Tag.ToString());
+                IBMi.CurrentSystem.SetValue("IFS_LINKS", String.Join("|", Dirs));
+                Reload();
+            }
+        }
 
         private void manageDirs_Click(object sender, EventArgs e)
         {
             new IFSManager().ShowDialog();
+            Reload();
         }
     }
 }

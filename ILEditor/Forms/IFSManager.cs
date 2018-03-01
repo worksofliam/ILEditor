@@ -57,7 +57,6 @@ namespace ILEditor.Forms
                 dirs.Add(dir);
 
             IBMi.CurrentSystem.SetValue("IFS_LINKS", String.Join("|", dirs));
-            MessageBox.Show("You must reload the IFS Browser for changes to take effect.", "Notice");
             this.Close();
         }
 

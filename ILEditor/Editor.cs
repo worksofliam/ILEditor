@@ -277,8 +277,6 @@ namespace ILEditor
                 return new OutlineView();
             else if (persistString == typeof(QSYSBrowser).ToString())
                 return new QSYSBrowser();
-            else if (persistString == typeof(SpoolListing).ToString())
-                return new SpoolListing();
             else if (persistString == typeof(UserToolList).ToString())
                 return new UserToolList();
 

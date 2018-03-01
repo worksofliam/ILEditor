@@ -40,6 +40,7 @@
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSpf = new System.Windows.Forms.ToolStrip();
             this.manageDirs = new System.Windows.Forms.ToolStripButton();
+            this.makeShortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightClickMenu.SuspendLayout();
             this.addSpf.SuspendLayout();
             this.SuspendLayout();
@@ -74,9 +75,10 @@
             this.rightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createToolStripMenuItem,
             this.deleteToolStripMenuItem,
-            this.renameToolStripMenuItem});
+            this.renameToolStripMenuItem,
+            this.makeShortcutToolStripMenuItem});
             this.rightClickMenu.Name = "rightClickMenu";
-            this.rightClickMenu.Size = new System.Drawing.Size(118, 70);
+            this.rightClickMenu.Size = new System.Drawing.Size(153, 114);
             // 
             // createToolStripMenuItem
             // 
@@ -84,34 +86,34 @@
             this.fileToolStripMenuItem,
             this.directoryToolStripMenuItem});
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.createToolStripMenuItem.Text = "Create";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fileToolStripMenuItem.Text = "File";
             this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // directoryToolStripMenuItem
             // 
             this.directoryToolStripMenuItem.Name = "directoryToolStripMenuItem";
-            this.directoryToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.directoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.directoryToolStripMenuItem.Text = "Directory";
             this.directoryToolStripMenuItem.Click += new System.EventHandler(this.directoryToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.renameToolStripMenuItem.Text = "Rename";
             this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
@@ -135,6 +137,13 @@
             this.manageDirs.Size = new System.Drawing.Size(129, 22);
             this.manageDirs.Text = "Manage Directories";
             this.manageDirs.Click += new System.EventHandler(this.manageDirs_Click);
+            // 
+            // makeShortcutToolStripMenuItem
+            // 
+            this.makeShortcutToolStripMenuItem.Name = "makeShortcutToolStripMenuItem";
+            this.makeShortcutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.makeShortcutToolStripMenuItem.Text = "Make shortcut";
+            this.makeShortcutToolStripMenuItem.Click += new System.EventHandler(this.makeShortcutToolStripMenuItem_Click);
             // 
             // IFSBrowser
             // 
@@ -165,5 +174,6 @@
         private System.Windows.Forms.ToolStripMenuItem directoryToolStripMenuItem;
         private System.Windows.Forms.ToolStrip addSpf;
         private System.Windows.Forms.ToolStripButton manageDirs;
+        private System.Windows.Forms.ToolStripMenuItem makeShortcutToolStripMenuItem;
     }
 }
