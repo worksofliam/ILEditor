@@ -302,6 +302,11 @@
     <Compile Include="Forms\UpdateProgram.Designer.cs">
       <DependentUpon>UpdateProgram.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\BindingDirectory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -483,14 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Forms\HelpWindow.resx">
       <DependentUpon>HelpWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -569,10 +569,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\firewall.png" />
-    <Content Include="Resources\AutoComplete\CL.txt" />
-    <Content Include="Resources\AutoComplete\CPP.txt" />
-    <Content Include="Resources\AutoComplete\RPG.txt" />
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\DarkMode.html" />
     <Content Include="Resources\Help\LibraryList.html" />

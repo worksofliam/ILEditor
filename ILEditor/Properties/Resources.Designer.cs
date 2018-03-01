@@ -81,27 +81,6 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADDACC|Add Access Code|2
-        ///ADDAJE|Add Autostart Job Entry|2
-        ///ADDALRACNE|Add Alert Action Entry|2
-        ///ADDALRD|Add Alert Description|2
-        ///ADDALRSLTE|Add Alert Selection Entry|2
-        ///ADDASPCPYD|Add ASP Copy Description|2
-        ///ADDAUTLE|Add Authorization List Entry|2
-        ///ADDBKP|Add Breakpoint|2
-        ///ADDBNDDIRE|Add Binding Directory Entry|2
-        ///ADDCADMRE|Add Cluster Administrative Domain Managed Resource Entry|2
-        ///ADDCADNODE|Add Cluster Administrative Domain Node Entry|2
-        ///ADDCCSCLT|Add Change Control Server Client|2
-        ///ADDCFGLE|Add Configu [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string CL {
-            get {
-                return ResourceManager.GetString("CL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap comment_sign {
@@ -154,26 +133,6 @@ namespace ILEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("computer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to and|alternative to &amp;&amp; operator|6
-        ///and_eq|alternative to &amp;= operator|6
-        ///asm|insert an assembly instruction|6
-        ///auto|declare a local variable, or we can let the compiler to deduce the type of the variable from the initialization.|6
-        ///bitand|alternative to bitwise &amp; operator|6
-        ///bitor|alternative to pipe operator|6
-        ///bool|declare a boolean variable|6
-        ///break|break out of a loop|6
-        ///case|a block of code in a switch statement|6
-        ///catch|handles exceptions from throw|6
-        ///char|declare a character variable|6
-        ///class|declare  [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string CPP {
-            get {
-                return ResourceManager.GetString("CPP", resourceCulture);
             }
         }
         
@@ -355,16 +314,6 @@ namespace ILEditor.Properties {
         public static System.Drawing.Bitmap filedelete {
             get {
                 object obj = ResourceManager.GetObject("filedelete", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap firewall {
-            get {
-                object obj = ResourceManager.GetObject("firewall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -610,30 +559,6 @@ namespace ILEditor.Properties {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %ABS|Absolute Value of Expression|1
-        ///%ADDR|Get Address of Variable|1
-        ///%ALLOC|Allocate Storage|1
-        ///%BITAND|Bitwise AND Operation|1
-        ///%BITNOT|Invert Bits|1
-        ///%BITOR|Bitwise OR Operation|1
-        ///%BITXOR|Bitwise Exclusive-OR Operation|1
-        ///%CHAR|Convert to Character Data|1
-        ///%CHECK|Check Characters|1
-        ///%CHECKR|Check Reverse|1
-        ///%DATE|Convert to Date|1
-        ///%DAYS|Number of Days|1
-        ///%DEC|Convert to Packed Decimal Format|1
-        ///%DECH|Convert to Packed Decimal Format with Half Adjust|1
-        ///%DECPOS|Get Number of Decimal Positions|1
-        ///%DIFF|D [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string RPG {
-            get {
-                return ResourceManager.GetString("RPG", resourceCulture);
             }
         }
         
