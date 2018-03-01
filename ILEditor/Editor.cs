@@ -15,6 +15,7 @@ namespace ILEditor
 {
     public partial class Editor : Form
     {
+        public static bool DarkMode = false;
         public static Editor TheEditor;
         public static UserTools.SourceEditor LastEditing;
         public static UserTools.OutlineView OutlineView;
@@ -77,7 +78,9 @@ namespace ILEditor
 
             IBMi.CurrentSystem.SetValue("lastOffline", (IBMi.IsConnected() == false).ToString().ToLower());
 
-            if (Program.Config.GetValue("darkmode") == "true")
+            DarkMode = (Program.Config.GetValue("darkmode") == "true");
+
+            if (DarkMode)
                 dockingPanel.Theme = new VS2015DarkTheme();
             else
                 dockingPanel.Theme = new VS2015LightTheme();
@@ -119,6 +122,18 @@ namespace ILEditor
                 Content.Show(dockingPanel, dock);
             else
                 Content.Show(content, dock);
+        }
+
+        public static void ApplyControlTheme(Control content)
+        {
+            if (DarkMode)
+            {
+                content.BackColor = Color.FromArgb(30, 30, 30);
+                content.ForeColor = Color.White;
+
+                foreach (Control subcont in content.Controls)
+                    ApplyControlTheme(subcont);
+            }
         }
 
         public static void OpenSource(RemoteSource Source)

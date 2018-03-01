@@ -109,9 +109,8 @@ namespace ILEditor.UserTools
                 SearchReplacePanel.Install(textEditor);
 
             string lang = "";
-            bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
 
-            if (DarkMode)
+            if (Editor.DarkMode)
                 lang += "dark";
             else
                 lang += "light";
@@ -131,7 +130,7 @@ namespace ILEditor.UserTools
                     break;
             }
 
-            if (DarkMode)
+            if (Editor.DarkMode)
             {
                 textEditor.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#1E1E1E");
                 textEditor.Foreground = System.Windows.Media.Brushes.White;
