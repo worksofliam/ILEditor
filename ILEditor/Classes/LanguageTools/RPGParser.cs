@@ -11,22 +11,29 @@ namespace ILEditor.Classes.LanguageTools
         private static string GetTypeFromToken(RPGToken Token)
         {
             string result = "";
-            if (Token.Value == "LIKE")
+            switch (Token.Value)
             {
-                if (Token.Block != null)
-                    if (Token.Block.Count > 0)
-                        result = Token.Block[0].Value;
-            }
-            else
-            {
-                result = char.ToUpper(Token.Value[0]) + Token.Value.Substring(1).ToLower();
-                if (Token.Block != null)
-                {
-                    result += "(";
-                    foreach (RPGToken token in Token.Block)
-                        result += token.Value;
-                    result += ")";
-                }
+                case "LIKEDS":
+                case "LIKE":
+                    if (Token.Block != null)
+                        if (Token.Block.Count > 0)
+                            result = Token.Block[0].Value;
+                    break;
+
+                case "EXTPGM":
+                case "EXTPROC":
+                    result = "Void";
+                    break;
+                default:
+                    result = char.ToUpper(Token.Value[0]) + Token.Value.Substring(1).ToLower();
+                    if (Token.Block != null)
+                    {
+                        result += "(";
+                        foreach (RPGToken token in Token.Block)
+                            result += token.Value;
+                        result += ")";
+                    }
+                    break;
             }
 
             return result;
