@@ -325,7 +325,7 @@ namespace ILEditor.UserTools
                                 {
                                     content = "\nParameters";
                                     foreach (Variable param in var.GetMembers())
-                                        content += "\n\t- " + param.GetType();
+                                        content += "\n\t- " + param.GetName() + " " + param.GetType();
                                 }
                             }
                             break;
@@ -337,7 +337,7 @@ namespace ILEditor.UserTools
                                 {
                                     content = "\nParameters";
                                     foreach (Variable param in var.GetMembers())
-                                        content += "\n\t- " + param.GetType();
+                                        content += "\n\t- " + param.GetName() + " " + param.GetType();
                                     data.Add(new AutoCompleteData(var.GetName(), "Function\nReturns " + var.GetType() + content));
                                 }
                             }
