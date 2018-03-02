@@ -137,6 +137,16 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cube {
+            get {
+                object obj = ResourceManager.GetObject("cube", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;CLLE&quot;
         ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
         ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;#F561E0&quot; /&gt;

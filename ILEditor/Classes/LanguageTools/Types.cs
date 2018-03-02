@@ -13,7 +13,8 @@ namespace ILEditor.Classes.LanguageTools
         File,
         Const,
         Struct,
-        Subroutine
+        Subroutine,
+        Interface
     }
 
     public class Function
@@ -56,7 +57,7 @@ namespace ILEditor.Classes.LanguageTools
             this.varType = varType;
             this.Line = LineNumber;
 
-            if (varType == StorageType.Struct || varType == StorageType.Prototype)
+            if (varType == StorageType.Struct || varType == StorageType.Prototype || varType == StorageType.Interface)
                 Members = new List<Variable>();
         }
 

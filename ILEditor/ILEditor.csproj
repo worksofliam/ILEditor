@@ -608,6 +608,7 @@
     <None Include="Resources\NewIcons\undo.png" />
     <None Include="Resources\NewIcons\redo.png" />
     <None Include="Resources\NewIcons\divide-mathematical-sign.png" />
+    <None Include="Resources\NewIcons\cube.png" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>

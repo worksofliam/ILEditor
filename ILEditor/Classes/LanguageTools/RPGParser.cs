@@ -170,7 +170,7 @@ namespace ILEditor.Classes.LanguageTools
                                         CurrentStruct = new Variable(Tokens[1].Value, "Prototype", StorageType.Prototype, line);
                                         break;
                                     case "DCL-PI":
-                                        CurrentStruct = new Variable(Tokens[1].Value, "Parameters", StorageType.Prototype, line);
+                                        CurrentStruct = new Variable(Tokens[1].Value, "Parameters", StorageType.Interface, line);
                                         break;
                                 }
 

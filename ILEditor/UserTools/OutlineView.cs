@@ -48,6 +48,7 @@ namespace ILEditor.UserTools
                         case StorageType.Normal:
                             iconIndex = 3;
                             break;
+                        case StorageType.Interface:
                         case StorageType.Struct:
                             iconIndex = 4;
                             break;
@@ -62,7 +63,7 @@ namespace ILEditor.UserTools
                     varNode = new TreeNode(var.GetName() + " " + var.GetType(), iconIndex, iconIndex);
                     varNode.Tag = var.GetLine();
 
-                    if (var.GetStorageType() == StorageType.Struct || var.GetStorageType() == StorageType.Prototype)
+                    if (var.GetStorageType() == StorageType.Struct || var.GetStorageType() == StorageType.Prototype || var.GetStorageType() == StorageType.Interface)
                         foreach (Variable member in var.GetMembers())
                         {
                             memberNode = new TreeNode(member.GetName() + " " + member.GetType(), 6, 6);

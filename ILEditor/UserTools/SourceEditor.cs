@@ -19,6 +19,8 @@ using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace ILEditor.UserTools
 {
@@ -306,44 +308,45 @@ namespace ILEditor.UserTools
 
             completionWindow = new CompletionWindow(textEditor.TextArea);
             IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-            string content = "";
+            string content, interfacecontent = "";
 
             foreach (Function func in Functions)
             {
-                content = "Function\nReturns " + func.GetReturnType();
-                content += "\nParameters:";
-
+                interfacecontent = "";
                 foreach (Variable var in func.GetVariables())
                 {
                     if (var == null) continue;
                     switch (var.GetStorageType())
                     {
-                        case StorageType.Struct:
-                            data.Add(new AutoCompleteData(var.GetName(), "Part of " + func.GetName() + "\n" + var.GetType() + " type"));
-                            foreach (Variable param in var.GetMembers())
-                                data.Add(new AutoCompleteData(param.GetName(), func.GetName() + "->" + var.GetName() + "\n" + param.GetType() + " type"));
+                        case StorageType.Interface:
+                            if (var.GetMembers() != null)
+                            {
+                                if (var.GetMembers().Length > 0)
+                                {
+                                    interfacecontent = "\nParameters";
+                                    foreach (Variable param in var.GetMembers())
+                                        interfacecontent += "\n\t- " + param.GetType();
+                                }
+                            }
                             break;
 
                         case StorageType.Prototype:
-                            foreach (Variable param in var.GetMembers())
-                                if (param.GetName() != "*N")
+                            if (var.GetMembers() != null)
+                            {
+                                if (var.GetMembers().Length > 0)
                                 {
-                                    data.Add(new AutoCompleteData(param.GetName(), "Part of " + func.GetName() + "\n" + param.GetType() + " type"));
-                                    content += "\n\t- " + param.GetType() + " " + param.GetName();
+                                    content = "\nParameters";
+                                    foreach (Variable param in var.GetMembers())
+                                        content += "\n\t- " + param.GetType();
+                                    data.Add(new AutoCompleteData(var.GetName(), "Function\nReturns " + var.GetType() + content));
                                 }
-                            break;
-
-                        default:
-                            data.Add(new AutoCompleteData(var.GetName(), func.GetName() + "\n" + var.GetType() + " type"));
+                            }
                             break;
                     }
                 }
 
                 if (func.GetName() != "Globals")
-                {
-                    data.Add(new AutoCompleteData(func.GetName(), content));
-                }
-
+                    data.Add(new AutoCompleteData(func.GetName(), "Function\nReturns " + func.GetReturnType() + interfacecontent));
             }
 
             completionWindow.Show();
