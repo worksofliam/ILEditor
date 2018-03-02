@@ -308,11 +308,11 @@ namespace ILEditor.UserTools
 
             completionWindow = new CompletionWindow(textEditor.TextArea);
             IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-            string content, interfacecontent = "";
+            string content;
 
             foreach (Function func in Functions)
             {
-                interfacecontent = "";
+                content = "";
                 foreach (Variable var in func.GetVariables())
                 {
                     if (var == null) continue;
@@ -323,9 +323,9 @@ namespace ILEditor.UserTools
                             {
                                 if (var.GetMembers().Length > 0)
                                 {
-                                    interfacecontent = "\nParameters";
+                                    content = "\nParameters";
                                     foreach (Variable param in var.GetMembers())
-                                        interfacecontent += "\n\t- " + param.GetType();
+                                        content += "\n\t- " + param.GetType();
                                 }
                             }
                             break;
@@ -346,7 +346,7 @@ namespace ILEditor.UserTools
                 }
 
                 if (func.GetName() != "Globals")
-                    data.Add(new AutoCompleteData(func.GetName(), "Function\nReturns " + func.GetReturnType() + interfacecontent));
+                    data.Add(new AutoCompleteData(func.GetName(), "Returns " + func.GetReturnType() + content));
             }
 
             completionWindow.Show();
