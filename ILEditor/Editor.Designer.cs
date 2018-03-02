@@ -61,6 +61,7 @@
             this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceDiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contentAssistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.compileOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,6 @@
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
             this.commentButton = new System.Windows.Forms.ToolStripButton();
-            this.contentAssistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -372,6 +372,15 @@
             this.sourceDiffToolStripMenuItem.Text = "Source Diff";
             this.sourceDiffToolStripMenuItem.Click += new System.EventHandler(this.sourceDiffToolStripMenuItem_Click);
             // 
+            // contentAssistToolStripMenuItem
+            // 
+            this.contentAssistToolStripMenuItem.Name = "contentAssistToolStripMenuItem";
+            this.contentAssistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
+            this.contentAssistToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.contentAssistToolStripMenuItem.Text = "Content-Assist";
+            this.contentAssistToolStripMenuItem.Visible = false;
+            this.contentAssistToolStripMenuItem.Click += new System.EventHandler(this.contentAssistToolStripMenuItem_Click);
+            // 
             // compileToolStripMenuItem
             // 
             this.compileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -621,14 +630,6 @@
             this.commentButton.Size = new System.Drawing.Size(23, 22);
             this.commentButton.Text = "Comment Selected";
             this.commentButton.Click += new System.EventHandler(this.commentButton_Click);
-            // 
-            // contentAssistToolStripMenuItem
-            // 
-            this.contentAssistToolStripMenuItem.Name = "contentAssistToolStripMenuItem";
-            this.contentAssistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
-            this.contentAssistToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.contentAssistToolStripMenuItem.Text = "Content-Assist";
-            this.contentAssistToolStripMenuItem.Click += new System.EventHandler(this.contentAssistToolStripMenuItem_Click);
             // 
             // Editor
             // 
