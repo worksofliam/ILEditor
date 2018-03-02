@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Enable the Outline View in the Connection Settings if nothing is loading.");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutlineView));
             this.funcList = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -46,6 +47,11 @@
             this.funcList.ImageList = this.imageList1;
             this.funcList.Location = new System.Drawing.Point(0, 0);
             this.funcList.Name = "funcList";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Enable the Outline View in the Connection Settings if nothing is loading.";
+            this.funcList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.funcList.SelectedImageIndex = 0;
             this.funcList.Size = new System.Drawing.Size(284, 236);
             this.funcList.TabIndex = 0;
