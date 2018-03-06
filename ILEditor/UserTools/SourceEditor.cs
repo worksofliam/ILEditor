@@ -338,7 +338,7 @@ namespace ILEditor.UserTools
                                     content = "\nParameters";
                                     foreach (Variable param in var.GetMembers())
                                         content += "\n\t- " + param.GetName() + " " + param.GetType();
-                                    data.Add(new AutoCompleteData(var.GetName(), "Function\nReturns " + var.GetType() + content));
+                                    data.Add(new AutoCompleteData(var.GetName(), "Returns " + var.GetType() + content));
                                 }
                             }
                             break;
