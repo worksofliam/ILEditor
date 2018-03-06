@@ -84,7 +84,7 @@ namespace ILEditor
             if (DarkMode)
                 dockingPanel.Theme = new VS2015DarkTheme();
             else
-                dockingPanel.Theme = new VS2015LightTheme();
+                dockingPanel.Theme = new VS2015BlueTheme();
 
             if (File.Exists(Program.PanelsXML))
                 dockingPanel.LoadFromXml(Program.PanelsXML, new DeserializeDockContent(GetContentFromPersistString));

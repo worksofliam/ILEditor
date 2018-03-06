@@ -434,7 +434,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusText,
             this.columnText});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 644);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             this.statusStrip1.Size = new System.Drawing.Size(681, 22);
@@ -459,11 +459,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.dockingPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(681, 595);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(681, 517);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 24);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(681, 620);
+            this.toolStripContainer1.Size = new System.Drawing.Size(681, 542);
             this.toolStripContainer1.TabIndex = 9;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -478,7 +478,7 @@
             this.dockingPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.dockingPanel.Location = new System.Drawing.Point(0, 0);
             this.dockingPanel.Name = "dockingPanel";
-            this.dockingPanel.Size = new System.Drawing.Size(681, 595);
+            this.dockingPanel.Size = new System.Drawing.Size(681, 517);
             this.dockingPanel.TabIndex = 12;
             this.dockingPanel.ContentRemoved += new System.EventHandler<WeifenLuo.WinFormsUI.Docking.DockContentEventArgs>(this.dockingPanel_ContentRemoved);
             // 
@@ -633,13 +633,13 @@
             // 
             // Editor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 666);
+            this.ClientSize = new System.Drawing.Size(681, 588);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
