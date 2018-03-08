@@ -85,6 +85,10 @@ namespace ILEditor
                 dockingPanel.Theme = new VS2015DarkTheme();
             else
                 dockingPanel.Theme = new VS2015BlueTheme();
+            
+            ApplyControlTheme(toolStrip);
+            ApplyControlTheme(menuStrip);
+            ApplyControlTheme(statusStrip);
 
             if (File.Exists(Program.PanelsXML))
                 dockingPanel.LoadFromXml(Program.PanelsXML, new DeserializeDockContent(GetContentFromPersistString));
@@ -127,14 +131,22 @@ namespace ILEditor
 
         public static void ApplyControlTheme(Control content)
         {
+            if (content is ToolStrip)
+                (content as ToolStrip).Renderer = new Classes.ToolStripRenderer();
+
             if (DarkMode)
             {
-                content.BackColor = Color.FromArgb(30, 30, 30);
+                content.BackColor = Color.FromArgb(45, 45, 48);
                 content.ForeColor = Color.White;
-
-                foreach (Control subcont in content.Controls)
-                    ApplyControlTheme(subcont);
             }
+            else
+            {
+                content.BackColor = Color.FromArgb(41, 57, 84);
+                content.ForeColor = Color.White;
+            }
+
+            foreach (Control subcont in content.Controls)
+                ApplyControlTheme(subcont);
         }
 
         public static void OpenSource(RemoteSource Source)

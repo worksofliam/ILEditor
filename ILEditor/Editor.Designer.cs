@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,49 +68,41 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutILEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sessionFTPLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.columnText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.newMember = new System.Windows.Forms.ToolStripButton();
-            this.liblButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.acsButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
-            this.zoomInButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.saveSource = new System.Windows.Forms.ToolStripButton();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
             this.commentButton = new System.Windows.Forms.ToolStripButton();
-            this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
+            this.newMember = new System.Windows.Forms.ToolStripButton();
+            this.liblButton = new System.Windows.Forms.ToolStripButton();
+            this.acsButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomInButton = new System.Windows.Forms.ToolStripButton();
+            this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.menuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.sourceToolStripMenuItem,
             this.compileToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(681, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(681, 24);
+            this.menuStrip.TabIndex = 4;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
@@ -429,17 +421,17 @@
             this.sessionFTPLogToolStripMenuItem.Text = "Session FTP Log";
             this.sessionFTPLogToolStripMenuItem.Click += new System.EventHandler(this.sessionFTPLogToolStripMenuItem_Click);
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusText,
             this.columnText});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(681, 22);
-            this.statusStrip1.TabIndex = 6;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Location = new System.Drawing.Point(0, 566);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip.Size = new System.Drawing.Size(681, 22);
+            this.statusStrip.TabIndex = 6;
+            this.statusStrip.Text = "statusStrip1";
             // 
             // statusText
             // 
@@ -453,127 +445,25 @@
             this.columnText.Size = new System.Drawing.Size(16, 17);
             this.columnText.Text = "...";
             // 
-            // toolStripContainer1
+            // toolStrip
             // 
-            // 
-            // toolStripContainer1.ContentPanel
-            // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.dockingPanel);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(681, 517);
-            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStripContainer1.Location = new System.Drawing.Point(0, 24);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(681, 542);
-            this.toolStripContainer1.TabIndex = 9;
-            this.toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // toolStripContainer1.TopToolStripPanel
-            // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
-            // 
-            // dockingPanel
-            // 
-            this.dockingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dockingPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
-            this.dockingPanel.Location = new System.Drawing.Point(0, 0);
-            this.dockingPanel.Name = "dockingPanel";
-            this.dockingPanel.Size = new System.Drawing.Size(681, 517);
-            this.dockingPanel.TabIndex = 12;
-            this.dockingPanel.ContentRemoved += new System.EventHandler<WeifenLuo.WinFormsUI.Docking.DockContentEventArgs>(this.dockingPanel_ContentRemoved);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newMember,
-            this.liblButton,
-            this.toolStripSeparator1,
-            this.acsButton,
-            this.toolStripSeparator2,
-            this.zoomOutButton,
-            this.zoomInButton});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(139, 25);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // newMember
-            // 
-            this.newMember.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newMember.Image = global::ILEditor.Properties.Resources.edit1;
-            this.newMember.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newMember.Name = "newMember";
-            this.newMember.Size = new System.Drawing.Size(23, 22);
-            this.newMember.Text = "New Member";
-            this.newMember.ToolTipText = "New Member";
-            this.newMember.Click += new System.EventHandler(this.newMember_Click);
-            // 
-            // liblButton
-            // 
-            this.liblButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.liblButton.Image = global::ILEditor.Properties.Resources.books;
-            this.liblButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.liblButton.Name = "liblButton";
-            this.liblButton.Size = new System.Drawing.Size(23, 22);
-            this.liblButton.Text = "Library List";
-            this.liblButton.Click += new System.EventHandler(this.liblButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // acsButton
-            // 
-            this.acsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.acsButton.Image = global::ILEditor.Properties.Resources.computer;
-            this.acsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.acsButton.Name = "acsButton";
-            this.acsButton.Size = new System.Drawing.Size(23, 22);
-            this.acsButton.Text = "Launch ACS";
-            this.acsButton.Click += new System.EventHandler(this.acsButton_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // zoomOutButton
-            // 
-            this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomOutButton.Image = global::ILEditor.Properties.Resources.zoom_out;
-            this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomOutButton.Name = "zoomOutButton";
-            this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
-            this.zoomOutButton.Text = "Zoom Out";
-            this.zoomOutButton.ToolTipText = "Zoom Out";
-            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
-            // 
-            // zoomInButton
-            // 
-            this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomInButton.Image = global::ILEditor.Properties.Resources.zoom_in;
-            this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomInButton.Name = "zoomInButton";
-            this.zoomInButton.Size = new System.Drawing.Size(23, 22);
-            this.zoomInButton.Text = "Zoom In";
-            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
-            // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveSource,
             this.compileButton,
             this.toolStripSeparator3,
             this.undoButton,
             this.redoButton,
-            this.commentButton});
-            this.toolStrip2.Location = new System.Drawing.Point(142, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(133, 25);
-            this.toolStrip2.TabIndex = 1;
+            this.commentButton,
+            this.newMember,
+            this.liblButton,
+            this.acsButton,
+            this.zoomOutButton,
+            this.zoomInButton});
+            this.toolStrip.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip.Size = new System.Drawing.Size(681, 25);
+            this.toolStrip.TabIndex = 1;
             // 
             // saveSource
             // 
@@ -631,42 +521,97 @@
             this.commentButton.Text = "Comment Selected";
             this.commentButton.Click += new System.EventHandler(this.commentButton_Click);
             // 
+            // newMember
+            // 
+            this.newMember.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newMember.Image = global::ILEditor.Properties.Resources.edit1;
+            this.newMember.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newMember.Name = "newMember";
+            this.newMember.Size = new System.Drawing.Size(23, 22);
+            this.newMember.Text = "New Member";
+            this.newMember.ToolTipText = "New Member";
+            this.newMember.Click += new System.EventHandler(this.newMember_Click);
+            // 
+            // liblButton
+            // 
+            this.liblButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.liblButton.Image = global::ILEditor.Properties.Resources.books;
+            this.liblButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.liblButton.Name = "liblButton";
+            this.liblButton.Size = new System.Drawing.Size(23, 22);
+            this.liblButton.Text = "Library List";
+            this.liblButton.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
+            // 
+            // acsButton
+            // 
+            this.acsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.acsButton.Image = global::ILEditor.Properties.Resources.computer;
+            this.acsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.acsButton.Name = "acsButton";
+            this.acsButton.Size = new System.Drawing.Size(23, 22);
+            this.acsButton.Text = "Launch ACS";
+            this.acsButton.Click += new System.EventHandler(this.acsButton_Click);
+            // 
+            // zoomOutButton
+            // 
+            this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomOutButton.Image = global::ILEditor.Properties.Resources.zoom_out;
+            this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomOutButton.Name = "zoomOutButton";
+            this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
+            this.zoomOutButton.Text = "Zoom Out";
+            this.zoomOutButton.ToolTipText = "Zoom Out";
+            this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
+            // 
+            // zoomInButton
+            // 
+            this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomInButton.Image = global::ILEditor.Properties.Resources.zoom_in;
+            this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomInButton.Name = "zoomInButton";
+            this.zoomInButton.Size = new System.Drawing.Size(23, 22);
+            this.zoomInButton.Text = "Zoom In";
+            this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
+            // 
+            // dockingPanel
+            // 
+            this.dockingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dockingPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
+            this.dockingPanel.Location = new System.Drawing.Point(0, 49);
+            this.dockingPanel.Name = "dockingPanel";
+            this.dockingPanel.Size = new System.Drawing.Size(681, 517);
+            this.dockingPanel.TabIndex = 15;
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 588);
-            this.Controls.Add(this.toolStripContainer1);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.dockingPanel);
+            this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "Editor";
             this.Text = "ILEditor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Editor_FormClosing);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
@@ -678,7 +623,7 @@
         private System.Windows.Forms.ToolStripMenuItem streamFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem memberToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem streamFileToolStripMenuItem1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusText;
         private System.Windows.Forms.ToolStripStatusLabel columnText;
         private System.Windows.Forms.ToolStripMenuItem localFileToolStripMenuItem;
@@ -705,18 +650,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutILEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sessionFTPLogToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quickMemberSearchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private WeifenLuo.WinFormsUI.Docking.DockPanel dockingPanel;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton newMember;
-        private System.Windows.Forms.ToolStripButton liblButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton acsButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton zoomOutButton;
-        private System.Windows.Forms.ToolStripButton zoomInButton;
         private System.Windows.Forms.ToolStripMenuItem duplicateLineToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton saveSource;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton undoButton;
@@ -725,5 +660,11 @@
         private System.Windows.Forms.ToolStripButton commentButton;
         private System.Windows.Forms.ToolStripMenuItem sourceDiffToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contentAssistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton newMember;
+        private System.Windows.Forms.ToolStripButton liblButton;
+        private System.Windows.Forms.ToolStripButton acsButton;
+        private System.Windows.Forms.ToolStripButton zoomOutButton;
+        private System.Windows.Forms.ToolStripButton zoomInButton;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel dockingPanel;
     }
 }

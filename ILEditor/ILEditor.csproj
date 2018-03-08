@@ -145,6 +145,7 @@
     <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
+    <Compile Include="Classes\ToolStripRenderer.cs" />
     <Compile Include="Editor.cs">
       <SubType>Form</SubType>
     </Compile>
