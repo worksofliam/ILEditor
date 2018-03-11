@@ -301,8 +301,6 @@ namespace ILEditor
                 return new MemberBrowse();
             else if (persistString == typeof(ObjectBrowse).ToString())
                 return new ObjectBrowse();
-            else if (persistString == typeof(OutlineView).ToString())
-                return new OutlineView();
             else if (persistString == typeof(QSYSBrowser).ToString())
                 return new QSYSBrowser();
             else if (persistString == typeof(UserToolList).ToString())
