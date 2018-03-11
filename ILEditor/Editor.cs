@@ -99,6 +99,8 @@ namespace ILEditor
 
             OutlineView = new UserTools.OutlineView();
             AddTool(OutlineView, DockState.DockRightAutoHide, true);
+            
+            dockingPanel.ActiveContentChanged += DockingPanel_ActiveContentChanged;
         }
 
         public void SetStatus(string Text) => statusText.Text = Text;
@@ -283,6 +285,11 @@ namespace ILEditor
             }
         }
         
+        private void DockingPanel_ActiveContentChanged(object sender, EventArgs e)
+        {
+            LastEditing = GetTabEditor(dockingPanel.ActiveContent as DockContent);
+        }
+
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             MemberCache.Export();
