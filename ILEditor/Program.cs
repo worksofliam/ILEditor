@@ -15,15 +15,10 @@ namespace ILEditor
     static class Program
     {
         //Directories
-        public static readonly string SYSTEMSDIR_Old = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
-        public static readonly string SOURCEDIR_Old = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
-        public static readonly string CONFIGDIR_Old = SOURCEDIR_Old + @"\config";
-
         public static readonly string APPDIR = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ILEditorData");
         public static readonly string SYSTEMSDIR = Path.Combine(APPDIR, "systems"); //Directory
         public static readonly string SOURCEDIR = Path.Combine(APPDIR, "source"); //Directory
         public static readonly string CONFIGFILE = Path.Combine(APPDIR, "config"); //Config file
-        public static readonly string PROJDIR = Path.Combine(APPDIR, "projects"); //Directory
         public static readonly string PanelsXML = Path.Combine(APPDIR, "panels.xml");
 
         public static string LAST_BUILD = ""; //Used for F5 key for local project build
@@ -46,22 +41,8 @@ namespace ILEditor
             HostSelect Selector;
             PasswordPrompt Prompter;
 
-            if (!Directory.Exists(APPDIR))
-            {
-                Directory.CreateDirectory(APPDIR);
-                if (Directory.Exists(SYSTEMSDIR_Old))
-                    Directory.Move(SYSTEMSDIR_Old, SYSTEMSDIR);
-
-                if (File.Exists(CONFIGDIR_Old))
-                    File.Move(CONFIGDIR_Old, CONFIGFILE);
-
-                if (Directory.Exists(SOURCEDIR_Old))
-                    Directory.Move(SOURCEDIR_Old, SOURCEDIR);
-            }
-
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
-            Directory.CreateDirectory(PROJDIR);
 
             Config = new Config(CONFIGFILE);
             Config.DoEditorDefaults();
