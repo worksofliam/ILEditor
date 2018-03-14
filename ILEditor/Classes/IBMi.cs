@@ -79,6 +79,7 @@ namespace ILEditor.Classes
         public static string FTPFile = "";
         public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
         {
+            string[] remoteSystem;
             bool result = false;
             try
             {
@@ -90,12 +91,14 @@ namespace ILEditor.Classes
 
                 string password = "";
 
+                remoteSystem = CurrentSystem.GetValue("system").Split(':');
+
                 if (promptedPassword == "")
                     password = Password.Decode(CurrentSystem.GetValue("password"));
                 else
                     password = promptedPassword;
 
-                Client = new FtpClient(CurrentSystem.GetValue("system"), CurrentSystem.GetValue("username"), password);
+                Client = new FtpClient(remoteSystem[0], CurrentSystem.GetValue("username"), password);
 
                 if (OfflineMode == false)
                 {
@@ -109,6 +112,9 @@ namespace ILEditor.Classes
                     //Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
                     Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
                     Client.SocketKeepAlive = true;
+
+                    if (remoteSystem.Length == 2)
+                        Client.Port = int.Parse(remoteSystem[1]);
 
                     Client.ConnectTimeout = 5000;
                     Client.Connect();
