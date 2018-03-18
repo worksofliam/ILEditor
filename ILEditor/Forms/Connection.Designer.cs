@@ -51,6 +51,7 @@
             this.validACS = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
             this.systemInfo = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -65,6 +66,8 @@
             this.buildLib = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.fetchJobLog = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.outlineEnabled = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -78,9 +81,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.fetchJobLog = new System.Windows.Forms.CheckBox();
-            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -331,6 +331,15 @@
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 144);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(303, 13);
+            this.label18.TabIndex = 16;
+            this.label18.Text = "Leave password blank to be prompted for it before connecting.";
+            // 
             // systemInfo
             // 
             this.systemInfo.AutoSize = true;
@@ -361,10 +370,10 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(8, 19);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(114, 13);
             this.linkLabel1.TabIndex = 18;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Use FTPES";
+            this.linkLabel1.Text = "Use FTP SSL (Explicit)";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // ftpes
@@ -494,6 +503,25 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Editor";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 161);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(130, 13);
+            this.label16.TabIndex = 16;
+            this.label16.Text = "Show Job Log on Compile";
+            // 
+            // fetchJobLog
+            // 
+            this.fetchJobLog.AutoSize = true;
+            this.fetchJobLog.Location = new System.Drawing.Point(220, 160);
+            this.fetchJobLog.Name = "fetchJobLog";
+            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
+            this.fetchJobLog.TabIndex = 15;
+            this.fetchJobLog.Text = "Fetch Job Log";
+            this.fetchJobLog.UseVisualStyleBackColor = true;
             // 
             // label14
             // 
@@ -625,34 +653,6 @@
             this.label13.Size = new System.Drawing.Size(60, 13);
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 161);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(130, 13);
-            this.label16.TabIndex = 16;
-            this.label16.Text = "Show Job Log on Compile";
-            // 
-            // fetchJobLog
-            // 
-            this.fetchJobLog.AutoSize = true;
-            this.fetchJobLog.Location = new System.Drawing.Point(220, 160);
-            this.fetchJobLog.Name = "fetchJobLog";
-            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
-            this.fetchJobLog.TabIndex = 15;
-            this.fetchJobLog.Text = "Fetch Job Log";
-            this.fetchJobLog.UseVisualStyleBackColor = true;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 144);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(303, 13);
-            this.label18.TabIndex = 16;
-            this.label18.Text = "Leave password blank to be prompted for it before connecting.";
             // 
             // Connection
             // 

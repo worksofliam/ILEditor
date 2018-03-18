@@ -126,10 +126,10 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(12, 125);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(114, 13);
             this.linkLabel1.TabIndex = 18;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Use FTPES";
+            this.linkLabel1.Text = "Use FTP SSL (Explicit)";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // ftpes
