@@ -666,7 +666,6 @@
             this.Name = "Connection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Connection Settings";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
