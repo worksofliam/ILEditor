@@ -465,6 +465,24 @@ namespace ILEditor
                 }
             }
         }
+        
+        private void startRemoteDebugACSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = Program.Config.GetValue("acspath");
+            if (path == "false")
+                MessageBox.Show("Please setup the ACS path in the Connection Settings.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                try
+                {
+                    Process.Start(path, " /plugin=sysdbg /system=" + IBMi.CurrentSystem.GetValue("system"));
+                }
+                catch
+                {
+                    MessageBox.Show("Something went wrong launching the debug session.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
 
         private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new QuickMemberSearch().Show();
 
@@ -555,6 +573,7 @@ namespace ILEditor
         private void liblButton_Click(object sender, EventArgs e) => libraryListToolStripMenuItem.PerformClick();
         private void compileButton_Click(object sender, EventArgs e) => compileToolStripMenuItem1.PerformClick();
         private void acsButton_Click(object sender, EventArgs e) => start5250SessionToolStripMenuItem.PerformClick();
+        private void dbgButton_Click(object sender, EventArgs e) => startRemoteDebugACSToolStripMenuItem.PerformClick();
 
         private void zoomOutButton_Click(object sender, EventArgs e)
         {
@@ -581,6 +600,5 @@ namespace ILEditor
 
         private void commentButton_Click(object sender, EventArgs e) => quickCommentToolStripMenuItem.PerformClick();
         #endregion
-
     }
 }

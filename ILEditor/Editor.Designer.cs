@@ -72,18 +72,22 @@
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.columnText = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.newMember = new System.Windows.Forms.ToolStripButton();
             this.saveSource = new System.Windows.Forms.ToolStripButton();
             this.compileButton = new System.Windows.Forms.ToolStripButton();
+            this.liblButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.undoButton = new System.Windows.Forms.ToolStripButton();
             this.redoButton = new System.Windows.Forms.ToolStripButton();
             this.commentButton = new System.Windows.Forms.ToolStripButton();
-            this.newMember = new System.Windows.Forms.ToolStripButton();
-            this.liblButton = new System.Windows.Forms.ToolStripButton();
-            this.acsButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.zoomOutButton = new System.Windows.Forms.ToolStripButton();
             this.zoomInButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.acsButton = new System.Windows.Forms.ToolStripButton();
+            this.dbgButton = new System.Windows.Forms.ToolStripButton();
             this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.startRemoteDebugACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -210,6 +214,7 @@
             this.connectionSettingsToolStripMenuItem,
             this.libraryListToolStripMenuItem,
             this.start5250SessionToolStripMenuItem,
+            this.startRemoteDebugACSToolStripMenuItem,
             this.quickMemberSearchToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
@@ -448,22 +453,36 @@
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newMember,
             this.saveSource,
             this.compileButton,
+            this.liblButton,
             this.toolStripSeparator3,
             this.undoButton,
             this.redoButton,
             this.commentButton,
-            this.newMember,
-            this.liblButton,
-            this.acsButton,
+            this.toolStripSeparator1,
             this.zoomOutButton,
-            this.zoomInButton});
+            this.zoomInButton,
+            this.toolStripSeparator2,
+            this.acsButton,
+            this.dbgButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStrip.Size = new System.Drawing.Size(681, 25);
             this.toolStrip.TabIndex = 1;
+            // 
+            // newMember
+            // 
+            this.newMember.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newMember.Image = global::ILEditor.Properties.Resources.edit1;
+            this.newMember.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newMember.Name = "newMember";
+            this.newMember.Size = new System.Drawing.Size(23, 22);
+            this.newMember.Text = "New Member";
+            this.newMember.ToolTipText = "New Member";
+            this.newMember.Click += new System.EventHandler(this.newMember_Click);
             // 
             // saveSource
             // 
@@ -484,6 +503,16 @@
             this.compileButton.Size = new System.Drawing.Size(23, 22);
             this.compileButton.Text = "Compile Source";
             this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
+            // 
+            // liblButton
+            // 
+            this.liblButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.liblButton.Image = global::ILEditor.Properties.Resources.books;
+            this.liblButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.liblButton.Name = "liblButton";
+            this.liblButton.Size = new System.Drawing.Size(23, 22);
+            this.liblButton.Text = "Library List";
+            this.liblButton.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -521,36 +550,10 @@
             this.commentButton.Text = "Comment Selected";
             this.commentButton.Click += new System.EventHandler(this.commentButton_Click);
             // 
-            // newMember
+            // toolStripSeparator1
             // 
-            this.newMember.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newMember.Image = global::ILEditor.Properties.Resources.edit1;
-            this.newMember.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newMember.Name = "newMember";
-            this.newMember.Size = new System.Drawing.Size(23, 22);
-            this.newMember.Text = "New Member";
-            this.newMember.ToolTipText = "New Member";
-            this.newMember.Click += new System.EventHandler(this.newMember_Click);
-            // 
-            // liblButton
-            // 
-            this.liblButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.liblButton.Image = global::ILEditor.Properties.Resources.books;
-            this.liblButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.liblButton.Name = "liblButton";
-            this.liblButton.Size = new System.Drawing.Size(23, 22);
-            this.liblButton.Text = "Library List";
-            this.liblButton.Click += new System.EventHandler(this.libraryListToolStripMenuItem_Click);
-            // 
-            // acsButton
-            // 
-            this.acsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.acsButton.Image = global::ILEditor.Properties.Resources.computer;
-            this.acsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.acsButton.Name = "acsButton";
-            this.acsButton.Size = new System.Drawing.Size(23, 22);
-            this.acsButton.Text = "Launch ACS";
-            this.acsButton.Click += new System.EventHandler(this.acsButton_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // zoomOutButton
             // 
@@ -573,6 +576,32 @@
             this.zoomInButton.Text = "Zoom In";
             this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // acsButton
+            // 
+            this.acsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.acsButton.Image = global::ILEditor.Properties.Resources.computer;
+            this.acsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.acsButton.Name = "acsButton";
+            this.acsButton.Size = new System.Drawing.Size(23, 22);
+            this.acsButton.Text = "Launch ACS";
+            this.acsButton.Click += new System.EventHandler(this.acsButton_Click);
+            // 
+            // dbgButton
+            // 
+            this.dbgButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.dbgButton.Image = global::ILEditor.Properties.Resources.bug;
+            this.dbgButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dbgButton.Name = "dbgButton";
+            this.dbgButton.Size = new System.Drawing.Size(23, 22);
+            this.dbgButton.Text = "Launch Debug";
+            this.dbgButton.ToolTipText = "Launch Debug";
+            this.dbgButton.Click += new System.EventHandler(this.dbgButton_Click);
+            // 
             // dockingPanel
             // 
             this.dockingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -581,6 +610,13 @@
             this.dockingPanel.Name = "dockingPanel";
             this.dockingPanel.Size = new System.Drawing.Size(681, 517);
             this.dockingPanel.TabIndex = 15;
+            // 
+            // startRemoteDebugACSToolStripMenuItem
+            // 
+            this.startRemoteDebugACSToolStripMenuItem.Name = "startRemoteDebugACSToolStripMenuItem";
+            this.startRemoteDebugACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.startRemoteDebugACSToolStripMenuItem.Text = "Start Remote Debug (ACS)";
+            this.startRemoteDebugACSToolStripMenuItem.Click += new System.EventHandler(this.startRemoteDebugACSToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -666,5 +702,9 @@
         private System.Windows.Forms.ToolStripButton zoomOutButton;
         private System.Windows.Forms.ToolStripButton zoomInButton;
         private WeifenLuo.WinFormsUI.Docking.DockPanel dockingPanel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton dbgButton;
+        private System.Windows.Forms.ToolStripMenuItem startRemoteDebugACSToolStripMenuItem;
     }
 }
