@@ -48,6 +48,7 @@
             this.connectionSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.libraryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.start5250SessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startRemoteDebugACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickMemberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.localCopiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,6 @@
             this.acsButton = new System.Windows.Forms.ToolStripButton();
             this.dbgButton = new System.Windows.Forms.ToolStripButton();
             this.dockingPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.startRemoteDebugACSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -255,6 +255,13 @@
             this.start5250SessionToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.start5250SessionToolStripMenuItem.Text = "Start 5250 Emulator (ACS)";
             this.start5250SessionToolStripMenuItem.Click += new System.EventHandler(this.start5250SessionToolStripMenuItem_Click);
+            // 
+            // startRemoteDebugACSToolStripMenuItem
+            // 
+            this.startRemoteDebugACSToolStripMenuItem.Name = "startRemoteDebugACSToolStripMenuItem";
+            this.startRemoteDebugACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.startRemoteDebugACSToolStripMenuItem.Text = "Start Remote Debug (ACS)";
+            this.startRemoteDebugACSToolStripMenuItem.Click += new System.EventHandler(this.startRemoteDebugACSToolStripMenuItem_Click);
             // 
             // quickMemberSearchToolStripMenuItem
             // 
@@ -610,13 +617,7 @@
             this.dockingPanel.Name = "dockingPanel";
             this.dockingPanel.Size = new System.Drawing.Size(681, 517);
             this.dockingPanel.TabIndex = 15;
-            // 
-            // startRemoteDebugACSToolStripMenuItem
-            // 
-            this.startRemoteDebugACSToolStripMenuItem.Name = "startRemoteDebugACSToolStripMenuItem";
-            this.startRemoteDebugACSToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.startRemoteDebugACSToolStripMenuItem.Text = "Start Remote Debug (ACS)";
-            this.startRemoteDebugACSToolStripMenuItem.Click += new System.EventHandler(this.startRemoteDebugACSToolStripMenuItem_Click);
+            this.dockingPanel.ContentRemoved += new System.EventHandler<WeifenLuo.WinFormsUI.Docking.DockContentEventArgs>(this.dockingPanel_ContentRemoved);
             // 
             // Editor
             // 
