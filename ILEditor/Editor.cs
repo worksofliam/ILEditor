@@ -318,6 +318,8 @@ namespace ILEditor
                 return new ObjectBrowse();
             else if (persistString == typeof(QSYSBrowser).ToString())
                 return new QSYSBrowser();
+            else if (persistString == typeof(TaskList).ToString())
+                return new TaskList();
             else if (persistString == typeof(UserToolList).ToString())
                 return new UserToolList();
 
