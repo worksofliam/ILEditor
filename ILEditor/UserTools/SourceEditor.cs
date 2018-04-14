@@ -39,7 +39,8 @@ namespace ILEditor.UserTools
         Dupe_Line,
         OutlineUpdate,
         ParseCode,
-        ShowContentAssist
+        ShowContentAssist,
+        TasksUpdate
     }
 
     public enum Language
@@ -52,6 +53,7 @@ namespace ILEditor.UserTools
         COBOL,
         Python
     }
+
     
     public partial class SourceEditor : DockContent
     {
@@ -62,15 +64,14 @@ namespace ILEditor.UserTools
         private int RcdLen;
         private string LocalPath;
         private bool ReadOnly;
-        
+
+        private TaskItem[] Tasks;
         private Function[] Functions;
         private CompletionWindow completionWindow;
 
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
             InitializeComponent();
-            
-            //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
 
             this.Language = Language;
             this.RcdLen = RecordLength;
@@ -259,39 +260,56 @@ namespace ILEditor.UserTools
                 case EditorAction.ShowContentAssist:
                     ShowContentAssist();
                     break;
+                case EditorAction.TasksUpdate:
+                    TaskListUpdate();
+                    break;
             }
         }
 
         private void Parse()
         {
+            List<TaskItem> Items = new List<TaskItem>();
+            int CharIndex = -1, lineNumber = 0;
+
+            string code = "";
+            this.Invoke((MethodInvoker)delegate
+            {
+                code = GetText();
+            });
+            
             if (IBMi.CurrentSystem.GetValue("OUTLINE_VIEW_ENABLED") == "true")
             {
-                string code = "";
-
-                if (this.Language == Language.RPG || this.Language == Language.CL)
+                try
                 {
-                    try
+                    switch (this.Language)
                     {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            code = GetText().ToUpper();
-                        });
-                        switch (this.Language)
-                        {
-                            case Language.RPG:
-                                this.Functions = RPGParser.Parse(code);
-                                break;
-                            case Language.CL:
-                                this.Functions = CLParser.Parse(code);
-                                break;
-                        }
-                    }
-                    catch
-                    {
-                        Editor.TheEditor.SetStatus("Error parsing " + this.Language.ToString() + " for " + this.Text + ".");
+                        case Language.RPG:
+                            this.Functions = RPGParser.Parse(code.ToUpper());
+                            break;
+                        case Language.CL:
+                            this.Functions = CLParser.Parse(code.ToUpper());
+                            break;
                     }
                 }
+                catch
+                {
+                    Editor.TheEditor.SetStatus("Error parsing " + this.Language.ToString() + " for " + this.Text + ".");
+                }
             }
+            
+            foreach (string Line in code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            {
+                lineNumber++;
+
+                foreach (string Keyword in Program.TaskKeywords)
+                {
+                    CharIndex = Line.IndexOf("//" + Keyword);
+                    if (CharIndex >= 0)
+                        Items.Add(new TaskItem() { Line = lineNumber, Text = Line.Substring(CharIndex+2) });
+                }
+            }
+
+            this.Tasks = Items.ToArray();
         }
 
         private void OutlineUpdate()
@@ -299,6 +317,14 @@ namespace ILEditor.UserTools
             this.Invoke((MethodInvoker)delegate
             {
                 Editor.OutlineView.Display(this.Text, this.Functions);
+            });
+        }
+
+        private void TaskListUpdate()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                Editor.Tasklist.Display(this.Tasks);
             });
         }
 
@@ -480,6 +506,7 @@ namespace ILEditor.UserTools
                                 });
                                 DoAction(EditorAction.ParseCode);
                                 DoAction(EditorAction.OutlineUpdate);
+                                DoAction(EditorAction.TasksUpdate);
                             }
 
                             this.Invoke((MethodInvoker)delegate

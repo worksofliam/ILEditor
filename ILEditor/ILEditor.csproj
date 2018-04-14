@@ -145,6 +145,7 @@
     <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
+    <Compile Include="Classes\TaskItem.cs" />
     <Compile Include="Classes\ToolStripRenderer.cs" />
     <Compile Include="Editor.cs">
       <SubType>Form</SubType>
@@ -395,6 +396,12 @@
     <Compile Include="UserTools\QSYSBrowser.Designer.cs">
       <DependentUpon>QSYSBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserTools\TaskList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserTools\TaskList.Designer.cs">
+      <DependentUpon>TaskList.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\UserToolList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -531,6 +538,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\QSYSBrowser.resx">
       <DependentUpon>QSYSBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\TaskList.resx">
+      <DependentUpon>TaskList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\UserToolList.resx">
       <DependentUpon>UserToolList.cs</DependentUpon>

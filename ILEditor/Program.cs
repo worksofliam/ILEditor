@@ -21,6 +21,8 @@ namespace ILEditor
         public static readonly string CONFIGFILE = Path.Combine(APPDIR, "config"); //Config file
         public static readonly string PanelsXML = Path.Combine(APPDIR, "panels.xml");
 
+        public static readonly string[] TaskKeywords = new[] { "TODO", "HACK" };
+
         public static string LAST_BUILD = ""; //Used for F5 key for local project build
 
 

@@ -618,6 +618,7 @@
             this.dockingPanel.Size = new System.Drawing.Size(681, 517);
             this.dockingPanel.TabIndex = 15;
             this.dockingPanel.ContentRemoved += new System.EventHandler<WeifenLuo.WinFormsUI.Docking.DockContentEventArgs>(this.dockingPanel_ContentRemoved);
+            this.dockingPanel.ActiveContentChanged += new System.EventHandler(this.DockingPanel_ActiveContentChanged);
             // 
             // Editor
             // 

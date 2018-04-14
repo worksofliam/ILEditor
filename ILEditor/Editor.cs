@@ -20,6 +20,7 @@ namespace ILEditor
         public static Editor TheEditor;
         public static UserTools.SourceEditor LastEditing;
         public static UserTools.OutlineView OutlineView;
+        public static UserTools.TaskList Tasklist;
 
         #region SourceInfo
         public static readonly Dictionary<string, Language> LangTypes = new Dictionary<string, Language>()
@@ -98,7 +99,10 @@ namespace ILEditor
             AddTool(new UserTools.Welcome(), DockState.Document, true);
 
             OutlineView = new UserTools.OutlineView();
+            Tasklist = new UserTools.TaskList();
+
             AddTool(OutlineView, DockState.DockRightAutoHide, true);
+            AddTool(Tasklist, DockState.DockBottomAutoHide, true);
             
             dockingPanel.ActiveContentChanged += DockingPanel_ActiveContentChanged;
         }
@@ -288,6 +292,9 @@ namespace ILEditor
         private void DockingPanel_ActiveContentChanged(object sender, EventArgs e)
         {
             LastEditing = GetTabEditor(dockingPanel.ActiveContent as DockContent);
+
+            if (LastEditing != null)
+                LastEditing.DoAction(EditorAction.TasksUpdate);
         }
 
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
