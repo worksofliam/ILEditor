@@ -40,6 +40,7 @@ namespace ILEditor
             { "CBL", Language.COBOL },
             { "COBOL", Language.COBOL },
             { "CBLLE", Language.COBOL },
+            { "CBBLE", Language.COBOL },
             { "PYTHON", Language.Python },
             { "PY", Language.Python }
         };
