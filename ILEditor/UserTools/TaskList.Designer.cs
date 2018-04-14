@@ -49,6 +49,7 @@
             this.tasks.TabIndex = 0;
             this.tasks.UseCompatibleStateImageBehavior = false;
             this.tasks.View = System.Windows.Forms.View.Details;
+            this.tasks.SelectedIndexChanged += new System.EventHandler(this.tasks_SelectedIndexChanged);
             // 
             // columnHeader1
             // 

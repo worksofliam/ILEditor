@@ -324,7 +324,7 @@ namespace ILEditor.UserTools
         {
             this.Invoke((MethodInvoker)delegate
             {
-                Editor.Tasklist.Display(this.Tasks);
+                Editor.Tasklist.Display(this.Text, this.Tasks);
             });
         }
 
