@@ -23,6 +23,10 @@ ILEditor is an editor for development of ILE applications on IBM i. ILEditor wil
 * You can install from the ClickOnce installer which will also prompt you when an update is available. [Download here](http://worksofbarry.com/ileditor/installer/setup.exe).
 * Build from source. Clone from GitHub, open the project into Visual Studio and build from there.
 
+## Contributing
+
+We are open to issues (which can be feature requests) and pull requests.
+
 ## Libraries used
 
 * [flaticon](https://www.flaticon.com/authors/simpleicon)
