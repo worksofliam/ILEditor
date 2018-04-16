@@ -396,31 +396,38 @@ namespace ILEditor.Classes
                                     break;
                             }
 
-                            command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
-                            
-                            IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
-
-                            if (!IBMi.RemoteCommand(command))
+                            if (library != "")
                             {
-                                Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
-                                if (command.ToUpper().Contains("*EVENTF"))
+                                command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
+                                IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
+
+                                if (!IBMi.RemoteCommand(command))
                                 {
-                                    Editor.TheEditor.SetStatus("Fetching errors..");
-                                    Editor.TheEditor.Invoke((MethodInvoker)delegate
+                                    Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
+                                    if (command.ToUpper().Contains("*EVENTF"))
                                     {
-                                        Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockLeft, true);
-                                    });
+                                        Editor.TheEditor.SetStatus("Fetching errors..");
+                                        Editor.TheEditor.Invoke((MethodInvoker)delegate
+                                        {
+                                            Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockLeft, true);
+                                        });
+                                        Editor.TheEditor.SetStatus("Fetched errors.");
+                                    }
+                                    if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+                                    {
+                                        UsingQTEMPFiles(new[] { "JOBLOG" });
+                                        IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
+                                        IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
+                                    }
                                 }
-                                if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+                                else
                                 {
-                                    UsingQTEMPFiles(new[] { "JOBLOG" });
-                                    IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
-                                    IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
+                                    Editor.TheEditor.SetStatus("Compile finished successfully.");
                                 }
                             }
                             else
                             {
-                                Editor.TheEditor.SetStatus("Compile finished successfully.");
+                                Editor.TheEditor.SetStatus("Build library not set. See Connection Settings.");
                             }
                         }
                     }

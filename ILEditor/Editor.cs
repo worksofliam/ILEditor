@@ -308,8 +308,6 @@ namespace ILEditor
         {
             if (persistString == typeof(CompileOptions).ToString())
                 return new CompileOptions();
-            else if (persistString == typeof(ErrorListing).ToString())
-                return new ErrorListing();
             else if (persistString == typeof(IFSBrowser).ToString())
                 return new IFSBrowser();
             else if (persistString == typeof(MemberBrowse).ToString())
