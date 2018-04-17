@@ -504,9 +504,6 @@ namespace ILEditor.UserTools
                                     if (this.Text.EndsWith("*"))
                                         this.Text = this.Text.Substring(0, this.Text.Length - 1);
                                 });
-                                DoAction(EditorAction.ParseCode);
-                                DoAction(EditorAction.OutlineUpdate);
-                                DoAction(EditorAction.TasksUpdate);
                             }
 
                             this.Invoke((MethodInvoker)delegate
@@ -537,6 +534,10 @@ namespace ILEditor.UserTools
                     this.Text = this.Text.Substring(0, this.Text.Length - 1);
                 Editor.TheEditor.SetStatus("File saved locally.");
             }
+
+            DoAction(EditorAction.ParseCode);
+            DoAction(EditorAction.OutlineUpdate);
+            DoAction(EditorAction.TasksUpdate);
         }
 
         private void CommentOutSelected()
