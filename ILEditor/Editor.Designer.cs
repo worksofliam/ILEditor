@@ -328,6 +328,7 @@
             // 
             // rPGConversionToolStripMenuItem
             // 
+            this.rPGConversionToolStripMenuItem.Enabled = false;
             this.rPGConversionToolStripMenuItem.Name = "rPGConversionToolStripMenuItem";
             this.rPGConversionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.C)));
