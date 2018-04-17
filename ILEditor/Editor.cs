@@ -160,9 +160,8 @@ namespace ILEditor
         {
             SourceEditor sourcePanel;
             string resultFile = "";
-            string text = "";
+            string text = Source.GetName() + (Source.GetExtension() != "" ? '.' + Source.GetExtension().ToLower() : "");
 
-            text = Path.GetFileName(Source.GetName() + "." + Source.GetExtension().ToLower());
             Editor.TheEditor.SetStatus("Fetching file " + text + "...");
 
             new Thread((ThreadStart)delegate
@@ -208,7 +207,7 @@ namespace ILEditor
 
         public static void OpenExistingSource(RemoteSource Source)
         {
-            string text = Path.GetFileName(Source.GetName() + "." + Source.GetExtension().ToLower());
+            string text = Source.GetName() + (Source.GetExtension() != "" ? '.' + Source.GetExtension().ToLower() : "");
 
             if (File.Exists(Source.GetLocalFile()))
             {
