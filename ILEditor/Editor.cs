@@ -291,10 +291,13 @@ namespace ILEditor
         
         private void DockingPanel_ActiveContentChanged(object sender, EventArgs e)
         {
-            LastEditing = GetTabEditor(dockingPanel.ActiveContent as DockContent);
+            SourceEditor PreviousEditor = GetTabEditor(dockingPanel.ActiveContent as DockContent);
 
-            if (LastEditing != null)
+            if (PreviousEditor != null)
+            {
+                LastEditing = PreviousEditor;
                 LastEditing.DoAction(EditorAction.TasksUpdate);
+            }
         }
 
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
