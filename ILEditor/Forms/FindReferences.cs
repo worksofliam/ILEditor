@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.IO;
+using System.Diagnostics;
 
 namespace ILEditor.Forms
 {
@@ -29,9 +31,9 @@ namespace ILEditor.Forms
             if (IBMiUtils.IsValueObjectName(lib.Text) && IBMiUtils.IsValueObjectName(pgm.Text))
             {
                 List<ILEObject[]> Objects = IBMiUtils.GetProgramReferences(lib.Text, pgm.Text);
-                //TODO: Convert to JSON
+
                 string json = JsonConvert.SerializeObject(
-                    Objects, 
+                    Objects,
                     Newtonsoft.Json.Formatting.None,
                     new JsonSerializerSettings
                     {
@@ -39,11 +41,18 @@ namespace ILEditor.Forms
                     }
                 );
 
-                //TODO
+                string file = IBMiUtils.GetLocalFile("QTEMP", "Diagram", lib.Text, "html");
+                string html = Properties.Resources.diagram.Replace("!JSONHERE!", json);
+
+                File.WriteAllText(file, html);
+                Process.Start(file);
+
+                this.Close();
             }
             else
             {
                 //TODO: Error message
+                MessageBox.Show("Unable to create Object Diagram.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

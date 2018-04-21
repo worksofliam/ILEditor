@@ -593,6 +593,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Diagram.html" />
+    <None Include="Resources\Diagram\diagram.html" />
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\DarkMode.html" />
     <Content Include="Resources\Help\LibraryList.html" />

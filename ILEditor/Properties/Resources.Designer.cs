@@ -309,6 +309,35 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE&gt;
+        ///&lt;!-- This code is for demonstration purposes only.  You should not hotlink to Github, Rawgit, or files from the Cytoscape.js documentation in your production apps. --&gt;
+        ///&lt;html&gt;
+        ///  &lt;head&gt;
+        ///    &lt;style&gt;
+        ///    body {
+        ///      font-family: helvetica;
+        ///      font-size: 14px;
+        ///    }
+        ///
+        ///    #cy {
+        ///      width: 100%;
+        ///      height: 100%;
+        ///      position: absolute;
+        ///      left: 0;
+        ///      top: 0;
+        ///      z-index: 999;
+        ///    }
+        ///    &lt;/style&gt;
+        ///
+        ///    &lt;script src=&quot;https://cdn.rawgit.com/cytoscape/cytoscape.js/master/ [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string diagram {
+            get {
+                return ResourceManager.GetString("diagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap edit {

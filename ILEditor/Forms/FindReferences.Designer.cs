@@ -33,7 +33,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lib = new System.Windows.Forms.TextBox();
             this.pgm = new System.Windows.Forms.TextBox();
-            this.fetch = new System.Windows.Forms.Button();
+            this.create = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -74,18 +74,19 @@
             this.pgm.TabIndex = 14;
             this.pgm.Text = "*ALL";
             // 
-            // fetch
+            // create
             // 
-            this.fetch.Location = new System.Drawing.Point(153, 73);
-            this.fetch.Name = "fetch";
-            this.fetch.Size = new System.Drawing.Size(88, 23);
-            this.fetch.TabIndex = 15;
-            this.fetch.Text = "Fetch";
-            this.fetch.UseVisualStyleBackColor = true;
-            this.fetch.Click += new System.EventHandler(this.fetch_Click);
+            this.create.Location = new System.Drawing.Point(153, 73);
+            this.create.Name = "create";
+            this.create.Size = new System.Drawing.Size(88, 23);
+            this.create.TabIndex = 15;
+            this.create.Text = "Create";
+            this.create.UseVisualStyleBackColor = true;
+            this.create.Click += new System.EventHandler(this.fetch_Click);
             // 
             // cancel
             // 
+            this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancel.Location = new System.Drawing.Point(12, 73);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(88, 23);
@@ -96,11 +97,13 @@
             // 
             // FindReferences
             // 
+            this.AcceptButton = this.create;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(253, 108);
             this.Controls.Add(this.cancel);
-            this.Controls.Add(this.fetch);
+            this.Controls.Add(this.create);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lib);
@@ -122,7 +125,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox lib;
         private System.Windows.Forms.TextBox pgm;
-        private System.Windows.Forms.Button fetch;
+        private System.Windows.Forms.Button create;
         private System.Windows.Forms.Button cancel;
     }
 }
