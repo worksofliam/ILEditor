@@ -49,6 +49,9 @@ namespace ILEditor.UserTools
                     case "IFS":
                         Editor.TheEditor.AddTool(new IFSBrowser(), DockState.DockRight);
                         break;
+                    case "OBJDIAG":
+                        new Forms.FindReferences().ShowDialog();
+                        break;
                 }
             }
         }
