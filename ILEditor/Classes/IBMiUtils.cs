@@ -300,6 +300,62 @@ namespace ILEditor.Classes
             return Members.ToArray();
         }
 
+        public static List<ILEObject[]> GetProgramReferences(string Lib, string Obj = "*ALL")
+        {
+            List<ILEObject[]> Items = new List<ILEObject[]>();
+            string Line, Library, Object, RefObj, RefLib, Type;
+
+            Lib = Lib.ToUpper();
+            Obj = Obj.ToUpper();
+
+            if (IBMi.IsConnected())
+            {
+                if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
+                Editor.TheEditor.SetStatus("Fetching references for " + Lib + "/" + Obj + "...");
+                
+                UsingQTEMPFiles(new[] { "REFS", "REFSB" });
+
+                IBMi.RemoteCommand("DSPPGMREF PGM(" + Lib + "/" + Obj + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/REFS)");
+                IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/REFSB AS (SELECT WHLIB, WHPNAM, WHFNAM, WHLNAM, WHOTYP FROM qtemp/refs) WITH DATA') COMMIT(*NONE)");
+
+                string file = DownloadMember("QTEMP", "REFSB", "REFSB");
+
+                if (file != "")
+                {
+                    foreach (string RealLine in File.ReadAllLines(file))
+                    {
+                        if (RealLine.Trim() != "")
+                        {
+                            Line = RealLine.PadRight(52);
+                            Library = Line.Substring(0, 10).Trim();
+                            Object = Line.Substring(10, 10).Trim();
+                            RefObj = Line.Substring(20, 11).Trim();
+                            RefLib = Line.Substring(31, 11).Trim();
+                            Type = Line.Substring(42, 10).Trim();
+
+                            if (Library != "")
+                            {
+                                Items.Add(new[] { new ILEObject(Library, Object), new ILEObject(RefLib, RefObj, Type) });
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+
+                Editor.TheEditor.SetStatus("Fetched references for " + Lib + " / " + Obj + ".");
+            }
+            else
+            {
+                Editor.TheEditor.SetStatus("Cannot fetch references when offline.");
+                return null;
+            }
+
+            return Items;
+        }
+
         public static SpoolFile[] GetSpoolListing(string Lib, string Obj)
         {
             if (IBMi.IsConnected())
