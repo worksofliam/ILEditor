@@ -35,6 +35,8 @@
             this.pgm = new System.Windows.Forms.TextBox();
             this.create = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
+            this.style = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -76,7 +78,7 @@
             // 
             // create
             // 
-            this.create.Location = new System.Drawing.Point(153, 73);
+            this.create.Location = new System.Drawing.Point(153, 97);
             this.create.Name = "create";
             this.create.Size = new System.Drawing.Size(88, 23);
             this.create.TabIndex = 15;
@@ -87,7 +89,7 @@
             // cancel
             // 
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancel.Location = new System.Drawing.Point(12, 73);
+            this.cancel.Location = new System.Drawing.Point(12, 97);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(88, 23);
             this.cancel.TabIndex = 16;
@@ -95,13 +97,37 @@
             this.cancel.UseVisualStyleBackColor = true;
             this.cancel.Click += new System.EventHandler(this.cancel_Click);
             // 
+            // style
+            // 
+            this.style.FormattingEnabled = true;
+            this.style.Items.AddRange(new object[] {
+            "breadthfirst",
+            "circle",
+            "grid"});
+            this.style.Location = new System.Drawing.Point(141, 64);
+            this.style.Name = "style";
+            this.style.Size = new System.Drawing.Size(100, 21);
+            this.style.TabIndex = 17;
+            this.style.Text = "breadthfirst";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 67);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Diagram Style";
+            // 
             // FindReferences
             // 
             this.AcceptButton = this.create;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
-            this.ClientSize = new System.Drawing.Size(253, 108);
+            this.ClientSize = new System.Drawing.Size(253, 132);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.style);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.create);
             this.Controls.Add(this.label1);
@@ -127,5 +153,7 @@
         private System.Windows.Forms.TextBox pgm;
         private System.Windows.Forms.Button create;
         private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.ComboBox style;
+        private System.Windows.Forms.Label label2;
     }
 }

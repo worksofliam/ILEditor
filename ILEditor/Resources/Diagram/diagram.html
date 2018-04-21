@@ -38,6 +38,11 @@ for (var i = 0; i < json.length; i++) {
   item = json[i][0].Library + '/' + json[i][0].Name + ' (*PGM)';
   target = json[i][1].Library + '/' + json[i][1].Name + ' (' + json[i][1].Type + ')';
   
+  if (json[i][0].Library === "") continue;
+  if (json[i][0].Name === "") continue;
+  if (json[i][1].Library === "") continue;
+  if (json[i][1].Name === "") continue;
+  
   if (json[i][1].Library === "QSYS") continue;
   if (json[i][1].Name === "*NONE") continue;
 
@@ -50,12 +55,8 @@ for (var i = 0; i < json.length; i++) {
 var cy = window.cy = cytoscape({
   container: document.getElementById('cy'),
 
-  boxSelectionEnabled: false,
-  autounselectify: true,
-
   layout: {
-    name: 'spread',
-    minDist: 1000
+    name: '!STYLE!'
   },
   
   style: [
@@ -64,7 +65,7 @@ var cy = window.cy = cytoscape({
       style: {
         'shape': 'square',
         'content': 'data(id)',
-        'font-size': 18,
+        'font-size': 16,
         'background-color': 'data(typeColor)',
       }
     },
@@ -78,13 +79,55 @@ var cy = window.cy = cytoscape({
         'opacity': 0.666,
         'line-color': '#fcc694'
       }
-    }
+    },
+    {
+        selector: 'node.highlight',
+        style: {
+            'border-color': '#FFF',
+            'border-width': '2px'
+        }
+        },
+        {
+            selector: 'node.semitransp',
+            style:{ 'opacity': '0.3' }
+        },
+        {
+            selector: 'edge.highlight',
+            style: { 'mid-target-arrow-color': '#FFF' }
+        },
+        {
+            selector: 'edge.semitransp',
+            style:{ 'opacity': '0.2' }
+        }
   ],
 
   elements: {
     nodes: nodes,
     edges, edges
   },
+});
+cy.on('click', 'node', function(e){
+    var sel = e.target;
+    cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
+    
+    var elements = sel.addClass('highlight').outgoers();
+    
+    elements[elements.length] = e.target;
+    elements.length++;
+    
+    cy.elements().remove(); 
+    cy.add( elements );
+    cy.fit();
+});
+cy.on('mouseover', 'node', function(e){
+    var sel = e.target;
+    cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
+    sel.addClass('highlight').outgoers().addClass('highlight');
+});
+cy.on('mouseout', 'node', function(e){
+    var sel = e.target;
+    cy.elements().removeClass('semitransp');
+    sel.removeClass('highlight').outgoers().removeClass('highlight');
 });
 
 function getTypeColor(type) {

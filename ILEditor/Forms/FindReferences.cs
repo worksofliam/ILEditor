@@ -41,8 +41,11 @@ namespace ILEditor.Forms
                     }
                 );
 
-                string file = IBMiUtils.GetLocalFile("QTEMP", "Diagram", lib.Text, "html");
-                string html = Properties.Resources.diagram.Replace("!JSONHERE!", json);
+                string file = IBMiUtils.GetLocalFile("QTEMP", "Diagram", lib.Text + pgm.Text.Trim('*'), "html");
+                string html = Properties.Resources.diagram;
+
+                html = html.Replace("!JSONHERE!", json);
+                html = html.Replace("!STYLE!", style.SelectedItem.ToString());
 
                 File.WriteAllText(file, html);
                 Process.Start(file);
