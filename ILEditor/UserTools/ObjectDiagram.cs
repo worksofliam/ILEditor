@@ -15,11 +15,20 @@ namespace ILEditor.UserTools
 {
     public partial class ObjectDiagram : DockContent
     {
+        public static bool ChromiumActive = false;
+
         private ChromiumWebBrowser chromeBrowser;
         private string LocalFile;
 
         public ObjectDiagram(string Local)
         {
+            if (ChromiumActive == false)
+            {
+                CefSettings settings = new CefSettings();
+                Cef.Initialize(settings);
+                ChromiumActive = true;
+            }
+
             InitializeComponent();
             this.LocalFile = Local;
 

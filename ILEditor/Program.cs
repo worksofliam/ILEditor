@@ -40,11 +40,7 @@ namespace ILEditor
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            CefSettings settings = new CefSettings();
-            // Initialize cef with the provided settings
-            Cef.Initialize(settings);
-
+            
             HostSelect Selector;
             PasswordPrompt Prompter;
 
@@ -102,7 +98,8 @@ namespace ILEditor
                 }
             }
 
-            Cef.Shutdown();
+            if (UserTools.ObjectDiagram.ChromiumActive)
+                Cef.Shutdown();
         }
 
         public static String getVersion()
