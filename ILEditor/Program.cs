@@ -25,6 +25,7 @@ namespace ILEditor
         public static readonly string[] TaskKeywords = new[] { "TODO", "HACK" };
 
         public static string LAST_BUILD = ""; //Used for F5 key for local project build
+        public static bool ChromiumActive = false;
 
 
         //Config
@@ -98,7 +99,7 @@ namespace ILEditor
                 }
             }
 
-            if (UserTools.ObjectDiagram.ChromiumActive)
+            if (Program.ChromiumActive)
                 Cef.Shutdown();
         }
 
