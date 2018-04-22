@@ -9,6 +9,7 @@ using ILEditor.Classes;
 using System.Deployment.Application;
 using System.Reflection;
 using System.Drawing;
+using CefSharp;
 
 namespace ILEditor
 {
@@ -39,6 +40,10 @@ namespace ILEditor
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            CefSettings settings = new CefSettings();
+            // Initialize cef with the provided settings
+            Cef.Initialize(settings);
 
             HostSelect Selector;
             PasswordPrompt Prompter;
@@ -96,6 +101,8 @@ namespace ILEditor
                     Connected = true; //End loop and close
                 }
             }
+
+            Cef.Shutdown();
         }
 
         public static String getVersion()

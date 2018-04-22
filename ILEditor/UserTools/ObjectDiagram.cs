@@ -23,19 +23,11 @@ namespace ILEditor.UserTools
             InitializeComponent();
             this.LocalFile = Local;
 
-            CefSettings settings = new CefSettings();
-            // Initialize cef with the provided settings
-            Cef.Initialize(settings);
             // Create a browser component
             chromeBrowser = new ChromiumWebBrowser(this.LocalFile);
             // Add it to the form and fill it to the form window.
             this.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
-        }
-
-        private void ObjectDiagram_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Cef.Shutdown();
         }
 
         private void Refresh_Click(object sender, EventArgs e)

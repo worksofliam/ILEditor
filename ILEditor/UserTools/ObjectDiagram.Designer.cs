@@ -62,7 +62,6 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "ObjectDiagram";
             this.Text = "Object Diagram";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ObjectDiagram_FormClosing);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
