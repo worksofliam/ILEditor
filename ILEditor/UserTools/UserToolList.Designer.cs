@@ -34,10 +34,11 @@
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("IFS Browser", 6);
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Program Listing", 5);
             System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Object Diagram", 8);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Library List", 3);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Compile Settings", 4);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Connection Settings", 2);
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Code Coverage");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Library List", 3);
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Compile Settings", 4);
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Connection Settings", 2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserToolList));
             this.toollist = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -52,10 +53,11 @@
             listViewItem3.Tag = "IFS";
             listViewItem4.Tag = "PGM";
             listViewItem5.Tag = "OBJDIAG";
-            listViewItem6.Tag = "SPL";
-            listViewItem7.Tag = "LIBL";
-            listViewItem8.Tag = "CMP";
-            listViewItem9.Tag = "CONN";
+            listViewItem6.Tag = "CC";
+            listViewItem7.Tag = "SPL";
+            listViewItem8.Tag = "LIBL";
+            listViewItem9.Tag = "CMP";
+            listViewItem10.Tag = "CONN";
             this.toollist.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
@@ -65,7 +67,8 @@
             listViewItem6,
             listViewItem7,
             listViewItem8,
-            listViewItem9});
+            listViewItem9,
+            listViewItem10});
             this.toollist.Location = new System.Drawing.Point(0, 0);
             this.toollist.MultiSelect = false;
             this.toollist.Name = "toollist";

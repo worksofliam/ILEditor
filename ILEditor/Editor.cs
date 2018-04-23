@@ -61,6 +61,7 @@ namespace ILEditor
             TheEditor = this;
 
             MemberCache.Import();
+            CoverageTest.LoadTests();
 
             this.Text += ' ' + Program.getVersion() + " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             if (!IBMi.IsConnected())
@@ -303,6 +304,7 @@ namespace ILEditor
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
             MemberCache.Export();
+            CoverageTest.SaveTests();
             dockingPanel.SaveAsXml(Program.PanelsXML);
         }
 

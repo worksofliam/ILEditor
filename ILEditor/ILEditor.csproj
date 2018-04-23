@@ -132,6 +132,7 @@
     <Compile Include="Classes\AutoCompleteData.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
+    <Compile Include="Classes\CoverageTest.cs" />
     <Compile Include="Classes\DiffMatchPatch.cs" />
     <Compile Include="Classes\ErrorHandle.cs" />
     <Compile Include="Classes\IBMi.cs" />
@@ -179,6 +180,12 @@
     </Compile>
     <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
       <DependentUpon>NewType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CoverageEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CoverageEdit.Designer.cs">
+      <DependentUpon>CoverageEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CreateDirectory.cs">
       <SubType>Form</SubType>
@@ -325,6 +332,12 @@
     <Compile Include="UserTools\BindingDirectory.Designer.cs">
       <DependentUpon>BindingDirectory.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserTools\CodeCoverage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserTools\CodeCoverage.Designer.cs">
+      <DependentUpon>CodeCoverage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -438,6 +451,9 @@
     <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
       <DependentUpon>NewType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CoverageEdit.resx">
+      <DependentUpon>CoverageEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateDirectory.resx">
       <DependentUpon>CreateDirectory.cs</DependentUpon>
     </EmbeddedResource>
@@ -517,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\BindingDirectory.resx">
       <DependentUpon>BindingDirectory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserTools\CodeCoverage.resx">
+      <DependentUpon>CodeCoverage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\CompileOptions.resx">
       <DependentUpon>CompileOptions.cs</DependentUpon>

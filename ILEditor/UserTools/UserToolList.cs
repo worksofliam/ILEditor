@@ -52,6 +52,9 @@ namespace ILEditor.UserTools
                     case "OBJDIAG":
                         new Forms.FindReferences().ShowDialog();
                         break;
+                    case "CC":
+                        Editor.TheEditor.AddTool(new CodeCoverage(), DockState.DockLeft);
+                        break;
                 }
             }
         }
