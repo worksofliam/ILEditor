@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodeCoverage));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newcctest = new System.Windows.Forms.ToolStripButton();
             this.tests = new System.Windows.Forms.ListView();
+            this.rightClickTest = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteTest = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
+            this.rightClickTest.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -64,6 +69,29 @@
             this.tests.TabIndex = 1;
             this.tests.UseCompatibleStateImageBehavior = false;
             this.tests.View = System.Windows.Forms.View.List;
+            this.tests.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tests_MouseClick);
+            // 
+            // rightClickTest
+            // 
+            this.rightClickTest.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editTest,
+            this.deleteTest});
+            this.rightClickTest.Name = "rightClickTest";
+            this.rightClickTest.Size = new System.Drawing.Size(153, 70);
+            // 
+            // editTest
+            // 
+            this.editTest.Name = "editTest";
+            this.editTest.Size = new System.Drawing.Size(152, 22);
+            this.editTest.Text = "Edit";
+            this.editTest.Click += new System.EventHandler(this.editTest_Click);
+            // 
+            // deleteTest
+            // 
+            this.deleteTest.Name = "deleteTest";
+            this.deleteTest.Size = new System.Drawing.Size(152, 22);
+            this.deleteTest.Text = "Delete";
+            this.deleteTest.Click += new System.EventHandler(this.deleteTest_Click);
             // 
             // CodeCoverage
             // 
@@ -76,6 +104,7 @@
             this.Text = "Code Coverage";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.rightClickTest.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,5 +115,8 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton newcctest;
         private System.Windows.Forms.ListView tests;
+        private System.Windows.Forms.ContextMenuStrip rightClickTest;
+        private System.Windows.Forms.ToolStripMenuItem editTest;
+        private System.Windows.Forms.ToolStripMenuItem deleteTest;
     }
 }

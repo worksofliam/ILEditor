@@ -14,7 +14,7 @@ namespace ILEditor.Forms
     public partial class CoverageEdit : Form
     {
         private CoverageTest Test;
-        public CoverageEdit(CoverageTest Test = null)
+        public CoverageEdit(string Name = "", CoverageTest Test = null)
         {
             InitializeComponent();
 
@@ -25,6 +25,8 @@ namespace ILEditor.Forms
                 foreach(ILEObject module in Test.Modules)
                     customModules.Items.Add(module.Library + '/' + module.Name + ' ' + module.Type);
             }
+
+            covname.Text = Name;
         }
 
         public CoverageTest GetTest() => this.Test;
