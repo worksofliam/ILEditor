@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,36 @@ namespace ILEditor.Classes
 
         public static void LoadTests()
         {
+            string[] data;
+            string json;
 
+            data = IBMi.CurrentSystem.GetValue("TESTS").Split('|');
+
+            foreach (string Test in data)
+            {
+                json = IBMi.CurrentSystem.GetValue("TEST_" + Test);
+                Tests.Add(Test, JsonConvert.DeserializeObject<CoverageTest>(json));
+            }
         }
 
         public static void SaveTests()
         {
+            IBMi.CurrentSystem.SetValue("TESTS", String.Join("|", Tests.Keys));
+            string json = "";
 
+            foreach(string Test in Tests.Keys)
+            {
+                json = JsonConvert.SerializeObject(
+                    Tests[Test],
+                    Newtonsoft.Json.Formatting.None,
+                    new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    }
+                );
+
+                IBMi.CurrentSystem.SetValue("TEST_" + Test, json);
+            }
         }
 
         #region Class
