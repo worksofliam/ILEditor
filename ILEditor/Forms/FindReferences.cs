@@ -48,9 +48,7 @@ namespace ILEditor.Forms
                 html = html.Replace("!STYLE!", style.SelectedItem.ToString());
 
                 File.WriteAllText(file, html);
-                //Process.Start(file);
-
-                Editor.TheEditor.AddTool(new UserTools.ObjectDiagram(file), WeifenLuo.WinFormsUI.Docking.DockState.Document);
+                Process.Start(file);
 
                 this.Close();
             }
