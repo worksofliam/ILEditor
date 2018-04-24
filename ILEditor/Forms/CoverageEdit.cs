@@ -79,7 +79,9 @@ namespace ILEditor.Forms
         {
             string[] data, path;
 
-            this.Test = new CoverageTest(covname.Text);
+            covname.Text = covname.Text.Replace(" ", "");
+
+            this.Test = new CoverageTest(covname.Text, covname.Text);
             this.Test.Command = covcmd.Text;
             
             foreach(String item in customModules.Items)

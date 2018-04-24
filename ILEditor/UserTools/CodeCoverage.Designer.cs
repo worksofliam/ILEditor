@@ -36,6 +36,8 @@
             this.rightClickTest = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editTest = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteTest = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1.SuspendLayout();
             this.rightClickTest.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +68,7 @@
             this.tests.Location = new System.Drawing.Point(0, 25);
             this.tests.Name = "tests";
             this.tests.Size = new System.Drawing.Size(314, 274);
+            this.tests.SmallImageList = this.imageList1;
             this.tests.TabIndex = 1;
             this.tests.UseCompatibleStateImageBehavior = false;
             this.tests.View = System.Windows.Forms.View.List;
@@ -74,24 +77,38 @@
             // rightClickTest
             // 
             this.rightClickTest.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
             this.editTest,
             this.deleteTest});
             this.rightClickTest.Name = "rightClickTest";
-            this.rightClickTest.Size = new System.Drawing.Size(153, 70);
+            this.rightClickTest.Size = new System.Drawing.Size(108, 70);
             // 
             // editTest
             // 
             this.editTest.Name = "editTest";
-            this.editTest.Size = new System.Drawing.Size(152, 22);
+            this.editTest.Size = new System.Drawing.Size(107, 22);
             this.editTest.Text = "Edit";
             this.editTest.Click += new System.EventHandler(this.editTest_Click);
             // 
             // deleteTest
             // 
             this.deleteTest.Name = "deleteTest";
-            this.deleteTest.Size = new System.Drawing.Size(152, 22);
+            this.deleteTest.Size = new System.Drawing.Size(107, 22);
             this.deleteTest.Text = "Delete";
             this.deleteTest.Click += new System.EventHandler(this.deleteTest_Click);
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "sitemap.png");
             // 
             // CodeCoverage
             // 
@@ -118,5 +135,7 @@
         private System.Windows.Forms.ContextMenuStrip rightClickTest;
         private System.Windows.Forms.ToolStripMenuItem editTest;
         private System.Windows.Forms.ToolStripMenuItem deleteTest;
+        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
