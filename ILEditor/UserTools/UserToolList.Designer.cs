@@ -34,7 +34,7 @@
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("IFS Browser", 6);
             System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Program Listing", 5);
             System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Object Diagram", 8);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Code Coverage");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Code Coverage", 9);
             System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
             System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Library List", 3);
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Compile Settings", 4);
@@ -92,6 +92,7 @@
             this.imageList1.Images.SetKeyName(6, "folder.png");
             this.imageList1.Images.SetKeyName(7, "file.png");
             this.imageList1.Images.SetKeyName(8, "cubedark.png");
+            this.imageList1.Images.SetKeyName(9, "diagram.png");
             // 
             // UserToolList
             // 
