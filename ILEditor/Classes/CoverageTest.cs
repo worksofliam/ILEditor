@@ -28,6 +28,7 @@ namespace ILEditor.Classes
 
             foreach (string Test in data)
             {
+                if (Test.Trim() == "") continue;
                 json = IBMi.CurrentSystem.GetValue("TEST_" + Test);
                 Tests.Add(Test, JsonConvert.DeserializeObject<CoverageTest>(json));
             }
