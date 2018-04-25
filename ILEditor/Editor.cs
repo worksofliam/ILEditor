@@ -436,7 +436,7 @@ namespace ILEditor
             if (LastEditing != null)
             {
                 RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
-                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + SourceInfo.GetExtension()).Split('|');
+                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + SourceInfo.GetExtension().ToUpper()).Split('|');
                 foreach (string Item in Items)
                 {
                     if (Item.Trim() == "") continue;

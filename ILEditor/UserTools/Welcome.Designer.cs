@@ -137,7 +137,6 @@
             this.devNews.TabIndex = 7;
             this.devNews.Url = new System.Uri("https://worksofbarry.com/ileditor/devnews/", System.UriKind.Absolute);
             this.devNews.WebBrowserShortcutsEnabled = false;
-            this.devNews.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.devNews_Navigated);
             this.devNews.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.devNews_Navigating);
             // 
             // label3
