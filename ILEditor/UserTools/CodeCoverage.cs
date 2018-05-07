@@ -75,7 +75,7 @@ namespace ILEditor.UserTools
 
                 if (LocalFile == "")
                 {
-                    MessageBox.Show("There was an issue running a coverage test. Make sure QDEVTOOL is on the library list and that the command is valid.", "Coverage Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There was an issue running a coverage test. Make sure QDEVTOOLS is on the library list and that the command is valid.", "Coverage Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

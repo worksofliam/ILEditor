@@ -54,7 +54,6 @@ namespace ILEditor.Forms
             }
             else
             {
-                //TODO: Error message
                 MessageBox.Show("Unable to create Object Diagram.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

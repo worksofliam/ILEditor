@@ -132,6 +132,7 @@
     <Compile Include="Classes\AutoCompleteData.cs" />
     <Compile Include="Classes\BindingEntry.cs" />
     <Compile Include="Classes\Config.cs" />
+    <Compile Include="Classes\CoverageResult.cs" />
     <Compile Include="Classes\CoverageTest.cs" />
     <Compile Include="Classes\DiffMatchPatch.cs" />
     <Compile Include="Classes\ErrorHandle.cs" />
