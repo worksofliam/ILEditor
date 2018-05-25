@@ -35,6 +35,8 @@ namespace ILEditor.Classes
             return true;
         }
 
+        private static string GetCurrentSystem() => IBMi.CurrentSystem.GetValue("system").Split(':')[0];
+
         public static BindingEntry[] GetBindingDirectory(string Lib, string Obj)
         {
             if (IBMi.IsConnected())
@@ -503,7 +505,7 @@ namespace ILEditor.Classes
 
         public static string GetLocalDir(string Lib)
         {
-            string LIBDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib;
+            string LIBDir = Program.SOURCEDIR + "\\" + GetCurrentSystem() + "\\" + Lib;
 
             if (!Directory.Exists(LIBDir))
                 Directory.CreateDirectory(LIBDir);
@@ -513,7 +515,7 @@ namespace ILEditor.Classes
 
         public static string GetLocalDir(string Lib, string Obj)
         {
-            string SPFDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib + "\\" + Obj;
+            string SPFDir = Program.SOURCEDIR + "\\" + GetCurrentSystem() + "\\" + Lib + "\\" + Obj;
 
             if (!Directory.Exists(SPFDir))
                 Directory.CreateDirectory(SPFDir);
@@ -534,7 +536,7 @@ namespace ILEditor.Classes
 
             foreach (string lib in libl)
             {
-                dir = Path.Combine(Program.SOURCEDIR, IBMi.CurrentSystem.GetValue("system"), lib);
+                dir = Path.Combine(Program.SOURCEDIR, GetCurrentSystem(), lib);
                 if (Directory.Exists(dir))
                 {
                     dir = Path.Combine(dir, Spf);
@@ -565,7 +567,7 @@ namespace ILEditor.Classes
 
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
-            string SPFDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib + "\\" + Obj;
+            string SPFDir = Program.SOURCEDIR + "\\" + GetCurrentSystem() + "\\" + Lib + "\\" + Obj;
 
             if (!Directory.Exists(SPFDir))
                 Directory.CreateDirectory(SPFDir);
