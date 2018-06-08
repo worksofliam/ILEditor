@@ -32,7 +32,6 @@ namespace ILEditor.UserTools
         Save,
         Save_As,
         Comment_Out_Selected,
-        Convert_Selected_RPG,
         Format_CL,
         Undo,
         Redo,
@@ -223,9 +222,6 @@ namespace ILEditor.UserTools
             {
                 case EditorAction.Comment_Out_Selected:
                     CommentOutSelected();
-                    break;
-                case EditorAction.Convert_Selected_RPG:
-                    ConvertSelectedRPG();
                     break;
                 case EditorAction.Format_CL:
                     FormatCL();
@@ -606,48 +602,6 @@ namespace ILEditor.UserTools
             }
             return index;
         }
-
-        #region RPG
-
-        private void ConvertSelectedRPG()
-        {
-            if (this.ReadOnly) return;
-
-            if (textEditor.SelectedText == "")
-            {
-                MessageBox.Show("Please highlight the code you want to convert and then try the conversion again.", "Fixed-To-Free", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                string[] lines = textEditor.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                string freeForm = "";
-
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    freeForm = RPGFree.getFree(lines[i]);
-                    if (freeForm != "")
-                    {
-                        switch (freeForm.Trim())
-                        {
-                            case "*SAME;":
-                                //Do nothing!
-                                break;
-                            case "*BLANK;":
-                                lines[i] = "";
-                                break;
-                            default:
-                                lines[i] = freeForm;
-                                break;
-                        }
-                    }
-                }
-
-                textEditor.SelectedText = String.Join(Environment.NewLine, lines);
-            }
-
-        }
-
-        #endregion
 
         #region CL
 

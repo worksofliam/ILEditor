@@ -56,7 +56,6 @@
             this.sPFPushToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memberSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rPGConversionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cLFormattingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -319,36 +318,25 @@
             // languageToolsToolStripMenuItem
             // 
             this.languageToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rPGConversionToolStripMenuItem,
             this.cLFormattingToolStripMenuItem,
             this.generateSQLToolStripMenuItem});
             this.languageToolsToolStripMenuItem.Name = "languageToolsToolStripMenuItem";
             this.languageToolsToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.languageToolsToolStripMenuItem.Text = "Language Tools";
             // 
-            // rPGConversionToolStripMenuItem
-            // 
-            this.rPGConversionToolStripMenuItem.Enabled = false;
-            this.rPGConversionToolStripMenuItem.Name = "rPGConversionToolStripMenuItem";
-            this.rPGConversionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.C)));
-            this.rPGConversionToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.rPGConversionToolStripMenuItem.Text = "RPG Conversion";
-            this.rPGConversionToolStripMenuItem.Click += new System.EventHandler(this.rPGConversionToolStripMenuItem_Click);
-            // 
             // cLFormattingToolStripMenuItem
             // 
             this.cLFormattingToolStripMenuItem.Name = "cLFormattingToolStripMenuItem";
             this.cLFormattingToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.X)));
-            this.cLFormattingToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.cLFormattingToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.cLFormattingToolStripMenuItem.Text = "CL Formatter";
             this.cLFormattingToolStripMenuItem.Click += new System.EventHandler(this.cLFormattingToolStripMenuItem_Click);
             // 
             // generateSQLToolStripMenuItem
             // 
             this.generateSQLToolStripMenuItem.Name = "generateSQLToolStripMenuItem";
-            this.generateSQLToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.generateSQLToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.generateSQLToolStripMenuItem.Text = "Generate SQL";
             this.generateSQLToolStripMenuItem.Click += new System.EventHandler(this.generateSQLToolStripMenuItem_Click);
             // 
@@ -682,7 +670,6 @@
         private System.Windows.Forms.ToolStripMenuItem sPFCloneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sPFPushToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem memberSearchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rPGConversionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cLFormattingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateSQLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;

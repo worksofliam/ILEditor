@@ -506,20 +506,6 @@ namespace ILEditor
 
         private void memberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new MemberSearch().ShowDialog();
 
-        private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (LastEditing != null)
-            {
-                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
-                Language Language = GetBoundLangType(SourceInfo.GetExtension());
-                if (Language == Language.RPG)
-                {
-                    SetStatus("Converting RPG in " + SourceInfo.GetName());
-                    LastEditing.DoAction(EditorAction.Convert_Selected_RPG);
-                }
-            }
-        }
-
         private void cLFormattingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)

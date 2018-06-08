@@ -140,7 +140,6 @@
     <Compile Include="Classes\LanguageTools\CLLexer.cs" />
     <Compile Include="Classes\LanguageTools\CLParser.cs" />
     <Compile Include="Classes\LanguageTools\RPGLexer.cs" />
-    <Compile Include="Classes\LanguageTools\RPGFree.cs" />
     <Compile Include="Classes\LanguageTools\RPGParser.cs" />
     <Compile Include="Classes\LanguageTools\Types.cs" />
     <Compile Include="Classes\RemoteSource.cs" />
