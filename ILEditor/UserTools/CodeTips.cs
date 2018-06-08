@@ -12,26 +12,27 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class TaskList : DockContent
+    public partial class CodeTips : DockContent
     {
         private string FileName = "";
-        public TaskList()
+        public CodeTips()
         {
             InitializeComponent();
         }
         
-        public void Display(string Name, TaskItem[] Items)
+        public void Display(string Name, rpglint.Message[] Items)
         {
+
             this.FileName = Name;
             tasks.Items.Clear();
             string Keyword;
 
             if (Items == null) return;
 
-            foreach (TaskItem Item in Items)
+            foreach (rpglint.Message Item in Items)
             {
                 Keyword = Item.Text.Substring(0, 4);
-                tasks.Items.Add(new ListViewItem(new[] { Item.Text, Item.Line.ToString() }, Array.IndexOf(Program.TaskKeywords, Keyword)));
+                tasks.Items.Add(new ListViewItem(new[] { Item.Text, Item.Token.Line.ToString() }, 0));
             }
         }
 

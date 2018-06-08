@@ -20,6 +20,7 @@ namespace ILEditor
         public static Editor TheEditor;
         public static UserTools.SourceEditor LastEditing;
         public static UserTools.TaskList Tasklist;
+        public static UserTools.CodeTips CodeTips;
 
         #region SourceInfo
         public static readonly Dictionary<string, Language> LangTypes = new Dictionary<string, Language>()
@@ -99,9 +100,11 @@ namespace ILEditor
             AddTool(new UserTools.Welcome(), DockState.Document, true);
             
             Tasklist = new UserTools.TaskList();
-            
+            CodeTips = new UserTools.CodeTips();
+
             AddTool(Tasklist, DockState.DockBottomAutoHide, true);
-            
+            AddTool(CodeTips, DockState.DockBottomAutoHide, true);
+
             dockingPanel.ActiveContentChanged += DockingPanel_ActiveContentChanged;
         }
 
@@ -294,6 +297,7 @@ namespace ILEditor
             {
                 LastEditing = PreviousEditor;
                 LastEditing.DoAction(EditorAction.TasksUpdate);
+                LastEditing.DoAction(EditorAction.HintsUpdate);
             }
         }
 
