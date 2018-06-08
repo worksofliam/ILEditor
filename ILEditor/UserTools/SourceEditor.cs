@@ -36,9 +36,7 @@ namespace ILEditor.UserTools
         Undo,
         Redo,
         Dupe_Line,
-        OutlineUpdate,
         ParseCode,
-        ShowContentAssist,
         TasksUpdate
     }
 
@@ -65,8 +63,6 @@ namespace ILEditor.UserTools
         private bool ReadOnly;
 
         private TaskItem[] Tasks;
-        private Function[] Functions;
-        private CompletionWindow completionWindow;
 
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
@@ -90,8 +86,7 @@ namespace ILEditor.UserTools
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
-
-            textEditor.TextArea.TextEntering += TextArea_TextEntering;
+            
             textEditor.TextChanged += TextEditor_TextChanged;
             textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
             textEditor.GotFocus += TextEditor_GotFocus;
@@ -157,7 +152,6 @@ namespace ILEditor.UserTools
             this.Controls.Add(host);
 
             DoAction(EditorAction.ParseCode);
-            DoAction(EditorAction.OutlineUpdate);
         }
 
         private void SourceEditor_Load(object sender, EventArgs e)
@@ -186,22 +180,6 @@ namespace ILEditor.UserTools
         {
             if (!this.Text.EndsWith("*"))
                 this.Text += "*";
-        }
-        
-        private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)
-        {
-            if (completionWindow != null)
-            {
-                if (e.Text.Length > 0)
-                {
-                    if (!char.IsLetterOrDigit(e.Text[0]))
-                    {
-                        // Whenever a non-letter is typed while the completion window is open,
-                        // insert the currently selected element.
-                        completionWindow.CompletionList.RequestInsertion(e);
-                    }
-                }
-            }
         }
 
         private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
@@ -250,12 +228,6 @@ namespace ILEditor.UserTools
                 case EditorAction.ParseCode:
                     Parse();
                     break;
-                case EditorAction.OutlineUpdate:
-                    OutlineUpdate();
-                    break;
-                case EditorAction.ShowContentAssist:
-                    ShowContentAssist();
-                    break;
                 case EditorAction.TasksUpdate:
                     TaskListUpdate();
                     break;
@@ -273,26 +245,6 @@ namespace ILEditor.UserTools
                 code = GetText();
             });
             
-            if (IBMi.CurrentSystem.GetValue("OUTLINE_VIEW_ENABLED") == "true")
-            {
-                try
-                {
-                    switch (this.Language)
-                    {
-                        case Language.RPG:
-                            this.Functions = RPGParser.Parse(code.ToUpper());
-                            break;
-                        case Language.CL:
-                            this.Functions = CLParser.Parse(code.ToUpper());
-                            break;
-                    }
-                }
-                catch
-                {
-                    Editor.TheEditor.SetStatus("Error parsing " + this.Language.ToString() + " for " + this.Text + ".");
-                }
-            }
-            
             foreach (string Line in code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 lineNumber++;
@@ -308,73 +260,12 @@ namespace ILEditor.UserTools
             this.Tasks = Items.ToArray();
         }
 
-        private void OutlineUpdate()
-        {
-            this.Invoke((MethodInvoker)delegate
-            {
-                Editor.OutlineView.Display(this.Text, this.Functions);
-            });
-        }
-
         private void TaskListUpdate()
         {
             this.Invoke((MethodInvoker)delegate
             {
                 Editor.Tasklist.Display(this.Text, this.Tasks);
             });
-        }
-
-        private void ShowContentAssist()
-        {
-            if (Functions == null) return;
-
-            completionWindow = new CompletionWindow(textEditor.TextArea);
-            IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-            string content;
-
-            foreach (Function func in Functions)
-            {
-                content = "";
-                foreach (Variable var in func.GetVariables())
-                {
-                    if (var == null) continue;
-                    switch (var.GetStorageType())
-                    {
-                        case StorageType.Interface:
-                            if (var.GetMembers() != null)
-                            {
-                                if (var.GetMembers().Length > 0)
-                                {
-                                    content = "\nParameters";
-                                    foreach (Variable param in var.GetMembers())
-                                        content += "\n\t- " + param.GetName() + " " + param.GetType();
-                                }
-                            }
-                            break;
-
-                        case StorageType.Prototype:
-                            if (var.GetMembers() != null)
-                            {
-                                if (var.GetMembers().Length > 0)
-                                {
-                                    content = "\nParameters";
-                                    foreach (Variable param in var.GetMembers())
-                                        content += "\n\t- " + param.GetName() + " " + param.GetType();
-                                    data.Add(new AutoCompleteData(var.GetName(), "Returns " + var.GetType() + content));
-                                }
-                            }
-                            break;
-                    }
-                }
-
-                if (func.GetName() != "Globals")
-                    data.Add(new AutoCompleteData(func.GetName(), "Returns " + func.GetReturnType() + content));
-            }
-
-            completionWindow.Show();
-            completionWindow.Closed += delegate {
-                completionWindow = null;
-            };
         }
 
         private void DuplicateLine()
@@ -532,7 +423,6 @@ namespace ILEditor.UserTools
             }
 
             DoAction(EditorAction.ParseCode);
-            DoAction(EditorAction.OutlineUpdate);
             DoAction(EditorAction.TasksUpdate);
         }
 

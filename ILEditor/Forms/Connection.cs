@@ -54,7 +54,6 @@ namespace ILEditor.Forms
             indent_size.Value = decimal.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             show_spaces.SelectedItem = IBMi.CurrentSystem.GetValue("SHOW_SPACES");
             highlight_line.SelectedItem = IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE");
-            outlineEnabled.Checked = (IBMi.CurrentSystem.GetValue("OUTLINE_VIEW_ENABLED") == "true");
 
             prntLib.Text = IBMi.CurrentSystem.GetValue("printerLib");
             prntObj.Text = IBMi.CurrentSystem.GetValue("printerObj");
@@ -87,7 +86,6 @@ namespace ILEditor.Forms
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
             IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.SelectedItem.ToString());
-            IBMi.CurrentSystem.SetValue("OUTLINE_VIEW_ENABLED", outlineEnabled.Checked.ToString().ToLower());
 
             IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
             IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);

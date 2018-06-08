@@ -19,7 +19,6 @@ namespace ILEditor
         public static bool DarkMode = false;
         public static Editor TheEditor;
         public static UserTools.SourceEditor LastEditing;
-        public static UserTools.OutlineView OutlineView;
         public static UserTools.TaskList Tasklist;
 
         #region SourceInfo
@@ -98,11 +97,9 @@ namespace ILEditor
                 AddTool(new UserTools.UserToolList(), DockState.DockLeft, true);
 
             AddTool(new UserTools.Welcome(), DockState.Document, true);
-
-            OutlineView = new UserTools.OutlineView();
+            
             Tasklist = new UserTools.TaskList();
-
-            AddTool(OutlineView, DockState.DockRightAutoHide, true);
+            
             AddTool(Tasklist, DockState.DockBottomAutoHide, true);
             
             dockingPanel.ActiveContentChanged += DockingPanel_ActiveContentChanged;
@@ -549,12 +546,6 @@ namespace ILEditor
         {
             if (LastEditing != null)
                 LastEditing.DoAction(EditorAction.Dupe_Line);
-        }
-
-        private void contentAssistToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (LastEditing != null)
-                LastEditing.DoAction(EditorAction.ShowContentAssist);
         }
         #endregion
 

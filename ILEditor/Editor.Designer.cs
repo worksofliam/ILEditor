@@ -61,7 +61,6 @@
             this.quickCommentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceDiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contentAssistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.compileOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -278,8 +277,7 @@
             this.languageToolsToolStripMenuItem,
             this.quickCommentToolStripMenuItem,
             this.duplicateLineToolStripMenuItem,
-            this.sourceDiffToolStripMenuItem,
-            this.contentAssistToolStripMenuItem});
+            this.sourceDiffToolStripMenuItem});
             this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
             this.sourceToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.sourceToolStripMenuItem.Text = "Source";
@@ -364,15 +362,6 @@
             this.sourceDiffToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.sourceDiffToolStripMenuItem.Text = "Source Diff";
             this.sourceDiffToolStripMenuItem.Click += new System.EventHandler(this.sourceDiffToolStripMenuItem_Click);
-            // 
-            // contentAssistToolStripMenuItem
-            // 
-            this.contentAssistToolStripMenuItem.Name = "contentAssistToolStripMenuItem";
-            this.contentAssistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Space)));
-            this.contentAssistToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.contentAssistToolStripMenuItem.Text = "Content-Assist";
-            this.contentAssistToolStripMenuItem.Visible = false;
-            this.contentAssistToolStripMenuItem.Click += new System.EventHandler(this.contentAssistToolStripMenuItem_Click);
             // 
             // compileToolStripMenuItem
             // 
@@ -685,7 +674,6 @@
         private System.Windows.Forms.ToolStripButton compileButton;
         private System.Windows.Forms.ToolStripButton commentButton;
         private System.Windows.Forms.ToolStripMenuItem sourceDiffToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contentAssistToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton newMember;
         private System.Windows.Forms.ToolStripButton liblButton;
         private System.Windows.Forms.ToolStripButton acsButton;

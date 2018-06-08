@@ -68,8 +68,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.outlineEnabled = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -484,8 +482,6 @@
             // 
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.fetchJobLog);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.outlineEnabled);
             this.tabPage2.Controls.Add(this.selectedFont);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.cur_size);
@@ -522,25 +518,6 @@
             this.fetchJobLog.TabIndex = 15;
             this.fetchJobLog.Text = "Fetch Job Log";
             this.fetchJobLog.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 138);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(108, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Outline View Enabled";
-            // 
-            // outlineEnabled
-            // 
-            this.outlineEnabled.AutoSize = true;
-            this.outlineEnabled.Location = new System.Drawing.Point(220, 137);
-            this.outlineEnabled.Name = "outlineEnabled";
-            this.outlineEnabled.Size = new System.Drawing.Size(65, 17);
-            this.outlineEnabled.TabIndex = 10;
-            this.outlineEnabled.Text = "Enabled";
-            this.outlineEnabled.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -734,8 +711,6 @@
         private System.Windows.Forms.TextBox homeDir;
         private System.Windows.Forms.TextBox buildLib;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox outlineEnabled;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox fetchJobLog;
         private System.Windows.Forms.Label label18;
