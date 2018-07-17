@@ -26,8 +26,6 @@ namespace ILEditor.UserTools
             tasks.Items.Clear();
             string Keyword;
 
-            if (Items == null) return;
-
             foreach (TaskItem Item in Items)
             {
                 Keyword = Item.Text.Substring(0, 4);

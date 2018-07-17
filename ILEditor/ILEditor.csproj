@@ -99,9 +99,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="rpglint">
-      <HintPath>Resources\rpglint.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -396,12 +393,6 @@
     <Compile Include="UserTools\QSYSBrowser.Designer.cs">
       <DependentUpon>QSYSBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\CodeTips.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserTools\CodeTips.Designer.cs">
-      <DependentUpon>CodeTips.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserTools\TaskList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -544,9 +535,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\QSYSBrowser.resx">
       <DependentUpon>QSYSBrowser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\CodeTips.resx">
-      <DependentUpon>CodeTips.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\TaskList.resx">
       <DependentUpon>TaskList.cs</DependentUpon>

@@ -16,8 +16,11 @@ using System.Windows.Media;
 using ILEditor.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using ICSharpCode.AvalonEdit.Search;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Collections.Generic;
-using rpglint; 
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace ILEditor.UserTools
 {
@@ -34,8 +37,7 @@ namespace ILEditor.UserTools
         Redo,
         Dupe_Line,
         ParseCode,
-        TasksUpdate,
-        HintsUpdate
+        TasksUpdate
     }
 
     public enum Language
@@ -61,7 +63,6 @@ namespace ILEditor.UserTools
         private bool ReadOnly;
 
         private TaskItem[] Tasks;
-        private rpglint.Message[] Hints;
 
         public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
@@ -230,9 +231,6 @@ namespace ILEditor.UserTools
                 case EditorAction.TasksUpdate:
                     TaskListUpdate();
                     break;
-                case EditorAction.HintsUpdate:
-                    CodeTipsUpdate();
-                    break;
             }
         }
 
@@ -246,10 +244,8 @@ namespace ILEditor.UserTools
             {
                 code = GetText();
             });
-
-            string[] Lines = code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-
-            foreach (string Line in Lines)
+            
+            foreach (string Line in code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 lineNumber++;
 
@@ -260,24 +256,8 @@ namespace ILEditor.UserTools
                         Items.Add(new TaskItem() { Line = lineNumber, Text = Line.Substring(CharIndex+2) });
                 }
             }
-            this.Tasks = Items.ToArray();
 
-            try
-            {
-                switch (this.Language)
-                {
-                    case Language.RPG:
-                        rpglint.Linter rpglinter = new Linter();
-                        rpglinter.ParseContent(Lines);
-                        this.Hints = rpglinter.GetMessages();
-                        break;
-                }
-            }
-            catch (Exception e)
-            {
-                Editor.TheEditor.SetStatus("Unable to lint code.");
-                this.Hints = null;
-            }
+            this.Tasks = Items.ToArray();
         }
 
         private void TaskListUpdate()
@@ -285,14 +265,6 @@ namespace ILEditor.UserTools
             this.Invoke((MethodInvoker)delegate
             {
                 Editor.Tasklist.Display(this.Text, this.Tasks);
-            });
-        }
-
-        private void CodeTipsUpdate()
-        {
-            this.Invoke((MethodInvoker)delegate
-            {
-                Editor.CodeTips.Display(this.Text, this.Hints);
             });
         }
 
@@ -452,7 +424,6 @@ namespace ILEditor.UserTools
 
             DoAction(EditorAction.ParseCode);
             DoAction(EditorAction.TasksUpdate);
-            DoAction(EditorAction.HintsUpdate);
         }
 
         private void CommentOutSelected()
