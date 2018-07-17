@@ -75,7 +75,13 @@ namespace ILEditor.Classes
                 return FtpDataConnectionType.AutoActive;
         }
 
-        public static bool IsConnected() => Client.IsConnected;
+        public static bool IsConnected()
+        {
+            if (Client != null)
+                return Client.IsConnected;
+            else
+                return false;
+        }
         public static string FTPFile = "";
         public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
         {
@@ -167,8 +173,11 @@ namespace ILEditor.Classes
 
         public static string GetSystem()
         {
-            if (Client.IsConnected)
-                return Client.SystemType;
+            if (Client != null)
+                if (Client.IsConnected)
+                    return Client.SystemType;
+                else
+                    return "";
             else
                 return "";
         }
