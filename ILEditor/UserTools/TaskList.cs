@@ -50,7 +50,7 @@ namespace ILEditor.UserTools
             }
         }
 
-        private void tasks_SelectedIndexChanged(object sender, EventArgs e)
+        private void tasks_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             if (tasks.SelectedItems.Count > 0)
             {

@@ -19,7 +19,6 @@ namespace ILEditor
         public static bool DarkMode = false;
         public static Editor TheEditor;
         public static UserTools.SourceEditor LastEditing;
-        public static UserTools.OutlineView OutlineView;
         public static UserTools.TaskList Tasklist;
 
         #region SourceInfo
@@ -99,11 +98,9 @@ namespace ILEditor
                 AddTool(new UserTools.UserToolList(), DockState.DockLeft, true);
 
             AddTool(new UserTools.Welcome(), DockState.Document, true);
-
-            OutlineView = new UserTools.OutlineView();
+            
             Tasklist = new UserTools.TaskList();
-
-            AddTool(OutlineView, DockState.DockRightAutoHide, true);
+            
             AddTool(Tasklist, DockState.DockBottomAutoHide, true);
             
             dockingPanel.ActiveContentChanged += DockingPanel_ActiveContentChanged;
@@ -189,6 +186,16 @@ namespace ILEditor
                     sourcePanel.Tag = Source;
                     sourcePanel.Text = text;
 
+                    switch (Source.GetFS())
+                    {
+                        case FileSystem.QSYS:
+                            sourcePanel.ToolTipText = Source.GetLibrary() + "/" + Source.GetObject() + ":" + Source.GetName() + "." + Source.GetExtension().ToLower();
+                            break;
+                        case FileSystem.IFS:
+                            sourcePanel.ToolTipText = Source.GetRemoteFile();
+                            break;
+                    }
+
                     TheEditor.Invoke((MethodInvoker)delegate
                     {
                         TheEditor.AddTool(sourcePanel, DockState.Document, false);
@@ -216,6 +223,7 @@ namespace ILEditor
 
                 sourcePanel.Tag = Source;
                 sourcePanel.Text = text;
+                sourcePanel.ToolTipText = Source.GetLocalFile();
 
                 Source.Lock();
                 TheEditor.AddTool(sourcePanel, DockState.Document);
@@ -239,6 +247,8 @@ namespace ILEditor
                 else
                     sourcePanel.Text = text;
                 
+                sourcePanel.ToolTipText = FilePath;
+
                 TheEditor.AddTool(sourcePanel, DockState.Document);
             }
             else
@@ -436,11 +446,14 @@ namespace ILEditor
             if (LastEditing != null)
             {
                 RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
-                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + SourceInfo.GetExtension().ToUpper()).Split('|');
-                foreach (string Item in Items)
+                if (SourceInfo != null)
                 {
-                    if (Item.Trim() == "") continue;
-                    Compiles.Add(new ToolStripMenuItem(Item, null, compileAnyHandle));
+                    string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + SourceInfo.GetExtension().ToUpper()).Split('|');
+                    foreach (string Item in Items)
+                    {
+                        if (Item.Trim() == "") continue;
+                        Compiles.Add(new ToolStripMenuItem(Item, null, compileAnyHandle));
+                    }
                 }
             }
 
@@ -508,20 +521,6 @@ namespace ILEditor
 
         private void memberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new MemberSearch().ShowDialog();
 
-        private void rPGConversionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (LastEditing != null)
-            {
-                RemoteSource SourceInfo = (RemoteSource)LastEditing.Tag;
-                Language Language = GetBoundLangType(SourceInfo.GetExtension());
-                if (Language == Language.RPG)
-                {
-                    SetStatus("Converting RPG in " + SourceInfo.GetName());
-                    LastEditing.DoAction(EditorAction.Convert_Selected_RPG);
-                }
-            }
-        }
-
         private void cLFormattingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (LastEditing != null)
@@ -565,12 +564,6 @@ namespace ILEditor
         {
             if (LastEditing != null)
                 LastEditing.DoAction(EditorAction.Dupe_Line);
-        }
-
-        private void contentAssistToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (LastEditing != null)
-                LastEditing.DoAction(EditorAction.ShowContentAssist);
         }
         #endregion
 

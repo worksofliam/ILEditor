@@ -148,6 +148,7 @@
       <Word>ENDDO</Word>
       <Word>ENDIF</Word>
       <Word>ENDSR</Word>
+      <Word>ENDFOR</Word>
       <Word>ENDSL</Word>
       <Word>ENDMON</Word>
       <Word>EVAL</Word>

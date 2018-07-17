@@ -24,13 +24,13 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://worksofbarry.com/ileditor/installer/</InstallUrl>
-    <UpdateUrl>http://worksofbarry.com/ileditor/installer/</UpdateUrl>
+    <UpdateUrl>https://worksofbarry.com/ileditor/installer/</UpdateUrl>
     <TargetCulture>en-GB</TargetCulture>
     <ProductName>ILEditor</ProductName>
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationRevision>58</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -139,12 +139,6 @@
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
-    <Compile Include="Classes\LanguageTools\CLLexer.cs" />
-    <Compile Include="Classes\LanguageTools\CLParser.cs" />
-    <Compile Include="Classes\LanguageTools\RPGLexer.cs" />
-    <Compile Include="Classes\LanguageTools\RPGFree.cs" />
-    <Compile Include="Classes\LanguageTools\RPGParser.cs" />
-    <Compile Include="Classes\LanguageTools\Types.cs" />
     <Compile Include="Classes\RemoteSource.cs" />
     <Compile Include="Classes\ILEObject.cs" />
     <Compile Include="Classes\MemberCache.cs" />
@@ -389,12 +383,6 @@
     <Compile Include="UserTools\ObjectBrowse.Designer.cs">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\OutlineView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserTools\OutlineView.Designer.cs">
-      <DependentUpon>OutlineView.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -558,9 +546,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ObjectBrowse.resx">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\OutlineView.resx">
-      <DependentUpon>OutlineView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\SourceEditor.resx">
       <DependentUpon>SourceEditor.cs</DependentUpon>

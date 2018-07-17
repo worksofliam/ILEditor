@@ -93,5 +93,27 @@ namespace ILEditor.Forms
                 }
             }
         }
+
+        private void systemlist_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                if (systemlist.FocusedItem.Bounds.Contains(e.Location))
+                    hostRightClick.Show(Cursor.Position);
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (systemlist.FocusedItem != null)
+            {
+                string ConfigPath = "";
+                ConfigPath = Program.SYSTEMSDIR + @"\" + systemlist.FocusedItem.Text;
+                IBMi.CurrentSystem = new Config(ConfigPath);
+                IBMi.CurrentSystem.DoSystemDefaults();
+
+                new Connection().ShowDialog();
+
+                IBMi.CurrentSystem = null;
+            }
+        }
     }
 }

@@ -68,8 +68,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.outlineEnabled = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -105,7 +103,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 117);
+            this.label3.Location = new System.Drawing.Point(7, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 12;
@@ -114,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 91);
+            this.label2.Location = new System.Drawing.Point(7, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 11;
@@ -122,7 +120,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(218, 114);
+            this.pass.Location = new System.Drawing.Point(218, 62);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -131,7 +129,7 @@
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(218, 88);
+            this.user.Location = new System.Drawing.Point(218, 36);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -140,7 +138,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 65);
+            this.label1.Location = new System.Drawing.Point(7, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 8;
@@ -148,7 +146,7 @@
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(218, 62);
+            this.host.Location = new System.Drawing.Point(218, 10);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
             this.host.TabIndex = 7;
@@ -334,7 +332,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 144);
+            this.label18.Location = new System.Drawing.Point(8, 92);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(303, 13);
             this.label18.TabIndex = 16;
@@ -343,7 +341,7 @@
             // systemInfo
             // 
             this.systemInfo.AutoSize = true;
-            this.systemInfo.Location = new System.Drawing.Point(8, 13);
+            this.systemInfo.Location = new System.Drawing.Point(8, 116);
             this.systemInfo.Name = "systemInfo";
             this.systemInfo.Size = new System.Drawing.Size(57, 13);
             this.systemInfo.TabIndex = 15;
@@ -484,8 +482,6 @@
             // 
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.fetchJobLog);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.outlineEnabled);
             this.tabPage2.Controls.Add(this.selectedFont);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.cur_size);
@@ -522,25 +518,6 @@
             this.fetchJobLog.TabIndex = 15;
             this.fetchJobLog.Text = "Fetch Job Log";
             this.fetchJobLog.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 138);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(108, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Outline View Enabled";
-            // 
-            // outlineEnabled
-            // 
-            this.outlineEnabled.AutoSize = true;
-            this.outlineEnabled.Location = new System.Drawing.Point(220, 137);
-            this.outlineEnabled.Name = "outlineEnabled";
-            this.outlineEnabled.Size = new System.Drawing.Size(65, 17);
-            this.outlineEnabled.TabIndex = 10;
-            this.outlineEnabled.Text = "Enabled";
-            this.outlineEnabled.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -734,8 +711,6 @@
         private System.Windows.Forms.TextBox homeDir;
         private System.Windows.Forms.TextBox buildLib;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox outlineEnabled;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox fetchJobLog;
         private System.Windows.Forms.Label label18;
