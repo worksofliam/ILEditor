@@ -24,13 +24,13 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://worksofbarry.com/ileditor/installer/</InstallUrl>
-    <UpdateUrl>http://worksofbarry.com/ileditor/installer/</UpdateUrl>
+    <UpdateUrl>https://worksofbarry.com/ileditor/installer/</UpdateUrl>
     <TargetCulture>en-GB</TargetCulture>
     <ProductName>ILEditor</ProductName>
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>56</ApplicationRevision>
+    <ApplicationRevision>58</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
