@@ -55,7 +55,7 @@
             this.spoolList.Location = new System.Drawing.Point(0, 0);
             this.spoolList.MultiSelect = false;
             this.spoolList.Name = "spoolList";
-            this.spoolList.Size = new System.Drawing.Size(477, 390);
+            this.spoolList.Size = new System.Drawing.Size(461, 351);
             this.spoolList.SmallImageList = this.imageList1;
             this.spoolList.TabIndex = 0;
             this.spoolList.UseCompatibleStateImageBehavior = false;
@@ -96,9 +96,9 @@
             this.toolStripButton1,
             this.toolStripSeparator1,
             this.toolStripLabel1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 365);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 326);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(477, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(461, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -135,10 +135,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(461, 351);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.spoolList);
             this.Name = "SpoolListing";
-            this.Size = new System.Drawing.Size(477, 390);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

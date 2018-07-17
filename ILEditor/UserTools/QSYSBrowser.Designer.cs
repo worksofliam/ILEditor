@@ -45,7 +45,7 @@
             this.objectList.Location = new System.Drawing.Point(0, 0);
             this.objectList.Name = "objectList";
             this.objectList.SelectedImageIndex = 0;
-            this.objectList.Size = new System.Drawing.Size(337, 404);
+            this.objectList.Size = new System.Drawing.Size(321, 365);
             this.objectList.TabIndex = 0;
             this.objectList.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.objectList_BeforeExpand);
             this.objectList.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.objectList_NodeMouseDoubleClick);
@@ -65,10 +65,10 @@
             this.addSpf.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.addSpf.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1});
-            this.addSpf.Location = new System.Drawing.Point(0, 379);
+            this.addSpf.Location = new System.Drawing.Point(0, 340);
             this.addSpf.Name = "addSpf";
             this.addSpf.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.addSpf.Size = new System.Drawing.Size(337, 25);
+            this.addSpf.Size = new System.Drawing.Size(321, 25);
             this.addSpf.TabIndex = 1;
             this.addSpf.Text = "toolStrip1";
             // 
@@ -81,14 +81,14 @@
             this.toolStripButton1.Text = "Add SPF";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // TreeBrowse
+            // QSYSBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(321, 365);
             this.Controls.Add(this.addSpf);
             this.Controls.Add(this.objectList);
-            this.Name = "TreeBrowse";
-            this.Size = new System.Drawing.Size(337, 404);
+            this.Name = "QSYSBrowser";
             this.Load += new System.EventHandler(this.TreeBrowse_Load);
             this.addSpf.ResumeLayout(false);
             this.addSpf.PerformLayout();

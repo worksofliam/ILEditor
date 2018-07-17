@@ -53,10 +53,8 @@ namespace ILEditor.Classes
 
         public void DoEditorDefaults()
         {
-            CheckExist("version", "0");
             CheckExist("acspath", "false");
             CheckExist("darkmode", "false");
-            CheckExist("toolbarSide", "Right");
         }
 
         public void DoSystemDefaults()
