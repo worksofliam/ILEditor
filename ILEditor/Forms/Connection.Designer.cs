@@ -103,7 +103,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 117);
+            this.label3.Location = new System.Drawing.Point(7, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 12;
@@ -112,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 91);
+            this.label2.Location = new System.Drawing.Point(7, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 11;
@@ -120,7 +120,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(218, 114);
+            this.pass.Location = new System.Drawing.Point(218, 62);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -129,7 +129,7 @@
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(218, 88);
+            this.user.Location = new System.Drawing.Point(218, 36);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -138,7 +138,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 65);
+            this.label1.Location = new System.Drawing.Point(7, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 8;
@@ -146,7 +146,7 @@
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(218, 62);
+            this.host.Location = new System.Drawing.Point(218, 10);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
             this.host.TabIndex = 7;
@@ -332,7 +332,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 144);
+            this.label18.Location = new System.Drawing.Point(8, 92);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(303, 13);
             this.label18.TabIndex = 16;
@@ -341,7 +341,7 @@
             // systemInfo
             // 
             this.systemInfo.AutoSize = true;
-            this.systemInfo.Location = new System.Drawing.Point(8, 13);
+            this.systemInfo.Location = new System.Drawing.Point(8, 116);
             this.systemInfo.Name = "systemInfo";
             this.systemInfo.Size = new System.Drawing.Size(57, 13);
             this.systemInfo.TabIndex = 15;
