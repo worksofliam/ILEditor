@@ -185,6 +185,16 @@ namespace ILEditor
                     sourcePanel.Tag = Source;
                     sourcePanel.Text = text;
 
+                    switch (Source.GetFS())
+                    {
+                        case FileSystem.QSYS:
+                            sourcePanel.ToolTipText = Source.GetLibrary() + "/" + Source.GetObject() + ":" + Source.GetName() + "." + Source.GetExtension().ToLower();
+                            break;
+                        case FileSystem.IFS:
+                            sourcePanel.ToolTipText = Source.GetRemoteFile();
+                            break;
+                    }
+
                     TheEditor.Invoke((MethodInvoker)delegate
                     {
                         TheEditor.AddTool(sourcePanel, DockState.Document, false);
@@ -212,6 +222,7 @@ namespace ILEditor
 
                 sourcePanel.Tag = Source;
                 sourcePanel.Text = text;
+                sourcePanel.ToolTipText = Source.GetLocalFile();
 
                 Source.Lock();
                 TheEditor.AddTool(sourcePanel, DockState.Document);
@@ -235,6 +246,8 @@ namespace ILEditor
                 else
                     sourcePanel.Text = text;
                 
+                sourcePanel.ToolTipText = FilePath;
+
                 TheEditor.AddTool(sourcePanel, DockState.Document);
             }
             else
