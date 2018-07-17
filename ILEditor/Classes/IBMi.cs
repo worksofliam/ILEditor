@@ -319,7 +319,7 @@ namespace ILEditor.Classes
 
         public static void DeleteDir(string remoteDir)
         {
-            Client.DeleteDirectory(remoteDir);
+            Client.DeleteDirectory(remoteDir, FtpListOption.AllFiles);
         }
 
         public static void DeleteFile(string remoteFile)
