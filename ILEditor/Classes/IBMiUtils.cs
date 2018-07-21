@@ -163,10 +163,11 @@ namespace ILEditor.Classes
 
                 UsingQTEMPFiles(new[] { FileA, FileB });
 
+                Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
+
                 IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/" + FileA + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT PHFILE, PHLIB FROM QTEMP/" + FileA + " WHERE PHDTAT = ''S'' order by PHFILE) WITH DATA') COMMIT(*NONE)");
 
-                Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
                 string file = DownloadMember("QTEMP", FileB, FileB);
 
                 if (file != "")
