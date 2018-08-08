@@ -82,6 +82,7 @@ namespace ILEditor.Classes
             CheckExist("INDENT_SIZE", "4");
             CheckExist("SHOW_SPACES", "false");
             CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
+            CheckExist("CONV_TABS", "true");
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");
             CheckExist("DFT_RPGLE", "CRTBNDRPG");

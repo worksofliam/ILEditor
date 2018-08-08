@@ -91,7 +91,7 @@ namespace ILEditor.UserTools
             textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
             textEditor.GotFocus += TextEditor_GotFocus;
 
-            textEditor.Options.ConvertTabsToSpaces = true;
+            textEditor.Options.ConvertTabsToSpaces = (IBMi.CurrentSystem.GetValue("CONV_TABS") == "true");
             textEditor.Options.EnableTextDragDrop = false;
             textEditor.Options.IndentationSize = int.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");

@@ -79,6 +79,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.conv_tabs = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -480,6 +482,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.conv_tabs);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.fetchJobLog);
             this.tabPage2.Controls.Add(this.selectedFont);
@@ -503,7 +507,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 161);
+            this.label16.Location = new System.Drawing.Point(8, 168);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(130, 13);
             this.label16.TabIndex = 16;
@@ -512,7 +516,7 @@
             // fetchJobLog
             // 
             this.fetchJobLog.AutoSize = true;
-            this.fetchJobLog.Location = new System.Drawing.Point(220, 160);
+            this.fetchJobLog.Location = new System.Drawing.Point(220, 167);
             this.fetchJobLog.Name = "fetchJobLog";
             this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
             this.fetchJobLog.TabIndex = 15;
@@ -631,6 +635,27 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
+            // conv_tabs
+            // 
+            this.conv_tabs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.conv_tabs.FormattingEnabled = true;
+            this.conv_tabs.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.conv_tabs.Location = new System.Drawing.Point(220, 137);
+            this.conv_tabs.Name = "conv_tabs";
+            this.conv_tabs.Size = new System.Drawing.Size(135, 21);
+            this.conv_tabs.TabIndex = 17;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 140);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(116, 13);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Convert tabs to spaces";
+            // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -714,5 +739,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox fetchJobLog;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox conv_tabs;
     }
 }
