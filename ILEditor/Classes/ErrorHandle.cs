@@ -30,7 +30,7 @@ namespace ILEditor.Classes
             if (filetemp != "")
             {
                 ErrorHandle.doName(lib.ToUpper() + '/' + obj.ToUpper());
-                ErrorHandle.setLines(File.ReadAllLines(filetemp));
+                ErrorHandle.setLines(File.ReadAllLines(filetemp, Program.Encoding));
                 _Success = true;
             }
         }

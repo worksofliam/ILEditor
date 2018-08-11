@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ILEditor.Forms;
 using ILEditor.Classes;
-using System.Deployment.Application;
 using System.Reflection;
-using System.Drawing;
+using System.Text;
 
 namespace ILEditor
 {
     static class Program
     {
         //Directories
+        public static readonly Encoding Encoding = Encoding.GetEncoding("ISO-8859-1");
         public static readonly string APPDIR = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ILEditorData");
         public static readonly string SYSTEMSDIR = Path.Combine(APPDIR, "systems"); //Directory
         public static readonly string SOURCEDIR = Path.Combine(APPDIR, "source"); //Directory

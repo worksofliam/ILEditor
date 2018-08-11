@@ -53,7 +53,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -108,7 +108,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
 
                         if (RealLine.Trim() != "")
@@ -175,7 +175,7 @@ namespace ILEditor.Classes
                     Boolean validName = true;
                     string Line, Library, Object;
                     ILEObject Obj;
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -250,7 +250,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -325,7 +325,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -381,7 +381,7 @@ namespace ILEditor.Classes
                 if (file != "")
                 {
                     string Line, SpoolName, UserData, Job, Status, Number;
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {

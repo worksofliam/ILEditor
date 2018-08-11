@@ -81,7 +81,7 @@ namespace ILEditor.UserTools
             //textEditor.Encoding = Encoding.GetEncoding(1252);
             //textEditor.Encoding = Encoding.GetEncoding(28591);
             //textEditor.Encoding = Encoding.GetEncoding("IBM437");
-            textEditor.Encoding = Encoding.GetEncoding("iso-8859-1");
+            textEditor.Encoding = Program.Encoding;
             textEditor.Text = File.ReadAllText(this.LocalPath, textEditor.Encoding);
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
