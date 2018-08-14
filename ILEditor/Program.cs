@@ -15,6 +15,7 @@ namespace ILEditor
         public static readonly string APPDIR = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ILEditorData");
         public static readonly string SYSTEMSDIR = Path.Combine(APPDIR, "systems"); //Directory
         public static readonly string SOURCEDIR = Path.Combine(APPDIR, "source"); //Directory
+        public static readonly string DUMPSDIR = Path.Combine(APPDIR, "dumps"); //Directory
         public static readonly string CONFIGFILE = Path.Combine(APPDIR, "config"); //Config file
         public static readonly string PanelsXML = Path.Combine(APPDIR, "panels.xml");
 
@@ -42,6 +43,7 @@ namespace ILEditor
 
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
+            Directory.CreateDirectory(DUMPSDIR);
 
             Config = new Config(CONFIGFILE);
             Config.DoEditorDefaults();
@@ -66,7 +68,15 @@ namespace ILEditor
 
                     if (Connected)
                     {
-                        Application.Run(new Editor());
+                        try
+                        {
+                            Application.Run(new Editor());
+                        }
+                        catch (Exception e)
+                        {
+                            File.WriteAllText(Path.Combine(DUMPSDIR, DateTime.Now.ToFileTime() + ".txt"), e.ToString());
+                            MessageBox.Show("There was an error. Crash dump created.");
+                        }
                         IBMi.Disconnect();
                     }
                     else
@@ -74,17 +84,7 @@ namespace ILEditor
                         //Basically, if it failed to connect when they're using FTPES - offer them a FTP connection
                         if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
                         {
-                            DialogResult Result = MessageBox.Show("Would you like to try and connect again using a plain FTP connection? This will change the systems settings.", "Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                            if (Result == DialogResult.Yes)
-                            {
-                                IBMi.CurrentSystem.SetValue("useFTPES", "false");
-                                Connected = IBMi.Connect(false, promptedPassword);
-                                if (Connected)
-                                {
-                                    Application.Run(new Editor());
-                                    IBMi.Disconnect();
-                                }
-                            }
+                            MessageBox.Show("Failed to connect. Perhaps try disabling FTPES and then connecting again.", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
