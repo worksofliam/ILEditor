@@ -172,6 +172,7 @@ namespace ILEditor.UserTools
                 deleteToolStripMenuItem.Enabled = (e.Node.Parent != null);
                 renameToolStripMenuItem.Enabled = (e.Node.Parent != null);
                 makeShortcutToolStripMenuItem.Enabled = (e.Node.Parent != null && e.Node.Nodes.Count > 0);
+                setHomeDirectoryToolStripMenuItem.Enabled = (e.Node.Nodes.Count > 0);
                 rightClickMenu.Show(Cursor.Position);
             }
         }
@@ -227,13 +228,21 @@ namespace ILEditor.UserTools
         
         private void makeShortcutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (RightClickedNode != null)
             {
                 List<string> Dirs = IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|').ToList();
                 Dirs.Add(RightClickedNode.Tag.ToString());
                 IBMi.CurrentSystem.SetValue("IFS_LINKS", String.Join("|", Dirs));
                 Reload();
+            }
+        }
+
+        private void setHomeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (RightClickedNode != null)
+            {
+                IBMi.CurrentSystem.SetValue("homeDir", RightClickedNode.Tag.ToString());
+                Editor.TheEditor.SetStatus("Job home directory set to: " + RightClickedNode.Tag.ToString());
             }
         }
 
