@@ -88,8 +88,9 @@ namespace ILEditor.UserTools
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
             
             textEditor.TextChanged += TextEditor_TextChanged;
-            textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
-            textEditor.GotFocus += TextEditor_GotFocus;
+
+            if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
+                textEditor.TextArea.TextEntered += TextArea_TextEntered;
 
             textEditor.Options.ConvertTabsToSpaces = (IBMi.CurrentSystem.GetValue("CONV_TABS") == "true");
             textEditor.Options.EnableTextDragDrop = false;
@@ -152,6 +153,11 @@ namespace ILEditor.UserTools
             this.Controls.Add(host);
 
             DoAction(EditorAction.ParseCode);
+        }
+
+        private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            FollowingCharacter(e.Text);
         }
 
         private void SourceEditor_Load(object sender, EventArgs e)
@@ -359,6 +365,10 @@ namespace ILEditor.UserTools
             {
                 if (SourceInfo.IsEditable())
                 {
+                    if (Language == Language.CL)
+                        if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
+                            DoAction(EditorAction.Format_CL);
+
                     if (!CurrentSaving)
                     {
                         CurrentSaving = true;
@@ -493,7 +503,7 @@ namespace ILEditor.UserTools
             return index;
         }
 
-        #region CL
+        #region TextEditors
 
         private void FormatCL()
         {
@@ -505,6 +515,49 @@ namespace ILEditor.UserTools
             int length = (RcdLen > 0 ? RcdLen : 80);
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }
+
+        private void FollowingCharacter(string Char)
+        {
+            string NextChar = "";
+            if (textEditor.CaretOffset < textEditor.Document.TextLength)
+                NextChar = textEditor.Document.Text.Substring(textEditor.CaretOffset, 1);
+
+            switch (Char)
+            {
+                case "'":
+                    if (NextChar != "'")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, "'");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+
+                case "\"":
+                    if (NextChar != "\"")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, "\"");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+
+                case "(":
+                    if (NextChar != ")")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, ")");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+                
+                case "{":
+                    if (NextChar != "}")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, "}");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+            }
+        }
+
         #endregion
 
     }

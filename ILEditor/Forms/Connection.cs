@@ -52,9 +52,11 @@ namespace ILEditor.Forms
             selectedFont.SelectedItem = IBMi.CurrentSystem.GetValue("FONT");
             cur_size.Text = IBMi.CurrentSystem.GetValue("ZOOM");
             indent_size.Value = decimal.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
-            show_spaces.SelectedItem = IBMi.CurrentSystem.GetValue("SHOW_SPACES");
-            highlight_line.SelectedItem = IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE");
-            conv_tabs.SelectedItem = IBMi.CurrentSystem.GetValue("CONV_TABS");
+            show_spaces.Checked = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
+            highlight_line.Checked = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
+            conv_tabs.Checked = (IBMi.CurrentSystem.GetValue("CONV_TABS") == "true");
+            format_cl.Checked = (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true");
+            character_assist.Checked = (IBMi.CurrentSystem.GetValue("CHARACTER_ASSIST") == "true");
 
             prntLib.Text = IBMi.CurrentSystem.GetValue("printerLib");
             prntObj.Text = IBMi.CurrentSystem.GetValue("printerObj");
@@ -85,9 +87,11 @@ namespace ILEditor.Forms
 
             IBMi.CurrentSystem.SetValue("FONT", selectedFont.SelectedItem.ToString());
             IBMi.CurrentSystem.SetValue("INDENT_SIZE", indent_size.Value.ToString());
-            IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.SelectedItem.ToString());
-            IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.SelectedItem.ToString());
-            IBMi.CurrentSystem.SetValue("CONV_TABS", conv_tabs.SelectedItem.ToString());
+            IBMi.CurrentSystem.SetValue("SHOW_SPACES", show_spaces.Checked.ToString().ToLower());
+            IBMi.CurrentSystem.SetValue("HIGHLIGHT_CURRENT_LINE", highlight_line.Checked.ToString().ToLower());
+            IBMi.CurrentSystem.SetValue("CONV_TABS", conv_tabs.Checked.ToString().ToLower());
+            IBMi.CurrentSystem.SetValue("CL_FORMAT_ON_SAVE", format_cl.Checked.ToString().ToLower());
+            IBMi.CurrentSystem.SetValue("CHARACTER_ASSIST", character_assist.Checked.ToString().ToLower());
 
             IBMi.CurrentSystem.SetValue("printerLib", prntLib.Text);
             IBMi.CurrentSystem.SetValue("printerObj", prntObj.Text);
