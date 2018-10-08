@@ -42,8 +42,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.highlight_line = new System.Windows.Forms.ComboBox();
-            this.show_spaces = new System.Windows.Forms.ComboBox();
             this.indent_size = new System.Windows.Forms.NumericUpDown();
             this.cur_size = new System.Windows.Forms.TextBox();
             this.findACS = new System.Windows.Forms.Button();
@@ -51,9 +49,24 @@
             this.validACS = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.systemInfo = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.ftpes = new System.Windows.Forms.CheckBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.infoBox = new System.Windows.Forms.RichTextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.dataConnectionType = new System.Windows.Forms.ComboBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
+            this.homeDir = new System.Windows.Forms.TextBox();
+            this.buildLib = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -63,15 +76,20 @@
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.toolbarSide = new System.Windows.Forms.ComboBox();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.ftpes = new System.Windows.Forms.CheckBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label22 = new System.Windows.Forms.Label();
+            this.conv_tabs = new System.Windows.Forms.CheckBox();
+            this.highlight_line = new System.Windows.Forms.CheckBox();
+            this.show_spaces = new System.Windows.Forms.CheckBox();
+            this.format_cl = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.character_assist = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -80,7 +98,7 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(282, 243);
+            this.save.Location = new System.Drawing.Point(282, 272);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 13;
@@ -91,7 +109,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 61);
+            this.label3.Location = new System.Drawing.Point(7, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 12;
@@ -100,7 +118,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 35);
+            this.label2.Location = new System.Drawing.Point(7, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 11;
@@ -108,7 +126,7 @@
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(218, 58);
+            this.pass.Location = new System.Drawing.Point(218, 62);
             this.pass.MaxLength = 100;
             this.pass.Name = "pass";
             this.pass.PasswordChar = '*';
@@ -117,7 +135,7 @@
             // 
             // user
             // 
-            this.user.Location = new System.Drawing.Point(218, 32);
+            this.user.Location = new System.Drawing.Point(218, 36);
             this.user.MaxLength = 10;
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(135, 20);
@@ -126,7 +144,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 9);
+            this.label1.Location = new System.Drawing.Point(7, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 8;
@@ -134,7 +152,7 @@
             // 
             // host
             // 
-            this.host.Location = new System.Drawing.Point(218, 6);
+            this.host.Location = new System.Drawing.Point(218, 10);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(135, 20);
             this.host.TabIndex = 7;
@@ -165,7 +183,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 113);
+            this.label7.Location = new System.Drawing.Point(7, 108);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 13);
             this.label7.TabIndex = 7;
@@ -197,30 +215,6 @@
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Current Zoom";
-            // 
-            // highlight_line
-            // 
-            this.highlight_line.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.highlight_line.FormattingEnabled = true;
-            this.highlight_line.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.highlight_line.Location = new System.Drawing.Point(220, 110);
-            this.highlight_line.Name = "highlight_line";
-            this.highlight_line.Size = new System.Drawing.Size(135, 21);
-            this.highlight_line.TabIndex = 3;
-            // 
-            // show_spaces
-            // 
-            this.show_spaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.show_spaces.FormattingEnabled = true;
-            this.show_spaces.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.show_spaces.Location = new System.Drawing.Point(220, 83);
-            this.show_spaces.Name = "show_spaces";
-            this.show_spaces.Size = new System.Drawing.Size(135, 21);
-            this.show_spaces.TabIndex = 2;
             // 
             // indent_size
             // 
@@ -268,9 +262,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(8, 11);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(60, 13);
+            this.label8.Size = new System.Drawing.Size(83, 13);
             this.label8.TabIndex = 1;
-            this.label8.Text = "Executable";
+            this.label8.Text = "ACS executable";
             // 
             // validACS
             // 
@@ -286,6 +280,8 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -293,16 +289,14 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(369, 237);
+            this.tabControl1.Size = new System.Drawing.Size(369, 266);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 17;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.linkLabel1);
-            this.tabPage1.Controls.Add(this.ftpes);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.fetchJobLog);
+            this.tabPage1.Controls.Add(this.label18);
+            this.tabPage1.Controls.Add(this.systemInfo);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.pass);
             this.tabPage1.Controls.Add(this.label2);
@@ -317,44 +311,210 @@
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label16
+            // label18
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 123);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(130, 13);
-            this.label16.TabIndex = 14;
-            this.label16.Text = "Show Job Log on Compile";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 92);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(303, 13);
+            this.label18.TabIndex = 16;
+            this.label18.Text = "Leave password blank to be prompted for it before connecting.";
             // 
-            // fetchJobLog
+            // systemInfo
             // 
-            this.fetchJobLog.AutoSize = true;
-            this.fetchJobLog.Location = new System.Drawing.Point(259, 122);
-            this.fetchJobLog.Name = "fetchJobLog";
-            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
-            this.fetchJobLog.TabIndex = 13;
-            this.fetchJobLog.Text = "Fetch Job Log";
-            this.fetchJobLog.UseVisualStyleBackColor = true;
+            this.systemInfo.AutoSize = true;
+            this.systemInfo.Location = new System.Drawing.Point(8, 116);
+            this.systemInfo.Name = "systemInfo";
+            this.systemInfo.Size = new System.Drawing.Size(57, 13);
+            this.systemInfo.TabIndex = 15;
+            this.systemInfo.Text = "systemInfo";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.linkLabel1);
+            this.tabPage6.Controls.Add(this.ftpes);
+            this.tabPage6.Controls.Add(this.label20);
+            this.tabPage6.Controls.Add(this.infoBox);
+            this.tabPage6.Controls.Add(this.label19);
+            this.tabPage6.Controls.Add(this.dataConnectionType);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(361, 211);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "FTP";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(8, 19);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(114, 13);
+            this.linkLabel1.TabIndex = 18;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Use FTP SSL (Explicit)";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // ftpes
+            // 
+            this.ftpes.AutoSize = true;
+            this.ftpes.Location = new System.Drawing.Point(293, 18);
+            this.ftpes.Name = "ftpes";
+            this.ftpes.Size = new System.Drawing.Size(60, 17);
+            this.ftpes.TabIndex = 17;
+            this.ftpes.Text = "FTPES";
+            this.ftpes.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 189);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(216, 13);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Changing these settings will require a restart.";
+            // 
+            // infoBox
+            // 
+            this.infoBox.Location = new System.Drawing.Point(8, 68);
+            this.infoBox.MaxLength = 1000;
+            this.infoBox.Name = "infoBox";
+            this.infoBox.ReadOnly = true;
+            this.infoBox.Size = new System.Drawing.Size(347, 118);
+            this.infoBox.TabIndex = 2;
+            this.infoBox.Text = "";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(8, 45);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(114, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Data Connection Type";
+            // 
+            // dataConnectionType
+            // 
+            this.dataConnectionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dataConnectionType.FormattingEnabled = true;
+            this.dataConnectionType.Items.AddRange(new object[] {
+            "AutoPassive",
+            "AutoActive",
+            "EPRT",
+            "EPSV",
+            "PASV",
+            "PASVEX",
+            "PORT"});
+            this.dataConnectionType.Location = new System.Drawing.Point(232, 41);
+            this.dataConnectionType.Name = "dataConnectionType";
+            this.dataConnectionType.Size = new System.Drawing.Size(121, 21);
+            this.dataConnectionType.TabIndex = 0;
+            this.dataConnectionType.SelectedIndexChanged += new System.EventHandler(this.infoBox_SelectionChanged);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.label21);
+            this.tabPage5.Controls.Add(this.homeDir);
+            this.tabPage5.Controls.Add(this.buildLib);
+            this.tabPage5.Controls.Add(this.label17);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(361, 240);
+            this.tabPage5.TabIndex = 6;
+            this.tabPage5.Text = "IFS";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(12, 17);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(80, 13);
+            this.label21.TabIndex = 21;
+            this.label21.Text = "Home Directory";
+            // 
+            // homeDir
+            // 
+            this.homeDir.Location = new System.Drawing.Point(125, 14);
+            this.homeDir.MaxLength = 256;
+            this.homeDir.Name = "homeDir";
+            this.homeDir.Size = new System.Drawing.Size(228, 20);
+            this.homeDir.TabIndex = 20;
+            // 
+            // buildLib
+            // 
+            this.buildLib.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.buildLib.Location = new System.Drawing.Point(253, 40);
+            this.buildLib.MaxLength = 10;
+            this.buildLib.Name = "buildLib";
+            this.buildLib.Size = new System.Drawing.Size(100, 20);
+            this.buildLib.TabIndex = 19;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 43);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(64, 13);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "Build Library";
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.character_assist);
+            this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.format_cl);
+            this.tabPage2.Controls.Add(this.show_spaces);
+            this.tabPage2.Controls.Add(this.highlight_line);
+            this.tabPage2.Controls.Add(this.conv_tabs);
+            this.tabPage2.Controls.Add(this.label22);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.fetchJobLog);
             this.tabPage2.Controls.Add(this.selectedFont);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.cur_size);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.indent_size);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.show_spaces);
             this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.highlight_line);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(361, 211);
+            this.tabPage2.Size = new System.Drawing.Size(361, 240);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Editor";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 130);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(116, 13);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Convert tabs to spaces";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 151);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(130, 13);
+            this.label16.TabIndex = 16;
+            this.label16.Text = "Show Job Log on Compile";
+            // 
+            // fetchJobLog
+            // 
+            this.fetchJobLog.AutoSize = true;
+            this.fetchJobLog.Location = new System.Drawing.Point(220, 150);
+            this.fetchJobLog.Name = "fetchJobLog";
+            this.fetchJobLog.Size = new System.Drawing.Size(94, 17);
+            this.fetchJobLog.TabIndex = 15;
+            this.fetchJobLog.Text = "Fetch Job Log";
+            this.fetchJobLog.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -428,8 +588,6 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.label15);
-            this.tabPage4.Controls.Add(this.label14);
-            this.tabPage4.Controls.Add(this.toolbarSide);
             this.tabPage4.Controls.Add(this.darkMode);
             this.tabPage4.Controls.Add(this.label13);
             this.tabPage4.Controls.Add(this.findACS);
@@ -451,27 +609,6 @@
             this.label15.TabIndex = 12;
             this.label15.Text = "Some of these settings require a restart.";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 59);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Toolbar side";
-            // 
-            // toolbarSide
-            // 
-            this.toolbarSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolbarSide.FormattingEnabled = true;
-            this.toolbarSide.Items.AddRange(new object[] {
-            "Right",
-            "Left"});
-            this.toolbarSide.Location = new System.Drawing.Point(223, 56);
-            this.toolbarSide.Name = "toolbarSide";
-            this.toolbarSide.Size = new System.Drawing.Size(130, 21);
-            this.toolbarSide.TabIndex = 10;
-            // 
             // darkMode
             // 
             this.darkMode.AutoSize = true;
@@ -491,32 +628,78 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // ftpes
+            // label22
             // 
-            this.ftpes.AutoSize = true;
-            this.ftpes.Location = new System.Drawing.Point(259, 99);
-            this.ftpes.Name = "ftpes";
-            this.ftpes.Size = new System.Drawing.Size(60, 17);
-            this.ftpes.TabIndex = 15;
-            this.ftpes.Text = "FTPES";
-            this.ftpes.UseVisualStyleBackColor = true;
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 186);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(96, 13);
+            this.label22.TabIndex = 19;
+            this.label22.Text = "Format CL on save";
             // 
-            // linkLabel1
+            // conv_tabs
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 100);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(63, 13);
-            this.linkLabel1.TabIndex = 16;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Use FTPES";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.conv_tabs.Location = new System.Drawing.Point(220, 129);
+            this.conv_tabs.Name = "conv_tabs";
+            this.conv_tabs.Size = new System.Drawing.Size(80, 17);
+            this.conv_tabs.TabIndex = 0;
+            this.conv_tabs.Text = "Convert tabs";
+            this.conv_tabs.UseVisualStyleBackColor = true;
+            // 
+            // highlight_line
+            // 
+            this.highlight_line.AutoSize = true;
+            this.highlight_line.Location = new System.Drawing.Point(220, 107);
+            this.highlight_line.Name = "highlight_line";
+            this.highlight_line.Size = new System.Drawing.Size(86, 17);
+            this.highlight_line.TabIndex = 20;
+            this.highlight_line.Text = "Highlight line";
+            this.highlight_line.UseVisualStyleBackColor = true;
+            // 
+            // show_spaces
+            // 
+            this.show_spaces.AutoSize = true;
+            this.show_spaces.Location = new System.Drawing.Point(220, 85);
+            this.show_spaces.Name = "show_spaces";
+            this.show_spaces.Size = new System.Drawing.Size(90, 17);
+            this.show_spaces.TabIndex = 21;
+            this.show_spaces.Text = "Show spaces";
+            this.show_spaces.UseVisualStyleBackColor = true;
+            // 
+            // format_cl
+            // 
+            this.format_cl.AutoSize = true;
+            this.format_cl.Location = new System.Drawing.Point(220, 185);
+            this.format_cl.Name = "format_cl";
+            this.format_cl.Size = new System.Drawing.Size(74, 17);
+            this.format_cl.TabIndex = 22;
+            this.format_cl.Text = "Format CL";
+            this.format_cl.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(8, 207);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(82, 13);
+            this.label23.TabIndex = 23;
+            this.label23.Text = "Character assist";
+            // 
+            // character_assist
+            // 
+            this.character_assist.AutoSize = true;
+            this.character_assist.Location = new System.Drawing.Point(220, 206);
+            this.character_assist.Name = "character_assist";
+            this.character_assist.Size = new System.Drawing.Size(101, 17);
+            this.character_assist.TabIndex = 24;
+            this.character_assist.Text = "Character assist";
+            this.character_assist.UseVisualStyleBackColor = true;
             // 
             // Connection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 278);
+            this.ClientSize = new System.Drawing.Size(369, 307);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -524,11 +707,14 @@
             this.Name = "Connection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Connection Settings";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -549,10 +735,8 @@
         private System.Windows.Forms.TextBox user;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox host;
-        private System.Windows.Forms.ComboBox show_spaces;
         private System.Windows.Forms.NumericUpDown indent_size;
         private System.Windows.Forms.TextBox cur_size;
-        private System.Windows.Forms.ComboBox highlight_line;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
@@ -575,12 +759,30 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox darkMode;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox toolbarSide;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.CheckBox fetchJobLog;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.ComboBox dataConnectionType;
+        private System.Windows.Forms.RichTextBox infoBox;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox ftpes;
+        private System.Windows.Forms.Label systemInfo;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox homeDir;
+        private System.Windows.Forms.TextBox buildLib;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox fetchJobLog;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.CheckBox conv_tabs;
+        private System.Windows.Forms.CheckBox highlight_line;
+        private System.Windows.Forms.CheckBox show_spaces;
+        private System.Windows.Forms.CheckBox format_cl;
+        private System.Windows.Forms.CheckBox character_assist;
+        private System.Windows.Forms.Label label23;
     }
 }

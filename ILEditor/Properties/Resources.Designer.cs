@@ -63,31 +63,30 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap application_go {
+        public static System.Drawing.Bitmap books {
             get {
-                object obj = ResourceManager.GetObject("application_go", resourceCulture);
+                object obj = ResourceManager.GetObject("books", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADDACC|Add Access Code|2
-        ///ADDAJE|Add Autostart Job Entry|2
-        ///ADDALRACNE|Add Alert Action Entry|2
-        ///ADDALRD|Add Alert Description|2
-        ///ADDALRSLTE|Add Alert Selection Entry|2
-        ///ADDASPCPYD|Add ASP Copy Description|2
-        ///ADDAUTLE|Add Authorization List Entry|2
-        ///ADDBKP|Add Breakpoint|2
-        ///ADDBNDDIRE|Add Binding Directory Entry|2
-        ///ADDCADMRE|Add Cluster Administrative Domain Managed Resource Entry|2
-        ///ADDCADNODE|Add Cluster Administrative Domain Node Entry|2
-        ///ADDCCSCLT|Add Change Control Server Client|2
-        ///ADDCFGLE|Add Configu [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static string CL {
+        public static System.Drawing.Bitmap bug {
             get {
-                return ResourceManager.GetString("CL", resourceCulture);
+                object obj = ResourceManager.GetObject("bug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap comment_sign {
+            get {
+                object obj = ResourceManager.GetObject("comment_sign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -128,22 +127,22 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to and|alternative to &amp;&amp; operator|6
-        ///and_eq|alternative to &amp;= operator|6
-        ///asm|insert an assembly instruction|6
-        ///auto|declare a local variable, or we can let the compiler to deduce the type of the variable from the initialization.|6
-        ///bitand|alternative to bitwise &amp; operator|6
-        ///bitor|alternative to pipe operator|6
-        ///bool|declare a boolean variable|6
-        ///break|break out of a loop|6
-        ///case|a block of code in a switch statement|6
-        ///catch|handles exceptions from throw|6
-        ///char|declare a character variable|6
-        ///class|declare  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static string CPP {
+        public static System.Drawing.Bitmap computer {
             get {
-                return ResourceManager.GetString("CPP", resourceCulture);
+                object obj = ResourceManager.GetObject("computer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cube {
+            get {
+                object obj = ResourceManager.GetObject("cube", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -203,15 +202,59 @@ namespace ILEditor.Properties {
         ///&lt;!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger --&gt;
         ///&lt;!-- converted to AvalonEdit format by Siegfried Pammer in 2010 --&gt;
         ///&lt;SyntaxDefinition name=&quot;C++&quot; extensions=&quot;.c;.h;.cc;.cpp;.hpp&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
-        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
-        ///	&lt;Color name=&quot;Character&quot; foreground=&quot;Fuchsia&quot; /&gt;
-        ///	&lt;Color name=&quot;String&quot; foreground=&quot;LightGreen&quot; /&gt;
-        ///	&lt;Color name=&quot;Preprocessor&quot; foreground=&quot;Green&quot; /&gt;
-        ///	&lt;Color name=&quot;Punc [rest of string was truncated]&quot;;.
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;#4FB548&quot; /&gt;
+        ///	&lt;Color name=&quot;Character&quot; foreground=&quot;#4FB548&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;#4FB548&quot; /&gt;
+        ///	&lt;Color name=&quot;Preprocessor&quot; foreground=&quot;#9B9B9B&quot; /&gt;
+        ///	&lt;Color name=&quot;Pun [rest of string was truncated]&quot;;.
         /// </summary>
         public static string darkCPP {
             get {
                 return ResourceManager.GetString("darkCPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///
+        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///&lt;head&gt;
+        ///	&lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///	&lt;title&gt;&lt;/title&gt;
+        ///	&lt;style&gt;
+        ///		body {
+        ///			font-family: Arial, Helvetica, sans-serif;
+        ///		}
+        ///	&lt;/style&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///	&lt;h3&gt;Enabling Dark Mode&lt;/h3&gt;
+        ///	&lt;p&gt;ILEditor has a built in Dark Mode, which turns tabs and editor dark.&lt;/p&gt;
+        ///	&lt;ol&gt;
+        ///		&lt;li&gt;Open up the Connection Settings: Tools-&gt;Connection Settings, or access via the Toolbox&lt;/li&gt;
+        ///		&lt;li&gt;Click on the ILEditor tab&lt;/li&gt;
+        ///		&lt;li&gt;Click on the Dark Mode chec [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DarkMode {
+            get {
+                return ResourceManager.GetString("DarkMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;SyntaxDefinition name=&quot;Python&quot; extensions=&quot;.py;.pyw&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;#6272a9&quot; exampleText=&quot;# comment&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;#047b22&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
+        ///	&lt;Color name=&quot;MethodCall&quot; foreground=&quot;#8585e0&quot; exampleText=&quot;def Hello()&quot;/&gt;
+        ///	&lt;Color name=&quot;NumberLiteral&quot; foreground=&quot;#72a6ff&quot; exampleText=&quot;3.1415f&quot;/&gt;
+        ///	&lt;Color name=&quot;Keywords&quot; foreground=&quot;#ffb86c&quot; exampleText=&quot;if&quot;/&gt;
+        ///
+        ///	&lt;Pr [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string darkPython {
+            get {
+                return ResourceManager.GetString("darkPython", resourceCulture);
             }
         }
         
@@ -256,6 +299,35 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE&gt;
+        ///&lt;!-- This code is for demonstration purposes only.  You should not hotlink to Github, Rawgit, or files from the Cytoscape.js documentation in your production apps. --&gt;
+        ///&lt;html&gt;
+        ///  &lt;head&gt;
+        ///    &lt;style&gt;
+        ///    body {
+        ///      font-family: helvetica;
+        ///      font-size: 14px;
+        ///    }
+        ///
+        ///    #cy {
+        ///      width: 100%;
+        ///      height: 100%;
+        ///      position: absolute;
+        ///      left: 0;
+        ///      top: 0;
+        ///      z-index: 999;
+        ///    }
+        ///    &lt;/style&gt;
+        ///
+        ///    &lt;script src=&quot;https://cdn.rawgit.com/cytoscape/cytoscape.js/master/ [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string diagram {
+            get {
+                return ResourceManager.GetString("diagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap edit {
@@ -288,47 +360,10 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap firewall {
-            get {
-                object obj = ResourceManager.GetObject("firewall", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///
-        ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;&lt;/title&gt;
-        ///    &lt;style&gt;
-        ///        body {
-        ///            font-family: Arial, Helvetica, sans-serif;
-        ///        }
-        ///    &lt;/style&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h3&gt;Something not working?&lt;/h3&gt;
-        ///    &lt;p&gt;Are you seeing this error message?&lt;/p&gt;
-        ///    &lt;img width=&quot;100%&quot; src=&quot;https://i.imgur.com/qA7Dhqt.png&quot; /&gt;
-        ///    &lt;p&gt;This may be because the Windows Firewall is blocking either:&lt;/p&gt;
-        ///    &lt;ul&gt;
-        ///        &lt;li&gt;ftp.exe ( [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string FTP {
-            get {
-                return ResourceManager.GetString("FTP", resourceCulture);
             }
         }
         
@@ -424,6 +459,21 @@ namespace ILEditor.Properties {
         public static string lightCPP {
             get {
                 return ResourceManager.GetString("lightCPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;SyntaxDefinition name=&quot;Python&quot; extensions=&quot;.py;.pyw&quot; xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///	&lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; exampleText=&quot;# comment&quot; /&gt;
+        ///	&lt;Color name=&quot;String&quot; foreground=&quot;Gray&quot; exampleText=&quot;name = &apos;abc&apos;&quot;/&gt;
+        ///	&lt;Color name=&quot;MethodCall&quot; foreground=&quot;Purple&quot; exampleText=&quot;def Hello()&quot;/&gt;
+        ///	&lt;Color name=&quot;NumberLiteral&quot; foreground=&quot;DarkBlue&quot; exampleText=&quot;3.1415f&quot;/&gt;
+        ///	&lt;Color name=&quot;Keywords&quot; fontWeight=&quot;bold&quot; foreground=&quot;Blue&quot; exampleText=&quot;if&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string lightPython {
+            get {
+                return ResourceManager.GetString("lightPython", resourceCulture);
             }
         }
         
@@ -534,34 +584,20 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap refresh {
+        public static System.Drawing.Bitmap redo {
             get {
-                object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                object obj = ResourceManager.GetObject("redo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to %ABS|Absolute Value of Expression|1
-        ///%ADDR|Get Address of Variable|1
-        ///%ALLOC|Allocate Storage|1
-        ///%BITAND|Bitwise AND Operation|1
-        ///%BITNOT|Invert Bits|1
-        ///%BITOR|Bitwise OR Operation|1
-        ///%BITXOR|Bitwise Exclusive-OR Operation|1
-        ///%CHAR|Convert to Character Data|1
-        ///%CHECK|Check Characters|1
-        ///%CHECKR|Check Reverse|1
-        ///%DATE|Convert to Date|1
-        ///%DAYS|Number of Days|1
-        ///%DEC|Convert to Packed Decimal Format|1
-        ///%DECH|Convert to Packed Decimal Format with Half Adjust|1
-        ///%DECPOS|Get Number of Decimal Positions|1
-        ///%DIFF|D [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static string RPG {
+        public static System.Drawing.Bitmap refresh {
             get {
-                return ResourceManager.GetString("RPG", resourceCulture);
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -571,26 +607,6 @@ namespace ILEditor.Properties {
         public static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap script_add {
-            get {
-                object obj = ResourceManager.GetObject("script_add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap script_go {
-            get {
-                object obj = ResourceManager.GetObject("script_go", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -608,9 +624,19 @@ namespace ILEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap undo {
+            get {
+                object obj = ResourceManager.GetObject("undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap zoom_in {
             get {
-                object obj = ResourceManager.GetObject("zoom-in", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_in", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -620,7 +646,7 @@ namespace ILEditor.Properties {
         /// </summary>
         public static System.Drawing.Bitmap zoom_out {
             get {
-                object obj = ResourceManager.GetObject("zoom-out", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_out", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

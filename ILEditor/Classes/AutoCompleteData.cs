@@ -12,6 +12,7 @@ namespace ILEditor.Classes
 {
     class AutoCompleteData : ICompletionData
     {
+        public static ImageSource icon = Editor.ConvertBitmap(Properties.Resources.cube);
         public AutoCompleteData(string text, string desc)
         {
             this.Text = text;
@@ -20,7 +21,7 @@ namespace ILEditor.Classes
 
         public System.Windows.Media.ImageSource Image
         {
-            get { return null; }
+            get { return icon; }
         }
 
         public string Text { get; private set; }

@@ -1,27 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ILEditor.Forms;
 using ILEditor.Classes;
-using System.Deployment.Application;
 using System.Reflection;
+using System.Text;
 
 namespace ILEditor
 {
     static class Program
     {
         //Directories
-        public static readonly string SYSTEMSDIR_Old = Environment.GetEnvironmentVariable("ProgramData") + @"\ileditor";
-        public static readonly string SOURCEDIR_Old = Environment.GetEnvironmentVariable("APPDATA") + @"\ILEditor";
-        public static readonly string CONFIGDIR_Old = SOURCEDIR_Old + @"\config";
-
+        public static readonly Encoding Encoding = Encoding.GetEncoding("ISO-8859-1");
         public static readonly string APPDIR = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ILEditorData");
         public static readonly string SYSTEMSDIR = Path.Combine(APPDIR, "systems"); //Directory
         public static readonly string SOURCEDIR = Path.Combine(APPDIR, "source"); //Directory
+        public static readonly string DUMPSDIR = Path.Combine(APPDIR, "dumps"); //Directory
         public static readonly string CONFIGFILE = Path.Combine(APPDIR, "config"); //Config file
+        public static readonly string PanelsXML = Path.Combine(APPDIR, "panels.xml");
+
+        public static readonly string[] TaskKeywords = new[] { "TODO", "HACK" };
+
+        public static string LAST_BUILD = ""; //Used for F5 key for local project build
 
 
         //Config
@@ -33,26 +33,17 @@ namespace ILEditor
         [STAThread]
         static void Main()
         {
+            string promptedPassword = "";
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             HostSelect Selector;
-
-            if (!Directory.Exists(APPDIR))
-            {
-                Directory.CreateDirectory(APPDIR);
-                if (Directory.Exists(SYSTEMSDIR_Old))
-                    Directory.Move(SYSTEMSDIR_Old, SYSTEMSDIR);
-
-                if (File.Exists(CONFIGDIR_Old))
-                    File.Move(CONFIGDIR_Old, CONFIGFILE);
-
-                if (Directory.Exists(SOURCEDIR_Old))
-                    Directory.Move(SOURCEDIR_Old, SOURCEDIR);
-            }
+            PasswordPrompt Prompter;
 
             Directory.CreateDirectory(SYSTEMSDIR);
             Directory.CreateDirectory(SOURCEDIR);
+            Directory.CreateDirectory(DUMPSDIR);
 
             Config = new Config(CONFIGFILE);
             Config.DoEditorDefaults();
@@ -65,17 +56,27 @@ namespace ILEditor
 
                 if (Selector.SystemSelected)
                 {
-                    if (Password.Decode(IBMi.CurrentSystem.GetValue("password")) == "")
+                    if (IBMi.CurrentSystem.GetValue("password") == "")
                     {
-                        MessageBox.Show("ILEditor has been updated to encrypt local passwords. Please update your password in the Connection Settings.", "Password Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        new Connection().ShowDialog();
+                        Prompter = new PasswordPrompt(IBMi.CurrentSystem.GetValue("alias"), IBMi.CurrentSystem.GetValue("username"));
+                        Prompter.ShowDialog();
+                        if (Prompter.Success)
+                            promptedPassword = Prompter.GetResult();
                     }
 
-                    Connected = IBMi.Connect(Selector.OfflineModeSelected());
+                    Connected = IBMi.Connect(Selector.OfflineModeSelected(), promptedPassword);
 
                     if (Connected)
                     {
-                        Application.Run(new Editor());
+                        try
+                        {
+                            Application.Run(new Editor());
+                        }
+                        catch (Exception e)
+                        {
+                            File.WriteAllText(Path.Combine(DUMPSDIR, DateTime.Now.ToFileTime() + ".txt"), e.ToString());
+                            MessageBox.Show("There was an error. Crash dump created.");
+                        }
                         IBMi.Disconnect();
                     }
                     else
@@ -83,17 +84,7 @@ namespace ILEditor
                         //Basically, if it failed to connect when they're using FTPES - offer them a FTP connection
                         if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
                         {
-                            DialogResult Result = MessageBox.Show("Would you like to try and connect again using a plain FTP connection? This will change the systems settings.", "Connection", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                            if (Result == DialogResult.Yes)
-                            {
-                                IBMi.CurrentSystem.SetValue("useFTPES", "false");
-                                Connected = IBMi.Connect();
-                                if (Connected)
-                                {
-                                    Application.Run(new Editor());
-                                    IBMi.Disconnect();
-                                }
-                            }
+                            MessageBox.Show("Failed to connect. Perhaps try disabling FTPES and then connecting again.", "Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }

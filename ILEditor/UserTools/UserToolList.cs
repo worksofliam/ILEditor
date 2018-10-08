@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class UserToolList : UserControl
+    public partial class UserToolList : DockContent
     {
         public UserToolList()
         {
@@ -25,7 +26,7 @@ namespace ILEditor.UserTools
                 switch ((String)selection.Tag)
                 {
                     case "MBR":
-                        Editor.TheEditor.AddTool("Member Browse", new MemberBrowse());
+                        Editor.TheEditor.AddTool(new MemberBrowse(), DockState.DockRight);
                         break;
                     case "LIBL":
                         new Forms.LibraryList().ShowDialog();
@@ -34,16 +35,22 @@ namespace ILEditor.UserTools
                         new Forms.Connection().ShowDialog();
                         break;
                     case "CMP":
-                        Editor.TheEditor.AddTool("Compile Settings", new CompileOptions());
+                        Editor.TheEditor.AddTool(new CompileOptions(), DockState.DockLeft);
                         break;
                     case "PGM":
-                        Editor.TheEditor.AddTool("Program Listing", new ObjectBrowse());
+                        Editor.TheEditor.AddTool(new ObjectBrowse(), DockState.DockLeft);
                         break;
                     case "TREE":
-                        Editor.TheEditor.AddTool("Tree Browser", new TreeBrowse());
+                        Editor.TheEditor.AddTool(new QSYSBrowser(), DockState.DockRight);
                         break;
                     case "SPL":
-                        Editor.TheEditor.AddTool("Spool Listing", new SpoolListing(), true);
+                        Editor.TheEditor.AddTool(new SpoolListing(), DockState.DockRight, true);
+                        break;
+                    case "IFS":
+                        Editor.TheEditor.AddTool(new IFSBrowser(), DockState.DockRight);
+                        break;
+                    case "OBJDIAG":
+                        new Forms.FindReferences().ShowDialog();
                         break;
                 }
             }

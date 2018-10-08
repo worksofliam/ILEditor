@@ -14,118 +14,157 @@ using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using ICSharpCode.AvalonEdit.Highlighting;
 using System.Windows.Media;
 using ILEditor.Forms;
+using WeifenLuo.WinFormsUI.Docking;
+using ICSharpCode.AvalonEdit.Search;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using System.Collections.Generic;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace ILEditor.UserTools
 {
-    public enum ILELanguage
+
+    public enum EditorAction
+    {
+        Zoom_In,
+        Zoom_Out,
+        Save,
+        Save_As,
+        Comment_Out_Selected,
+        Format_CL,
+        Undo,
+        Redo,
+        Dupe_Line,
+        ParseCode,
+        TasksUpdate
+    }
+
+    public enum Language
     {
         None,
         CL,
         CPP,
         RPG,
         SQL,
-        COBOL
+        COBOL,
+        Python
     }
 
-    public partial class SourceEditor : UserControl
+    
+    public partial class SourceEditor : DockContent
     {
-        private TextEditor textEditor = null;
-        private ILELanguage Language;
-        private int RcdLen;
+        private static bool CurrentSaving = false;
 
-        public SourceEditor(String LocalFile, ILELanguage Language = ILELanguage.None, int RecordLength = 0)
+        private TextEditor textEditor = null;
+        private Language Language;
+        private int RcdLen;
+        private string LocalPath;
+        private bool ReadOnly;
+
+        private TaskItem[] Tasks;
+
+        public SourceEditor(String LocalFile, Language Language = Language.None, int RecordLength = 0, bool isReadOnly = false)
         {
             InitializeComponent();
 
-            //https://www.codeproject.com/Articles/161871/Fast-Colored-TextBox-for-syntax-highlighting
-
             this.Language = Language;
             this.RcdLen = RecordLength;
+            this.LocalPath = LocalFile;
+            this.ReadOnly = isReadOnly;
+        }
 
+        public void CreateForm()
+        {
             textEditor = new TextEditor();
             textEditor.ShowLineNumbers = true;
             //textEditor.Encoding = Encoding.GetEncoding(1252);
             //textEditor.Encoding = Encoding.GetEncoding(28591);
             //textEditor.Encoding = Encoding.GetEncoding("IBM437");
-            textEditor.Encoding = Encoding.GetEncoding("iso-8859-1");
-            textEditor.Text = File.ReadAllText(LocalFile, textEditor.Encoding);
+            textEditor.Encoding = Program.Encoding;
+            textEditor.Text = File.ReadAllText(this.LocalPath, textEditor.Encoding);
 
             textEditor.FontFamily = new System.Windows.Media.FontFamily(IBMi.CurrentSystem.GetValue("FONT"));
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
-
+            
             textEditor.TextChanged += TextEditor_TextChanged;
-            textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
-            textEditor.GotFocus += TextEditor_GotFocus;
 
-            textEditor.Options.ConvertTabsToSpaces = true;
+            if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
+                textEditor.TextArea.TextEntered += TextArea_TextEntered;
+
+            textEditor.Options.ConvertTabsToSpaces = (IBMi.CurrentSystem.GetValue("CONV_TABS") == "true");
             textEditor.Options.EnableTextDragDrop = false;
             textEditor.Options.IndentationSize = int.Parse(IBMi.CurrentSystem.GetValue("INDENT_SIZE"));
             textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
             textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
 
             textEditor.Options.AllowScrollBelowDocument = true;
-            
+
             if (this.RcdLen > 0)
             {
                 textEditor.Options.ShowColumnRuler = true;
                 textEditor.Options.ColumnRulerPosition = this.RcdLen;
             }
 
-            //SearchPanel.Install(textEditor);
-            SearchReplacePanel.Install(textEditor);
+            textEditor.IsReadOnly = this.ReadOnly;
+
+            if (this.ReadOnly)
+                SearchPanel.Install(textEditor);
+            else
+                SearchReplacePanel.Install(textEditor);
 
             Classes.AvalonEdit.LineNumberCommandMargin.LineNumberMarginWithCommands.Install(textEditor);
 
             string lang = "";
-            bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
 
-            if (DarkMode)
+            if (Editor.DarkMode)
                 lang += "dark";
             else
                 lang += "light";
 
             switch (Language)
             {
-                case ILELanguage.RPG:
-                    lang += "RPG";
+                case Language.SQL:
+                case Language.RPG:
+                case Language.CPP:
+                case Language.CL:
+                case Language.COBOL:
+                case Language.Python:
+                    lang += Language.ToString();
                     break;
-                case ILELanguage.SQL:
-                    lang += "SQL";
-                    break;
-                case ILELanguage.CPP:
-                    lang += "CPP";
-                    break;
-                case ILELanguage.CL:
-                    lang += "CL";
-                    break;
-                case ILELanguage.COBOL:
-                    lang += "COBOL";
-                    break;
-                case ILELanguage.None:
+                case Language.None:
                     lang = "";
                     break;
             }
 
-            if (DarkMode)
+            if (Editor.DarkMode)
             {
                 textEditor.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#1E1E1E");
                 textEditor.Foreground = System.Windows.Media.Brushes.White;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#5151FF");
             }
 
             if (lang != "")
                 using (Stream s = new MemoryStream(Encoding.ASCII.GetBytes(Properties.Resources.ResourceManager.GetString(lang))))
-                    using (XmlTextReader reader = new XmlTextReader(s))
-                        textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                using (XmlTextReader reader = new XmlTextReader(s))
+                    textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
 
             ElementHost host = new ElementHost();
             host.Dock = DockStyle.Fill;
             host.Child = textEditor;
             this.Controls.Add(host);
+
+            DoAction(EditorAction.ParseCode);
         }
 
-        public void SetReadOnly(bool ReadOnly)
+        private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
         {
-            textEditor.IsReadOnly = ReadOnly;
+            FollowingCharacter(e.Text);
+        }
+
+        private void SourceEditor_Load(object sender, EventArgs e)
+        {
+            CreateForm();
         }
 
         public string GetText()
@@ -145,31 +184,12 @@ namespace ILEditor.UserTools
             }
         }
 
-        public void Zoom(float change)
-        {
-            if (textEditor.FontSize + change > 5 && textEditor.FontSize + change < 100)
-            {
-                textEditor.FontSize += change;
-                IBMi.CurrentSystem.SetValue("ZOOM", textEditor.FontSize.ToString());
-            }
-        }
-
-        private Control GetParent()
-        {
-            return this.Parent;
-        }
-
         private void TextEditor_TextChanged(object sender, EventArgs e)
         {
-            if (GetParent() != null)
-            {
-                if (!GetParent().Text.EndsWith("*"))
-                {
-                    GetParent().Text += "*";
-                }
-            }
+            if (!this.Text.EndsWith("*"))
+                this.Text += "*";
         }
-        
+
         private void TextEditorTextAreaCaret_PositionChanged(object sender, EventArgs e)
         {
             DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
@@ -179,101 +199,249 @@ namespace ILEditor.UserTools
 
         private void TextEditor_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            Editor.TheEditor.LastEditing = this;
+            Editor.LastEditing = this;
         }
 
-        public void SaveAs()
+        public void DoAction(EditorAction Action)
         {
-            if (!GetParent().Text.EndsWith("*"))
+            switch (Action)
             {
-                SaveAs SaveAsWindow = new SaveAs();
-                SaveAsWindow.ShowDialog();
-                if (SaveAsWindow.Success)
-                {
-                    Member MemberInfo = (Member)this.Tag;
-                    if (!MemberInfo._IsBeingSaved)
-                    {
-                        MemberInfo._IsBeingSaved = true;
+                case EditorAction.Comment_Out_Selected:
+                    CommentOutSelected();
+                    break;
+                case EditorAction.Format_CL:
+                    FormatCL();
+                    break;
+                case EditorAction.Save:
+                    Save();
+                    break;
+                case EditorAction.Save_As:
+                    SaveAs();
+                    break;
+                case EditorAction.Zoom_In:
+                    Zoom(+1f);
+                    break;
+                case EditorAction.Zoom_Out:
+                    Zoom(-1f);
+                    break;
+                case EditorAction.Undo:
+                    textEditor.Undo();
+                    break;
+                case EditorAction.Redo:
+                    textEditor.Redo();
+                    break;
+                case EditorAction.Dupe_Line:
+                    DuplicateLine();
+                    break;
+                case EditorAction.ParseCode:
+                    Parse();
+                    break;
+                case EditorAction.TasksUpdate:
+                    TaskListUpdate();
+                    break;
+            }
+        }
 
-                        Editor.TheEditor.SetStatus("Saving " + SaveAsWindow.Mbr + "..");
+        private void Parse()
+        {
+            List<TaskItem> Items = new List<TaskItem>();
+            int CharIndex = -1, lineNumber = 0;
+
+            string code = "";
+            this.Invoke((MethodInvoker)delegate
+            {
+                code = GetText();
+            });
+            
+            foreach (string Line in code.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            {
+                lineNumber++;
+
+                foreach (string Keyword in Program.TaskKeywords)
+                {
+                    CharIndex = Line.IndexOf("//" + Keyword);
+                    if (CharIndex >= 0)
+                        Items.Add(new TaskItem() { Line = lineNumber, Text = Line.Substring(CharIndex+2) });
+                }
+            }
+
+            this.Tasks = Items.ToArray();
+        }
+
+        private void TaskListUpdate()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                Editor.Tasklist.Display(this.Text, this.Tasks);
+            });
+        }
+
+        private void DuplicateLine()
+        {
+            DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
+            textEditor.Select(line.Offset, line.Length);
+            string value = textEditor.SelectedText;
+            value += Environment.NewLine + value;
+            textEditor.SelectedText = value;
+            textEditor.SelectionLength = 0;
+        }
+
+        private void Zoom(float change)
+        {
+            if (textEditor.FontSize + change > 5 && textEditor.FontSize + change < 100)
+            {
+                textEditor.FontSize += change;
+                IBMi.CurrentSystem.SetValue("ZOOM", textEditor.FontSize.ToString());
+            }
+        }
+
+        private void SaveAs()
+        {
+            if (!this.Text.EndsWith("*"))
+            {
+                if (!CurrentSaving)
+                {
+                    RemoteSource MemberInfo = this.Tag as RemoteSource;
+                    if (MemberInfo != null)
+                    {
+                        SaveAs SaveAsWindow = new SaveAs(MemberInfo);
+                        SaveAsWindow.ShowDialog();
+                        if (SaveAsWindow.Success)
+                        {
+                            Thread gothread = null;
+                            CurrentSaving = true;
+                            Editor.TheEditor.SetStatus("Saving " + MemberInfo.GetName() + "..");
+                            switch (SaveAsWindow.SourceInfo().GetFS())
+                            {
+                                case FileSystem.QSYS:
+                                    gothread = new Thread((ThreadStart)delegate
+                                    {
+                                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.SourceInfo().GetLibrary(), SaveAsWindow.SourceInfo().GetSPF(), SaveAsWindow.SourceInfo().GetMember());
+                                        if (UploadResult == false)
+                                            MessageBox.Show("Failed to upload to " + MemberInfo.GetName() + ".");
+
+                                        this.Invoke((MethodInvoker)delegate
+                                        {
+                                            Editor.TheEditor.SetStatus(MemberInfo.GetName() + " " + (UploadResult ? "" : "not ") + "saved.");
+                                        });
+
+                                        CurrentSaving = false;
+                                    });
+                                    break;
+
+                                case FileSystem.IFS:
+                                    gothread = new Thread((ThreadStart)delegate
+                                    {
+                                        bool UploadResult = IBMiUtils.UploadFile(MemberInfo.GetLocalFile(), SaveAsWindow.SourceInfo().GetIFSPath());
+                                        if (UploadResult == false)
+                                            MessageBox.Show("Failed to upload to " + MemberInfo.GetName() + "." + MemberInfo.GetExtension() + ".");
+
+                                        this.Invoke((MethodInvoker)delegate
+                                        {
+                                            Editor.TheEditor.SetStatus(MemberInfo.GetName() + "." + MemberInfo.GetExtension() + " " + (UploadResult ? "" : "not ") + "saved.");
+                                        });
+
+                                        CurrentSaving = false;
+                                    });
+                                    break;
+                            }
+
+                            if (gothread != null)
+                                gothread.Start();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must save the source before you can Save-As.");
+                }
+            }
+        }
+
+        private void Save()
+        {
+            RemoteSource SourceInfo = (RemoteSource)this.Tag;
+            bool UploadResult = true;
+
+            if (SourceInfo != null)
+            {
+                if (SourceInfo.IsEditable())
+                {
+                    if (Language == Language.CL)
+                        if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
+                            DoAction(EditorAction.Format_CL);
+
+                    if (!CurrentSaving)
+                    {
+                        CurrentSaving = true;
+
+                        Editor.TheEditor.SetStatus("Saving " + SourceInfo.GetName() + "..");
                         Thread gothread = new Thread((ThreadStart)delegate
                         {
-                            bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), SaveAsWindow.Lib, SaveAsWindow.Spf, SaveAsWindow.Mbr);
+                            MemberCache.EditsAdd(SourceInfo.GetLibrary(), SourceInfo.GetObject(), SourceInfo.GetName());
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                File.WriteAllText(SourceInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
+                            });
+
+                            switch (SourceInfo.GetFS())
+                            {
+                                case FileSystem.QSYS:
+                                    UploadResult = IBMiUtils.UploadMember(SourceInfo.GetLocalFile(), SourceInfo.GetLibrary(), SourceInfo.GetObject(), SourceInfo.GetName());
+                                    break;
+                                case FileSystem.IFS:
+                                    UploadResult = IBMiUtils.UploadFile(SourceInfo.GetLocalFile(), SourceInfo.GetRemoteFile());
+                                    break;
+                            }
                             if (UploadResult == false)
-                                MessageBox.Show("Failed to upload to " + SaveAsWindow.Mbr + ".");
+                            {
+                            }
+                            else
+                            {
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    if (this.Text.EndsWith("*"))
+                                        this.Text = this.Text.Substring(0, this.Text.Length - 1);
+                                });
+                            }
 
                             this.Invoke((MethodInvoker)delegate
                             {
-                                Editor.TheEditor.SetStatus(SaveAsWindow.Mbr + " " + (UploadResult ? "" : "not ") + "saved.");
+                                Editor.TheEditor.SetStatus(SourceInfo.GetName() + " " + (UploadResult ? "" : "not ") + "saved.");
                             });
 
-                            MemberInfo._IsBeingSaved = false;
+                            CurrentSaving = false;
                         });
 
                         gothread.Start();
                     }
-                }
-            }
-            else
-            {
-                MessageBox.Show("You must save the source before you can Save-As.");
-            }
-        }
-
-        public void Save()
-        {
-            Member MemberInfo = (Member)this.Tag;
-            if (MemberInfo.IsEditable())
-            {
-                if (!MemberInfo._IsBeingSaved)
-                {
-                    MemberInfo._IsBeingSaved = true;
-
-                    Editor.TheEditor.SetStatus("Saving " + MemberInfo.GetMember() + "..");
-                    Thread gothread = new Thread((ThreadStart)delegate
+                    else
                     {
+                        Editor.TheEditor.SetStatus("Please wait until previous save has finished.");
+                    }
 
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            File.WriteAllText(MemberInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);
-                        });
-                        
-                        MemberCache.EditsAdd(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
-                        
-                        bool UploadResult = IBMiUtils.UploadMember(MemberInfo.GetLocalFile(), MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember());
-                        if (UploadResult == false)
-                        {
-                            //MessageBox.Show("Failed to upload to " + MemberInfo.GetMember() + ".");
-                        }
-                        else
-                        {
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                if (GetParent().Text.EndsWith("*"))
-                                    GetParent().Text = GetParent().Text.Substring(0, GetParent().Text.Length - 1);
-                            });
-                        }
-
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            Editor.TheEditor.SetStatus(MemberInfo.GetMember() + " " + (UploadResult ? "" : "not ") + "saved.");
-                        });
-
-                        MemberInfo._IsBeingSaved = false;
-                    });
-
-                    gothread.Start();
                 }
-
+                else
+                {
+                    MessageBox.Show("This file is readonly.");
+                }
             }
             else
             {
-                MessageBox.Show("This file is readonly.");
+                File.WriteAllText(this.LocalPath, this.GetText(), textEditor.Encoding);
+                if (this.Text.EndsWith("*"))
+                    this.Text = this.Text.Substring(0, this.Text.Length - 1);
+                Editor.TheEditor.SetStatus("File saved locally.");
             }
+
+            DoAction(EditorAction.ParseCode);
+            DoAction(EditorAction.TasksUpdate);
         }
 
-        public void CommentOutSelected()
+        private void CommentOutSelected()
         {
+            if (this.ReadOnly) return;
+
             if (textEditor.SelectionLength == 0)
             {
                 DocumentLine line = textEditor.Document.GetLineByOffset(textEditor.CaretOffset);
@@ -285,7 +453,7 @@ namespace ILEditor.UserTools
             int index = 0;
             switch (Language)
             {
-                case ILELanguage.RPG:
+                case Language.RPG:
                     for (int i = 0; i < lines.Length; i++)
                     {
                         if (lines[i].Trim() != "")
@@ -297,9 +465,9 @@ namespace ILEditor.UserTools
                     textEditor.SelectedText = String.Join(Environment.NewLine, lines);
                     break;
 
-                case ILELanguage.CL:
-                case ILELanguage.CPP:
-                    if (lines.Length == 1 && Language != ILELanguage.CL)
+                case Language.CL:
+                case Language.CPP:
+                    if (lines.Length == 1 && Language != Language.CL)
                     {
                         index = GetSpaces(lines[0]);
                         lines[0] = lines[0].Insert(index, "//");
@@ -312,7 +480,7 @@ namespace ILEditor.UserTools
                     textEditor.SelectedText = String.Join(Environment.NewLine, lines);
                     break;
 
-                case ILELanguage.SQL:
+                case Language.SQL:
                     for (int i = 0; i < lines.Length; i++)
                     {
                         if (lines[i].Trim() != "")
@@ -337,56 +505,62 @@ namespace ILEditor.UserTools
             return index;
         }
 
-        #region RPG
+        #region TextEditors
 
-        public void ConvertSelectedRPG()
+        private void FormatCL()
         {
-            if (textEditor.SelectedText == "")
-            {
-                MessageBox.Show("Please highlight the code you want to convert and then try the conversion again.", "Fixed-To-Free", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                string[] lines = textEditor.SelectedText.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                string freeForm = "";
+            if (this.ReadOnly) return;
 
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    freeForm = RPGFree.getFree(lines[i]);
-                    if (freeForm != "")
-                    {
-                        switch (freeForm.Trim())
-                        {
-                            case "*SAME;":
-                                //Do nothing!
-                                break;
-                            case "*BLANK;":
-                                lines[i] = "";
-                                break;
-                            default:
-                                lines[i] = freeForm;
-                                break;
-                        }
-                    }
-                }
-
-                textEditor.SelectedText = String.Join(Environment.NewLine, lines);
-            }
-
-        }
-
-        #endregion
-
-        #region CL
-
-        public void FormatCL()
-        {
             string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
             textEditor.SelectAll();
             textEditor.SelectedText = "";
             int length = (RcdLen > 0 ? RcdLen : 80);
             textEditor.AppendText(String.Join(Environment.NewLine, CLFile.CorrectLines(Lines, length)));
         }
+
+        private void FollowingCharacter(string Char)
+        {
+            string NextChar = "";
+            if (textEditor.CaretOffset < textEditor.Document.TextLength)
+                NextChar = textEditor.Document.Text.Substring(textEditor.CaretOffset, 1);
+
+            switch (Char)
+            {
+                case "'":
+                    if (NextChar != "'")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, "'");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+
+                case "\"":
+                    if (NextChar != "\"")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, "\"");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+
+                case "(":
+                    if (NextChar != ")")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, ")");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+                
+                case "{":
+                    if (NextChar != "}")
+                    {
+                        textEditor.Document.Insert(textEditor.CaretOffset, "}");
+                        textEditor.CaretOffset -= 1;
+                    }
+                    break;
+            }
+        }
+
         #endregion
+
     }
 }

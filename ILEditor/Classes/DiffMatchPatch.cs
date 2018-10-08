@@ -25,6 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Windows.Forms;
 
 namespace DiffMatchPatch
 {
@@ -1548,10 +1549,14 @@ namespace DiffMatchPatch
         /**
          * Convert a Diff list into a pretty HTML report.
          * @param diffs List of Diff objects.
+         * @param 0 = combined, 1 = only old, 2 = only new
          * @return HTML representation.
          */
-        public string diff_prettyHtml(List<Diff> diffs)
+        public string diff_prettyHtml(List<Diff> diffs, int oldnew = 0)
         {
+            if (oldnew < 0 || oldnew > 2)
+                oldnew = 0;
+
             StringBuilder html = new StringBuilder();
 
             foreach (Diff aDiff in diffs)
@@ -1562,12 +1567,12 @@ namespace DiffMatchPatch
                 switch (aDiff.operation)
                 {
                     case Operation.INSERT:
-                        html.Append("<ins style=\"background:#e6ffe6;\">").Append(text)
-                            .Append("</ins>");
+                        if (oldnew == 0 || oldnew == 2)
+                            html.Append("<ins style=\"background:#e6ffe6;\">").Append(text).Append("</ins>");
                         break;
                     case Operation.DELETE:
-                        html.Append("<span style=\"background:#ffbaba;\">").Append(text)
-                            .Append("</span>");
+                        if (oldnew == 0 || oldnew == 1)
+                            html.Append("<span style=\"background:#ffbaba;\">").Append(text).Append("</span>");
                         break;
                     case Operation.EQUAL:
                         html.Append("<span>").Append(text).Append("</span>");

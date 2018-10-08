@@ -43,6 +43,7 @@
             this.objectRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.objectInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.objectRightClick.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +56,7 @@
             this.programcount});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(577, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(561, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -94,11 +95,10 @@
             this.columnHeader7,
             this.columnHeader8});
             this.objectList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.objectList.Location = new System.Drawing.Point(0, 25);
             this.objectList.MultiSelect = false;
             this.objectList.Name = "objectList";
-            this.objectList.Size = new System.Drawing.Size(577, 318);
+            this.objectList.Size = new System.Drawing.Size(561, 279);
             this.objectList.SmallImageList = this.imageList1;
             this.objectList.TabIndex = 2;
             this.objectList.UseCompatibleStateImageBehavior = false;
@@ -138,9 +138,10 @@
             // 
             this.objectRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.objectInformationToolStripMenuItem,
-            this.openSourceToolStripMenuItem});
+            this.openSourceToolStripMenuItem,
+            this.updateToolStripMenuItem});
             this.objectRightClick.Name = "objectRightClick";
-            this.objectRightClick.Size = new System.Drawing.Size(176, 48);
+            this.objectRightClick.Size = new System.Drawing.Size(176, 92);
             this.objectRightClick.Opening += new System.ComponentModel.CancelEventHandler(this.objectRightClick_Opening);
             // 
             // objectInformationToolStripMenuItem
@@ -152,19 +153,28 @@
             // 
             // openSourceToolStripMenuItem
             // 
+            this.openSourceToolStripMenuItem.Enabled = false;
             this.openSourceToolStripMenuItem.Name = "openSourceToolStripMenuItem";
             this.openSourceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.openSourceToolStripMenuItem.Text = "Open Source";
             this.openSourceToolStripMenuItem.Click += new System.EventHandler(this.openSourceToolStripMenuItem_Click);
             // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Enabled = false;
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            // 
             // ObjectBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(561, 304);
             this.Controls.Add(this.objectList);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ObjectBrowse";
-            this.Size = new System.Drawing.Size(577, 343);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.objectRightClick.ResumeLayout(false);
@@ -188,5 +198,6 @@
         private System.Windows.Forms.ContextMenuStrip objectRightClick;
         private System.Windows.Forms.ToolStripMenuItem objectInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openSourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
     }
 }

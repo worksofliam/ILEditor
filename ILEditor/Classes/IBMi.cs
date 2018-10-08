@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 using FluentFTP;
 using System.Net.Sockets;
+using System.Timers;
 
 namespace ILEditor.Classes
 {
@@ -15,7 +15,7 @@ namespace ILEditor.Classes
     {
         public static Config CurrentSystem;
         private static FtpClient Client;
-        
+
         public readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
         {
             { "425", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions." },
@@ -67,10 +67,25 @@ namespace ILEditor.Classes
                 MessageBox.Show(FTPCodeMessages[ErrorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public static bool IsConnected() => Client.IsConnected;
-        public static string FTPFile = "";
-        public static bool Connect(bool OfflineMode = false)
+        private static FtpDataConnectionType GetFtpDataConnectionType(string Type)
         {
+            if (Enum.TryParse(Type, out FtpDataConnectionType result))
+                return result;
+            else
+                return FtpDataConnectionType.AutoActive;
+        }
+
+        public static bool IsConnected()
+        {
+            if (Client != null)
+                return Client.IsConnected;
+            else
+                return false;
+        }
+        public static string FTPFile = "";
+        public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
+        {
+            string[] remoteSystem;
             bool result = false;
             try
             {
@@ -80,8 +95,16 @@ namespace ILEditor.Classes
                 FtpTrace.LogPassword = false;   // hide FTP passwords
                 FtpTrace.LogIP = false; 	// hide FTP server IP addresses
 
-                string password = Password.Decode(CurrentSystem.GetValue("password"));
-                Client = new FtpClient(CurrentSystem.GetValue("system"), CurrentSystem.GetValue("username"), password);
+                string password = "";
+
+                remoteSystem = CurrentSystem.GetValue("system").Split(':');
+
+                if (promptedPassword == "")
+                    password = Password.Decode(CurrentSystem.GetValue("password"));
+                else
+                    password = promptedPassword;
+
+                Client = new FtpClient(remoteSystem[0], CurrentSystem.GetValue("username"), password);
 
                 if (OfflineMode == false)
                 {
@@ -92,12 +115,23 @@ namespace ILEditor.Classes
                     if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
                         Client.EncryptionMode = FtpEncryptionMode.Explicit;
 
+                    //Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
+                    Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
+                    Client.SocketKeepAlive = true;
+
+                    if (remoteSystem.Length == 2)
+                        Client.Port = int.Parse(remoteSystem[1]);
+
                     Client.ConnectTimeout = 5000;
                     Client.Connect();
 
                     //Change the user library list on connection
-                    if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
-                        RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+                    RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+
+                    System.Timers.Timer timer = new System.Timers.Timer();
+                    timer.Interval = 60000;
+                    timer.Elapsed += new ElapsedEventHandler(KeepAliveFunc);
+                    timer.Start();
                 }
 
                 result = true;
@@ -113,7 +147,39 @@ namespace ILEditor.Classes
         public static void Disconnect()
         {
             if (Client.IsConnected)
+            {
                 Client.Disconnect();
+            }
+        }
+
+        private static void KeepAliveFunc(object sender, ElapsedEventArgs e)
+        {
+            bool showError = !Client.IsConnected;
+            if (Client.IsConnected)
+            {
+                try {
+                    Client.Execute("NOOP");
+                    showError = false;
+                }
+                catch
+                {
+                    showError = true;
+                }
+            }
+
+            if (showError)
+                Editor.TheEditor.SetStatus("Warning! You lost connection " + CurrentSystem.GetValue("system") + "!");
+        }
+
+        public static string GetSystem()
+        {
+            if (Client != null)
+                if (Client.IsConnected)
+                    return Client.SystemType;
+                else
+                    return "";
+            else
+                return "";
         }
 
         //Returns false if successful
@@ -136,7 +202,7 @@ namespace ILEditor.Classes
                 }
                 Result = true;
             }
-            
+
             return Result;
         }
 
@@ -155,6 +221,7 @@ namespace ILEditor.Classes
             if (Client.IsConnected)
             {
                 string inputCmd = "RCMD " + Command;
+                //IF THIS CRASHES CLIENT DISCONNECTS!!!
                 FtpReply reply = Client.Execute(inputCmd);
 
                 if (ShowError)
@@ -165,6 +232,24 @@ namespace ILEditor.Classes
             else
             {
                 return false;
+            }
+        }
+
+        public static string RemoteCommandResponse(string Command)
+        {
+            if (Client.IsConnected)
+            {
+                string inputCmd = "RCMD " + Command;
+                FtpReply reply = Client.Execute(inputCmd);
+
+                if (reply.Success)
+                    return "";
+                else
+                    return reply.ErrorMessage;
+            }
+            else
+            {
+                return "Not connected.";
             }
         }
 
@@ -188,5 +273,71 @@ namespace ILEditor.Classes
             return result;
         }
 
+        public static bool FileExists(string remoteFile)
+        {
+            return Client.FileExists(remoteFile);
+        }
+        public static bool DirExists(string remoteDir)
+        {
+            try
+            {
+                return Client.DirectoryExists(remoteDir);
+            }
+            catch (Exception ex)
+            {
+                Editor.TheEditor.SetStatus(ex.Message + " - please try again.");
+                return false;
+            }
+        }
+        public static FtpListItem[] GetListing(string remoteDir)
+        {
+            return Client.GetListing(remoteDir);
+        }
+
+        public static string RenameDir(string remoteDir, string newName)
+        {
+            string[] pieces = remoteDir.Split('/');
+            pieces[pieces.Length - 1] = newName;
+            newName = String.Join("/", pieces);
+
+            if (Client.MoveDirectory(remoteDir, String.Join("/", pieces)))
+                return newName;
+            else
+                return remoteDir;
+        }
+        public static string RenameFile(string remoteFile, string newName)
+        {
+            string[] pieces = remoteFile.Split('/');
+            pieces[pieces.Length - 1] = newName;
+            newName = String.Join("/", pieces);
+
+            if (Client.MoveFile(remoteFile, newName))
+                return newName;
+            else
+                return remoteFile;
+        }
+
+        public static void DeleteDir(string remoteDir)
+        {
+            Client.DeleteDirectory(remoteDir, FtpListOption.AllFiles);
+        }
+
+        public static void DeleteFile(string remoteFile)
+        {
+            Client.DeleteFile(remoteFile);
+        }
+
+        public static void SetWorkingDir(string RemoteDir)
+        {
+            Client.SetWorkingDirectory(RemoteDir);
+        }
+        public static void CreateDirecory(string RemoteDir)
+        {
+            Client.CreateDirectory(RemoteDir);
+        }
+        public static void UploadFiles(string RemoteDir, string[] Files)
+        {
+            Client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
+        }
     }
 }

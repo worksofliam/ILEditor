@@ -53,10 +53,8 @@ namespace ILEditor.Classes
 
         public void DoEditorDefaults()
         {
-            CheckExist("version", "0");
             CheckExist("acspath", "false");
             CheckExist("darkmode", "false");
-            CheckExist("toolbarSide", "Right");
         }
 
         public void DoSystemDefaults()
@@ -66,13 +64,16 @@ namespace ILEditor.Classes
             CheckExist("password", "mypass");
             CheckExist("alias", Data["system"]);
             CheckExist("useFTPES", "false");
+            CheckExist("transferMode", "AutoPassive");
 
             CheckExist("datalibl", "SYSTOOLS");
             CheckExist("curlib", "SYSTOOLS");
-            CheckExist("useuserlibl", "false");
 
-            CheckExist("printerLib", "");
-            CheckExist("printerObj", "");
+            CheckExist("homeDir", "/home/" + Data["username"] + "/");
+            CheckExist("tempSpf", "QSOURCE");
+
+            CheckExist("printerLib", "*LIBL");
+            CheckExist("printerObj", "QPRINT");
             CheckExist("fetchJobLog", "false");
 
             CheckExist("TREE_LIST", "");
@@ -81,6 +82,9 @@ namespace ILEditor.Classes
             CheckExist("INDENT_SIZE", "4");
             CheckExist("SHOW_SPACES", "false");
             CheckExist("HIGHLIGHT_CURRENT_LINE", "true");
+            CheckExist("CONV_TABS", "true");
+            CheckExist("CL_FORMAT_ON_SAVE", "false");
+            CheckExist("CHARACTER_ASSIST", "false");
 
             CheckExist("CMPTYPES", "RPGLE|SQLRPGLE|CLLE|C|CMD");
             CheckExist("DFT_RPGLE", "CRTBNDRPG");
@@ -91,10 +95,14 @@ namespace ILEditor.Classes
 
             CheckExist("TYPE_RPGLE", "CRTBNDRPG|CRTRPGMOD");
             CheckExist("CRTBNDRPG", "CRTBNDRPG PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF) DBGVIEW(*SOURCE)");
+            CheckExist("CRTBNDRPG_IFS", "CRTBNDRPG PGM(&BUILDLIB/&FILENAME) SRCSTMF('&FILEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE)");
+
             CheckExist("CRTRPGMOD", "CRTRPGMOD MODULE(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) OPTION(*EVENTF)");
 
             CheckExist("TYPE_SQLRPGLE", "CRTSQLRPGI|CRTSQLRPGI_MOD");
             CheckExist("CRTSQLRPGI", "CRTSQLRPGI OBJ(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) COMMIT(*NONE) OPTION(*EVENTF *XREF)");
+            CheckExist("CRTSQLRPGI_IFS", "CRTSQLRPGI OBJ(&BUILDLIB/&FILENAME) SRCSTMF('&FILEPATH') COMMIT(*NONE) OPTION(*EVENTF *XREF)");
+
             CheckExist("CRTSQLRPGI_MOD", "CRTSQLRPGI OBJ(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF) COMMIT(*NONE) OBJTYPE(*MODULE) OPTION(*EVENTF *XREF)");
 
             CheckExist("TYPE_CLLE", "CRTBNDCL");
@@ -107,7 +115,7 @@ namespace ILEditor.Classes
             CheckExist("TYPE_CMD", "CRTCMD");
             CheckExist("CRTCMD", "CRTCMD CMD(&OPENLIB/&OPENMBR) PGM(&OPENLIB/&OPENMBR) SRCFILE(&OPENLIB/&OPENSPF)");
 
-            CheckExist("LIBSAVE", "");
+            CheckExist("IFS_LINKS", "");
         }
 
         public void SaveConfig()

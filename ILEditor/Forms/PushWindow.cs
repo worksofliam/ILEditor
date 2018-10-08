@@ -43,7 +43,10 @@ namespace ILEditor.Forms
             foreach (string Dir in Dirs)
             {
                 SPF = Path.GetFileName(Dir);
-                Member[] MemberList = IBMiUtils.GetMemberList(lib.Text, SPF);
+
+                if (SPF.StartsWith(".")) continue;
+
+                RemoteSource[] MemberList = IBMiUtils.GetMemberList(lib.Text, SPF);
                 if (MemberList == null)
                     CreateSPFs.Add(SPF, 112);
 
@@ -52,13 +55,16 @@ namespace ILEditor.Forms
                     Name = SPF + '/' + Path.GetFileNameWithoutExtension(FilePath);
                     Ext = Path.GetExtension(FilePath).TrimStart('.');
 
+                    if (UploadMembers.ContainsKey(Name))
+                        continue;
+
                     if (MemberList == null)
                     {
                         CreateMembers.Add(Name, Ext);
                     }
                     else
                     {
-                        if (MemberList.Where(x => (x.GetObject() + '/' + x.GetMember()) == Name).Count() == 0)
+                        if (MemberList.Where(x => (x.GetObject() + '/' + x.GetName()) == Name).Count() == 0)
                             CreateMembers.Add(Name, Ext);
                     }
 
@@ -67,11 +73,11 @@ namespace ILEditor.Forms
 
                 if (MemberList != null)
                 {
-                    foreach (Member MemberInfo in MemberList)
+                    foreach (RemoteSource MemberInfo in MemberList)
                     {
-                        LocalMember = IBMiUtils.GetLocalFile(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetMember(), MemberInfo.GetExtension());
+                        LocalMember = IBMiUtils.GetLocalFile(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetName(), MemberInfo.GetExtension());
                         if (!File.Exists(LocalMember))
-                            DeleteMembers.Add(MemberInfo.GetObject() + "/" + MemberInfo.GetMember());
+                            DeleteMembers.Add(MemberInfo.GetObject() + "/" + MemberInfo.GetName());
                     }
                 }
             }

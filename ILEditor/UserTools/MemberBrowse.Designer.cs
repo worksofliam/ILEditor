@@ -58,7 +58,7 @@
             this.membercount});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(444, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(428, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -116,11 +116,10 @@
             this.columnHeader2,
             this.columnHeader3});
             this.memberList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.memberList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberList.Location = new System.Drawing.Point(0, 25);
             this.memberList.MultiSelect = false;
             this.memberList.Name = "memberList";
-            this.memberList.Size = new System.Drawing.Size(444, 291);
+            this.memberList.Size = new System.Drawing.Size(428, 252);
             this.memberList.SmallImageList = this.imageList1;
             this.memberList.TabIndex = 1;
             this.memberList.UseCompatibleStateImageBehavior = false;
@@ -177,10 +176,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(428, 277);
             this.Controls.Add(this.memberList);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MemberBrowse";
-            this.Size = new System.Drawing.Size(444, 316);
             this.Load += new System.EventHandler(this.MemberBrowse_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

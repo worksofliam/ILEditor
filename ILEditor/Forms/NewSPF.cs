@@ -37,9 +37,9 @@ namespace ILEditor.Forms
                 if (IBMi.IsConnected())
                 {
                     string cmd = "CRTSRCPF FILE(" + lib.Text + "/" + spf.Text + ") RCDLEN(" + rcdLen.Value.ToString() + ") CCSID(" + ccsid.Text + ")";
-                    if (IBMi.RemoteCommand(cmd) == false)
+                    if (IBMi.RemoteCommand(cmd))
                     {
-                        Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(lib.Text, spf.Text));
+                        Editor.TheEditor.AddTool(new MemberBrowse(lib.Text, spf.Text), WeifenLuo.WinFormsUI.Docking.DockState.DockRight);
                         this.Close();
                     }
                     else
@@ -50,7 +50,7 @@ namespace ILEditor.Forms
                 else
                 {
                     Directory.CreateDirectory(IBMiUtils.GetLocalDir(lib.Text, spf.Text));
-                    Editor.TheEditor.AddTool("Member Browse", new MemberBrowse(lib.Text, spf.Text));
+                    Editor.TheEditor.AddTool(new MemberBrowse(lib.Text, spf.Text), WeifenLuo.WinFormsUI.Docking.DockState.DockRight);
                 }
             }
             else

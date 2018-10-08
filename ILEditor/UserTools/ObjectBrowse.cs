@@ -9,14 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILEditor.Classes;
 using System.Threading;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class ObjectBrowse : UserControl
+    public partial class ObjectBrowse : DockContent
     {
         public ObjectBrowse()
         {
             InitializeComponent();
+            this.Text = "Object Browser";
         }
 
         private readonly Dictionary<string, int> IconKeys = new Dictionary<string, int>()
@@ -27,11 +29,12 @@ namespace ILEditor.UserTools
             { "*BNDDIR", 3 }
         };
         private List<ListViewItem> curItems = new List<ListViewItem>();
+        private ILEObject[] Objects;
         public void UpdateListing(string Lib)
         {
             Thread gothread = new Thread((ThreadStart)delegate
             {
-                ILEObject[] objects;
+                
                 ListViewItem curItem;
 
                 curItems.Clear();
@@ -42,16 +45,16 @@ namespace ILEditor.UserTools
                     objectList.Items.Add(new ListViewItem("Loading...", 2));
                 });
 
-                objects = IBMiUtils.GetObjectList(Lib, "*PGM *SRVPGM *MODULE *BNDDIR");
+                Objects = IBMiUtils.GetObjectList(Lib, "*PGM *SRVPGM *MODULE *BNDDIR");
 
                 this.Invoke((MethodInvoker)delegate
                 {
                     objectList.Items.Clear();
                 });
 
-                if (objects != null)
+                if (Objects != null)
                 {
-                    foreach (ILEObject Object in objects)
+                    foreach (ILEObject Object in Objects)
                     {
                         curItem = new ListViewItem(new string[4] { Object.Name, Object.Extension, Object.Type, Object.Text }, 0);
                         curItem.Tag = Object;
@@ -67,7 +70,7 @@ namespace ILEditor.UserTools
                     this.Invoke((MethodInvoker)delegate
                     {
                         objectList.Items.AddRange(curItems.ToArray());
-                        programcount.Text = objects.Length.ToString() + " object" + (objects.Length == 1 ? "" : "s");
+                        programcount.Text = Objects.Length.ToString() + " object" + (Objects.Length == 1 ? "" : "s");
                     });
                 }
                 else
@@ -93,7 +96,7 @@ namespace ILEditor.UserTools
                 return;
             }
 
-            this.Parent.Text = library.Text + " [Listing]";
+            this.Text = library.Text + " [Listing]";
             UpdateListing(library.Text);
         }
 
@@ -116,19 +119,21 @@ namespace ILEditor.UserTools
             if (currentRightClick != null)
             {
                 objectInformationToolStripMenuItem.Enabled = true;
+                openSourceToolStripMenuItem.Enabled = false;
+                updateToolStripMenuItem.Enabled = false;
+
                 switch (currentRightClick.Type) {
                     case "*BNDDIR":
                         openSourceToolStripMenuItem.Enabled = true;
+                        break;
+                    case "*PGM":
+                    case "*SRVPGM":
+                        updateToolStripMenuItem.Enabled = true;
                         break;
                     default:
                         openSourceToolStripMenuItem.Enabled = (currentRightClick.SrcMbr != "");
                         break;
                 }
-            }
-            else
-            {
-                objectInformationToolStripMenuItem.Enabled = false;
-                openSourceToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -139,10 +144,10 @@ namespace ILEditor.UserTools
                 switch (currentRightClick.Type)
                 {
                     case "*BNDDIR":
-                        Editor.TheEditor.AddBindingList(currentRightClick.Library, currentRightClick.Name);
+                        Editor.TheEditor.AddTool(new BindingDirectory(currentRightClick.Library, currentRightClick.Name));
                         break;
                     default:
-                        Editor.OpenMember(new Member("", currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension));
+                        Editor.OpenSource(new RemoteSource("", currentRightClick.SrcLib, currentRightClick.SrcSpf, currentRightClick.SrcMbr, currentRightClick.Extension));
                         break;
                 }
             }
@@ -155,6 +160,15 @@ namespace ILEditor.UserTools
                 new Forms.ObjectInformation(currentRightClick).Show();
             }
         }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentRightClick != null)
+            {
+                new Forms.UpdateProgram(currentRightClick, Objects).Show();
+            }
+        }
         #endregion
+
     }
 }

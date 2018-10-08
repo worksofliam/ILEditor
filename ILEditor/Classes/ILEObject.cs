@@ -8,6 +8,18 @@ namespace ILEditor.Classes
 {
     public class ILEObject
     {
+        public ILEObject()
+        {
+
+        } 
+
+        public ILEObject(string Lib, string Obj, string Type = "*PGM")
+        {
+            this.Library = Lib;
+            this.Name = Obj;
+            this.Type = Type;
+        } 
+
         public string Library;
         public string Name;
         public string Type;

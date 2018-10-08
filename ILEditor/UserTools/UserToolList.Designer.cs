@@ -30,12 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Member Browser", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Program Listing", 5);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Tree Browser", 6);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Library List", 3);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Compile Settings", 4);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Connection Settings", 2);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("QSYS Browser", 6);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("IFS Browser", 6);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Program Listing", 5);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Object Diagram", 8);
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Spool File List", 7);
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Library List", 3);
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Compile Settings", 2);
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Connection Settings", 2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserToolList));
             this.toollist = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -45,14 +47,15 @@
             // 
             this.toollist.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.toollist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toollist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             listViewItem1.Tag = "MBR";
-            listViewItem2.Tag = "PGM";
-            listViewItem3.Tag = "TREE";
-            listViewItem4.Tag = "SPL";
-            listViewItem5.Tag = "LIBL";
-            listViewItem6.Tag = "CMP";
-            listViewItem7.Tag = "CONN";
+            listViewItem2.Tag = "TREE";
+            listViewItem3.Tag = "IFS";
+            listViewItem4.Tag = "PGM";
+            listViewItem5.Tag = "OBJDIAG";
+            listViewItem6.Tag = "SPL";
+            listViewItem7.Tag = "LIBL";
+            listViewItem8.Tag = "CMP";
+            listViewItem9.Tag = "CONN";
             this.toollist.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
@@ -60,11 +63,13 @@
             listViewItem4,
             listViewItem5,
             listViewItem6,
-            listViewItem7});
+            listViewItem7,
+            listViewItem8,
+            listViewItem9});
             this.toollist.Location = new System.Drawing.Point(0, 0);
             this.toollist.MultiSelect = false;
             this.toollist.Name = "toollist";
-            this.toollist.Size = new System.Drawing.Size(345, 334);
+            this.toollist.Size = new System.Drawing.Size(258, 295);
             this.toollist.SmallImageList = this.imageList1;
             this.toollist.TabIndex = 0;
             this.toollist.UseCompatibleStateImageBehavior = false;
@@ -77,20 +82,22 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "edit.png");
             this.imageList1.Images.SetKeyName(1, "application_error.png");
-            this.imageList1.Images.SetKeyName(2, "settings.png");
+            this.imageList1.Images.SetKeyName(2, "compile.png");
             this.imageList1.Images.SetKeyName(3, "books.png");
             this.imageList1.Images.SetKeyName(4, "ux-design.png");
-            this.imageList1.Images.SetKeyName(5, "browser.png");
+            this.imageList1.Images.SetKeyName(5, "list.png");
             this.imageList1.Images.SetKeyName(6, "folder.png");
             this.imageList1.Images.SetKeyName(7, "file.png");
+            this.imageList1.Images.SetKeyName(8, "diagram.png");
             // 
             // UserToolList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(258, 295);
             this.Controls.Add(this.toollist);
             this.Name = "UserToolList";
-            this.Size = new System.Drawing.Size(345, 334);
+            this.Text = "Toolbox";
             this.ResumeLayout(false);
 
         }

@@ -36,6 +36,9 @@
             this.newhost = new System.Windows.Forms.Button();
             this.versionLabel = new System.Windows.Forms.Label();
             this.isOffline = new System.Windows.Forms.CheckBox();
+            this.hostRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hostRightClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // systemlist
@@ -49,6 +52,7 @@
             this.systemlist.UseCompatibleStateImageBehavior = false;
             this.systemlist.DoubleClick += new System.EventHandler(this.systemlist_DoubleClick);
             this.systemlist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.systemlist_KeyDown);
+            this.systemlist.MouseClick += new System.Windows.Forms.MouseEventHandler(this.systemlist_MouseClick);
             // 
             // imageList1
             // 
@@ -94,6 +98,20 @@
             this.isOffline.Text = "Offline Mode";
             this.isOffline.UseVisualStyleBackColor = true;
             // 
+            // hostRightClick
+            // 
+            this.hostRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem});
+            this.hostRightClick.Name = "hostRightClick";
+            this.hostRightClick.Size = new System.Drawing.Size(153, 48);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
             // HostSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,6 +129,7 @@
             this.Name = "HostSelect";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Host Select";
+            this.hostRightClick.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +143,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.CheckBox isOffline;
+        private System.Windows.Forms.ContextMenuStrip hostRightClick;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }

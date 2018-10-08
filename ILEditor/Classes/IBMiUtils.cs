@@ -6,11 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ILEditor.Classes
 {
     class IBMiUtils
     {
+        private static List<string> QTEMPListing = new List<string>();
+        //This method is used to determine whether a file in QTEMP needs to be deleted
+        //If it's already exists in QTEMP, we delete it - otherwise we delete it next time
+        public static void UsingQTEMPFiles(string[] Objects)
+        {
+            foreach (string Object in Objects) 
+                if (QTEMPListing.Contains(Object))
+                    IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + Object + ") OBJTYPE(*FILE)", false);
+                else
+                    QTEMPListing.Add(Object);
+        }
+
         public static Boolean IsValueObjectName(string Name)
         {
             if (Name.Trim() == "")
@@ -22,6 +35,8 @@ namespace ILEditor.Classes
             return true;
         }
 
+        private static string GetCurrentSystem() => IBMi.CurrentSystem.GetValue("system").Split(':')[0];
+
         public static BindingEntry[] GetBindingDirectory(string Lib, string Obj)
         {
             if (IBMi.IsConnected())
@@ -29,9 +44,8 @@ namespace ILEditor.Classes
                 string Line = ""; BindingEntry Entry;
                 List<BindingEntry> Entries = new List<BindingEntry>();
                 if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
-
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/BNDDIR) OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/BNDDATA) OBJTYPE(*FILE)", false);
+                
+                UsingQTEMPFiles(new[] { "BNDDIR", "BNDDATA" });
 
                 IBMi.RemoteCommand("DSPBNDDIR BNDDIR(" + Lib + "/" + Obj + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/BNDDIR)");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/BNDDATA AS (SELECT BNOBNM, BNOBTP, BNOLNM, BNOACT, BNODAT, BNOTIM FROM qtemp/bnddir) WITH DATA ') COMMIT(*NONE)");
@@ -39,7 +53,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -84,9 +98,8 @@ namespace ILEditor.Classes
                     FileA = FileA.Substring(0, 10);
                 if (FileB.Length > 10)
                     FileB = FileB.Substring(0, 10);
-
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileA + ") OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileB + ") OBJTYPE(*FILE)", false);
+                
+                UsingQTEMPFiles(new[] { FileA, FileB });
 
                 IBMi.RemoteCommand("DSPOBJD OBJ(" + Lib + "/*ALL) OBJTYPE(" + Types + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/" + FileA + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT ODOBNM, ODOBTP, ODOBAT, char(ODOBSZ) as ODOBSZ, ODOBTX, ODOBOW, ODSRCF, ODSRCL, ODSRCM FROM qtemp/" + FileA + " order by ODOBNM) WITH DATA') COMMIT(*NONE)");
@@ -95,7 +108,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
 
                         if (RealLine.Trim() != "")
@@ -148,13 +161,13 @@ namespace ILEditor.Classes
                 if (FileB.Length > 10)
                     FileB = FileB.Substring(0, 10);
 
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileA + ") OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + FileB + ") OBJTYPE(*FILE)", false);
+                UsingQTEMPFiles(new[] { FileA, FileB });
+
+                Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
 
                 IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/*ALL) TYPE(*ATR) OUTPUT(*OUTFILE) FILEATR(*PF) OUTFILE(QTEMP/" + FileA + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + FileB + " AS (SELECT PHFILE, PHLIB FROM QTEMP/" + FileA + " WHERE PHDTAT = ''S'' order by PHFILE) WITH DATA') COMMIT(*NONE)");
 
-                Editor.TheEditor.SetStatus("Fetching source-physical files for " + Lib + "...");
                 string file = DownloadMember("QTEMP", FileB, FileB);
 
                 if (file != "")
@@ -162,7 +175,7 @@ namespace ILEditor.Classes
                     Boolean validName = true;
                     string Line, Library, Object;
                     ILEObject Obj;
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -209,11 +222,11 @@ namespace ILEditor.Classes
             return SPFList.ToArray();
         }
 
-        public static Member[] GetMemberList(string Lib, string Obj)
+        public static RemoteSource[] GetMemberList(string Lib, string Obj)
         {
             string Line, Object, Name, Desc, Type, RcdLen;
-            List<Member> Members = new List<Member>();
-            Member NewMember;
+            List<RemoteSource> Members = new List<RemoteSource>();
+            RemoteSource NewMember;
 
             Lib = Lib.ToUpper();
             Obj = Obj.ToUpper();
@@ -227,9 +240,8 @@ namespace ILEditor.Classes
                 string TempName = 'M' + Obj;
                 if (TempName.Length > 10)
                     TempName = TempName.Substring(0, 10);
-
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + TempName + ") OBJTYPE(*FILE)", false);
-                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/" + Obj + ") OBJTYPE(*FILE)", false);
+                
+                UsingQTEMPFiles(new[] { TempName, Obj });
 
                 IBMi.RemoteCommand("DSPFD FILE(" + Lib + "/" + Obj + ") TYPE(*MBR) OUTPUT(*OUTFILE) OUTFILE(QTEMP/" + TempName + ")");
                 IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/" + Obj + " AS (SELECT MBFILE, MBNAME, MBMTXT, MBSEU2, char(MBMXRL) as MBMXRL FROM QTEMP/" + TempName + " order by MBNAME) WITH DATA') COMMIT(*NONE)");
@@ -238,7 +250,7 @@ namespace ILEditor.Classes
 
                 if (file != "")
                 {
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -251,7 +263,7 @@ namespace ILEditor.Classes
 
                             if (Name != "")
                             {
-                                NewMember = new Member("", Lib, Object, Name, Type, true, int.Parse(RcdLen) - 12);
+                                NewMember = new RemoteSource("", Lib, Object, Name, Type, true, int.Parse(RcdLen) - 12);
                                 NewMember._Text = Desc;
 
                                 Members.Add(NewMember);
@@ -277,7 +289,7 @@ namespace ILEditor.Classes
                         Type = Path.GetExtension(file).ToUpper();
                         if (Type.StartsWith(".")) Type = Type.Substring(1);
                         
-                        NewMember = new Member(file, Lib, Obj, Path.GetFileNameWithoutExtension(file), Type);
+                        NewMember = new RemoteSource(file, Lib, Obj, Path.GetFileNameWithoutExtension(file), Type);
                         NewMember._Text = "";
                         Members.Add(NewMember);
                     }
@@ -291,6 +303,62 @@ namespace ILEditor.Classes
             return Members.ToArray();
         }
 
+        public static List<ILEObject[]> GetProgramReferences(string Lib, string Obj = "*ALL")
+        {
+            List<ILEObject[]> Items = new List<ILEObject[]>();
+            string Line, Library, Object, RefObj, RefLib, Type;
+
+            Lib = Lib.ToUpper();
+            Obj = Obj.ToUpper();
+
+            if (IBMi.IsConnected())
+            {
+                if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
+                Editor.TheEditor.SetStatus("Fetching references for " + Lib + "/" + Obj + "...");
+                
+                UsingQTEMPFiles(new[] { "REFS", "REFSB" });
+
+                IBMi.RemoteCommand("DSPPGMREF PGM(" + Lib + "/" + Obj + ") OUTPUT(*OUTFILE) OUTFILE(QTEMP/REFS)");
+                IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/REFSB AS (SELECT WHLIB, WHPNAM, WHFNAM, WHLNAM, WHOTYP FROM qtemp/refs) WITH DATA') COMMIT(*NONE)");
+
+                string file = DownloadMember("QTEMP", "REFSB", "REFSB");
+
+                if (file != "")
+                {
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
+                    {
+                        if (RealLine.Trim() != "")
+                        {
+                            Line = RealLine.PadRight(52);
+                            Library = Line.Substring(0, 10).Trim();
+                            Object = Line.Substring(10, 10).Trim();
+                            RefObj = Line.Substring(20, 11).Trim();
+                            RefLib = Line.Substring(31, 11).Trim();
+                            Type = Line.Substring(42, 10).Trim();
+
+                            if (Library != "")
+                            {
+                                Items.Add(new[] { new ILEObject(Library, Object), new ILEObject(RefLib, RefObj, Type) });
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+
+                Editor.TheEditor.SetStatus("Fetched references for " + Lib + " / " + Obj + ".");
+            }
+            else
+            {
+                Editor.TheEditor.SetStatus("Cannot fetch references when offline.");
+                return null;
+            }
+
+            return Items;
+        }
+
         public static SpoolFile[] GetSpoolListing(string Lib, string Obj)
         {
             if (IBMi.IsConnected())
@@ -302,10 +370,10 @@ namespace ILEditor.Classes
 
                 if (Lib != "" && Obj != "")
                 {
-                    IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/SPOOL) OBJTYPE(*FILE)", false);
-                    IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d, Char(FILE_NUMBER) as e FROM TABLE(QSYS2.OUTPUT_QUEUE_ENTRIES(''" + Lib + "'', ''" + Obj + "'', ''*NO'')) A WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 25 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
-
                     Editor.TheEditor.SetStatus("Fetching spool file listing.. (can take a moment)");
+
+                    UsingQTEMPFiles(new[] { "SPOOL" });
+                    IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/SPOOL AS (SELECT Char(SPOOLED_FILE_NAME) as a, Char(COALESCE(USER_DATA, '''')) as b, Char(JOB_NAME) as c, Char(STATUS) as d, Char(FILE_NUMBER) as e FROM TABLE(QSYS2.OUTPUT_QUEUE_ENTRIES(''" + Lib + "'', ''" + Obj + "'', ''*NO'')) A WHERE USER_NAME = ''" + IBMi.CurrentSystem.GetValue("username").ToUpper() + "'' ORDER BY CREATE_TIMESTAMP DESC FETCH FIRST 25 ROWS ONLY) WITH DATA') COMMIT(*NONE)");
                     file = DownloadMember("QTEMP", "SPOOL", "SPOOL");
                     Editor.TheEditor.SetStatus("Finished fetching spool file listing.");
                 }
@@ -313,7 +381,7 @@ namespace ILEditor.Classes
                 if (file != "")
                 {
                     string Line, SpoolName, UserData, Job, Status, Number;
-                    foreach (string RealLine in File.ReadAllLines(file))
+                    foreach (string RealLine in File.ReadAllLines(file, Program.Encoding))
                     {
                         if (RealLine.Trim() != "")
                         {
@@ -344,50 +412,88 @@ namespace ILEditor.Classes
             }
         }
 
-        public static Boolean CompileMember(Member MemberInfo, string TrueCmd = "")
+        public static Boolean CompileSource(RemoteSource SourceInfo, string TrueCmd = "")
         {
             if (IBMi.IsConnected())
             {
                 List<string> commands = new List<string>();
-                string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
+                string type, command, filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG"), name, library = "";
 
-                type = MemberInfo.GetExtension();
-                command = IBMi.CurrentSystem.GetValue("DFT_" + type);
-                if (command.Trim() != "")
+                if (SourceInfo != null)
                 {
-                    if (TrueCmd != "") command = TrueCmd;
-                    Editor.TheEditor.SetStatus("Compiling " + MemberInfo.GetMember() + " with " + command + "...");
-                    command = IBMi.CurrentSystem.GetValue(command);
+                    type = SourceInfo.GetExtension().ToUpper();
+                    command = IBMi.CurrentSystem.GetValue("DFT_" + type);
                     if (command.Trim() != "")
                     {
-                        command = command.Replace("&OPENLIB", MemberInfo.GetLibrary());
-                        command = command.Replace("&OPENSPF", MemberInfo.GetObject());
-                        command = command.Replace("&OPENMBR", MemberInfo.GetMember());
-                        command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
+                        if (TrueCmd != "") command = TrueCmd;
+                        Editor.TheEditor.SetStatus("Compiling " + SourceInfo.GetName() + " with " + command + "...");
 
-                        if (IBMi.CurrentSystem.GetValue("useuserlibl") != "true")
-                            IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
+                        if (SourceInfo.GetFS() == FileSystem.IFS)
+                            command += "_IFS";
 
-                        if (!IBMi.RemoteCommand(command))
+                        command = IBMi.CurrentSystem.GetValue(command);
+                        if (command.Trim() != "")
                         {
-                            Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
-                            if (command.ToUpper().Contains("*EVENTF"))
+                            name = SourceInfo.GetName();
+                            if (name.Length > 10) name.Substring(0, 10);
+
+                            switch (SourceInfo.GetFS())
                             {
-                                Editor.TheEditor.SetStatus("Fetching errors..");
-                                Editor.TheEditor.AddTool("Error Listing", new ErrorListing(MemberInfo.GetLibrary(), MemberInfo.GetMember()), true);
+                                case FileSystem.QSYS:
+                                    command = command.Replace("&OPENLIB", SourceInfo.GetLibrary());
+                                    command = command.Replace("&OPENSPF", SourceInfo.GetObject());
+                                    command = command.Replace("&OPENMBR", SourceInfo.GetName());
+                                    library = SourceInfo.GetLibrary();
+                                    break;
+                                case FileSystem.IFS:
+                                    command = command.Replace("&FILENAME", name);
+                                    command = command.Replace("&FILEPATH", SourceInfo.GetRemoteFile());
+                                    command = command.Replace("&BUILDLIB", IBMi.CurrentSystem.GetValue("buildLib"));
+
+                                    library = IBMi.CurrentSystem.GetValue("buildLib");
+                                    IBMi.SetWorkingDir(IBMi.CurrentSystem.GetValue("homeDir"));
+                                    break;
                             }
-                            if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+
+                            if (library != "")
                             {
-                                IBMi.RemoteCommand("DLTOBJ OBJ(QTEMP/JOBLOG) OBJTYPE(*FILE)", false);
-                                IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
-                                IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
+                                command = command.Replace("&CURLIB", IBMi.CurrentSystem.GetValue("curlib"));
+                                IBMi.RemoteCommand($"CHGLIBL LIBL({ IBMi.CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ IBMi.CurrentSystem.GetValue("curlib") })");
+
+                                if (!IBMi.RemoteCommand(command))
+                                {
+                                    Editor.TheEditor.SetStatus("Compile finished unsuccessfully.");
+                                    if (command.ToUpper().Contains("*EVENTF"))
+                                    {
+                                        Editor.TheEditor.SetStatus("Fetching errors..");
+                                        Editor.TheEditor.Invoke((MethodInvoker)delegate
+                                        {
+                                            Editor.TheEditor.AddTool(new ErrorListing(library, name), WeifenLuo.WinFormsUI.Docking.DockState.DockLeft, true);
+                                        });
+                                        Editor.TheEditor.SetStatus("Fetched errors.");
+                                    }
+                                    if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+                                    {
+                                        UsingQTEMPFiles(new[] { "JOBLOG" });
+                                        IBMi.RemoteCommand("RUNSQL SQL('CREATE TABLE QTEMP/JOBLOG AS (SELECT char(MESSAGE_TEXT) as a FROM TABLE(QSYS2.JOBLOG_INFO(''*'')) A WHERE MESSAGE_TYPE = ''DIAGNOSTIC'') WITH DATA') COMMIT(*NONE)");
+                                        IBMi.DownloadFile(filetemp, "/QSYS.lib/QTEMP.lib/JOBLOG.file/JOBLOG.mbr");
+                                    }
+                                }
+                                else
+                                {
+                                    Editor.TheEditor.SetStatus("Compile finished successfully.");
+                                }
                             }
-                        }
-                        else
-                        {
-                            Editor.TheEditor.SetStatus("Compile finished successfully.");
+                            else
+                            {
+                                Editor.TheEditor.SetStatus("Build library not set. See Connection Settings.");
+                            }
                         }
                     }
+                }
+                else
+                {
+                    Editor.TheEditor.SetStatus("Only remote members can be compiled.");
                 }
 
                 return true;
@@ -400,7 +506,7 @@ namespace ILEditor.Classes
 
         public static string GetLocalDir(string Lib)
         {
-            string LIBDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib;
+            string LIBDir = Program.SOURCEDIR + "\\" + GetCurrentSystem() + "\\" + Lib;
 
             if (!Directory.Exists(LIBDir))
                 Directory.CreateDirectory(LIBDir);
@@ -410,12 +516,46 @@ namespace ILEditor.Classes
 
         public static string GetLocalDir(string Lib, string Obj)
         {
-            string SPFDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib + "\\" + Obj;
+            string SPFDir = Program.SOURCEDIR + "\\" + GetCurrentSystem() + "\\" + Lib + "\\" + Obj;
 
             if (!Directory.Exists(SPFDir))
                 Directory.CreateDirectory(SPFDir);
 
             return SPFDir;
+        }
+
+        public static string GetLocalSource(string Lib, string Spf, string Mbr)
+        {
+            string result = "";
+            string[] libl;
+            string dir;
+
+            if (Lib == "*LIBL")
+                libl = IBMi.CurrentSystem.GetValue("datalibl").Split(',');
+            else
+                libl = new[] { Lib };
+
+            foreach (string lib in libl)
+            {
+                dir = Path.Combine(Program.SOURCEDIR, GetCurrentSystem(), lib);
+                if (Directory.Exists(dir))
+                {
+                    dir = Path.Combine(dir, Spf);
+                    if (Directory.Exists(dir))
+                    {
+                        foreach (string FilePath in Directory.GetFiles(dir))
+                        {
+                            if (Path.GetFileNameWithoutExtension(FilePath) == Mbr)
+                            {
+                                result = File.ReadAllText(FilePath).ToUpper();
+                                return result;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public static string GetLocalFile(string Lib, string Obj, string Mbr, string Ext = "")
@@ -428,7 +568,7 @@ namespace ILEditor.Classes
 
             if (Lib == "*CURLIB") Lib = IBMi.CurrentSystem.GetValue("curlib");
 
-            string SPFDir = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + Lib + "\\" + Obj;
+            string SPFDir = Program.SOURCEDIR + "\\" + GetCurrentSystem() + "\\" + Lib + "\\" + Obj;
 
             if (!Directory.Exists(SPFDir))
                 Directory.CreateDirectory(SPFDir);
@@ -448,7 +588,7 @@ namespace ILEditor.Classes
                 Editor.TheEditor.SetStatus("Downloading spool file " + Name + "..");
                 IBMi.RemoteCommand("CPYSPLF FILE(" + Name + ") JOB(" + Job + ") SPLNBR(" + Number.ToString() + ") TOFILE(*TOSTMF) TOSTMF('" + remoteTemp + "') STMFOPT(*REPLACE)");
 
-                if (IBMi.DownloadFile(filetemp, remoteTemp))
+                if (!IBMi.DownloadFile(filetemp, remoteTemp))
                 {
                     Editor.TheEditor.SetStatus("Downloaded spool file " + Name + ".");
                     return filetemp;
@@ -487,6 +627,27 @@ namespace ILEditor.Classes
             }
         }
 
+        public static string DownloadFile(string RemoteFile)
+        {
+            string filetemp = Path.Combine(GetLocalDir("IFS"), Path.GetFileName(RemoteFile));
+
+            if (IBMi.IsConnected())
+            {
+                if (IBMi.DownloadFile(filetemp, RemoteFile) == false)
+                    return filetemp;
+                else
+                    return "";
+            }
+            else
+            {
+                Editor.TheEditor.SetStatus("Fetching existing local file.");
+                if (File.Exists(filetemp))
+                    return filetemp;
+                else
+                    return "";
+            }
+        }
+
         public static bool UploadMember(string Local, string Lib, string Obj, string Mbr)
         {
             Lib = Lib.ToUpper();
@@ -495,6 +656,16 @@ namespace ILEditor.Classes
             
             if (IBMi.IsConnected()) 
                 return IBMi.UploadFile(Local, "/QSYS.lib/" + Lib + ".lib/" + Obj + ".file/" + Mbr + ".mbr");
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool UploadFile(string Local, string Remote)
+        {
+            if (IBMi.IsConnected())
+                return IBMi.UploadFile(Local, Remote);
             else
             {
                 Editor.TheEditor.SetStatus("Saving locally only.");

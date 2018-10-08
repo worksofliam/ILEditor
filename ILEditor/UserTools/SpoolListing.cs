@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using ILEditor.Classes;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class SpoolListing : UserControl
+    public partial class SpoolListing : DockContent
     {
         public SpoolListing()
         {
             InitializeComponent();
+
+            this.Text = "Spool Listing";
+
             RefreshList();
         }
 
@@ -44,11 +48,14 @@ namespace ILEditor.UserTools
                     Items.Add(new ListViewItem("No spool files found."));
                 }
 
-                this.Invoke((MethodInvoker)delegate
+                if (spoolList != null)
                 {
-                    spoolList.Items.Clear();
-                    spoolList.Items.AddRange(Items.ToArray());
-                });
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        spoolList.Items.Clear();
+                        spoolList.Items.AddRange(Items.ToArray());
+                    });
+                }
             });
 
             if (Lib == "" || Obj == "")
@@ -77,7 +84,7 @@ namespace ILEditor.UserTools
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                Editor.TheEditor.AddSpoolFile(spool.getName(), SpoolFile);
+                                Editor.OpenLocalSource(SpoolFile, Language.None, spool.getName(), true);
                             });
                         }
                         else

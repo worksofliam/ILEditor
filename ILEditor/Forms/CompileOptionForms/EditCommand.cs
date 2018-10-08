@@ -28,7 +28,8 @@ namespace ILEditor.Forms.CompileOptionForms
             if (Command != "")
                 name.Enabled = false;
 
-            command.Text = IBMi.CurrentSystem.GetValue(Command);
+            command_qsys.Text = IBMi.CurrentSystem.GetValue(Command);
+            command_ifs.Text = IBMi.CurrentSystem.GetValue(Command + "_IFS");
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -46,12 +47,6 @@ namespace ILEditor.Forms.CompileOptionForms
                 return;
             }
 
-            if (command.Text.Trim() == "")
-            {
-                MessageBox.Show("Command cannot be blank.");
-                return;
-            }
-
             List<string> Commands = IBMi.CurrentSystem.GetValue("TYPE_" + types.Text).Split('|').ToList();
             if (!Commands.Contains(name.Text))
             {
@@ -59,7 +54,8 @@ namespace ILEditor.Forms.CompileOptionForms
                 IBMi.CurrentSystem.SetValue("TYPE_" + types.Text, String.Join("|", Commands));
             }
 
-            IBMi.CurrentSystem.SetValue(name.Text.Trim(), command.Text.Trim());
+            IBMi.CurrentSystem.SetValue(name.Text.Trim(), command_qsys.Text.Trim());
+            IBMi.CurrentSystem.SetValue(name.Text.Trim() + "_IFS", command_ifs.Text.Trim());
 
             this.Close();
         }

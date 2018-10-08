@@ -103,6 +103,14 @@
       <Word>export</Word>
       <Word>handler</Word>
       <Word>sfile</Word>
+      <Word>USROPN</Word>
+      <Word>EXTMBR</Word>
+      <Word>EXTFILE</Word>
+      <Word>RENAME</Word>
+      <Word>OFLIND</Word>
+      <Word>PERRCD</Word>
+      <Word>CTDATA</Word>
+      <Word>ALT</Word>
     </Keywords>
 
     <Keywords foreground="#C26DFF">
@@ -133,12 +141,14 @@
       <Word>DOU</Word>
       <Word>DOW</Word>
       <Word>DSPLY</Word>
+      <Word>DATA-INTO</Word>
       <Word>DUMP</Word>
       <Word>ELSE</Word>
       <Word>ELSEIF</Word>
       <Word>ENDDO</Word>
       <Word>ENDIF</Word>
       <Word>ENDSR</Word>
+      <Word>ENDFOR</Word>
       <Word>ENDSL</Word>
       <Word>ENDMON</Word>
       <Word>EVAL</Word>

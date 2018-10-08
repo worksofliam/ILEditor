@@ -1,0 +1,153 @@
+<!DOCTYPE>
+<!-- This code is for demonstration purposes only.  You should not hotlink to Github, Rawgit, or files from the Cytoscape.js documentation in your production apps. -->
+<html>
+  <head>
+    <style>
+    body {
+      font-family: helvetica;
+      font-size: 14px;
+    }
+
+    #cy {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 999;
+    }
+    </style>
+
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js/master/dist/cytoscape.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/maxkfranz/weaver/v1.2.0/dist/weaver.min.js"></script>
+    <script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-spread/1.3.1/cytoscape-spread.js"></script>
+  </head>
+  <body>
+    <div id="cy"></div>
+    <script>
+
+
+var json = !JSONHERE!;
+
+var item, target;
+var nodes = [];
+var edges = [];
+
+for (var i = 0; i < json.length; i++) {
+  item = json[i][0].Library + '/' + json[i][0].Name + ' (*PGM)';
+  target = json[i][1].Library + '/' + json[i][1].Name + ' (' + json[i][1].Type + ')';
+  
+  if (json[i][0].Library === "") continue;
+  if (json[i][0].Name === "") continue;
+  if (json[i][1].Library === "") continue;
+  if (json[i][1].Name === "") continue;
+  
+  if (json[i][1].Library === "QSYS") continue;
+  if (json[i][1].Name === "*NONE") continue;
+
+  nodes.push({ data: { id: item, typeColor: getTypeColor(json[i][0].Type) } });
+  nodes.push({ data: { id: target, typeColor: getTypeColor(json[i][1].Type) } });
+  
+  edges.push({data: { source: item, target: target }});
+}
+
+var cy = window.cy = cytoscape({
+  container: document.getElementById('cy'),
+
+  layout: {
+    name: '!STYLE!'
+  },
+  
+  style: [
+    {
+      selector: 'node',
+      style: {
+        'shape': 'square',
+        'content': 'data(id)',
+        'font-size': 16,
+        'background-color': 'data(typeColor)',
+      }
+    },
+
+    {
+      selector: 'edge',
+      style: {
+        'curve-style': 'haystack',
+        'haystack-radius': 0,
+        'width': 3,
+        'opacity': 0.666,
+        'line-color': '#fcc694'
+      }
+    },
+    {
+        selector: 'node.highlight',
+        style: {
+            'border-color': '#FFF',
+            'border-width': '2px'
+        }
+        },
+        {
+            selector: 'node.semitransp',
+            style:{ 'opacity': '0.3' }
+        },
+        {
+            selector: 'edge.highlight',
+            style: { 'mid-target-arrow-color': '#FFF' }
+        },
+        {
+            selector: 'edge.semitransp',
+            style:{ 'opacity': '0.2' }
+        }
+  ],
+
+  elements: {
+    nodes: nodes,
+    edges, edges
+  },
+});
+cy.on('click', 'node', function(e){
+    var sel = e.target;
+    cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
+    
+    var elements = sel.addClass('highlight').outgoers();
+    
+    elements[elements.length] = e.target;
+    elements.length++;
+    
+    cy.elements().remove(); 
+    cy.add( elements );
+    cy.fit();
+});
+cy.on('mouseover', 'node', function(e){
+    var sel = e.target;
+    cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
+    sel.addClass('highlight').outgoers().addClass('highlight');
+});
+cy.on('mouseout', 'node', function(e){
+    var sel = e.target;
+    cy.elements().removeClass('semitransp');
+    sel.removeClass('highlight').outgoers().removeClass('highlight');
+});
+
+function getTypeColor(type) {
+
+  var typeColors = {
+    "*PGM": "#0000A0",
+    "*SRVPGM": "#C0C0C0",
+    "*FILE": "#008000",
+    "*DTAARA": "#808000",
+    
+  }
+
+  if (typeColors[type] !== undefined) {
+    return typeColors[type];
+  } else {
+    return 'black';
+  }
+
+}
+
+    </script>
+  </body>
+</html>

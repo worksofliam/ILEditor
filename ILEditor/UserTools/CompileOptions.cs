@@ -9,15 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILEditor.Classes;
 using ILEditor.Forms.CompileOptionForms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class CompileOptions : UserControl
+    public partial class CompileOptions : DockContent
     {
         public CompileOptions()
         {
             InitializeComponent();
+            this.Text = "Compile Options";
         }
+
         private void CompileOptions_Load(object sender, EventArgs e)
         {
             reloadConfig();

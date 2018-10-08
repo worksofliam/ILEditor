@@ -54,6 +54,7 @@ namespace ILEditor.Forms
                     Command = "ADDPFM FILE(" + _lib + "/" + _spf + ") MBR(" + _mbr + ") TEXT(" + _text + ") SRCTYPE(" + _type + ")";
                     if (IBMi.RemoteCommand(Command)) //No error
                     {
+                        this.Close();
                     }
                     else
                     {
