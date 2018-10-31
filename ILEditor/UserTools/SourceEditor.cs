@@ -88,6 +88,8 @@ namespace ILEditor.UserTools
             textEditor.FontSize = float.Parse(IBMi.CurrentSystem.GetValue("ZOOM"));
             
             textEditor.TextChanged += TextEditor_TextChanged;
+            textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
+            textEditor.GotFocus += TextEditor_GotFocus;
 
             if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
                 textEditor.TextArea.TextEntered += TextArea_TextEntered;
