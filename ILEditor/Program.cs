@@ -75,7 +75,7 @@ namespace ILEditor
                         catch (Exception e)
                         {
                             File.WriteAllText(Path.Combine(DUMPSDIR, DateTime.Now.ToFileTime() + ".txt"), e.ToString());
-                            MessageBox.Show("There was an error. Crash dump created.");
+                            MessageBox.Show("There was an error. Crash dump created: " + DUMPSDIR);
                         }
                         IBMi.Disconnect();
                     }

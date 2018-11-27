@@ -92,7 +92,16 @@ namespace ILEditor
             ApplyControlTheme(statusStrip);
 
             if (File.Exists(Program.PanelsXML))
-                dockingPanel.LoadFromXml(Program.PanelsXML, new DeserializeDockContent(GetContentFromPersistString));
+            {
+                try
+                {
+                    dockingPanel.LoadFromXml(Program.PanelsXML, new DeserializeDockContent(GetContentFromPersistString));
+                }
+                catch
+                {
+                    File.Delete(Program.PanelsXML);
+                }
+            }
             else
                 AddTool(new UserTools.UserToolList(), DockState.DockLeft, true);
 
