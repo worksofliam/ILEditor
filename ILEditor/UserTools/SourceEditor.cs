@@ -91,7 +91,7 @@ namespace ILEditor.UserTools
             textEditor.TextArea.Caret.PositionChanged += TextEditorTextAreaCaret_PositionChanged;
             textEditor.GotFocus += TextEditor_GotFocus;
 
-            if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
+            if (IBMi.CurrentSystem.GetValue("CHARACTER_ASSIST") == "true")
                 textEditor.TextArea.TextEntered += TextArea_TextEntered;
 
             textEditor.Options.ConvertTabsToSpaces = (IBMi.CurrentSystem.GetValue("CONV_TABS") == "true");
