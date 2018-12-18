@@ -267,7 +267,7 @@ namespace ILEditor.Classes
                                 NewMember._Text = Desc;
 
                                 Members.Add(NewMember);
-                                MemberCache.AddMemberCache(Lib + "/" + Object + "." + Name, Type);
+                                FileCache.AddMemberCache(Lib + "/" + Object + "." + Name, Type);
                             }
                         }
                     }

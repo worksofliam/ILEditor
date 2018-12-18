@@ -93,6 +93,8 @@ namespace ILEditor.UserTools
                         item.Name = tempName;
                     }
 
+                    FileCache.AddStreamFile(item.FullName);
+
                     node = new TreeNode(item.Name);
                     node.Tag = item.FullName;
                     switch (item.Type)

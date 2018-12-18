@@ -139,7 +139,7 @@
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
     <Compile Include="Classes\RemoteSource.cs" />
     <Compile Include="Classes\ILEObject.cs" />
-    <Compile Include="Classes\MemberCache.cs" />
+    <Compile Include="Classes\FileCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
     <Compile Include="Classes\TaskItem.cs" />

@@ -100,7 +100,7 @@ namespace ILEditor.Forms
             foreach (var MemberName in UploadMembers)
             {
                 MbrPath = MemberName.Key.Trim().Split('/');
-                CheckedUpload = MemberCache.EditsContains(lib.Text.ToUpper(), MbrPath[0], MbrPath[1]);
+                CheckedUpload = FileCache.EditsContains(lib.Text.ToUpper(), MbrPath[0], MbrPath[1]);
                 memberLog.Items.Add(new ListViewItem(MemberName.Key) { Checked = CheckedUpload });
             }
 
@@ -159,7 +159,7 @@ namespace ILEditor.Forms
                 if (Success)
                 {
                     MessageBox.Show("Push to server was successful.");
-                    MemberCache.EditsClear();
+                    FileCache.EditsClear();
                     this.Close();
                 } 
                 else

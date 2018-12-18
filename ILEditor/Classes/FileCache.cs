@@ -7,19 +7,25 @@ using System.Threading.Tasks;
 
 namespace ILEditor.Classes
 {
-    class MemberCache
+    class FileCache
     {
         private static string ExportDir = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system");
         private static string ExportLoc = ExportDir + @"\membercache";
         private static string OfflineLoc = ExportDir + @"\offlinecache";
 
         private static List<string> OfflineEdits = new List<string>();
-        private static Dictionary<string, string> MemberList = new Dictionary<string, string>();
+        private static Dictionary<string, string> SourceList = new Dictionary<string, string>();
 
         public static void AddMemberCache(string MemberString, string Type)
         {
-            if (!MemberList.ContainsKey(MemberString))
-                MemberList.Add(MemberString, Type);
+            if (!SourceList.ContainsKey(MemberString))
+                SourceList.Add(MemberString, Type);
+        }
+
+        public static void AddStreamFile(string Path)
+        {
+            if (!SourceList.ContainsKey(Path))
+                SourceList.Add(Path, "");
         }
 
         public static void EditsClear() {
@@ -43,7 +49,7 @@ namespace ILEditor.Classes
 
             Directory.CreateDirectory(ExportDir);
 
-            foreach (var Member in MemberList)
+            foreach (var Member in SourceList)
                 Output.Add(Member.Key + "," + Member.Value);
             File.WriteAllLines(ExportLoc, Output);
 
@@ -63,7 +69,7 @@ namespace ILEditor.Classes
                 {
                     if (Line == "") continue;
                     data = Line.Split(',');
-                    MemberList.Add(data[0], data[1]);
+                    SourceList.Add(data[0], data[1]);
                 }
             }
 
@@ -80,9 +86,9 @@ namespace ILEditor.Classes
         {
             List<string> Output = new List<string>();
 
-            foreach(string Member in MemberList.Keys)
+            foreach(string Member in SourceList.Keys)
             {
-                if (Member.Contains(Value))
+                if (Member.ToLower().Contains(Value.ToLower()))
                     Output.Add(Member);
             }
 
@@ -91,8 +97,8 @@ namespace ILEditor.Classes
 
         public static string GetType(string Member)
         {
-            if (MemberList.ContainsKey(Member))
-                return MemberList[Member];
+            if (SourceList.ContainsKey(Member))
+                return SourceList[Member];
             else
                 return "";
         }

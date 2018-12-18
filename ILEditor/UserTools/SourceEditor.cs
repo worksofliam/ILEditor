@@ -378,7 +378,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.SetStatus("Saving " + SourceInfo.GetName() + "..");
                         Thread gothread = new Thread((ThreadStart)delegate
                         {
-                            MemberCache.EditsAdd(SourceInfo.GetLibrary(), SourceInfo.GetObject(), SourceInfo.GetName());
+                            FileCache.EditsAdd(SourceInfo.GetLibrary(), SourceInfo.GetObject(), SourceInfo.GetName());
                             this.Invoke((MethodInvoker)delegate
                             {
                                 File.WriteAllText(SourceInfo.GetLocalFile(), this.GetText(), textEditor.Encoding);

@@ -59,7 +59,7 @@ namespace ILEditor
             InitializeComponent();
             TheEditor = this;
 
-            MemberCache.Import();
+            FileCache.Import();
 
             this.Text += ' ' + Program.getVersion() + " (" + IBMi.CurrentSystem.GetValue("alias") + ")";
             if (!IBMi.IsConnected())
@@ -317,7 +317,7 @@ namespace ILEditor
 
         private void Editor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MemberCache.Export();
+            FileCache.Export();
             dockingPanel.SaveAsXml(Program.PanelsXML);
         }
 
@@ -512,7 +512,7 @@ namespace ILEditor
             }
         }
 
-        private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new QuickMemberSearch().Show();
+        private void quickMemberSearchToolStripMenuItem_Click(object sender, EventArgs e) => new QuickFileSearch().Show();
 
         private void sourceDiffToolStripMenuItem_Click(object sender, EventArgs e) => new SourceCompareSelect().ShowDialog();
         #endregion
