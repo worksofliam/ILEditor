@@ -50,5 +50,10 @@ namespace ILEditor.Forms
                 }
             }
         }
+
+        private void CreateStreamFile_Load(object sender, EventArgs e)
+        {
+            stmfPath.Focus();
+        }
     }
 }

@@ -44,5 +44,10 @@ namespace ILEditor.Forms
         {
             this.Close();
         }
+
+        private void CreateDirectory_Load(object sender, EventArgs e)
+        {
+            path.Focus();
+        }
     }
 }

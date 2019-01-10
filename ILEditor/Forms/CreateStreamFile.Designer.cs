@@ -75,8 +75,10 @@
             // 
             // CreateStreamFile
             // 
+            this.AcceptButton = this.open;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(284, 116);
             this.Controls.Add(this.stmfPath);
             this.Controls.Add(this.label2);
@@ -87,6 +89,7 @@
             this.MaximizeBox = false;
             this.Name = "CreateStreamFile";
             this.Text = "Create Stream File";
+            this.Load += new System.EventHandler(this.CreateStreamFile_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

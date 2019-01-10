@@ -41,7 +41,7 @@
             this.path.MaxLength = 256;
             this.path.Name = "path";
             this.path.Size = new System.Drawing.Size(260, 20);
-            this.path.TabIndex = 27;
+            this.path.TabIndex = 1;
             // 
             // label2
             // 
@@ -75,8 +75,10 @@
             // 
             // CreateDirectory
             // 
+            this.AcceptButton = this.open;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(297, 123);
             this.Controls.Add(this.path);
             this.Controls.Add(this.label2);
@@ -88,6 +90,7 @@
             this.Name = "CreateDirectory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Directory";
+            this.Load += new System.EventHandler(this.CreateDirectory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
