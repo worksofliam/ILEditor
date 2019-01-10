@@ -474,7 +474,7 @@ namespace ILEditor
 
         private void connectionSettingsToolStripMenuItem_Click(object sender, EventArgs e) => new Connection().ShowDialog();
 
-        private void libraryListToolStripMenuItem_Click(object sender, EventArgs e) => new Forms.LibraryList().ShowDialog();
+        private void libraryListToolStripMenuItem_Click(object sender, EventArgs e) => new Forms.JobSettings().ShowDialog();
 
         private void start5250SessionToolStripMenuItem_Click(object sender, EventArgs e)
         {

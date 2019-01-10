@@ -29,7 +29,7 @@ namespace ILEditor.UserTools
                         Editor.TheEditor.AddTool(new MemberBrowse(), DockState.DockRight);
                         break;
                     case "LIBL":
-                        new Forms.LibraryList().ShowDialog();
+                        new Forms.JobSettings().ShowDialog();
                         break;
                     case "CONN":
                         new Forms.Connection().ShowDialog();

@@ -192,11 +192,11 @@
     <Compile Include="Forms\IFSManager.Designer.cs">
       <DependentUpon>IFSManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LibraryList.cs">
+    <Compile Include="Forms\JobSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LibraryList.Designer.cs">
-      <DependentUpon>LibraryList.cs</DependentUpon>
+    <Compile Include="Forms\JobSettings.Designer.cs">
+      <DependentUpon>JobSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Connection.cs">
       <SubType>Form</SubType>
@@ -441,8 +441,8 @@
     <EmbeddedResource Include="Forms\IFSManager.resx">
       <DependentUpon>IFSManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LibraryList.resx">
-      <DependentUpon>LibraryList.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\JobSettings.resx">
+      <DependentUpon>JobSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberSearch.resx">
       <DependentUpon>MemberSearch.cs</DependentUpon>
