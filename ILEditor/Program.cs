@@ -68,6 +68,13 @@ namespace ILEditor
 
                     if (Connected)
                     {
+                        if (Config.GetValue("srcdat_agreement") == "false")
+                        {
+                            MessageBox.Show("Thanks for using ILEditor. This is a notice to tell you that when editing source members, the SRCDAT value is not retained. This is due to a restriction in our connection method. By using ILEditor you agree to our LICENCE, found on the ILEditor GitHub repository. Please seek ILEditor GitHub issues for further information.", "ILEditor Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Config.SetValue("srcdat_agreement", "true");
+                            Config.SaveConfig();
+                        }
+
                         try
                         {
                             Application.Run(new Editor());

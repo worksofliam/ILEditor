@@ -55,6 +55,7 @@ namespace ILEditor.Classes
         {
             CheckExist("acspath", "false");
             CheckExist("darkmode", "false");
+            CheckExist("srcdat_agreement", "false");
         }
 
         public void DoSystemDefaults()
