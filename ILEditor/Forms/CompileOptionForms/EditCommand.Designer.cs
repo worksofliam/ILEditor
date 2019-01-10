@@ -53,8 +53,9 @@
             this.command_qsys.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.command_qsys.Location = new System.Drawing.Point(6, 25);
             this.command_qsys.MaxLength = 256;
+            this.command_qsys.Multiline = true;
             this.command_qsys.Name = "command_qsys";
-            this.command_qsys.Size = new System.Drawing.Size(347, 25);
+            this.command_qsys.Size = new System.Drawing.Size(455, 58);
             this.command_qsys.TabIndex = 0;
             // 
             // types
@@ -76,7 +77,7 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(287, 13);
+            this.save.Location = new System.Drawing.Point(395, 13);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(92, 21);
             this.save.TabIndex = 3;
@@ -119,9 +120,9 @@
             "&OPENSPF - Chosen member\'s source-physical file",
             "&OPENMBR - Chosen member\'s name",
             "&CURLIB - Current library defined in settings"});
-            this.listBox1.Location = new System.Drawing.Point(6, 54);
+            this.listBox1.Location = new System.Drawing.Point(6, 89);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(347, 56);
+            this.listBox1.Size = new System.Drawing.Size(455, 108);
             this.listBox1.TabIndex = 7;
             // 
             // tabs
@@ -131,7 +132,7 @@
             this.tabs.Location = new System.Drawing.Point(12, 70);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(367, 146);
+            this.tabs.Size = new System.Drawing.Size(475, 229);
             this.tabs.TabIndex = 8;
             // 
             // tabPage1
@@ -142,7 +143,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(359, 120);
+            this.tabPage1.Size = new System.Drawing.Size(467, 203);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "QSYS";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -155,7 +156,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(359, 120);
+            this.tabPage2.Size = new System.Drawing.Size(467, 203);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "IFS";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -168,9 +169,9 @@
             "&FILENAME - File name for object.",
             "&FILEPATH - Path to file being compiled.",
             "&CURLIB - Current library defined in settings"});
-            this.listBox2.Location = new System.Drawing.Point(6, 54);
+            this.listBox2.Location = new System.Drawing.Point(6, 89);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(347, 56);
+            this.listBox2.Size = new System.Drawing.Size(455, 108);
             this.listBox2.TabIndex = 9;
             // 
             // command_ifs
@@ -178,8 +179,9 @@
             this.command_ifs.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.command_ifs.Location = new System.Drawing.Point(6, 25);
             this.command_ifs.MaxLength = 256;
+            this.command_ifs.Multiline = true;
             this.command_ifs.Name = "command_ifs";
-            this.command_ifs.Size = new System.Drawing.Size(347, 25);
+            this.command_ifs.Size = new System.Drawing.Size(455, 58);
             this.command_ifs.TabIndex = 9;
             // 
             // label4
@@ -195,7 +197,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 225);
+            this.ClientSize = new System.Drawing.Size(499, 311);
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
