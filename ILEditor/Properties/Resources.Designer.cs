@@ -215,6 +215,32 @@ namespace ILEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;Variable&quot; foreground=&quot;Blue&quot; /&gt;
+        ///
+        ///  &lt;!-- This is the main ruleset. --&gt;
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Span color=&quot;Comment&quot; begin=&quot;#&quot; /&gt;
+        ///
+        ///    &lt;Span color=&quot;Variable&quot;&gt;
+        ///      &lt;Begin&gt;$(&lt;/Begin&gt;
+        ///      &lt;End&gt;)&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///
+        ///    &lt;Keywords foreground=&quot;Variable&quot;&gt;
+        ///      &lt;Word&gt;$*&lt;/Word&gt;
+        ///      &lt;Word&gt;$@&lt;/Word&gt;
+        ///      &lt;Word&gt;$&amp;lt;&lt;/Word&gt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string darkmakefile {
+            get {
+                return ResourceManager.GetString("darkmakefile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///
         ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
@@ -459,6 +485,32 @@ namespace ILEditor.Properties {
         public static string lightCPP {
             get {
                 return ResourceManager.GetString("lightCPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;SyntaxDefinition name=&quot;RPGLE&quot;
+        ///        xmlns=&quot;http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008&quot;&gt;
+        ///  &lt;Color name=&quot;Comment&quot; foreground=&quot;Green&quot; /&gt;
+        ///  &lt;Color name=&quot;Variable&quot; foreground=&quot;Blue&quot; /&gt;
+        ///
+        ///  &lt;!-- This is the main ruleset. --&gt;
+        ///  &lt;RuleSet ignoreCase=&quot;true&quot;&gt;
+        ///    &lt;Span color=&quot;Comment&quot; begin=&quot;#&quot; /&gt;
+        ///
+        ///    &lt;Span color=&quot;Variable&quot;&gt;
+        ///      &lt;Begin&gt;$(&lt;/Begin&gt;
+        ///      &lt;End&gt;)&lt;/End&gt;
+        ///    &lt;/Span&gt;
+        ///    
+        ///    &lt;Keywords foreground=&quot;Variable&quot;&gt;
+        ///      &lt;Word&gt;$*&lt;/Word&gt;
+        ///      &lt;Word&gt;$@&lt;/Word&gt;
+        ///      &lt;Word&gt;$&amp;lt;&lt;/W [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string lightmakefile {
+            get {
+                return ResourceManager.GetString("lightmakefile", resourceCulture);
             }
         }
         

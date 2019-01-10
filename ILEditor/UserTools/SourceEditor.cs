@@ -100,6 +100,9 @@ namespace ILEditor.UserTools
             textEditor.Options.ShowSpaces = (IBMi.CurrentSystem.GetValue("SHOW_SPACES") == "true");
             textEditor.Options.HighlightCurrentLine = (IBMi.CurrentSystem.GetValue("HIGHLIGHT_CURRENT_LINE") == "true");
 
+            if (this.LocalPath.EndsWith("makefile"))
+                textEditor.Options.ConvertTabsToSpaces = false;
+
             textEditor.Options.AllowScrollBelowDocument = true;
 
             if (this.RcdLen > 0)
@@ -122,19 +125,26 @@ namespace ILEditor.UserTools
             else
                 lang += "light";
 
-            switch (Language)
+            if (this.LocalPath.EndsWith("makefile"))
             {
-                case Language.SQL:
-                case Language.RPG:
-                case Language.CPP:
-                case Language.CL:
-                case Language.COBOL:
-                case Language.Python:
-                    lang += Language.ToString();
-                    break;
-                case Language.None:
-                    lang = "";
-                    break;
+                lang += "makefile";
+            }
+            else
+            {
+                switch (Language)
+                {
+                    case Language.SQL:
+                    case Language.RPG:
+                    case Language.CPP:
+                    case Language.CL:
+                    case Language.COBOL:
+                    case Language.Python:
+                        lang += Language.ToString();
+                        break;
+                    case Language.None:
+                        lang = "";
+                        break;
+                }
             }
 
             if (Editor.DarkMode)

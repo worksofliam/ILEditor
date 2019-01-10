@@ -1,0 +1,25 @@
+﻿<SyntaxDefinition name="RPGLE"
+        xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="Green" />
+  <Color name="Variable" foreground="Blue" />
+
+  <!-- This is the main ruleset. -->
+  <RuleSet ignoreCase="true">
+    <Span color="Comment" begin="\#" />
+    
+    <Span color="Variable" begin="\$\(" end="\)" />
+    
+    <Span color="Variable" begin="\$\@" end="" />
+    <Span color="Variable" begin="\$\&lt;" end="" />
+    <Span color="Variable" begin="\$\%" end="" />
+    <Span color="Variable" begin="\$\?" end="" />
+    <Span color="Variable" begin="\$\^" end="" />
+    <Span color="Variable" begin="\$\+" end="" />
+    <Span color="Variable" begin="\$\|" end="" />
+    <Span color="Variable" begin="\$\*" end="" />
+    <Span color="Variable" begin="\=" end="" />
+    <Span color="Variable" begin="\:" end="" />
+    <Span color="Variable" begin="\%" end="" />
+
+  </RuleSet>
+</SyntaxDefinition>

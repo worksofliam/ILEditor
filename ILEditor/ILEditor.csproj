@@ -561,11 +561,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\script_go.png" />
-    <None Include="Resources\Icons\application_go.png" />
-    <None Include="Resources\Icons\script_add.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -578,7 +573,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Diagram.html" />
     <None Include="Resources\Diagram\diagram.html" />
     <Content Include="Resources\Help\Compiling.html" />
     <Content Include="Resources\Help\DarkMode.html" />
@@ -592,6 +586,7 @@
     <Content Include="Resources\Highlighting\Dark\darkCPP.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Resources\Highlighting\Dark\darkmakefile.xml" />
     <Content Include="Resources\Highlighting\Dark\darkRPG.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -612,6 +607,7 @@
     <None Include="Resources\NewIcons\refresh.png" />
     <None Include="Resources\NewIcons\filedelete.png" />
     <Content Include="Resources\Highlighting\Dark\darkPython.xml" />
+    <Content Include="Resources\Highlighting\Light\lightmakefile.xml" />
     <Content Include="Resources\Highlighting\Light\lightPython.xml" />
     <None Include="Resources\NewIcons\books.png" />
     <None Include="Resources\NewIcons\computer.png" />
