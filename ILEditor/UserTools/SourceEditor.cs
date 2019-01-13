@@ -521,7 +521,7 @@ namespace ILEditor.UserTools
         {
             if (this.ReadOnly) return;
 
-            string[] Lines = textEditor.Text.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] Lines = textEditor.Text.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
             textEditor.SelectAll();
             textEditor.SelectedText = "";
             int length = (RcdLen > 0 ? RcdLen : 80);
