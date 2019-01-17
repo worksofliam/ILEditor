@@ -1,5 +1,7 @@
 # [ILEditor](https://worksofbarry.com/ileditor/)
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W68TZG649MFTQ&source=url)
+
 ![Welcome Screen](https://i.imgur.com/Kl1DQIf.png)
 
 ILEditor is an editor for development of ILE applications on IBM i. ILEditor will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
