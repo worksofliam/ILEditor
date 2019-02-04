@@ -1,75 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class SourceSelectBox : UserControl
-    {
-        public FileSystem GetFS() => (tabs.SelectedTab.Text == "Member" ? FileSystem.QSYS : FileSystem.IFS);
-        public string GetIFSPath() => stmfPath.Text;
+	public partial class SourceSelectBox : UserControl
+	{
+		public SourceSelectBox()
+		{
+			InitializeComponent();
+		}
 
-        public string GetLibrary() => lib.Text;
-        public string GetSPF() => spf.Text;
-        public string GetMember() => mbr.Text;
+		public FileSystem GetFS()
+		{
+			return tabs.SelectedTab.Text == "Member" ? FileSystem.QSYS : FileSystem.IFS;
+		}
 
-        public void SetSource(string Lib, string Spf, string Mbr)
-        {
-            lib.Text = Lib;
-            spf.Text = Spf;
-            mbr.Text = Mbr;
-        }
+		public string GetIFSPath()
+		{
+			return stmfPath.Text;
+		}
 
-        public void SetSource(string Path)
-        {
-            stmfPath.Text = Path;
-        }
+		public string GetLibrary()
+		{
+			return lib.Text;
+		}
 
-        public void SetTab(FileSystem System)
-        {
-            switch (System)
-            {
-                case FileSystem.QSYS:
-                    tabs.SelectedIndex = 0;
-                    break;
-                case FileSystem.IFS:
-                    tabs.SelectedIndex = 1;
-                    break;
-            }
-        }
+		public string GetSPF()
+		{
+			return spf.Text;
+		}
 
-        public Boolean isValid()
-        {
-            switch (tabs.SelectedIndex)
-            {
-                case 0:
-                    if (!IBMiUtils.IsValueObjectName(lib.Text))
-                        return false;
-                    if (!IBMiUtils.IsValueObjectName(spf.Text))
-                        return false;
-                    if (!IBMiUtils.IsValueObjectName(mbr.Text))
-                        return false;
-                    break;
+		public string GetMember()
+		{
+			return mbr.Text;
+		}
 
-                case 1:
-                    if (spf.Text.Trim() != "")
-                        return false;
-                    break;
-            }
+		public void SetSource(string Lib, string Spf, string Mbr)
+		{
+			lib.Text = Lib;
+			spf.Text = Spf;
+			mbr.Text = Mbr;
+		}
 
-            return true;
-        }
+		public void SetSource(string Path)
+		{
+			stmfPath.Text = Path;
+		}
 
-        public SourceSelectBox()
-        {
-            InitializeComponent();
-        }
-    }
+		public void SetTab(FileSystem System)
+		{
+			switch (System)
+			{
+				case FileSystem.QSYS:
+					tabs.SelectedIndex = 0;
+
+					break;
+				case FileSystem.IFS:
+					tabs.SelectedIndex = 1;
+
+					break;
+			}
+		}
+
+		public bool IsValid()
+		{
+			switch (tabs.SelectedIndex)
+			{
+				case 0:
+
+					if (!IBMiUtils.IsValueObjectName(lib.Text))
+						return false;
+
+					if (!IBMiUtils.IsValueObjectName(spf.Text))
+						return false;
+
+					if (!IBMiUtils.IsValueObjectName(mbr.Text))
+						return false;
+
+					break;
+
+				case 1:
+
+					if (spf.Text.Trim() != "")
+						return false;
+
+					break;
+			}
+
+			return true;
+		}
+	}
 }

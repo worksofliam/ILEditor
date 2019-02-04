@@ -1,93 +1,94 @@
-﻿using ILEditor.Classes;
-using ILEditor.UserTools;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using ILEditor.Classes;
+using ILEditor.UserTools;
 
 namespace ILEditor.Forms
 {
-    public partial class SourceCompareSelect : Form
-    {
-        public SourceCompareSelect()
-        {
-            InitializeComponent();
+	public partial class SourceCompareSelect : Form
+	{
+		public SourceCompareSelect()
+		{
+			InitializeComponent();
 
-            if (Editor.LastEditing != null)
-            {
-                RemoteSource src = Editor.LastEditing.Tag as RemoteSource;
+			if (Editor.LastEditing == null || !(Editor.LastEditing.Tag is RemoteSource src))
+				return;
 
-                if (src != null)
-                {
-                    switch (src.GetFS())
-                    {
-                        case FileSystem.QSYS:
-                            newSourceBox.SetSource(src.GetLibrary(), src.GetObject(), src.GetName());
-                            oldSourceBox.SetSource("", src.GetObject(), src.GetName());
-                            break;
-                        case FileSystem.IFS:
-                            newSourceBox.SetSource(src.GetRemoteFile());
-                            newSourceBox.SetTab(src.GetFS());
-                            break;
-                    }
-                }
-            }
-        }
+			switch (src.GetFS())
+			{
+				case FileSystem.QSYS:
+					newSourceBox.SetSource(src.GetLibrary(), src.GetObject(), src.GetName());
+					oldSourceBox.SetSource("", src.GetObject(), src.GetName());
 
-        private void compareButton_Click(object sender, EventArgs e)
-        {
-            if (!newSourceBox.isValid())
-            {
-                MessageBox.Show("New source information not valid.");
-                return;
-            }
+					break;
+				case FileSystem.IFS:
+					newSourceBox.SetSource(src.GetRemoteFile());
+					newSourceBox.SetTab(src.GetFS());
 
-            if (!oldSourceBox.isValid())
-            {
-                MessageBox.Show("Old source information not valid.");
-                return;
-            }
+					break;
+			}
+		}
 
-            string NewFile = "", OldFile = "";
+		private void compareButton_Click(object sender, EventArgs e)
+		{
+			if (!newSourceBox.IsValid())
+			{
+				MessageBox.Show("New source information not valid.");
 
-            switch (newSourceBox.GetFS())
-            {
-                case FileSystem.IFS:
-                    NewFile = IBMiUtils.DownloadFile(newSourceBox.GetIFSPath());
-                    break;
-                case Classes.FileSystem.QSYS:
-                    NewFile = IBMiUtils.DownloadMember(newSourceBox.GetLibrary(), newSourceBox.GetSPF(), newSourceBox.GetMember());
-                    break;
-            }
+				return;
+			}
 
-            switch (oldSourceBox.GetFS())
-            {
-                case FileSystem.IFS:
-                    OldFile = IBMiUtils.DownloadFile(oldSourceBox.GetIFSPath());
-                    break;
-                case Classes.FileSystem.QSYS:
-                    OldFile = IBMiUtils.DownloadMember(oldSourceBox.GetLibrary(), oldSourceBox.GetSPF(), oldSourceBox.GetMember());
-                    break;
-            }
+			if (!oldSourceBox.IsValid())
+			{
+				MessageBox.Show("Old source information not valid.");
 
-            if (NewFile == "" || OldFile == "")
-            {
-                MessageBox.Show("Unable to download members.");
-                return;
-            }
+				return;
+			}
 
-            Editor.TheEditor.AddTool(new DiffView(NewFile, OldFile));
-            this.Close();
-        }
+			string newFile = "", oldFile = "";
 
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-    }
+			switch (newSourceBox.GetFS())
+			{
+				case FileSystem.IFS:
+					newFile = IBMiUtils.DownloadFile(newSourceBox.GetIFSPath());
+
+					break;
+				case FileSystem.QSYS:
+					newFile = IBMiUtils.DownloadMember(newSourceBox.GetLibrary(),
+						newSourceBox.GetSPF(),
+						newSourceBox.GetMember());
+
+					break;
+			}
+
+			switch (oldSourceBox.GetFS())
+			{
+				case FileSystem.IFS:
+					oldFile = IBMiUtils.DownloadFile(oldSourceBox.GetIFSPath());
+
+					break;
+				case FileSystem.QSYS:
+					oldFile = IBMiUtils.DownloadMember(oldSourceBox.GetLibrary(),
+						oldSourceBox.GetSPF(),
+						oldSourceBox.GetMember());
+
+					break;
+			}
+
+			if (newFile == "" || oldFile == "")
+			{
+				MessageBox.Show("Unable to download members.");
+
+				return;
+			}
+
+			Editor.TheEditor.AddTool(new DiffView(newFile, oldFile));
+			Close();
+		}
+
+		private void cancelButton_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+	}
 }

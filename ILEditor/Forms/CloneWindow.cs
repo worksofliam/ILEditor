@@ -1,128 +1,137 @@
-﻿using ILEditor.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class CloneWindow : Form
-    {
-        public CloneWindow()
-        {
-            InitializeComponent();
-        }
+	public partial class CloneWindow : Form
+	{
+		private Dictionary<string, string> CloneList;
+		private List<string>               LocalSPFs;
 
-        private void CloneWindow_Load(object sender, EventArgs e)
-        {
-            if (!IBMi.IsConnected())
-            {
-                MessageBox.Show("The SPF Clone tool does not work in Offline Mode.");
-                this.Close();
-            }
-        }
+		public CloneWindow()
+		{
+			InitializeComponent();
+		}
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+		private void CloneWindow_Load(object sender, EventArgs e)
+		{
+			if (!IBMi.IsConnected())
+			{
+				MessageBox.Show("The SPF Clone tool does not work in Offline Mode.");
+				Close();
+			}
+		}
 
-        private Dictionary<string, string> CloneList;
-        private List<string> LocalSPFs;
-        private void fetch_Click(object sender, EventArgs e)
-        {
-            RemoteSource[] MemberList;
-            List<ListViewItem> Items = new List<ListViewItem>();
-            ListViewItem Item;
-            LocalSPFs = new List<string>();
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 
-            if (!IBMiUtils.IsValueObjectName(lib.Text))
-            {
-                MessageBox.Show("Library name not valid.");
-            }
+		private void fetch_Click(object sender, EventArgs e)
+		{
+			RemoteSource[] memberList;
+			var            items = new List<ListViewItem>();
+			LocalSPFs = new List<string>();
 
-            lib.Text = lib.Text.Trim();
+			if (!IBMiUtils.IsValueObjectName(lib.Text))
+				MessageBox.Show("Library name not valid.");
 
-            ILEObject[] Files = IBMiUtils.GetSPFList(lib.Text);
+			lib.Text = lib.Text.Trim();
 
-            foreach (ILEObject Object in Files)
-            {
-                MemberList = IBMiUtils.GetMemberList(lib.Text, Object.Name);
-                if (MemberList != null)
-                {
-                    LocalSPFs.Add(IBMiUtils.GetLocalDir(lib.Text, Object.Name));
-                    for (int i = 0; i < MemberList.Length; i++)
-                    {
-                        Item = new ListViewItem(MemberList[i].GetObject() + "/" + MemberList[i].GetName() + "." + MemberList[i].GetExtension().ToLower());
-                        Item.Checked = true;
-                        Item.Tag = new string[2] { MemberList[i].GetObject() + "/" + MemberList[i].GetName(), IBMiUtils.GetLocalFile(MemberList[i].GetLibrary(), MemberList[i].GetObject(), MemberList[i].GetName(), MemberList[i].GetExtension()) };
-                        Items.Add(Item);
-                    }
-                }
-            }
-            memberList.Items.AddRange(Items.ToArray());
+			var files = IBMiUtils.GetSpfList(lib.Text);
 
-            lib.Enabled = false;
-            fetch.Enabled = false;
-            clone.Enabled = true;
-            memberList.Enabled = true;
-        }
+			foreach (var Object in files)
+			{
+				memberList = IBMiUtils.GetMemberList(lib.Text, Object.Name);
 
-        private void clone_Click(object sender, EventArgs e)
-        {
-            List<string> Commands = new List<string>();
-            string[] member, path;
+				if (memberList == null)
+					continue;
 
-            CloneList = new Dictionary<string, string>();
-            foreach (ListViewItem listitem in memberList.Items)
-            {
-                if (listitem.Checked)
-                {
-                    member = (string[])listitem.Tag;
-                    path = member[0].Split('/');
-                    CloneList.Add("/QSYS.lib/" + lib.Text + ".lib/" + path[0] + ".file/" + path[1] + ".mbr", member[1]);
-                }
-            }
+				LocalSPFs.Add(IBMiUtils.GetLocalDir(lib.Text, Object.Name));
+				for (var i = 0; i < memberList.Length; i++)
+				{
+					var item = new ListViewItem(memberList[i].GetObject() +
+					                            "/" +
+					                            memberList[i].GetName() +
+					                            "." +
+					                            memberList[i].GetExtension().ToLower());
 
-            foreach (string Dir in Directory.GetDirectories(IBMiUtils.GetLocalDir(lib.Text)))
-            {
-                try
-                {
-                    Directory.Delete(Dir, true);
-                } catch { }
-            }
+					item.Checked = true;
+					item.Tag = new string[2]
+					{
+						memberList[i].GetObject() + "/" + memberList[i].GetName(),
+						IBMiUtils.GetLocalFile(memberList[i].GetLibrary(),
+							memberList[i].GetObject(),
+							memberList[i].GetName(),
+							memberList[i].GetExtension())
+					};
 
-            foreach (string Dir in LocalSPFs)
-                Directory.CreateDirectory(Dir);
+					items.Add(item);
+				}
+			}
 
-            bool isOkay = true;
-            foreach (var File in CloneList)
-            {
-                if (IBMi.DownloadFile(File.Value, File.Key) == true) //Error?
-                {
-                    isOkay = false;
-                    break;
-                }
-            }
+			this.memberList.Items.AddRange(items.ToArray());
 
-            if (isOkay)
-            {
-                MessageBox.Show("Source-Physical File cloned sucessfully.", "SPF Clone", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                string Location = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + lib.Text;
-                Process.Start("explorer.exe", "/select, " + Location);
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("There was an error during the clone process.");
-            }
-        }
-    }
+			lib.Enabled        = false;
+			fetch.Enabled      = false;
+			clone.Enabled      = true;
+			this.memberList.Enabled = true;
+		}
+
+		private void clone_Click(object sender, EventArgs e)
+		{
+			var commands = new List<string>(); // Unused
+
+			CloneList = new Dictionary<string, string>();
+			foreach (ListViewItem listItem in memberList.Items)
+				if (listItem.Checked)
+				{
+					var member = (string[]) listItem.Tag;
+					var path = member[0].Split('/');
+					CloneList.Add("/QSYS.lib/" + lib.Text + ".lib/" + path[0] + ".file/" + path[1] + ".mbr", member[1]);
+				}
+
+			foreach (var dir in Directory.GetDirectories(IBMiUtils.GetLocalDir(lib.Text)))
+				try
+				{
+					Directory.Delete(dir, true);
+				}
+				catch
+				{
+					// no catch code
+				}
+
+			foreach (var dir in LocalSPFs)
+				Directory.CreateDirectory(dir);
+
+			var isOkay = true;
+			foreach (var file in CloneList)
+				if (IBMi.DownloadFile(file.Value, file.Key)) //Error?
+				{
+					isOkay = false;
+
+					break;
+				}
+
+			if (isOkay)
+			{
+				MessageBox.Show("Source-Physical File cloned sucessfully.",
+					"SPF Clone",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Information);
+
+				var location = Program.SOURCEDIR + "\\" + IBMi.CurrentSystem.GetValue("system") + "\\" + lib.Text;
+				Process.Start("explorer.exe", "/select, " + location);
+				Close();
+			}
+			else
+			{
+				MessageBox.Show("There was an error during the clone process.");
+			}
+		}
+	}
 }

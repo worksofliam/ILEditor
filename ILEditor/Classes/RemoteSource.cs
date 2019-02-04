@@ -1,167 +1,174 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace ILEditor.Classes
 {
-    public enum FileSystem
-    {
-        QSYS, IFS
-    }
+	public enum FileSystem
+	{
+		QSYS,
+		IFS
+	}
 
-    public class RemoteSource
-    {
-        public string _Local;
-        private FileSystem RemoteFS;
+	public class RemoteSource
+	{
+		private readonly string _Ext;
 
-        private string _IFSPath;
+		private readonly string _IFSPath;
+		private          bool   _isEditable;
 
-        private string _Lib;
-        private string _Obj;
-        private string _Mbr;
-        private string _Ext;
-        private int _RecordLength;
+		private bool _isLocked;
 
-        public string _Text;
-        private Boolean _isEditable;
+		private readonly string _Lib;
+		public           string _Local;
+		private readonly string _Mbr;
+		private readonly string _Obj;
+		private readonly int    _RecordLength;
 
-        private Boolean _isLocked;
+		public           string     _Text;
+		private readonly FileSystem RemoteFS;
 
-        public RemoteSource(string Local, string Lib, string Obj, string Mbr, string Ext, Boolean isEditable = true, int RecordLength = 0)
-        {
-            this.RemoteFS = FileSystem.QSYS;
+		public RemoteSource(string Local,
+		                    string Lib,
+		                    string Obj,
+		                    string Mbr,
+		                    string Ext,
+		                    bool   isEditable   = true,
+		                    int    RecordLength = 0)
+		{
+			RemoteFS = FileSystem.QSYS;
 
-            this._Local = Local;
-            this._Lib = Lib;
-            this._Obj = Obj;
-            this._Mbr = Mbr;
-            this._Ext = Ext;
-            this._RecordLength = RecordLength;
-            this._isEditable = isEditable;
+			_Local        = Local;
+			_Lib          = Lib;
+			_Obj          = Obj;
+			_Mbr          = Mbr;
+			_Ext          = Ext;
+			_RecordLength = RecordLength;
+			_isEditable   = isEditable;
 
-            this._isLocked = false;
-            this._IFSPath = "";
-        }
+			_isLocked = false;
+			_IFSPath  = "";
+		}
 
-        public RemoteSource(string Local, string Remote, Boolean isEditable = true)
-        {
-            string[] data;
+		public RemoteSource(string Local, string Remote, bool isEditable = true)
+		{
+			RemoteFS = FileSystem.IFS;
 
-            this.RemoteFS = FileSystem.IFS;
+			_Local      = Local;
+			_IFSPath    = Remote;
+			_isEditable = isEditable;
 
-            this._Local = Local;
-            this._IFSPath = Remote;
-            this._isEditable = isEditable;
-            
-            this._Mbr = Remote.Split('/').Last();
-            if (this._Mbr.Contains("."))
-            {
-                data = this._Mbr.Split('.');
-                this._Mbr = data.First();
-                this._Ext = data.Last();
-            }
-            else
-            {
-                this._Ext = "";
-            }
+			_Mbr = Remote.Split('/').Last();
+			if (_Mbr.Contains("."))
+			{
+				var data = _Mbr.Split('.');
+				_Mbr = data.First();
+				_Ext = data.Last();
+			}
+			else
+			{
+				_Ext = "";
+			}
 
-            this._RecordLength = 0;
-            this._isLocked = false;
+			_RecordLength = 0;
+			_isLocked     = false;
 
-            this._Lib = "";
-            this._Obj = "";
-        }
+			_Lib = "";
+			_Obj = "";
+		}
 
-        public FileSystem GetFS()
-        {
-            return this.RemoteFS;
-        }
+		public FileSystem GetFS()
+		{
+			return RemoteFS;
+		}
 
-        public int GetRecordLength()
-        {
-            return this._RecordLength;
-        }
+		public int GetRecordLength()
+		{
+			return _RecordLength;
+		}
 
-        public string GetText()
-        {
-            return this._Text;
-        }
+		public string GetText()
+		{
+			return _Text;
+		}
 
-        public string GetLocalFile()
-        {
-            return this._Local;
-        }
+		public string GetLocalFile()
+		{
+			return _Local;
+		}
 
-        public string GetRemoteFile()
-        {
-            return this._IFSPath;
-        }
+		public string GetRemoteFile()
+		{
+			return _IFSPath;
+		}
 
-        public string GetLibrary()
-        {
-            return this._Lib;
-        }
+		public string GetLibrary()
+		{
+			return _Lib;
+		}
 
-        public string GetObject()
-        {
-            return this._Obj;
-        }
+		public string GetObject()
+		{
+			return _Obj;
+		}
 
-        public string GetName()
-        {
-            return this._Mbr;
-        }
+		public string GetName()
+		{
+			return _Mbr;
+		}
 
-        public string GetExtension()
-        {
-            return this._Ext;
-        }
+		public string GetExtension()
+		{
+			return _Ext;
+		}
 
-        public bool IsEditable()
-        {
-            return this._isEditable;
-        }
+		public bool IsEditable()
+		{
+			return _isEditable;
+		}
 
-        public void Lock()
-        {
-            if (!IBMi.IsConnected())
-                return;
+		public void Lock()
+		{
+			if (!IBMi.IsConnected())
+				return;
 
-            bool result;
-            if (this._isEditable)
-            {
-                switch (this.RemoteFS)
-                {
-                    case FileSystem.QSYS:
-                        result = IBMi.RemoteCommand("ALCOBJ OBJ((" + this._Lib + "/" + this._Obj + " *FILE *EXCLRD " + this._Mbr + ")) WAIT(1)", false);
+			if (!_isEditable)
+				return;
 
-                        this._isLocked = result;
-                        if (result == false)
-                        {
-                            Editor.TheEditor.SetStatus("Failed to allocate a lock for " + this._Mbr + "! Member has been placed in read-only mode.");
-                            this._isEditable = false;
-                        }
-                        break;
-                }
-                
-            }
-        }
+			switch (RemoteFS)
+			{
+				case FileSystem.QSYS:
+					var result = IBMi.RemoteCommand(
+						"ALCOBJ OBJ((" + _Lib + "/" + _Obj + " *FILE *EXCLRD " + _Mbr + ")) WAIT(1)",
+						false);
 
-        public void Unlock()
-        {
-            if (!IBMi.IsConnected())
-                return;
+					_isLocked = result;
+					if (result == false)
+					{
+						Editor.TheEditor.SetStatus("Failed to allocate a lock for " +
+						                           _Mbr +
+						                           "! Member has been placed in read-only mode.");
 
-            if (this._isLocked)
-                switch (this.RemoteFS)
-                {
-                    case FileSystem.QSYS:
-                        IBMi.RemoteCommand("DLCOBJ OBJ((" + this._Lib + "/" + this._Obj + " *FILE *EXCLRD " + this._Mbr + "))", false);
-                        break;
-                }
-        }
-    }
+						_isEditable = false;
+					}
+
+					break;
+			}
+		}
+
+		public void Unlock()
+		{
+			if (!IBMi.IsConnected())
+				return;
+
+			if (!_isLocked)
+				return;
+
+			switch (RemoteFS)
+			{
+				case FileSystem.QSYS:
+					IBMi.RemoteCommand("DLCOBJ OBJ((" + _Lib + "/" + _Obj + " *FILE *EXCLRD " + _Mbr + "))", false);
+
+					break;
+			}
+		}
+	}
 }

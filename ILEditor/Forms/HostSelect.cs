@@ -1,119 +1,113 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class HostSelect : Form
-    {
-        public bool SystemSelected;
-        public bool OfflineModeSelected() => isOffline.Checked;
-        public HostSelect()
-        {
-            InitializeComponent();
-            SystemSelected = false;
-            LoadListView();
+	public partial class HostSelect : Form
+	{
+		public bool SystemSelected;
 
-            this.BringToFront();
-            versionLabel.Text = "ILEditor " + Program.getVersion();
-        }
+		public HostSelect()
+		{
+			InitializeComponent();
+			SystemSelected = false;
+			LoadListView();
 
-        private void LoadListView()
-        {
-            systemlist.Clear();
+			BringToFront();
+			versionLabel.Text = "ILEditor " + Program.GetVersion();
+		}
 
-            foreach(string System in GetSystemsList())
-            {
-                systemlist.Items.Add(new ListViewItem(System, 0));
-            }
-        }
+		public bool OfflineModeSelected()
+		{
+			return isOffline.Checked;
+		}
 
-        public static string[] GetSystemsList()
-        {
-            if (!Directory.Exists(Program.SYSTEMSDIR))
-               Directory.CreateDirectory(Program.SYSTEMSDIR);
+		private void LoadListView()
+		{
+			systemlist.Clear();
 
-            string[] systems = Directory.GetFiles(Program.SYSTEMSDIR);
+			foreach (var system in GetSystemsList())
+				systemlist.Items.Add(new ListViewItem(system, 0));
+		}
 
-            for (int i = 0; i < systems.Length; i++)
-            {
-                systems[i] = Path.GetFileName(systems[i]);
-            }
+		public static string[] GetSystemsList()
+		{
+			if (!Directory.Exists(Program.SYSTEMSDIR))
+				Directory.CreateDirectory(Program.SYSTEMSDIR);
 
-            return systems;
-        }
+			var systems = Directory.GetFiles(Program.SYSTEMSDIR);
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+			for (var i = 0; i < systems.Length; i++)
+				systems[i] = Path.GetFileName(systems[i]);
 
-        private void newhost_Click(object sender, EventArgs e)
-        {
-            new NewSystem().ShowDialog();
-            LoadListView();
-        }
+			return systems;
+		}
 
-        private void systemlist_DoubleClick(object sender, EventArgs e)
-        {
-            string ConfigPath = "";
-            if (systemlist.SelectedItems.Count == 1)
-            {
-                ConfigPath = Program.SYSTEMSDIR + @"\" + systemlist.SelectedItems[0].Text;
-                IBMi.CurrentSystem = new Config(ConfigPath);
-                IBMi.CurrentSystem.DoSystemDefaults();
-                SystemSelected = true;
-                this.Close();
-            }
-        }
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 
-        private void systemlist_KeyDown(object sender, KeyEventArgs e)
-        {
-            string deleting;
-            if (e.KeyCode == Keys.Delete)
-            {
-                if (systemlist.SelectedItems.Count > 0)
-                {
-                    ListViewItem item = systemlist.SelectedItems[0];
-                    DialogResult result = MessageBox.Show("Are you sure you want to delete this setup?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes)
-                    {
-                        deleting = Program.SYSTEMSDIR + @"\" + item.Text;
-                        File.Delete(deleting);
-                        systemlist.Items.Remove(item);
-                    }
-                }
-            }
-        }
+		private void NewHost_Click(object sender, EventArgs e)
+		{
+			new NewSystem().ShowDialog();
+			LoadListView();
+		}
 
-        private void systemlist_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-                if (systemlist.FocusedItem.Bounds.Contains(e.Location))
-                    hostRightClick.Show(Cursor.Position);
-        }
+		private void SystemList_DoubleClick(object sender, EventArgs e)
+		{
+			if (systemlist.SelectedItems.Count == 1)
+			{
+				var configPath = Program.SYSTEMSDIR + @"\" + systemlist.SelectedItems[0].Text;
+				IBMi.CurrentSystem = new Config(configPath);
+				IBMi.CurrentSystem.DoSystemDefaults();
+				SystemSelected = true;
+				Close();
+			}
+		}
 
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (systemlist.FocusedItem != null)
-            {
-                string ConfigPath = "";
-                ConfigPath = Program.SYSTEMSDIR + @"\" + systemlist.FocusedItem.Text;
-                IBMi.CurrentSystem = new Config(ConfigPath);
-                IBMi.CurrentSystem.DoSystemDefaults();
+		private void SystemList_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode != Keys.Delete || systemlist.SelectedItems.Count <= 0)
+				return;
 
-                new Connection().ShowDialog();
+			var item = systemlist.SelectedItems[0];
+			var result = MessageBox.Show("Are you sure you want to delete this setup?",
+				"Warning",
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Warning);
 
-                IBMi.CurrentSystem = null;
-            }
-        }
-    }
+			if (result == DialogResult.Yes)
+			{
+				var deleting = Program.SYSTEMSDIR + @"\" + item.Text;
+				File.Delete(deleting);
+				systemlist.Items.Remove(item);
+			}
+		}
+
+		private void SystemList_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button != MouseButtons.Right)
+				return;
+
+			if (systemlist.FocusedItem.Bounds.Contains(e.Location))
+				hostRightClick.Show(Cursor.Position);
+		}
+
+		private void editToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (systemlist.FocusedItem == null)
+				return;
+
+			var configPath = Program.SYSTEMSDIR + @"\" + systemlist.FocusedItem.Text;
+			IBMi.CurrentSystem = new Config(configPath);
+			IBMi.CurrentSystem.DoSystemDefaults();
+
+			new Connection().ShowDialog();
+
+			IBMi.CurrentSystem = null;
+		}
+	}
 }

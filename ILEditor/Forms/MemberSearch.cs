@@ -26,7 +26,7 @@ namespace ILEditor.Forms
 
         private void search_Click(object sender, EventArgs e)
         {
-            if (searchVal.Text.Trim() == "")
+            if (string.IsNullOrWhiteSpace(searchVal.Text))
             {
                 searchVal.Focus();
                 MessageBox.Show("Search value cannot be blank.");

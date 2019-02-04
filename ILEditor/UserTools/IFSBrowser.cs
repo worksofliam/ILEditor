@@ -1,257 +1,258 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Threading;
-using ILEditor.Classes;
+using System.Windows.Forms;
 using FluentFTP;
+using ILEditor.Classes;
 using ILEditor.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class IFSBrowser : DockContent
-    {
-        public IFSBrowser()
-        {
-            InitializeComponent();
-            this.Text = "IFS Browser";
-        }
+	public partial class IFSBrowser : DockContent
+	{
+		private TreeNode RightClickedNode;
 
-        public void Reload()
-        {
-            Boolean exists;
-            TreeNode node;
-            List<string> DirList = new List<string>();
+		public IFSBrowser()
+		{
+			InitializeComponent();
+			Text = "IFS Browser";
+		}
 
-            files.Nodes.Clear();
-            if (IBMi.IsConnected())
-            {
-                new Thread((ThreadStart)delegate
-                {
-                    DirList.Add(IBMi.CurrentSystem.GetValue("homeDir"));
-                    foreach (string dir in IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|'))
-                        if (dir.Trim() != "")
-                            DirList.Add(dir);
+		public void Reload()
+		{
+			bool     exists;
+			TreeNode node;
+			var      DirList = new List<string>();
 
-                    foreach (string dir in DirList)
-                    {
-                        if (dir.Trim() != "")
-                        {
-                            if (dir.Trim() == "") continue;
+			files.Nodes.Clear();
+			if (IBMi.IsConnected())
+				new Thread((ThreadStart) delegate
+				{
+					DirList.Add(IBMi.CurrentSystem.GetValue("homeDir"));
+					foreach (var dir in IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|'))
+						if (dir.Trim() != "")
+							DirList.Add(dir);
 
-                            exists = IBMi.DirExists(dir);
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                if (exists)
-                                {
-                                    node = new TreeNode(dir, new[] { new TreeNode("Loading..", 2, 2) });
-                                    node.Tag = dir;
-                                    node.ImageIndex = 0;
-                                    node.SelectedImageIndex = 0;
-                                    files.Nodes.Add(node);
-                                }
-                                else
-                                    files.Nodes.Add(new TreeNode("Directory '" + dir + "' was not located.", 3, 3));
-                            });
-                        }
-                    }
-                }).Start();
-            }
-            else
-            {
-                files.Nodes.Add(new TreeNode("IFS Browsing only works when connected to the remote system.", 3, 3));
-            }
-        }
+					foreach (var dir in DirList)
+						if (dir.Trim() != "")
+						{
+							if (dir.Trim() == "")
+								continue;
 
-        private void IFSBrowser_Load(object sender, EventArgs e)
-        {
-            Reload();
-        }
+							exists = IBMi.DirExists(dir);
+							Invoke((MethodInvoker) delegate
+							{
+								if (exists)
+								{
+									node = new TreeNode(dir, new[] {new TreeNode("Loading..", 2, 2)})
+									{
+										Tag = dir, ImageIndex = 0, SelectedImageIndex = 0
+									};
 
-        private void files_AfterExpand(object sender, TreeViewEventArgs e)
-        {
-            List<TreeNode> Listing = new List<TreeNode>();
-            TreeNode node;
+									files.Nodes.Add(node);
+								}
+								else
+								{
+									files.Nodes.Add(new TreeNode("Directory '" + dir + "' was not located.", 3, 3));
+								}
+							});
+						}
+				}).Start();
+			else
+				files.Nodes.Add(new TreeNode("IFS Browsing only works when connected to the remote system.", 3, 3));
+		}
 
-            new Thread((ThreadStart)delegate
-            {
-                FtpListItem[] items = IBMi.GetListing(e.Node.Tag.ToString());
+		private void IFSBrowser_Load(object sender, EventArgs e)
+		{
+			Reload();
+		}
 
-                foreach (FtpListItem item in items)
-                {
-                    if (item.Name.Contains("/"))
-                    {
-                        int lastIndex = item.Name.LastIndexOf("/");
-                        string tempName = item.Name.Substring(lastIndex + 1, item.Name.Length - lastIndex - 1);
-                        item.FullName = item.FullName.Substring(0, item.FullName.Length - item.Name.Length - 1) + "/" + tempName;
-                        item.Name = tempName;
-                    }
+		private void files_AfterExpand(object sender, TreeViewEventArgs e)
+		{
+			var      listing = new List<TreeNode>();
+			TreeNode node;
 
-                    FileCache.AddStreamFile(item.FullName);
+			new Thread((ThreadStart) delegate
+			{
+				var items = IBMi.GetListing(e.Node.Tag.ToString());
 
-                    node = new TreeNode(item.Name);
-                    node.Tag = item.FullName;
-                    switch (item.Type)
-                    {
-                        case FtpFileSystemObjectType.Directory:
-                            node.ImageIndex = 0;
-                            node.SelectedImageIndex = 0;
-                            node.Nodes.Add(new TreeNode("Loading..", 2, 2));
-                            Listing.Add(node);
-                            break;
-                        case FtpFileSystemObjectType.File:
-                            node.ImageIndex = 1;
-                            node.SelectedImageIndex = 1;
-                            Listing.Add(node);
-                            break;
-                    }
-                }
+				foreach (var item in items)
+				{
+					if (item.Name.Contains("/"))
+					{
+						var lastIndex = item.Name.LastIndexOf("/");
+						var tempName  = item.Name.Substring(lastIndex + 1, item.Name.Length - lastIndex - 1);
+						item.FullName = item.FullName.Substring(0, item.FullName.Length - item.Name.Length - 1) +
+						                "/" +
+						                tempName;
 
-                if (Listing.Count() == 0)
-                    Listing.Add(new TreeNode("Directory is empty.", 2, 2));
+						item.Name = tempName;
+					}
 
-                this.Invoke((MethodInvoker)delegate
-                {
-                    e.Node.Nodes.Clear();
-                    e.Node.Nodes.AddRange(Listing.ToArray());
-                });
-            }).Start();
-        }
+					FileCache.AddStreamFile(item.FullName);
 
-        private void files_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (files.SelectedNode != null)
-                if (files.SelectedNode.Tag != null)
-                    if (files.SelectedNode.Nodes.Count == 0)
-                        Editor.OpenSource(new RemoteSource("", files.SelectedNode.Tag.ToString()));
-        }
+					node     = new TreeNode(item.Name);
+					node.Tag = item.FullName;
+					switch (item.Type)
+					{
+						case FtpFileSystemObjectType.Directory:
+							node.ImageIndex         = 0;
+							node.SelectedImageIndex = 0;
+							node.Nodes.Add(new TreeNode("Loading..", 2, 2));
+							listing.Add(node);
 
-        private void files_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
-        {
-            string pathResult = "";
-            bool success = false;
+							break;
+						case FtpFileSystemObjectType.File:
+							node.ImageIndex         = 1;
+							node.SelectedImageIndex = 1;
+							listing.Add(node);
 
-            if (e.Label == null)
-                return;
+							break;
+					}
+				}
 
-            if (e.Label == e.Node.Text)
-                return;
+				if (listing.Count == 0)
+					listing.Add(new TreeNode("Directory is empty.", 2, 2));
 
-            if (e.Label == "")
-            {
-                e.CancelEdit = true;
-                return;
-            }
+				Invoke((MethodInvoker) delegate
+				{
+					e.Node.Nodes.Clear();
+					e.Node.Nodes.AddRange(listing.ToArray());
+				});
+			}).Start();
+		}
 
-            if (e.Node.Nodes.Count > 0)
-                pathResult = IBMi.RenameDir(e.Node.Tag.ToString(), e.Label);
-            else
-                pathResult = IBMi.RenameFile(e.Node.Tag.ToString(), e.Label);
+		private void files_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			if (files.SelectedNode?.Tag == null)
+				return;
 
-            success = (e.Node.Tag.ToString() != pathResult);
+			if (files.SelectedNode.Nodes.Count == 0)
+				Editor.OpenSource(new RemoteSource("", files.SelectedNode.Tag.ToString()));
+		}
 
-            if (success)
-                e.Node.Tag = pathResult;
+		private void files_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+		{
+			if (e.Label == null)
+				return;
 
-            e.CancelEdit = !success;
-        }
+			if (e.Label == e.Node.Text)
+				return;
 
-        private TreeNode RightClickedNode;
-        private void files_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                files.SelectedNode = e.Node;
-                RightClickedNode = e.Node;
+			if (e.Label == "")
+			{
+				e.CancelEdit = true;
 
-                createToolStripMenuItem.Enabled = (e.Node.Nodes.Count > 0);
-                deleteToolStripMenuItem.Enabled = (e.Node.Parent != null);
-                renameToolStripMenuItem.Enabled = (e.Node.Parent != null);
-                makeShortcutToolStripMenuItem.Enabled = (e.Node.Parent != null && e.Node.Nodes.Count > 0);
-                setHomeDirectoryToolStripMenuItem.Enabled = (e.Node.Nodes.Count > 0);
-                rightClickMenu.Show(Cursor.Position);
-            }
-        }
+				return;
+			}
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RightClickedNode != null)
-            {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete '" + RightClickedNode.Tag.ToString() + "'?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                if (result == DialogResult.Yes)
-                {
-                    if (RightClickedNode.Nodes.Count == 0)
-                        IBMi.DeleteFile(RightClickedNode.Tag.ToString());
-                    else
-                        IBMi.DeleteDir(RightClickedNode.Tag.ToString());
+			string pathResult;
 
-                    RightClickedNode.Remove();
-                }
-            }
-        }
+			if (e.Node.Nodes.Count > 0)
+				pathResult = IBMi.RenameDir(e.Node.Tag.ToString(), e.Label);
+			else
+				pathResult = IBMi.RenameFile(e.Node.Tag.ToString(), e.Label);
 
-        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RightClickedNode != null)
-            {
-                RightClickedNode.BeginEdit();
-            }
-        }
+			var success = e.Node.Tag.ToString() != pathResult;
 
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RightClickedNode != null)
-            {
-                CreateStreamFile window = new CreateStreamFile(RightClickedNode.Tag.ToString() + "/");
-                window.ShowDialog();
+			if (success)
+				e.Node.Tag = pathResult;
 
-                if (window.result != null)
-                    Editor.OpenExistingSource(window.result);
-            }
-        }
+			e.CancelEdit = !success;
+		}
 
-        private void directoryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RightClickedNode != null)
-            {
-                CreateDirectory window = new CreateDirectory(RightClickedNode.Tag.ToString() + "/");
-                window.ShowDialog();
+		private void files_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				files.SelectedNode = e.Node;
+				RightClickedNode   = e.Node;
 
-                RightClickedNode.Collapse();
-                RightClickedNode.Expand();
-            }
-        }
-        
-        private void makeShortcutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RightClickedNode != null)
-            {
-                List<string> Dirs = IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|').ToList();
-                Dirs.Add(RightClickedNode.Tag.ToString());
-                IBMi.CurrentSystem.SetValue("IFS_LINKS", String.Join("|", Dirs));
-                Reload();
-            }
-        }
+				createToolStripMenuItem.Enabled           = e.Node.Nodes.Count > 0;
+				deleteToolStripMenuItem.Enabled           = e.Node.Parent != null;
+				renameToolStripMenuItem.Enabled           = e.Node.Parent != null;
+				makeShortcutToolStripMenuItem.Enabled     = e.Node.Parent != null && e.Node.Nodes.Count > 0;
+				setHomeDirectoryToolStripMenuItem.Enabled = e.Node.Nodes.Count > 0;
+				rightClickMenu.Show(Cursor.Position);
+			}
+		}
 
-        private void setHomeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RightClickedNode != null)
-            {
-                IBMi.CurrentSystem.SetValue("homeDir", RightClickedNode.Tag.ToString());
-                Editor.TheEditor.SetStatus("Job home directory set to: " + RightClickedNode.Tag.ToString());
-            }
-        }
+		private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RightClickedNode == null)
+				return;
 
-        private void manageDirs_Click(object sender, EventArgs e)
-        {
-            new IFSManager().ShowDialog();
-            Reload();
-        }
-    }
+			var result = MessageBox.Show("Are you sure you want to delete '" + RightClickedNode.Tag + "'?",
+				"Warning",
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Asterisk);
+
+			if (result == DialogResult.Yes)
+			{
+				if (RightClickedNode.Nodes.Count == 0)
+					IBMi.DeleteFile(RightClickedNode.Tag.ToString());
+				else
+					IBMi.DeleteDir(RightClickedNode.Tag.ToString());
+
+				RightClickedNode.Remove();
+			}
+		}
+
+		private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			RightClickedNode?.BeginEdit();
+		}
+
+		private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RightClickedNode != null)
+			{
+				var window = new CreateStreamFile(RightClickedNode.Tag + "/");
+				window.ShowDialog();
+
+				if (window.Result != null)
+					Editor.OpenExistingSource(window.Result);
+			}
+		}
+
+		private void directoryToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RightClickedNode != null)
+			{
+				var window = new CreateDirectory(RightClickedNode.Tag + "/");
+				window.ShowDialog();
+
+				RightClickedNode.Collapse();
+				RightClickedNode.Expand();
+			}
+		}
+
+		private void makeShortcutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RightClickedNode != null)
+			{
+				var dirs = IBMi.CurrentSystem.GetValue("IFS_LINKS").Split('|').ToList();
+				dirs.Add(RightClickedNode.Tag.ToString());
+				IBMi.CurrentSystem.SetValue("IFS_LINKS", string.Join("|", dirs));
+				Reload();
+			}
+		}
+
+		private void setHomeDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RightClickedNode != null)
+			{
+				IBMi.CurrentSystem.SetValue("homeDir", RightClickedNode.Tag.ToString());
+				Editor.TheEditor.SetStatus("Job home directory set to: " + RightClickedNode.Tag);
+			}
+		}
+
+		private void manageDirs_Click(object sender, EventArgs e)
+		{
+			new IFSManager().ShowDialog();
+			Reload();
+		}
+	}
 }

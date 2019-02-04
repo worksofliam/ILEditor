@@ -50,9 +50,9 @@
             this.systemlist.Size = new System.Drawing.Size(438, 275);
             this.systemlist.TabIndex = 0;
             this.systemlist.UseCompatibleStateImageBehavior = false;
-            this.systemlist.DoubleClick += new System.EventHandler(this.systemlist_DoubleClick);
-            this.systemlist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.systemlist_KeyDown);
-            this.systemlist.MouseClick += new System.Windows.Forms.MouseEventHandler(this.systemlist_MouseClick);
+            this.systemlist.DoubleClick += new System.EventHandler(this.SystemList_DoubleClick);
+            this.systemlist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SystemList_KeyDown);
+            this.systemlist.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SystemList_MouseClick);
             // 
             // imageList1
             // 
@@ -78,7 +78,7 @@
             this.newhost.TabIndex = 2;
             this.newhost.Text = "New Host";
             this.newhost.UseVisualStyleBackColor = true;
-            this.newhost.Click += new System.EventHandler(this.newhost_Click);
+            this.newhost.Click += new System.EventHandler(this.NewHost_Click);
             // 
             // versionLabel
             // 

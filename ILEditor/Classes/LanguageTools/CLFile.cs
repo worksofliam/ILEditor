@@ -1,101 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ILEditor.Classes.LanguageTools
 {
-    class CLFile
-    {
-        public static IList<string> CorrectLines(string[] Lines, int RecordLength)
-        {
-            List<string> outputFile = new List<string>();
-            foreach (string Line in Lines)
-            {
-                if (Line.Length <= RecordLength)
-                {
-                    outputFile.Add(Line);
-                }
-                else
-                {
-                    foreach (string newLine in SplitUpLine(Line, FindStartSpace(Line), RecordLength))
-                    {
-                        outputFile.Add(newLine);
-                    }
-                }
-            }
+	internal class CLFile
+	{
+		public static IList<string> CorrectLines(string[] Lines, int RecordLength)
+		{
+			var outputFile = new List<string>();
+			foreach (var Line in Lines)
+				if (Line.Length <= RecordLength)
+					outputFile.Add(Line);
+				else
+					foreach (var newLine in SplitUpLine(Line, FindStartSpace(Line), RecordLength))
+						outputFile.Add(newLine);
 
-            return outputFile.ToArray();
-        }
+			return outputFile.ToArray();
+		}
 
-        public static int FindStartSpace(string Line)
-        {
-            int output = 0;
+		public static int FindStartSpace(string Line)
+		{
+			var output = 0;
 
-            foreach (char c in Line.ToCharArray())
-            {
-                if (c == ' ')
-                {
-                    output++;
-                }
-                else
-                {
-                    break;
-                }
-            }
+			foreach (var c in Line)
+				if (c == ' ')
+					output++;
+				else
+					break;
 
-            return output;
-        }
+			return output;
+		}
 
-        public static string[] SplitUpLine(string Line, int StartSpace, int RecordLength)
-        {
-            Line = Line.Trim();
-            List<string> lines = new List<string>();
-            List<string> pieces = new List<string>();
-            string current = "";
+		public static string[] SplitUpLine(string Line, int StartSpace, int RecordLength)
+		{
+			Line = Line.Trim();
+			var lines   = new List<string>();
+			var pieces  = new List<string>();
+			var current = "";
 
-            foreach (char c in Line.ToCharArray())
-            {
-                switch (c)
-                {
-                    case ' ':
-                        if (current != "")
-                        {
-                            pieces.Add(current);
-                            current = "";
-                        }
-                        else
-                        {
-                            current += c;
-                        }
-                        break;
-                    default:
-                        current += c;
-                        break;
-                }
-            }
-            if (current != "") pieces.Add(current);
+			foreach (var c in Line)
+				switch (c)
+				{
+					case ' ':
+						if (current != "")
+						{
+							pieces.Add(current);
+							current = "";
+						}
+						else
+						{
+							current += c;
+						}
 
-            int parmStart = StartSpace + pieces[0].Length + 1;
+						break;
+					default:
+						current += c;
 
-            current = "".PadLeft(StartSpace);
-            foreach (string piece in pieces)
-            {
-                if ((current.Length + piece.Length + 2) < RecordLength)
-                {
-                    current += piece + ' ';
-                }
-                else
-                {
-                    lines.Add(current.TrimEnd() + " +");
-                    current = "".PadLeft(parmStart) + piece + ' ';
-                }
-            }
+						break;
+				}
 
-            if (current.Trim() != "") lines.Add(current);
+			if (current != "")
+				pieces.Add(current);
 
-            return lines.ToArray();
-        }
-    }
+			var parmStart = StartSpace + pieces[0].Length + 1;
+
+			current = "".PadLeft(StartSpace);
+			foreach (var piece in pieces)
+				if (current.Length + piece.Length + 2 < RecordLength)
+				{
+					current += piece + ' ';
+				}
+				else
+				{
+					lines.Add(current.TrimEnd() + " +");
+					current = "".PadLeft(parmStart) + piece + ' ';
+				}
+
+			if (current.Trim() != "")
+				lines.Add(current);
+
+			return lines.ToArray();
+		}
+	}
 }

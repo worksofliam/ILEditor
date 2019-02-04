@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using DiffMatchPatch;
 using System.IO;
 using ILEditor.Classes;
 using System.Windows.Documents;
@@ -27,22 +26,22 @@ namespace ILEditor.UserTools
             box.SelectionColor = box.ForeColor;
         }
 
-        public Color textColor = Color.Black;
+        public Color TextColor = Color.Black;
         public void HandleTheme(RichTextBox box)
         {
-            bool DarkMode = (Program.Config.GetValue("darkmode") == "true");
+            var darkMode = (Program.Config.GetValue("darkmode") == "true");
 
             box.Font = new Font(IBMi.CurrentSystem.GetValue("FONT"), float.Parse(IBMi.CurrentSystem.GetValue("ZOOM")));
             box.WordWrap = false;
 
-            if (DarkMode)
+            if (darkMode)
             {
                 box.BackColor = Color.FromArgb(30, 30, 30);
-                textColor = Color.White;
+                TextColor = Color.White;
             }
             else
             {
-                textColor = Color.Black;
+                TextColor = Color.Black;
             }
         }
 
@@ -58,19 +57,19 @@ namespace ILEditor.UserTools
             var dmp = new diff_match_patch();
             var diffs = dmp.diff_main(File.ReadAllText(LocalNew), File.ReadAllText(LocalOld), false);
 
-            foreach (Diff aDiff in diffs)
+            foreach (var aDiff in diffs)
             {
-                switch (aDiff.operation)
+                switch (aDiff.Operation)
                 {
                     case Operation.INSERT:
-                        AppendText(newContent, aDiff.text, Color.Green);
+                        AppendText(newContent, aDiff.Text, Color.Green);
                         break;
                     case Operation.DELETE:
-                        AppendText(oldContent, aDiff.text, Color.Red);
+                        AppendText(oldContent, aDiff.Text, Color.Red);
                         break;
                     case Operation.EQUAL:
-                        AppendText(oldContent, aDiff.text, textColor);
-                        AppendText(newContent, aDiff.text, textColor);
+                        AppendText(oldContent, aDiff.Text, TextColor);
+                        AppendText(newContent, aDiff.Text, TextColor);
                         break;
                 }
             }

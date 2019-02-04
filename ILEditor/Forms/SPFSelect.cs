@@ -1,56 +1,50 @@
-﻿using ILEditor.Classes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class SPFSelect : Form
-    {
-        public SPFSelect()
-        {
-            InitializeComponent();
-            this.Successful = false;
-        }
+	public partial class SPFSelect : Form
+	{
+		public string Lib;
+		public string Spf;
 
-        public Boolean Successful;
-        public string Lib;
-        public string Spf;
+		public bool Successful;
 
-        private void select_Click(object sender, EventArgs e)
-        {
-            Boolean valid = true;
-            this.Lib = lib.Text.Trim();
-            this.Spf = spf.Text.Trim();
+		public SPFSelect()
+		{
+			InitializeComponent();
+			Successful = false;
+		}
 
-            if (!IBMiUtils.IsValueObjectName(this.Lib))
-                valid = false;
+		private void select_Click(object sender, EventArgs e)
+		{
+			var valid = true;
+			Lib = lib.Text.Trim();
+			Spf = spf.Text.Trim();
 
-            if (!valid)
-            {
-                MessageBox.Show("Member information not valid.");
-            }
-            else
-            {
-                this.Successful = true;
-                this.Close();
-            }
-        }
+			if (!IBMiUtils.IsValueObjectName(Lib))
+				valid = false;
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+			if (!valid)
+			{
+				MessageBox.Show("Member information not valid.");
+			}
+			else
+			{
+				Successful = true;
+				Close();
+			}
+		}
 
-        private void loadAllCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            spf.Enabled = !loadAllCheck.Checked;
-        }
-    }
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void loadAllCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			spf.Enabled = !loadAllCheck.Checked;
+		}
+	}
 }

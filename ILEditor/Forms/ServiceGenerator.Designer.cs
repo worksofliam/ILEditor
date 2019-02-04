@@ -94,7 +94,7 @@
             this.procname.Name = "procname";
             this.procname.Size = new System.Drawing.Size(168, 20);
             this.procname.TabIndex = 9;
-            this.procname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.procname_KeyDown);
+            this.procname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProcName_KeyDown);
             // 
             // addproc
             // 
@@ -104,7 +104,7 @@
             this.addproc.TabIndex = 8;
             this.addproc.Text = "Add";
             this.addproc.UseVisualStyleBackColor = true;
-            this.addproc.Click += new System.EventHandler(this.addproc_Click);
+            this.addproc.Click += new System.EventHandler(this.AddProc_Click);
             // 
             // label3
             // 

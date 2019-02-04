@@ -1,6 +1,6 @@
 ﻿namespace ILEditor.UserTools
 {
-    partial class QSYSBrowser
+    partial class QsysBrowser
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QSYSBrowser));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QsysBrowser));
             this.objectList = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.addSpf = new System.Windows.Forms.ToolStrip();
@@ -88,7 +88,7 @@
             this.ClientSize = new System.Drawing.Size(321, 365);
             this.Controls.Add(this.addSpf);
             this.Controls.Add(this.objectList);
-            this.Name = "QSYSBrowser";
+            this.Name = "QsysBrowser";
             this.Load += new System.EventHandler(this.TreeBrowse_Load);
             this.addSpf.ResumeLayout(false);
             this.addSpf.PerformLayout();

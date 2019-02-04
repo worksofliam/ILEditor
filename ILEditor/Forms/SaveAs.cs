@@ -1,55 +1,55 @@
-﻿using ILEditor.Classes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class SaveAs : Form
-    {
-        public bool Success = false;
-        public SourceSelectBox SourceInfo() => sourceSelectBox;
-        public SaveAs(RemoteSource MemberInfo = null)
-        {
-            InitializeComponent();
+	public partial class SaveAs : Form
+	{
+		public bool Success;
 
-            if (MemberInfo != null)
-            {
-                switch (MemberInfo.GetFS())
-                {
-                    case FileSystem.IFS:
-                        sourceSelectBox.SetSource(MemberInfo.GetRemoteFile());
-                        sourceSelectBox.SetSource("", "", MemberInfo.GetName());
-                        break;
-                    case FileSystem.QSYS:
-                        sourceSelectBox.SetSource("", MemberInfo.GetObject(), MemberInfo.GetName());
-                        break;
-                }
-            }
-        }
+		public SaveAs(RemoteSource MemberInfo = null)
+		{
+			InitializeComponent();
 
-        private void save_Click(object sender, EventArgs e)
-        {
-            if (!sourceSelectBox.isValid())
-            {
-                MessageBox.Show("Source information not valid.");
-            }
-            else
-            {
-                this.Success = true;
-                this.Close();
-            }
-        }
+			if (MemberInfo == null)
+				return;
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-    }
+			switch (MemberInfo.GetFS())
+			{
+				case FileSystem.IFS:
+					sourceSelectBox.SetSource(MemberInfo.GetRemoteFile());
+					sourceSelectBox.SetSource("", "", MemberInfo.GetName());
+
+					break;
+				case FileSystem.QSYS:
+					sourceSelectBox.SetSource("", MemberInfo.GetObject(), MemberInfo.GetName());
+
+					break;
+			}
+		}
+
+		public SourceSelectBox SourceInfo()
+		{
+			return sourceSelectBox;
+		}
+
+		private void save_Click(object sender, EventArgs e)
+		{
+			if (!sourceSelectBox.IsValid())
+			{
+				MessageBox.Show("Source information not valid.");
+			}
+			else
+			{
+				Success = true;
+				Close();
+			}
+		}
+
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+	}
 }

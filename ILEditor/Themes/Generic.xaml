@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    xmlns:windows="clr-namespace:FindReplace">
+                    xmlns:classes="clr-namespace:ILEditor.Classes">
 
 
     <DrawingImage x:Key="FindNext">
@@ -127,7 +127,7 @@
     </Style>
 
     <ControlTemplate x:Key="SearchReplacePanelTemplate"
-                     TargetType="windows:SearchReplacePanel">
+                     TargetType="classes:SearchReplacePanel">
         <Border Background="#eeeeee"
                 BorderBrush="DarkGray"
                 BorderThickness="0 0 0 3"
@@ -238,7 +238,7 @@
                     <Button Margin="3"
                             Height="24"
                             Width="24"
-                            Command="windows:SearchCommandsEx.ReplaceNext"
+                            Command="classes:SearchCommandsEx.ReplaceNext"
                             ToolTip="Replace next (Alt+R)">
                         <Image Width="16"
                                Height="16"
@@ -248,7 +248,7 @@
                     <Button Margin="3"
                             Height="24"
                             Width="24"
-                            Command="windows:SearchCommandsEx.ReplaceAll"
+                            Command="classes:SearchCommandsEx.ReplaceAll"
                             ToolTip="Replace all (Alt+A)">
                         <Image Width="16"
                                Height="16"
@@ -272,7 +272,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="windows:SearchReplacePanel">
+    <Style TargetType="classes:SearchReplacePanel">
         <Setter Property="Template"
                 Value="{StaticResource SearchReplacePanelTemplate}" />
     </Style>

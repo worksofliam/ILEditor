@@ -1,187 +1,192 @@
-﻿using ILEditor.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class UpdateProgram : Form
-    {
-        private bool isSrvPgm;
-        public UpdateProgram(ILEObject Program, ILEObject[] Modules)
-        {
-            InitializeComponent();
+	public partial class UpdateProgram : Form
+	{
+		private readonly bool isSrvPgm;
 
-            switch (Program.Type)
-            {
-                case "*PGM":
-                    pgmTypeText.Text = "Program";
-                    break;
-                case "*SRVPGM":
-                    pgmTypeText.Text = "Service Program";
-                    break;
-            }
+		public UpdateProgram(ILEObject Program, ILEObject[] Modules)
+		{
+			InitializeComponent();
 
-            this.Text = "Update " + pgmTypeText.Text;
-            pgm.Text = Program.Library + "/" + Program.Name;
-            
-            isSrvPgm = (Program.Type == "*SRVPGM");
+			switch (Program.Type)
+			{
+				case "*PGM":
+					pgmTypeText.Text = "Program";
 
-            binderSrcBox.Enabled = isSrvPgm;
-            bndLib.Text = Program.Library;
-            bndLib.Text = "QSRVSRC";
-            bndLib.Text = "*SRVPGM";
+					break;
+				case "*SRVPGM":
+					pgmTypeText.Text = "Service Program";
 
-            foreach (ILEObject Object in Modules)
-                if (Object.Type == "*MODULE")
-                    modules.Items.Add(new ListViewItem(Object.Library + "/" + Object.Name, 0));
-        }
+					break;
+			}
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+			Text     = "Update " + pgmTypeText.Text;
+			pgm.Text = Program.Library + "/" + Program.Name;
 
-        private void update_Click(object sender, EventArgs e)
-        {
-            string cmd = "", result = "";
-            List<string> ModuleList = new List<string>();
-            List<string> BindingDirectories = new List<string>();
+			isSrvPgm = Program.Type == "*SRVPGM";
 
-            foreach (ListViewItem item in modules.Items)
-                if (item.Checked)
-                    ModuleList.Add(item.Text);
+			binderSrcBox.Enabled = isSrvPgm;
+			bndLib.Text          = Program.Library;
+			bndLib.Text          = "QSRVSRC";
+			bndLib.Text          = "*SRVPGM";
 
-            foreach (string item in customModules.Items)
-                ModuleList.Add(item);
+			foreach (var Object in Modules)
+				if (Object.Type == "*MODULE")
+					modules.Items.Add(new ListViewItem(Object.Library + "/" + Object.Name, 0));
+		}
 
-            foreach (string bnddir in bndDirs.Items)
-                BindingDirectories.Add(bnddir);
-            
-            if (ModuleList.Count == 0)
-                ModuleList.Add("*NONE");
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 
-            if (isSrvPgm)
-            {
-                cmd = "UPDSRVPGM SRVPGM(" + pgm.Text + ") MODULE(" + String.Join(" ", ModuleList) + ")";
-                if (updSrvSrc.Checked)
-                    cmd += " EXPORT(*CURRENT)";
-                else
-                {
-                    cmd += " EXPORT(*SRCFILE)";
-                    cmd += " SRCFILE(" + bndLib.Text + "/" + bndSpf.Text + ")";
-                    cmd += " SRCMBR(" + bndMbr.Text + ")";
-                }
-            }
-            else
-            {
-                cmd = "UPDPGM PGM(" + pgm.Text + ") MODULE(" + String.Join(" ", ModuleList) + ")";
-            }
+		private void update_Click(object sender, EventArgs e)
+		{
+			string cmd;
+			var    moduleList         = new List<string>();
+			var    bindingDirectories = new List<string>();
 
-            if (BindingDirectories.Count > 0)
-                cmd += " BNDDIR(" + String.Join(" ", BindingDirectories) + ")";
+			foreach (ListViewItem item in modules.Items)
+				if (item.Checked)
+					moduleList.Add(item.Text);
 
-            actgrp.Text = actgrp.Text.Trim();
-            if (actgrp.Text != "" && actgrp.Text != "*SAME")
-                cmd += " ACTGRP(" + actgrp.Text + ")";
+			foreach (string item in customModules.Items)
+				moduleList.Add(item);
 
-            result = IBMi.RemoteCommandResponse(cmd);
+			foreach (string bnddir in bndDirs.Items)
+				bindingDirectories.Add(bnddir);
 
-            if (result == "")
-            {
-                Editor.TheEditor.SetStatus(pgm.Text + " updated successfully.");
-                this.Close();
-            }
-            else
-                MessageBox.Show(result, "Error");
-        }
+			if (moduleList.Count == 0)
+				moduleList.Add("*NONE");
 
-        #region Modules
-        private void addMod_Click(object sender, EventArgs e)
-        {
-            string module = customModule.Text.Trim();
-            if (module != "")
-            {
-                if (!module.Contains("/"))
-                    module = "*LIBL/" + module;
+			if (isSrvPgm)
+			{
+				cmd = "UPDSRVPGM SRVPGM(" + pgm.Text + ") MODULE(" + string.Join(" ", moduleList) + ")";
+				if (updSrvSrc.Checked)
+				{
+					cmd += " EXPORT(*CURRENT)";
+				}
+				else
+				{
+					cmd += " EXPORT(*SRCFILE)";
+					cmd += " SRCFILE(" + bndLib.Text + "/" + bndSpf.Text + ")";
+					cmd += " SRCMBR(" + bndMbr.Text + ")";
+				}
+			}
+			else
+			{
+				cmd = "UPDPGM PGM(" + pgm.Text + ") MODULE(" + string.Join(" ", moduleList) + ")";
+			}
 
-                if (!customModules.Items.Contains(module))
-                    customModules.Items.Add(module);
+			if (bindingDirectories.Count > 0)
+				cmd += " BNDDIR(" + string.Join(" ", bindingDirectories) + ")";
 
-                customModule.Text = "";
-                customModule.Focus();
-            }
-        }
+			actgrp.Text = actgrp.Text.Trim();
+			if (actgrp.Text != "" && actgrp.Text != "*SAME")
+				cmd += " ACTGRP(" + actgrp.Text + ")";
 
-        private void customModule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                addMod.PerformClick();
-        }
+			var result = IBMi.RemoteCommandResponse(cmd);
 
-        private void delMod_Click(object sender, EventArgs e)
-        {
-            if (customModules.SelectedItem != null)
-                customModules.Items.RemoveAt(customModules.SelectedIndex);
-        }
+			if (result == "")
+			{
+				Editor.TheEditor.SetStatus(pgm.Text + " updated successfully.");
+				Close();
+			}
+			else
+			{
+				MessageBox.Show(result, "Error");
+			}
+		}
 
-        private void customModules_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-                delMod.PerformClick();
-        }
-        #endregion
+		private void updSrvSrc_CheckedChanged(object sender, EventArgs e)
+		{
+			var enabled = !updSrvSrc.Checked;
 
-        private void updSrvSrc_CheckedChanged(object sender, EventArgs e)
-        {
-            bool enabled = !updSrvSrc.Checked;
+			bndLib.Enabled = enabled;
+			bndSpf.Enabled = enabled;
+			bndMbr.Enabled = enabled;
+		}
 
-            bndLib.Enabled = enabled;
-            bndSpf.Enabled = enabled;
-            bndMbr.Enabled = enabled;
-        }
+	#region Modules
 
-        #region Binding Directories
-        private void addBnd_Click(object sender, EventArgs e)
-        {
-            string bndDirVal = bndDir.Text.Trim();
-            if (bndDirVal != "")
-            {
-                if (!bndDirVal.Contains("/"))
-                    bndDirVal = "*LIBL/" + bndDirVal;
+		private void addMod_Click(object sender, EventArgs e)
+		{
+			var module = customModule.Text.Trim();
+			if (module != "")
+			{
+				if (!module.Contains("/"))
+					module = "*LIBL/" + module;
 
-                if (!bndDirs.Items.Contains(bndDirVal))
-                    bndDirs.Items.Add(bndDirVal);
+				if (!customModules.Items.Contains(module))
+					customModules.Items.Add(module);
 
-                bndDir.Text = "";
-                bndDir.Focus();
-            }
-        }
+				customModule.Text = "";
+				customModule.Focus();
+			}
+		}
 
-        private void delBnd_Click(object sender, EventArgs e)
-        {
-            if (bndDirs.SelectedItem != null)
-                bndDirs.Items.RemoveAt(bndDirs.SelectedIndex);
-        }
+		private void customModule_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				addMod.PerformClick();
+		}
 
-        private void bndDir_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                addBnd.PerformClick();
-        }
+		private void delMod_Click(object sender, EventArgs e)
+		{
+			if (customModules.SelectedItem != null)
+				customModules.Items.RemoveAt(customModules.SelectedIndex);
+		}
 
-        private void bndDirs_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-                delBnd.PerformClick();
-        }
-        #endregion
+		private void customModules_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Delete)
+				delMod.PerformClick();
+		}
 
-    }
+	#endregion
+
+	#region Binding Directories
+
+		private void addBnd_Click(object sender, EventArgs e)
+		{
+			var bndDirVal = bndDir.Text.Trim();
+
+			if (bndDirVal == "")
+				return;
+
+			if (!bndDirVal.Contains("/"))
+				bndDirVal = "*LIBL/" + bndDirVal;
+
+			if (!bndDirs.Items.Contains(bndDirVal))
+				bndDirs.Items.Add(bndDirVal);
+
+			bndDir.Text = "";
+			bndDir.Focus();
+		}
+
+		private void delBnd_Click(object sender, EventArgs e)
+		{
+			if (bndDirs.SelectedItem != null)
+				bndDirs.Items.RemoveAt(bndDirs.SelectedIndex);
+		}
+
+		private void bndDir_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				addBnd.PerformClick();
+		}
+
+		private void bndDirs_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Delete)
+				delBnd.PerformClick();
+		}
+
+	#endregion
+	}
 }

@@ -1,152 +1,189 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using ILEditor.Classes;
-using System.Threading;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class BindingDirectory : DockContent
-    {
-        private string Library;
-        private string Object;
+	public partial class BindingDirectory : DockContent
+	{
+		private readonly string Library;
+		private readonly string Object;
 
-        public BindingDirectory(string Lib, string Obj)
-        {
-            InitializeComponent();
-            UpdateListing(Lib, Obj);
+		public BindingDirectory(string Lib, string Obj)
+		{
+			InitializeComponent();
+			UpdateListing(Lib, Obj);
 
-            this.Text = Lib + "/" + Obj + " Binding Directory";
+			Text = Lib + "/" + Obj + " Binding Directory";
 
-            Library = Lib;
-            Object = Obj;
-        }
+			Library = Lib;
+			Object  = Obj;
+		}
 
-        public void UpdateListing(string Lib, string Obj)
-        {
-            Thread gothread = new Thread((ThreadStart)delegate
-            {
-                List<ListViewItem> Rows = new List<ListViewItem>();
-                BindingEntry[] Entries = IBMiUtils.GetBindingDirectory(Lib, Obj);
-                if (Entries != null)
-                {
-                    foreach (BindingEntry Entry in Entries)
-                    {
-                        ListViewItem Item = new ListViewItem(new string[6] { Entry.Name, Entry.Type, Entry.Library, Entry.Activation, Entry.CreationDate, Entry.CreationTime });
-                        Item.Tag = Entry;
-                        Rows.Add(Item);
-                    }
+		public void UpdateListing(string Lib, string Obj)
+		{
+			var gothread = new Thread((ThreadStart) delegate
+			{
+				var rows    = new List<ListViewItem>();
+				var entries = IBMiUtils.GetBindingDirectory(Lib, Obj);
+				if (entries != null)
+				{
+					foreach (var entry in entries)
+					{
+						var item = new ListViewItem(new string[6]
+						{
+							entry.Name,
+							entry.Type,
+							entry.Library,
+							entry.Activation,
+							entry.CreationDate,
+							entry.CreationTime
+						});
 
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        entriesList.Items.Clear();
-                        entriesList.Items.AddRange(Rows.ToArray());
-                    });
-                }
-                else
-                {
-                    MessageBox.Show("Unable to obtain binding directory!");
-                }
-            });
+						item.Tag = entry;
+						rows.Add(item);
+					}
 
-            gothread.Start();
-        }
+					Invoke((MethodInvoker) delegate
+					{
+						entriesList.Items.Clear();
+						entriesList.Items.AddRange(rows.ToArray());
+					});
+				}
+				else
+				{
+					MessageBox.Show("Unable to obtain binding directory!");
+				}
+			});
 
-        private void entriesList_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Delete)
-            {
-                if (entriesList.SelectedItems.Count > 0)
-                {
-                    ListViewItem Selected = entriesList.SelectedItems[0];
-                    if (Selected.Tag != null)
-                    {
-                        BindingEntry Entry = (BindingEntry)Selected.Tag;
-                        string command = "RMVBNDDIRE BNDDIR(" + Entry.BindingLib + "/" + Entry.BindingObj + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + "))";
-                        DialogResult result = MessageBox.Show("Are you sure you want to delete this binding entry?", "Deleting Binding Entry", MessageBoxButtons.YesNo);
+			gothread.Start();
+		}
 
-                        if (result == DialogResult.Yes)
-                        {
-                            Thread gothread = new Thread((ThreadStart)delegate
-                            {
-                                if (IBMi.RunCommands(new string[1] { command }) == false)
-                                {
-                                    this.Invoke((MethodInvoker)delegate
-                                    {
-                                        Selected.Remove();
-                                    });
-                                }
-                            });
-                            gothread.Start();
-                        }
-                    }
-                }
-            }
-        }
+		private void entriesList_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyData != Keys.Delete || entriesList.SelectedItems.Count <= 0)
+				return;
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            if (!IBMiUtils.IsValueObjectName(objectName.Text))
-            {
-                MessageBox.Show("Object name is not valid.");
-                objectName.Focus();
-                return;
-            }
-            if (objectType.Text == "")
-            {
-                MessageBox.Show("Object type is not valid.");
-                objectType.Focus();
-                return;
-            }
-            if (IBMiUtils.IsValueObjectName(objectLib.Text) == false && objectLib.Text != "*LIBL")
-            {
-                MessageBox.Show("Object library name is not valid.");
-                objectLib.Focus();
-                return;
-            }
-            if (objectActivation.Text == "")
-            {
-                MessageBox.Show("Object activation is not valid.");
-                objectType.Focus();
-                return;
-            }
+			var selected = entriesList.SelectedItems[0];
+			if (selected.Tag != null)
+			{
+				var entry = (BindingEntry) selected.Tag;
+				var command = "RMVBNDDIRE BNDDIR(" +
+				              entry.BindingLib +
+				              "/" +
+				              entry.BindingObj +
+				              ") OBJ((" +
+				              entry.Library +
+				              "/" +
+				              entry.Name +
+				              " " +
+				              entry.Type +
+				              "))";
 
-            BindingEntry Entry = new BindingEntry();
+				var result = MessageBox.Show("Are you sure you want to delete this binding entry?",
+					"Deleting Binding Entry",
+					MessageBoxButtons.YesNo);
 
-            Entry.BindingLib = Library;
-            Entry.BindingObj = Object;
-            Entry.Name = objectName.Text.Trim();
-            Entry.Library = objectLib.Text.Trim();
-            Entry.Type = objectType.Text;
-            Entry.Activation = objectActivation.Text;
-            Entry.CreationDate = "";
-            Entry.CreationTime = "";
+				if (result == DialogResult.Yes)
+				{
+					var gothread = new Thread((ThreadStart) delegate
+					{
+						if (IBMi.RunCommands(new string[1] {command}) == false)
+							Invoke((MethodInvoker) delegate { selected.Remove(); });
+					});
 
-            string command = "ADDBNDDIRE BNDDIR(" + Library + "/" + Object + ") OBJ((" + Entry.Library + "/" + Entry.Name + " " + Entry.Type + " " + Entry.Activation + "))";
-            Thread gothread = new Thread((ThreadStart)delegate
-            {
-                if (IBMi.RunCommands(new string[1] { command }) == false)
-                {
-                    ListViewItem Item = new ListViewItem(new string[6] { Entry.Name, Entry.Type, Entry.Library, Entry.Activation, Entry.CreationDate, Entry.CreationTime });
-                    Item.Tag = Entry;
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        entriesList.Items.Add(Item);
-                    });
-                }
-                else
-                {
-                    MessageBox.Show("Unable to create binding entry.");
-                }
-            });
-            gothread.Start();
-        }
-    }
+					gothread.Start();
+				}
+			}
+		}
+
+		private void toolStripButton1_Click(object sender, EventArgs e)
+		{
+			if (!IBMiUtils.IsValueObjectName(objectName.Text))
+			{
+				MessageBox.Show("Object name is not valid.");
+				objectName.Focus();
+
+				return;
+			}
+
+			if (objectType.Text == "")
+			{
+				MessageBox.Show("Object type is not valid.");
+				objectType.Focus();
+
+				return;
+			}
+
+			if (IBMiUtils.IsValueObjectName(objectLib.Text) == false && objectLib.Text != "*LIBL")
+			{
+				MessageBox.Show("Object library name is not valid.");
+				objectLib.Focus();
+
+				return;
+			}
+
+			if (objectActivation.Text == "")
+			{
+				MessageBox.Show("Object activation is not valid.");
+				objectType.Focus();
+
+				return;
+			}
+
+			var entry = new BindingEntry
+			{
+				BindingLib   = Library,
+				BindingObj   = Object,
+				Name         = objectName.Text.Trim(),
+				Library      = objectLib.Text.Trim(),
+				Type         = objectType.Text,
+				Activation   = objectActivation.Text,
+				CreationDate = "",
+				CreationTime = ""
+			};
+
+			var command = "ADDBNDDIRE BNDDIR(" +
+			              Library +
+			              "/" +
+			              Object +
+			              ") OBJ((" +
+			              entry.Library +
+			              "/" +
+			              entry.Name +
+			              " " +
+			              entry.Type +
+			              " " +
+			              entry.Activation +
+			              "))";
+
+			var gothread = new Thread((ThreadStart) delegate
+			{
+				if (IBMi.RunCommands(new string[1] {command}) == false)
+				{
+					var item = new ListViewItem(new string[6]
+					{
+						entry.Name,
+						entry.Type,
+						entry.Library,
+						entry.Activation,
+						entry.CreationDate,
+						entry.CreationTime
+					});
+
+					item.Tag = entry;
+					Invoke((MethodInvoker) delegate { entriesList.Items.Add(item); });
+				}
+				else
+				{
+					MessageBox.Show("Unable to create binding entry.");
+				}
+			});
+
+			gothread.Start();
+		}
+	}
 }

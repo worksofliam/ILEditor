@@ -1,84 +1,82 @@
-﻿using ILEditor.Classes;
-using ILEditor.UserTools;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class OpenSource : Form
-    {
-        public static string Library = "", SPF = "", Stmf = "";
+	public partial class OpenSource : Form
+	{
+		public static string Library = "", SPF = "", Stmf = "";
 
-        public OpenSource(int tab = 0)
-        {
-            InitializeComponent();
-            type.Items.AddRange(Editor.LangTypes.Keys.ToArray());
+		public OpenSource(int tab = 0)
+		{
+			InitializeComponent();
+			type.Items.AddRange(Editor.LangTypes.Keys.ToArray());
 
-            tabs.SelectedIndex = tab;
+			tabs.SelectedIndex = tab;
 
-            lib.Text = Library;
-            spf.Text = SPF;
-            stmfPath.Text = Stmf;
-        }
+			lib.Text      = Library;
+			spf.Text      = SPF;
+			stmfPath.Text = Stmf;
+		}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Boolean isValid = true;
+		private void button1_Click(object sender, EventArgs e)
+		{
+			var isValid = true;
 
-            switch (tabs.SelectedIndex)
-            {
-                case 0:
-                    if (!IBMiUtils.IsValueObjectName(lib.Text))
-                        isValid = false;
-                    if (!IBMiUtils.IsValueObjectName(spf.Text))
-                        isValid = false;
-                    if (!IBMiUtils.IsValueObjectName(mbr.Text))
-                        isValid = false;
+			switch (tabs.SelectedIndex)
+			{
+				case 0:
+					if (!IBMiUtils.IsValueObjectName(lib.Text))
+						isValid = false;
 
-                    if (isValid)
-                    {
-                        Editor.OpenSource(new RemoteSource("", lib.Text, spf.Text, mbr.Text, type.Text, true));
-                        Library = lib.Text;
-                        SPF = spf.Text;
-                        this.Close();
-                    }
-                    else
-                        MessageBox.Show("Member information not valid.");
-                    break;
+					if (!IBMiUtils.IsValueObjectName(spf.Text))
+						isValid = false;
 
-                case 1:
-                    stmfPath.Text = stmfPath.Text.Trim();
+					if (!IBMiUtils.IsValueObjectName(mbr.Text))
+						isValid = false;
 
-                    if (IBMi.FileExists(stmfPath.Text)) {
-                        Editor.OpenSource(new RemoteSource("", stmfPath.Text));
-                        Stmf = stmfPath.Text;
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Chosen file does not exist.");
-                    }
-                    break;
-            }
-            
-        }
+					if (isValid)
+					{
+						Editor.OpenSource(new RemoteSource("", lib.Text, spf.Text, mbr.Text, type.Text, true));
+						Library = lib.Text;
+						SPF     = spf.Text;
+						Close();
+					}
+					else
+					{
+						MessageBox.Show("Member information not valid.");
+					}
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+					break;
 
-        private void tabs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            open.Text = "Open " + tabs.SelectedTab.Text;
-        }
-    }
+				case 1:
+					stmfPath.Text = stmfPath.Text.Trim();
+
+					if (IBMi.FileExists(stmfPath.Text))
+					{
+						Editor.OpenSource(new RemoteSource("", stmfPath.Text));
+						Stmf = stmfPath.Text;
+						Close();
+					}
+					else
+					{
+						MessageBox.Show("Chosen file does not exist.");
+					}
+
+					break;
+			}
+		}
+
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void tabs_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			open.Text = "Open " + tabs.SelectedTab.Text;
+		}
+	}
 }

@@ -100,7 +100,7 @@
             this.addmember.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.addmember.Name = "addmember";
             this.addmember.Size = new System.Drawing.Size(23, 22);
-            this.addmember.Click += new System.EventHandler(this.addmember_Click);
+            this.addmember.Click += new System.EventHandler(this.AddMember_Click);
             // 
             // membercount
             // 
@@ -157,7 +157,7 @@
             this.compileOtherToolStripMenuItem});
             this.compileRightclick.Name = "compileRightclick";
             this.compileRightclick.Size = new System.Drawing.Size(153, 48);
-            this.compileRightclick.Opening += new System.ComponentModel.CancelEventHandler(this.compileRightclick_Opening);
+            this.compileRightclick.Opening += new System.ComponentModel.CancelEventHandler(this.compileRightClick_Opening);
             // 
             // compileToolStripMenuItem
             // 

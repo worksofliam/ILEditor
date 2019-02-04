@@ -1,343 +1,348 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 using System.Diagnostics;
+using System.Timers;
 using System.Windows.Forms;
 using FluentFTP;
-using System.Net.Sockets;
-using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace ILEditor.Classes
 {
-    class IBMi
-    {
-        public static Config CurrentSystem;
-        private static FtpClient Client;
+	internal class IBMi
+	{
+		public static  Config    CurrentSystem;
+		private static FtpClient Client;
 
-        public readonly static Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>()
-        {
-            { "425", "Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions." },
-            { "426", "Connection closed; transfer aborted. The file may be locked." },
-            { "426T", "Member was saved but characters have been truncated as record length has been reached." },
-            { "426L", "Member was not saved due to a possible lock." },
-            { "426F", "Member was not found. Perhaps it was deleted." },
-            { "530", "Configuration username and password incorrect." }
-        };
+		public static readonly Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>
+		{
+			{
+				"425",
+				"Not able to open data connection. This might mean that your system is blocking either: FTP, port 20 or port 21. Please allow these through the Windows Firewall. Check the Welcome screen for a 'Getting an FTP error?' and follow the instructions."
+			},
+			{"426", "Connection closed; transfer aborted. The file may be locked."},
+			{"426T", "Member was saved but characters have been truncated as record length has been reached."},
+			{"426L", "Member was not saved due to a possible lock."},
+			{"426F", "Member was not found. Perhaps it was deleted."},
+			{"530", "Configuration username and password incorrect."}
+		};
 
-        public static void HandleError(string Code, string Message)
-        {
-            string ErrorMessageText = "";
-            switch (Code)
-            {
-                case "200":
-                    ErrorMessageText = "425";
-                    break;
+		public static string FTPFile = "";
 
-                case "425":
-                case "426":
-                case "530":
-                case "550":
-                    ErrorMessageText = Code;
+		public static void HandleError(string Code, string Message)
+		{
+			var errorMessageText = "";
+			switch (Code)
+			{
+				case "200":
+					errorMessageText = "425";
 
-                    switch (Code)
-                    {
-                        case "426":
-                            if (Message.Contains("truncated"))
-                                ErrorMessageText = "426T";
+					break;
 
-                            else if (Message.Contains("Unable to open or create"))
-                                ErrorMessageText = "426L";
+				case "425":
+				case "426":
+				case "530":
+				case "550":
+					errorMessageText = Code;
 
-                            else if (Message.Contains("not found"))
-                                ErrorMessageText = "426F";
+					switch (Code)
+					{
+						case "426":
+							if (Message.Contains("truncated"))
+								errorMessageText = "426T";
 
-                            break;
-                        case "550":
-                            if (Message.Contains("not created in"))
-                                ErrorMessageText = "550NC";
-                            break;
-                    }
+							else if (Message.Contains("Unable to open or create"))
+								errorMessageText = "426L";
 
-                    break;
-            }
+							else if (Message.Contains("not found"))
+								errorMessageText = "426F";
 
-            if (FTPCodeMessages.ContainsKey(ErrorMessageText))
-                MessageBox.Show(FTPCodeMessages[ErrorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+							break;
+						case "550":
+							if (Message.Contains("not created in"))
+								errorMessageText = "550NC";
 
-        private static FtpDataConnectionType GetFtpDataConnectionType(string Type)
-        {
-            if (Enum.TryParse(Type, out FtpDataConnectionType result))
-                return result;
-            else
-                return FtpDataConnectionType.AutoActive;
-        }
+							break;
+					}
 
-        public static bool IsConnected()
-        {
-            if (Client != null)
-                return Client.IsConnected;
-            else
-                return false;
-        }
-        public static string FTPFile = "";
-        public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
-        {
-            string[] remoteSystem;
-            bool result = false;
-            try
-            {
-                FTPFile = IBMiUtils.GetLocalFile("QTEMP", "FTPLOG", DateTime.Now.ToString("MMddTHHmm"), "txt");
-                FtpTrace.AddListener(new TextWriterTraceListener(FTPFile));
-                FtpTrace.LogUserName = false;   // hide FTP user names
-                FtpTrace.LogPassword = false;   // hide FTP passwords
-                FtpTrace.LogIP = false; 	// hide FTP server IP addresses
+					break;
+			}
 
-                string password = "";
+			if (FTPCodeMessages.ContainsKey(errorMessageText))
+				MessageBox.Show(FTPCodeMessages[errorMessageText], "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
 
-                remoteSystem = CurrentSystem.GetValue("system").Split(':');
+		private static FtpDataConnectionType GetFtpDataConnectionType(string Type)
+		{
+			if (Enum.TryParse(Type, out FtpDataConnectionType result))
+				return result;
 
-                if (promptedPassword == "")
-                    password = Password.Decode(CurrentSystem.GetValue("password"));
-                else
-                    password = promptedPassword;
+			return FtpDataConnectionType.AutoActive;
+		}
 
-                Client = new FtpClient(remoteSystem[0], CurrentSystem.GetValue("username"), password);
+		public static bool IsConnected()
+		{
+			if (Client != null)
+				return Client.IsConnected;
 
-                if (OfflineMode == false)
-                {
-                    Client.UploadDataType = FtpDataType.ASCII;
-                    Client.DownloadDataType = FtpDataType.ASCII;
+			return false;
+		}
 
-                    //FTPES is configurable
-                    if (IBMi.CurrentSystem.GetValue("useFTPES") == "true")
-                        Client.EncryptionMode = FtpEncryptionMode.Explicit;
+		public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
+		{
+			var      result = false;
+			try
+			{
+				FTPFile = IBMiUtils.GetLocalFile("QTEMP", "FTPLOG", DateTime.Now.ToString("MMddTHHmm"), "txt");
+				FtpTrace.AddListener(new TextWriterTraceListener(FTPFile));
+				FtpTrace.LogUserName = false; // hide FTP user names
+				FtpTrace.LogPassword = false; // hide FTP passwords
+				FtpTrace.LogIP       = false; // hide FTP server IP addresses
 
-                    //Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
-                    Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
-                    Client.SocketKeepAlive = true;
+				var password = "";
 
-                    if (remoteSystem.Length == 2)
-                        Client.Port = int.Parse(remoteSystem[1]);
+				var remoteSystem = CurrentSystem.GetValue("system").Split(':');
 
-                    Client.ConnectTimeout = 5000;
-                    Client.Connect();
+				if (promptedPassword == "")
+					password = Password.Decode(CurrentSystem.GetValue("password"));
+				else
+					password = promptedPassword;
 
-                    //Change the user library list on connection
-                    RemoteCommand($"CHGLIBL LIBL({ CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({ CurrentSystem.GetValue("curlib") })");
+				Client = new FtpClient(remoteSystem[0], CurrentSystem.GetValue("username"), password);
 
-                    System.Timers.Timer timer = new System.Timers.Timer();
-                    timer.Interval = 60000;
-                    timer.Elapsed += new ElapsedEventHandler(KeepAliveFunc);
-                    timer.Start();
-                }
+				if (OfflineMode == false)
+				{
+					Client.UploadDataType   = FtpDataType.ASCII;
+					Client.DownloadDataType = FtpDataType.ASCII;
 
-                result = true;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Unable to connect to " + CurrentSystem.GetValue("system") + " - " + e.Message, "Cannot Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+					//FTPES is configurable
+					if (CurrentSystem.GetValue("useFTPES") == "true")
+						Client.EncryptionMode = FtpEncryptionMode.Explicit;
 
-            return result;
-        }
+					//Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
+					Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
+					Client.SocketKeepAlive    = true;
 
-        public static void Disconnect()
-        {
-            if (Client.IsConnected)
-            {
-                Client.Disconnect();
-            }
-        }
+					if (remoteSystem.Length == 2)
+						Client.Port = int.Parse(remoteSystem[1]);
 
-        private static void KeepAliveFunc(object sender, ElapsedEventArgs e)
-        {
-            bool showError = !Client.IsConnected;
-            if (Client.IsConnected)
-            {
-                try {
-                    Client.Execute("NOOP");
-                    showError = false;
-                }
-                catch
-                {
-                    showError = true;
-                }
-            }
+					Client.ConnectTimeout = 5000;
+					Client.Connect();
 
-            if (showError)
-                Editor.TheEditor.SetStatus("Warning! You lost connection " + CurrentSystem.GetValue("system") + "!");
-        }
+					//Change the user library list on connection
+					RemoteCommand(
+						$"CHGLIBL LIBL({CurrentSystem.GetValue("datalibl").Replace(',', ' ')}) CURLIB({CurrentSystem.GetValue("curlib")})");
 
-        public static string GetSystem()
-        {
-            if (Client != null)
-                if (Client.IsConnected)
-                    return Client.SystemType;
-                else
-                    return "";
-            else
-                return "";
-        }
+					var timer = new Timer();
+					timer.Interval =  60000;
+					timer.Elapsed  += KeepAliveFunc;
+					timer.Start();
+				}
 
-        //Returns false if successful
-        public static bool DownloadFile(string Local, string Remote)
-        {
-            bool Result = false;
-            try
-            {
-                if (Client.IsConnected)
-                    Result = !Client.DownloadFile(Local, Remote, true);
-                else
-                    return true; //error
-            }
-            catch (Exception e)
-            {
-                if (e.InnerException is FtpCommandException)
-                {
-                    FtpCommandException err = e.InnerException as FtpCommandException;
-                    HandleError(err.CompletionCode, err.Message);
-                }
-                Result = true;
-            }
+				result = true;
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Unable to connect to " + CurrentSystem.GetValue("system") + " - " + e.Message,
+					"Cannot Connect",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
 
-            return Result;
-        }
+			return result;
+		}
 
-        //Returns true if successful
-        public static bool UploadFile(string Local, string Remote)
-        {
-            if (Client.IsConnected)
-                return Client.UploadFile(Local, Remote, FtpExists.Overwrite);
-            else
-                return false;
-        }
+		public static void Disconnect()
+		{
+			if (Client.IsConnected)
+				Client.Disconnect();
+		}
 
-        //Returns true if successful
-        public static bool RemoteCommand(string Command, bool ShowError = true)
-        {
-            if (Client.IsConnected)
-            {
-                string inputCmd = "RCMD " + Command;
-                //IF THIS CRASHES CLIENT DISCONNECTS!!!
-                FtpReply reply = Client.Execute(inputCmd);
+		private static void KeepAliveFunc(object sender, ElapsedEventArgs e)
+		{
+			var showError = !Client.IsConnected;
+			if (Client.IsConnected)
+				try
+				{
+					Client.Execute("NOOP");
+					showError = false;
+				}
+				catch
+				{
+					showError = true;
+				}
 
-                if (ShowError)
-                    HandleError(reply.Code, reply.ErrorMessage);
+			if (showError)
+				Editor.TheEditor.SetStatus("Warning! You lost connection " + CurrentSystem.GetValue("system") + "!");
+		}
 
-                return reply.Success;
-            }
-            else
-            {
-                return false;
-            }
-        }
+		public static string GetSystem()
+		{
+			if (Client == null)
+				return "";
 
-        public static string RemoteCommandResponse(string Command)
-        {
-            if (Client.IsConnected)
-            {
-                string inputCmd = "RCMD " + Command;
-                FtpReply reply = Client.Execute(inputCmd);
+			if (Client.IsConnected)
+				return Client.SystemType;
 
-                if (reply.Success)
-                    return "";
-                else
-                    return reply.ErrorMessage;
-            }
-            else
-            {
-                return "Not connected.";
-            }
-        }
+			return "";
 
-        //Returns true if successful
-        public static bool RunCommands(string[] Commands)
-        {
-            bool result = true;
-            if (Client.IsConnected)
-            {
-                foreach (string Command in Commands)
-                {
-                    if (RemoteCommand(Command) == false)
-                        result = false;
-                }
-            }
-            else
-            {
-                result = false;
-            }
+		}
 
-            return result;
-        }
+		//Returns false if successful
+		public static bool DownloadFile(string Local, string Remote)
+		{
+			bool result;
+			try
+			{
+				if (Client.IsConnected)
+					result = !Client.DownloadFile(Local, Remote, true);
+				else
+					return true; //error
+			}
+			catch (Exception e)
+			{
+				if (e.InnerException is FtpCommandException ftpCmdErr)
+				{
+					HandleError(ftpCmdErr.CompletionCode, ftpCmdErr.Message);
+				}
 
-        public static bool FileExists(string remoteFile)
-        {
-            return Client.FileExists(remoteFile);
-        }
-        public static bool DirExists(string remoteDir)
-        {
-            try
-            {
-                return Client.DirectoryExists(remoteDir);
-            }
-            catch (Exception ex)
-            {
-                Editor.TheEditor.SetStatus(ex.Message + " - please try again.");
-                return false;
-            }
-        }
-        public static FtpListItem[] GetListing(string remoteDir)
-        {
-            return Client.GetListing(remoteDir);
-        }
+				result = true;
+			}
 
-        public static string RenameDir(string remoteDir, string newName)
-        {
-            string[] pieces = remoteDir.Split('/');
-            pieces[pieces.Length - 1] = newName;
-            newName = String.Join("/", pieces);
+			return result;
+		}
 
-            if (Client.MoveDirectory(remoteDir, String.Join("/", pieces)))
-                return newName;
-            else
-                return remoteDir;
-        }
-        public static string RenameFile(string remoteFile, string newName)
-        {
-            string[] pieces = remoteFile.Split('/');
-            pieces[pieces.Length - 1] = newName;
-            newName = String.Join("/", pieces);
+		//Returns true if successful
+		public static bool UploadFile(string Local, string Remote)
+		{
+			if (Client.IsConnected)
+				return Client.UploadFile(Local, Remote, FtpExists.Overwrite);
 
-            if (Client.MoveFile(remoteFile, newName))
-                return newName;
-            else
-                return remoteFile;
-        }
+			return false;
+		}
 
-        public static void DeleteDir(string remoteDir)
-        {
-            Client.DeleteDirectory(remoteDir, FtpListOption.AllFiles);
-        }
+		//Returns true if successful
+		public static bool RemoteCommand(string Command, bool ShowError = true)
+		{
+			if (Client.IsConnected)
+			{
+				var inputCmd = "RCMD " + Command;
 
-        public static void DeleteFile(string remoteFile)
-        {
-            Client.DeleteFile(remoteFile);
-        }
+				//IF THIS CRASHES CLIENT DISCONNECTS!!!
+				var reply = Client.Execute(inputCmd);
 
-        public static void SetWorkingDir(string RemoteDir)
-        {
-            Client.SetWorkingDirectory(RemoteDir);
-        }
-        public static void CreateDirecory(string RemoteDir)
-        {
-            Client.CreateDirectory(RemoteDir);
-        }
-        public static void UploadFiles(string RemoteDir, string[] Files)
-        {
-            Client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
-        }
-    }
+				if (ShowError)
+					HandleError(reply.Code, reply.ErrorMessage);
+
+				return reply.Success;
+			}
+
+			return false;
+		}
+
+		public static string RemoteCommandResponse(string Command)
+		{
+			if (Client.IsConnected)
+			{
+				var inputCmd = "RCMD " + Command;
+				var reply    = Client.Execute(inputCmd);
+
+				if (reply.Success)
+					return "";
+
+				return reply.ErrorMessage;
+			}
+
+			return "Not connected.";
+		}
+
+		//Returns true if successful
+		public static bool RunCommands(string[] Commands)
+		{
+			var result = true;
+			if (Client.IsConnected)
+				foreach (var command in Commands)
+					if (RemoteCommand(command) == false)
+					{
+						result = false;
+						break;
+					}
+			else
+				result = false;
+
+			return result;
+		}
+
+		public static bool FileExists(string remoteFile)
+		{
+			return Client.FileExists(remoteFile);
+		}
+
+		public static bool DirExists(string remoteDir)
+		{
+			try
+			{
+				return Client.DirectoryExists(remoteDir);
+			}
+			catch (Exception ex)
+			{
+				Editor.TheEditor.SetStatus(ex.Message + " - please try again.");
+
+				return false;
+			}
+		}
+
+		public static FtpListItem[] GetListing(string remoteDir)
+		{
+			return Client.GetListing(remoteDir);
+		}
+
+		public static string RenameDir(string remoteDir, string newName)
+		{
+			var pieces = remoteDir.Split('/');
+			pieces[pieces.Length - 1] = newName;
+			newName                   = string.Join("/", pieces);
+
+			if (Client.MoveDirectory(remoteDir, string.Join("/", pieces)))
+				return newName;
+
+			return remoteDir;
+		}
+
+		public static string RenameFile(string remoteFile, string newName)
+		{
+			var pieces = remoteFile.Split('/');
+			pieces[pieces.Length - 1] = newName;
+			newName                   = string.Join("/", pieces);
+
+			if (Client.MoveFile(remoteFile, newName))
+				return newName;
+
+			return remoteFile;
+		}
+
+		public static void DeleteDir(string remoteDir)
+		{
+			Client.DeleteDirectory(remoteDir, FtpListOption.AllFiles);
+		}
+
+		public static void DeleteFile(string remoteFile)
+		{
+			Client.DeleteFile(remoteFile);
+		}
+
+		public static void SetWorkingDir(string RemoteDir)
+		{
+			Client.SetWorkingDirectory(RemoteDir);
+		}
+
+		public static void CreateDirectory(string RemoteDir)
+		{
+			Client.CreateDirectory(RemoteDir);
+		}
+
+		public static void UploadFiles(string RemoteDir, string[] Files)
+		{
+			Client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
+		}
+	}
 }

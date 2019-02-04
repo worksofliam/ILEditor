@@ -1,231 +1,216 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ILEditor.Forms;
-using ILEditor.Classes;
 using System.Threading;
+using System.Windows.Forms;
+using ILEditor.Classes;
+using ILEditor.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class QSYSBrowser : DockContent
-    {
-        public QSYSBrowser()
-        {
-            InitializeComponent();
-            this.Text = "QSYS Browser";
-        }
+	public partial class QsysBrowser : DockContent
+	{
+		private SPFSelect _window;
 
-        private SPFSelect window;
+		public QsysBrowser()
+		{
+			InitializeComponent();
+			Text = "QSYS Browser";
+		}
 
-        private void addItem(string value)
-        {
-            List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
-            if (!Items.Contains(value))
-            {
-                if (AddSPF(value))
-                {
-                    Items.Add(value);
-                    IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
-                }
-            }
-        }
+		private void AddItem(string value)
+		{
+			var items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
+			if (!items.Contains(value) && AddSpf(value))
+			{
+				items.Add(value);
+				IBMi.CurrentSystem.SetValue("TREE_LIST", string.Join("|", items));
+			}
+		}
 
-        private Boolean AddSPF(string Value)
-        {
-            Boolean added = false;
-            string[] path;
-            TreeNode lib, spf;
+		private bool AddSpf(string Value)
+		{
+			var added = false;
 
-            Value = Value.ToUpper();
-            path = Value.Split('/');
+			Value = Value.ToUpper();
+			var path = Value.Split('/');
 
-            if (IBMiUtils.IsValueObjectName(path[0]) && IBMiUtils.IsValueObjectName(path[1]))
-            {
-                if (objectList.Nodes.ContainsKey(path[0]))
-                    lib = objectList.Nodes[path[0]];
-                else
-                {
-                    lib = new TreeNode(path[0]);
-                    lib.Name = path[0];
-                    lib.ImageIndex = 1;
-                    lib.SelectedImageIndex = lib.ImageIndex;
-                    objectList.Nodes.Add(lib);
-                }
+			if (IBMiUtils.IsValueObjectName(path[0]) && IBMiUtils.IsValueObjectName(path[1]))
+			{
+				TreeNode lib;
+				if (objectList.Nodes.ContainsKey(path[0]))
+				{
+					lib = objectList.Nodes[path[0]];
+				}
+				else
+				{
+					lib                    = new TreeNode(path[0]) {Name = path[0], ImageIndex = 1};
+					lib.SelectedImageIndex = lib.ImageIndex;
+					objectList.Nodes.Add(lib);
+				}
 
-                if (!lib.Nodes.ContainsKey(path[0]))
-                {
-                    spf = new TreeNode(path[1]);
-                    spf.Name = path[1];
-                    spf.Tag = String.Join("/", Value);
-                    spf.ImageIndex = 2;
-                    spf.SelectedImageIndex = spf.ImageIndex;
-                    spf.Nodes.Add("Loading..");
-                    //assign tag here also
-                    lib.Nodes.Add(spf);
-                    added = true;
-                }
-            }
+				if (!lib.Nodes.ContainsKey(path[0]))
+				{
+					var spf = new TreeNode(path[1]) {Name = path[1], Tag = string.Join("/", Value), ImageIndex = 2};
+					spf.SelectedImageIndex = spf.ImageIndex;
+					spf.Nodes.Add("Loading..");
 
-            return added;
-        }
+					//assign tag here also
+					lib.Nodes.Add(spf);
+					added = true;
+				}
+			}
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            string value = "";
-            window = new SPFSelect();
-            window.ShowDialog();
-            if (window.Successful)
-            {
-                if (window.Spf != "")
-                {
-                    value = (window.Lib + "/" + window.Spf).ToUpper();
-                    addItem(value);
-                }
-                else
-                {
-                    Thread gothread = new Thread((ThreadStart)delegate
-                    {
-                        ILEObject[] Objects = IBMiUtils.GetSPFList(window.Lib);
-                        if (Objects != null)
-                        {
-                            foreach (ILEObject Obj in Objects)
-                            {
-                                value = (Obj.Library + "/" + Obj.Name).ToUpper();
+			return added;
+		}
 
-                                this.Invoke((MethodInvoker)delegate
-                                {
-                                    addItem(value);
-                                });
-                            }
-                        }
-                    });
-                    gothread.Start();
-                }
-            }
-        }
-        
-        private void requestRefresh(TreeNode node)
-        {
-            TreeNode mbr;
-            List<TreeNode> items;
-            string[] path;
+		private void toolStripButton1_Click(object sender, EventArgs e)
+		{
+			var value = "";
+			_window = new SPFSelect();
+			_window.ShowDialog();
 
-            if (node.Tag is string)
-            {
-                Thread gothread = new Thread((ThreadStart)delegate
-                {
-                    path = node.Tag.ToString().Split('/');
-                    items = new List<TreeNode>();
-                    RemoteSource[] members = IBMiUtils.GetMemberList(path[0], path[1]);
+			if (!_window.Successful)
+				return;
 
-                    if (members != null)
-                    {
-                        foreach (RemoteSource member in members)
-                        {
-                            mbr = new TreeNode(member.GetName() + (member.GetExtension() == "" ? "" : "." + member.GetExtension().ToLower()) + (member.GetText() == "" ? "" : " - " + member.GetText()));
-                            mbr.Tag = member;
-                            mbr.ImageIndex = 3;
-                            mbr.SelectedImageIndex = mbr.ImageIndex;
-                            items.Add(mbr);
-                        }
+			if (_window.Spf != "")
+			{
+				value = (_window.Lib + "/" + _window.Spf).ToUpper();
+				AddItem(value);
+			}
+			else
+			{
+				var gothread = new Thread((ThreadStart) delegate
+				{
+					var objects = IBMiUtils.GetSpfList(_window.Lib);
+					if (objects != null)
+						foreach (var obj in objects)
+						{
+							value = (obj.Library + "/" + obj.Name).ToUpper();
 
-                        if (members.Length == 0)
-                        {
-                            items.Add(new TreeNode("No members found."));
-                        }
-                    }
-                    else
-                    {
-                        items.Add(new TreeNode("No members found."));
-                    }
+							Invoke((MethodInvoker) delegate { AddItem(value); });
+						}
+				});
 
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        node.Nodes.Clear();
-                        node.Nodes.AddRange(items.ToArray());
-                    });
-                });
+				gothread.Start();
+			}
+		}
 
-                gothread.Start();
-            }
-        }
+		private void RequestRefresh(TreeNode node)
+		{
+			TreeNode       mbr;
+			List<TreeNode> items;
+			string[]       path;
 
-        private void objectList_BeforeExpand(object sender, TreeViewCancelEventArgs e)
-        {
-            TreeNode node = e.Node;
-            requestRefresh(node);
-        }
+			if (!(node.Tag is string))
+				return;
 
-        private void objectList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Node.Tag == null) { }
-            else
-            {
-                if (e.Node.Tag is RemoteSource)
-                {
-                    RemoteSource member = (RemoteSource)e.Node.Tag;
-                    Editor.OpenSource(member);
-                }
-            }
-        }
+			var gothread = new Thread((ThreadStart) delegate
+			{
+				path  = node.Tag.ToString().Split('/');
+				items = new List<TreeNode>();
+				var members = IBMiUtils.GetMemberList(path[0], path[1]);
 
-        private void TreeBrowse_Load(object sender, EventArgs e)
-        {
-            List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
+				if (members != null)
+				{
+					foreach (var member in members)
+					{
+						mbr = new TreeNode(member.GetName() +
+						                   (member.GetExtension() == "" ? "" : "." + member.GetExtension().ToLower()) +
+						                   (member.GetText() == "" ? "" : " - " + member.GetText()))
+						{
+							Tag = member, ImageIndex = 3
+						};
 
-            foreach(string Item in Items)
-            {
-                if (Item == "") continue;
-                AddSPF(Item);
-            }
-        }
+						mbr.SelectedImageIndex = mbr.ImageIndex;
+						items.Add(mbr);
+					}
 
-        private void objectList_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (objectList.SelectedNode != null)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Delete:
-                        if (objectList.SelectedNode.Tag != null)
-                        {
-                            string path = objectList.SelectedNode.Tag.ToString();
-                            if (path.Contains("/"))
-                            {
-                                var confirmResult = MessageBox.Show("Are you sure to delete this shortcut?",
-                                                 "Delete shortcut",
-                                                 MessageBoxButtons.YesNo);
+					if (members.Length == 0)
+						items.Add(new TreeNode("No members found."));
+				}
+				else
+				{
+					items.Add(new TreeNode("No members found."));
+				}
 
-                                if (confirmResult == DialogResult.Yes)
-                                {
-                                    List<string> Items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
-                                    Items.Remove(path);
-                                    IBMi.CurrentSystem.SetValue("TREE_LIST", String.Join("|", Items));
-                                    objectList.Nodes.Remove(objectList.SelectedNode);
-                                }
-                            }
-                        }
-                        break;
-                    case Keys.F5:
-                        if (objectList.SelectedNode.Tag == null)
-                        {
-                            foreach(TreeNode node in objectList.SelectedNode.Nodes)
-                                requestRefresh(node);
-                        }
-                        else if (objectList.SelectedNode.Tag is string)
-                        {
-                            requestRefresh(objectList.SelectedNode);
-                        }
-                        break;
-                }
-            }
-        }
-    }
+				Invoke((MethodInvoker) delegate
+				{
+					node.Nodes.Clear();
+					node.Nodes.AddRange(items.ToArray());
+				});
+			});
+
+			gothread.Start();
+		}
+
+		private void objectList_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+		{
+			var node = e.Node;
+			RequestRefresh(node);
+		}
+
+		private void objectList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+		{
+			if (e.Node.Tag is RemoteSource member)
+			{
+				Editor.OpenSource(member);
+			}
+		}
+
+		private void TreeBrowse_Load(object sender, EventArgs e)
+		{
+			var items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
+
+			foreach (var item in items)
+			{
+				if (item == "")
+					continue;
+
+				AddSpf(item);
+			}
+		}
+
+		private void objectList_KeyDown(object sender, KeyEventArgs e)
+		{
+			var selectedNode = objectList.SelectedNode;
+
+			if (selectedNode == null)
+				return;
+
+			switch (e.KeyCode)
+			{
+				case Keys.Delete:
+					if (selectedNode.Tag != null)
+					{
+						var path = selectedNode.Tag.ToString();
+						if (path.Contains("/"))
+						{
+							var confirmResult = MessageBox.Show("Are you sure to delete this shortcut?",
+								"Delete shortcut",
+								MessageBoxButtons.YesNo);
+
+							if (confirmResult == DialogResult.Yes)
+							{
+								var items = IBMi.CurrentSystem.GetValue("TREE_LIST").Split('|').ToList();
+								items.Remove(path);
+								IBMi.CurrentSystem.SetValue("TREE_LIST", string.Join("|", items));
+								objectList.Nodes.Remove(selectedNode);
+							}
+						}
+					}
+
+					break;
+				case Keys.F5:
+					if (selectedNode.Tag == null)
+						foreach (TreeNode node in selectedNode.Nodes)
+							RequestRefresh(node);
+					else if (selectedNode.Tag is string)
+						RequestRefresh(selectedNode);
+
+					break;
+			}
+		}
+	}
 }

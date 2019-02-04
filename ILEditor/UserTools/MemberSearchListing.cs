@@ -1,118 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
 using System.IO;
-using ILEditor.Classes;
 using System.Threading;
+using System.Windows.Forms;
+using ILEditor.Classes;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class MemberSearchListing : DockContent
-    {
-        private string Library;
-        private string SPF;
-        private string SearchValue;
-        private Boolean Sensitive;
+	public partial class MemberSearchListing : DockContent
+	{
+		private readonly string Library;
+		private readonly string SearchValue;
+		private readonly bool   Sensitive;
+		private readonly string SPF;
 
-        public MemberSearchListing(string Lib, string Spf, string Value, Boolean CaseSensitive = false)
-        {
-            InitializeComponent();
+		public MemberSearchListing(string Lib, string Spf, string Value, bool CaseSensitive = false)
+		{
+			InitializeComponent();
 
-            this.Text = "'" + Value + "' Search";
+			Text = "'" + Value + "' Search";
 
-            Library = Lib;
-            SPF = Spf;
-            Sensitive = CaseSensitive;
+			Library   = Lib;
+			SPF       = Spf;
+			Sensitive = CaseSensitive;
 
-            if (Sensitive)
-                SearchValue = Value;
-            else
-                SearchValue = Value.ToUpper();
+			if (Sensitive)
+				SearchValue = Value;
+			else
+				SearchValue = Value.ToUpper();
 
-            StartSearch();
-        }
+			StartSearch();
+		}
 
-        private void StartSearch()
-        {
-            new Thread((ThreadStart)delegate
-            {
-                List<TreeNode> TreeOut = new List<TreeNode>();
-                TreeNode CurrentFile, currentResult;
-                int currentLine = 0;
-                Boolean Contains = false;
-                string Name, Extension;
-                string[] Members = Directory.GetFiles(IBMiUtils.GetLocalDir(Library, SPF));
+		private void StartSearch()
+		{
+			new Thread((ThreadStart) delegate
+			{
+				var treeOut = new List<TreeNode>();
+				var members = Directory.GetFiles(IBMiUtils.GetLocalDir(Library, SPF));
 
-                if (Members.Length == 0)
-                {
-                    TreeOut.Add(new TreeNode("No local members for " + Library + "/" + SPF, 0, 0));
-                }
-                else
-                {
-                    foreach (string Member in Members)
-                    {
-                        Name = Path.GetFileNameWithoutExtension(Path.GetFileName(Member)).ToUpper();
-                        Extension = Path.GetExtension(Member).Substring(1).ToUpper();
-                        CurrentFile = new TreeNode(Name, 2, 2); currentLine = 1;
-                        foreach (string Line in File.ReadAllLines(Member))
-                        {
-                            Contains = false;
-                            if (Sensitive)
-                                Contains = Line.Contains(SearchValue);
-                            else
-                                Contains = Line.ToUpper().Contains(SearchValue);
+				if (members.Length == 0)
+				{
+					treeOut.Add(new TreeNode("No local members for " + Library + "/" + SPF, 0, 0));
+				}
+				else
+				{
+					foreach (var member in members)
+					{
+						var name        = Path.GetFileNameWithoutExtension(Path.GetFileName(member)).ToUpper();
+						var extension   = Path.GetExtension(member).Substring(1).ToUpper();
+						var currentFile = new TreeNode(name, 2, 2);
+						var currentLine = 1;
+						foreach (var line in File.ReadAllLines(member))
+						{
+							var contains = false;
+							if (Sensitive)
+								contains = line.Contains(SearchValue);
+							else
+								contains = line.ToUpper().Contains(SearchValue);
 
-                            if (Contains)
-                            {
-                                currentResult = new TreeNode("Line " + currentLine.ToString(), 3, 3);
-                                currentResult.Tag = new RemoteSource(Member, Library, SPF, Name, Extension);
-                                CurrentFile.Nodes.Add(currentResult);
-                            }
+							if (contains)
+							{
+								var currentResult = new TreeNode("Line " + currentLine, 3, 3);
+								currentResult.Tag = new RemoteSource(member, Library, SPF, name, extension);
+								currentFile.Nodes.Add(currentResult);
+							}
 
-                            currentLine++;
-                        }
+							currentLine++;
+						}
 
-                        if (CurrentFile.Nodes.Count > 0)
-                            TreeOut.Add(CurrentFile);
-                    }
+						if (currentFile.Nodes.Count > 0)
+							treeOut.Add(currentFile);
+					}
 
-                    if (TreeOut.Count == 0)
-                    {
-                        TreeOut.Add(new TreeNode("No results found for '" + SearchValue + "' in " + Library + "/" + SPF, 0, 0));
-                    }
-                    else
-                    {
-                        TreeOut.Insert(0, new TreeNode("Results for '" + SearchValue + "' in " + Library + "/" + SPF, 1, 1));
-                    }
-                }
+					if (treeOut.Count == 0)
+						treeOut.Add(new TreeNode("No results found for '" + SearchValue + "' in " + Library + "/" + SPF,
+							0,
+							0));
+					else
+						treeOut.Insert(0,
+							new TreeNode("Results for '" + SearchValue + "' in " + Library + "/" + SPF, 1, 1));
+				}
 
-                this.Invoke((MethodInvoker)delegate
-                {
-                    searchResults.Nodes.Clear();
-                    searchResults.Nodes.AddRange(TreeOut.ToArray());
-                });
+				Invoke((MethodInvoker) delegate
+				{
+					searchResults.Nodes.Clear();
+					searchResults.Nodes.AddRange(treeOut.ToArray());
+				});
+			}).Start();
+		}
 
-            }).Start();
-        }
-
-        private void searchResults_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Node.Tag == null) { }
-            else
-            {
-                if (e.Node.Tag is RemoteSource)
-                {
-                    RemoteSource member = (RemoteSource)e.Node.Tag;
-                    Editor.OpenSource(member);
-                }
-            }
-        }
-    }
+		private void searchResults_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+		{
+			if (e.Node.Tag is RemoteSource member)
+				Editor.OpenSource(member);
+		}
+	}
 }

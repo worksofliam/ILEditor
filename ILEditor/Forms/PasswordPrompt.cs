@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ILEditor.Forms
 {
-    public partial class PasswordPrompt : Form
-    {
-        public bool Success = false;
-        public string GetResult() => this.password.Text;
+	public partial class PasswordPrompt : Form
+	{
+		public bool Success;
 
-        public PasswordPrompt(string System, string User)
-        {
-            InitializeComponent();
-            userText.Text += " " + User + "@" + System;
-        }
+		public PasswordPrompt(string System, string User)
+		{
+			InitializeComponent();
+			userText.Text += " " + User + "@" + System;
+		}
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+		public string GetResult()
+		{
+			return password.Text;
+		}
 
-        private void select_Click(object sender, EventArgs e)
-        {
-            if (password.Text != "")
-            {
-                Success = true;
-                this.Close();
-            }
-        }
-    }
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void select_Click(object sender, EventArgs e)
+		{
+			if (password.Text != "")
+			{
+				Success = true;
+				Close();
+			}
+		}
+	}
 }

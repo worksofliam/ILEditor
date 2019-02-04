@@ -1,180 +1,185 @@
-﻿using ILEditor.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class PushWindow : Form
-    {
-        public PushWindow()
-        {
-            InitializeComponent();
-        }
+	public partial class PushWindow : Form
+	{
+		private readonly Dictionary<string, string> CreateMembers = new Dictionary<string, string>();
+		private readonly Dictionary<string, int>    CreateSPFs    = new Dictionary<string, int>();
+		private readonly List<string>               DeleteMembers = new List<string>();
+		private readonly Dictionary<string, string> UploadMembers = new Dictionary<string, string>();
 
-        private void PushWindow_Load(object sender, EventArgs e)
-        {
-            if (!IBMi.IsConnected())
-            {
-                MessageBox.Show("The SPF Push tool does not work in Offline Mode.");
-                this.Close();
-            }
-        }
+		public PushWindow()
+		{
+			InitializeComponent();
+		}
 
-        Dictionary<string, int> CreateSPFs = new Dictionary<string, int>();
-        Dictionary<string, string> CreateMembers = new Dictionary<string, string>();
-        List<string> DeleteMembers = new List<string>();
-        Dictionary<string, string> UploadMembers = new Dictionary<string, string>();
-        private void fetch_Click(object sender, EventArgs e)
-        {
-            string LocalLIB = IBMiUtils.GetLocalDir(lib.Text);
+		private void PushWindow_Load(object sender, EventArgs e)
+		{
+			if (!IBMi.IsConnected())
+			{
+				MessageBox.Show("The SPF Push tool does not work in Offline Mode.");
+				Close();
+			}
+		}
 
-            string[] Dirs = Directory.GetDirectories(LocalLIB), MbrPath;
-            string Name, Ext, LocalMember, SPF;
-            bool CheckedUpload = false;
+		private void fetch_Click(object sender, EventArgs e)
+		{
+			var localLib = IBMiUtils.GetLocalDir(lib.Text);
 
-            foreach (string Dir in Dirs)
-            {
-                SPF = Path.GetFileName(Dir);
+			var dirs = Directory.GetDirectories(localLib);
+			string name;
 
-                if (SPF.StartsWith(".")) continue;
+			foreach (var dir in dirs)
+			{
+				var spf = Path.GetFileName(dir);
 
-                RemoteSource[] MemberList = IBMiUtils.GetMemberList(lib.Text, SPF);
-                if (MemberList == null)
-                    CreateSPFs.Add(SPF, 112);
+				if (spf == null || spf.StartsWith("."))
+					continue;
 
-                foreach (string FilePath in Directory.GetFiles(Dir))
-                {
-                    Name = SPF + '/' + Path.GetFileNameWithoutExtension(FilePath);
-                    Ext = Path.GetExtension(FilePath).TrimStart('.');
+				var memberList = IBMiUtils.GetMemberList(lib.Text, spf);
+				if (memberList == null)
+					CreateSPFs.Add(spf, 112);
 
-                    if (UploadMembers.ContainsKey(Name))
-                        continue;
+				foreach (var filePath in Directory.GetFiles(dir))
+				{
+					name = spf + '/' + Path.GetFileNameWithoutExtension(filePath);
+					var ext = Path.GetExtension(filePath).TrimStart('.');
 
-                    if (MemberList == null)
-                    {
-                        CreateMembers.Add(Name, Ext);
-                    }
-                    else
-                    {
-                        if (MemberList.Where(x => (x.GetObject() + '/' + x.GetName()) == Name).Count() == 0)
-                            CreateMembers.Add(Name, Ext);
-                    }
+					if (UploadMembers.ContainsKey(name))
+						continue;
 
-                    UploadMembers.Add(Name, Ext);
-                }
+					if (memberList == null)
+					{
+						CreateMembers.Add(name, ext);
+					}
+					else
+					{
+						if (memberList.Count(x => x.GetObject() + '/' + x.GetName() == name) == 0)
+							CreateMembers.Add(name, ext);
+					}
 
-                if (MemberList != null)
-                {
-                    foreach (RemoteSource MemberInfo in MemberList)
-                    {
-                        LocalMember = IBMiUtils.GetLocalFile(MemberInfo.GetLibrary(), MemberInfo.GetObject(), MemberInfo.GetName(), MemberInfo.GetExtension());
-                        if (!File.Exists(LocalMember))
-                            DeleteMembers.Add(MemberInfo.GetObject() + "/" + MemberInfo.GetName());
-                    }
-                }
-            }
+					UploadMembers.Add(name, ext);
+				}
 
-            foreach (var SPFInfo in CreateSPFs)
-            {
-                commandLog.Items.Add(new ListViewItem(SPFInfo.Key + " (" + SPFInfo.Value.ToString() + ")", commandLog.Groups[0]));
-            }
+				if (memberList != null)
+					foreach (var memberInfo in memberList)
+					{
+						var localMember = IBMiUtils.GetLocalFile(memberInfo.GetLibrary(),
+							memberInfo.GetObject(),
+							memberInfo.GetName(),
+							memberInfo.GetExtension());
 
-            foreach (string MemberName in DeleteMembers)
-            {
-                commandLog.Items.Add(new ListViewItem(MemberName, commandLog.Groups[1]));
-            }
+						if (!File.Exists(localMember))
+							DeleteMembers.Add(memberInfo.GetObject() + "/" + memberInfo.GetName());
+					}
+			}
 
-            foreach (var MemberInfo in CreateMembers)
-            {
-                commandLog.Items.Add(new ListViewItem(MemberInfo.Key + "." + MemberInfo.Value, commandLog.Groups[2]));
-            }
+			foreach (var spfInfo in CreateSPFs)
+				commandLog.Items.Add(new ListViewItem(spfInfo.Key + " (" + spfInfo.Value + ")", commandLog.Groups[0]));
 
-            foreach (var MemberName in UploadMembers)
-            {
-                MbrPath = MemberName.Key.Trim().Split('/');
-                CheckedUpload = FileCache.EditsContains(lib.Text.ToUpper(), MbrPath[0], MbrPath[1]);
-                memberLog.Items.Add(new ListViewItem(MemberName.Key) { Checked = CheckedUpload });
-            }
+			foreach (var memberName in DeleteMembers)
+				commandLog.Items.Add(new ListViewItem(memberName, commandLog.Groups[1]));
 
-            pushButton.Enabled = true;
-            fetch.Enabled = false;
-            lib.Enabled = false;
-            runCommands.Enabled = true;
-        }
+			foreach (var memberInfo in CreateMembers)
+				commandLog.Items.Add(new ListViewItem(memberInfo.Key + "." + memberInfo.Value, commandLog.Groups[2]));
 
-        private void pushButton_Click(object sender, EventArgs e)
-        {
-            string LocalFile;
-            List<string> Commands = new List<string>();
-            Dictionary<string, string> PushList = new Dictionary<string, string>();
-            string[] Path;
+			foreach (var memberName in UploadMembers)
+			{
+				var mbrPath = memberName.Key.Trim().Split('/');
+				var checkedUpload = FileCache.EditsContains(lib.Text.ToUpper(), mbrPath[0], mbrPath[1]);
+				memberLog.Items.Add(new ListViewItem(memberName.Key) {Checked = checkedUpload});
+			}
 
-            if (runCommands.Checked)
-            {
-                foreach (var Member in CreateSPFs)
-                {
-                    Commands.Add("CRTSRCPF FILE(" + lib.Text.Trim() + "/" + Member.Key + ") RCDLEN(" + Member.Value.ToString() + ")");
-                }
+			pushButton.Enabled  = true;
+			fetch.Enabled       = false;
+			lib.Enabled         = false;
+			runCommands.Enabled = true;
+		}
 
-                foreach (string Member in DeleteMembers)
-                {
-                    Path = Member.Split('/');
-                    Commands.Add("RMVM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ")");
-                }
+		private void pushButton_Click(object sender, EventArgs e)
+		{
+			var      commands = new List<string>();
+			var      pushList = new Dictionary<string, string>();
+			string[] path;
 
-                foreach (var Member in CreateMembers)
-                {
-                    Path = Member.Key.Trim().Split('/');
-                    Commands.Add("ADDPFM FILE(" + lib.Text.Trim() + "/" + Path[0] + ") MBR(" + Path[1] + ") SRCTYPE(" + Member.Value.Trim() + ")");
-                }
-            }
+			if (runCommands.Checked)
+			{
+				foreach (var member in CreateSPFs)
+					commands.Add("CRTSRCPF FILE(" +
+					             lib.Text.Trim() +
+					             "/" +
+					             member.Key +
+					             ") RCDLEN(" +
+					             member.Value +
+					             ")");
 
-            foreach(ListViewItem Member in memberLog.Items)
-            {
-                if (Member.Checked)
-                {
-                    Path = Member.Text.Trim().Split('/');
-                    LocalFile = IBMiUtils.GetLocalFile(lib.Text.Trim(), Path[0], Path[1], UploadMembers[Path[0] + '/' + Path[1]]);
-                    PushList.Add(LocalFile, "/QSYS.lib/" + lib.Text.Trim() + ".lib/" + Path[0] + ".file/" + Path[1] + ".mbr");
-                }
-            }
+				foreach (var member in DeleteMembers)
+				{
+					path = member.Split('/');
+					commands.Add("RMVM FILE(" + lib.Text.Trim() + "/" + path[0] + ") MBR(" + path[1] + ")");
+				}
 
-            Boolean Success = IBMi.RunCommands(Commands.ToArray());
-            if (Success)
-            {
-                foreach (var File in PushList)
-                {
-                    if (IBMi.UploadFile(File.Key, File.Value) == false)
-                        Success = false;
-                }
+				foreach (var member in CreateMembers)
+				{
+					path = member.Key.Trim().Split('/');
+					commands.Add("ADDPFM FILE(" +
+					             lib.Text.Trim() +
+					             "/" +
+					             path[0] +
+					             ") MBR(" +
+					             path[1] +
+					             ") SRCTYPE(" +
+					             member.Value.Trim() +
+					             ")");
+				}
+			}
 
-                if (Success)
-                {
-                    MessageBox.Show("Push to server was successful.");
-                    FileCache.EditsClear();
-                    this.Close();
-                } 
-                else
-                    MessageBox.Show("Push to server was not successful (stage 2)");
-            }
-            else
-            {
-                MessageBox.Show("Push to server was not successful (stage 1)");
-            }
+			foreach (ListViewItem member in memberLog.Items)
+				if (member.Checked)
+				{
+					path = member.Text.Trim().Split('/');
+					var localFile = IBMiUtils.GetLocalFile(lib.Text.Trim(),
+						path[0],
+						path[1],
+						UploadMembers[path[0] + '/' + path[1]]);
 
-        }
+					pushList.Add(localFile,
+						"/QSYS.lib/" + lib.Text.Trim() + ".lib/" + path[0] + ".file/" + path[1] + ".mbr");
+				}
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-    }
+			var success = IBMi.RunCommands(commands.ToArray());
+			if (success)
+			{
+				foreach (var file in pushList)
+					if (IBMi.UploadFile(file.Key, file.Value) == false)
+						success = false;
+
+				if (success)
+				{
+					MessageBox.Show("Push to server was successful.");
+					FileCache.EditsClear();
+					Close();
+				}
+				else
+				{
+					MessageBox.Show("Push to server was not successful (stage 2)");
+				}
+			}
+			else
+			{
+				MessageBox.Show("Push to server was not successful (stage 1)");
+			}
+		}
+
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+	}
 }

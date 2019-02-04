@@ -1,34 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ILEditor.Classes
+﻿namespace ILEditor.Classes
 {
-    public class ILEObject
-    {
-        public ILEObject()
-        {
+	public class ILEObject
+	{
+		public string Extension;
 
-        } 
+		public string Library;
+		public string Name;
+		public string Owner;
+		public uint   SizeKB;
+		public string SrcLib;
+		public string SrcMbr;
+		public string SrcSpf;
+		public string Text;
+		public string Type;
 
-        public ILEObject(string Lib, string Obj, string Type = "*PGM")
-        {
-            this.Library = Lib;
-            this.Name = Obj;
-            this.Type = Type;
-        } 
+		public ILEObject()
+		{
+		}
 
-        public string Library;
-        public string Name;
-        public string Type;
-        public string Extension;
-        public UInt32 SizeKB;
-        public string Text;
-        public string Owner;
-        public string SrcSpf;
-        public string SrcLib;
-        public string SrcMbr;
-    }
+		public ILEObject(string Lib, string Obj, string Type = "*PGM")
+		{
+			Library   = Lib;
+			Name      = Obj;
+			this.Type = Type;
+		}
+	}
 }

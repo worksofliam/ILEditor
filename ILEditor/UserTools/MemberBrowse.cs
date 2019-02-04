@@ -1,219 +1,213 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 using ILEditor.Classes;
-using System.IO;
 using ILEditor.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
-    public partial class MemberBrowse : DockContent
-    {
-        public MemberBrowse(string Lib = "", string Obj = "") 
-        {
-            InitializeComponent();
-            this.Text = "Member Browser";
+	public partial class MemberBrowse : DockContent
+	{
+		private readonly List<ListViewItem> curItems = new List<ListViewItem>();
 
-            if (Lib != "" && Obj != "")
-            {
-                library.Text = Lib;
-                spf.Text = Obj;
-            }
-            
-        }
-        
-        private void MemberBrowse_Load(object sender, EventArgs e)
-        {
-            if (library.Text != "" && spf.Text != "")
-                fetchButton.PerformClick();
-        }
+		public MemberBrowse(string Lib = "", string Obj = "")
+		{
+			InitializeComponent();
+			Text = "Member Browser";
 
-        private List<ListViewItem> curItems = new List<ListViewItem>();
-        public void UpdateListing(string Lib, string Obj)
-        {
-            Thread gothread = new Thread((ThreadStart)delegate
-            {
-                RemoteSource[] members;
-                ListViewItem curItem;
-                Boolean NoMembers = false;
+			if (Lib != "" && Obj != "")
+			{
+				library.Text = Lib;
+				spf.Text     = Obj;
+			}
+		}
 
-                curItems.Clear();
+		private void MemberBrowse_Load(object sender, EventArgs e)
+		{
+			if (library.Text != "" && spf.Text != "")
+				fetchButton.PerformClick();
+		}
 
-                this.Invoke((MethodInvoker)delegate
-                {
-                    memberList.Items.Clear();
-                    memberList.Items.Add(new ListViewItem("Loading...", 2));
-                });
+		public void UpdateListing(string Lib, string Obj)
+		{
+			var gothread = new Thread((ThreadStart) delegate
+			{
+				bool noMembers;
 
-                members = IBMiUtils.GetMemberList(Lib, Obj);
-                
-                this.Invoke((MethodInvoker)delegate
-                {
-                    memberList.Items.Clear();
-                });
+				curItems.Clear();
 
-                if (members != null)
-                {
-                    NoMembers = (members.Length == 0);
-                    if (!NoMembers)
-                    {
-                        foreach (RemoteSource member in members)
-                        {
-                            curItem = new ListViewItem(new[] { member.GetName(), member.GetExtension(), member.GetText() }, 0);
-                            curItem.Tag = member;
+				Invoke((MethodInvoker) delegate
+				{
+					memberList.Items.Clear();
+					memberList.Items.Add(new ListViewItem("Loading...", 2));
+				});
 
-                            curItems.Add(curItem);
-                        }
+				var members = IBMiUtils.GetMemberList(Lib, Obj);
 
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            memberList.Items.AddRange(curItems.ToArray());
-                            membercount.Text = members.Length.ToString() + " member" + (members.Length == 1 ? "" : "s");
-                        });
-                    }
-                }
-                else
-                {
-                    NoMembers = true;
-                }
+				Invoke((MethodInvoker) delegate { memberList.Items.Clear(); });
 
-                if (NoMembers)
-                {
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        memberList.Items.Add(new ListViewItem("No members found!", 1));
-                        membercount.Text = "0 members";
-                    });
-                }
+				if (members != null)
+				{
+					noMembers = members.Length == 0;
+					if (!noMembers)
+					{
+						foreach (var member in members)
+						{
+							var curItem = new ListViewItem(
+								new[] {member.GetName(), member.GetExtension(), member.GetText()},
+								0);
 
-                this.Invoke((MethodInvoker)delegate
-                {
-                    addmember.Enabled = true;
-                });
-            });
-            gothread.Start();
-        }
+							curItem.Tag = member;
 
-        private void fetchButton_Click(object sender, EventArgs e)
-        {
-            library.Text = library.Text.Trim();
-            spf.Text = spf.Text.Trim();
+							curItems.Add(curItem);
+						}
 
-            if (!IBMiUtils.IsValueObjectName(library.Text))
-            {
-                MessageBox.Show("Library name is not valid.");
-                return;
-            }
-            if (library.Text.ToUpper() == "*ALL")
-            {
-                MessageBox.Show("Library name is not valid.");
-                return;
-            }
+						Invoke((MethodInvoker) delegate
+						{
+							memberList.Items.AddRange(curItems.ToArray());
+							membercount.Text = members.Length + " member" + (members.Length == 1 ? "" : "s");
+						});
+					}
+				}
+				else
+				{
+					noMembers = true;
+				}
 
-            if (!IBMiUtils.IsValueObjectName(spf.Text))
-            {
-                MessageBox.Show("Object name is not valid.");
-                return;
-            }
+				if (noMembers)
+					Invoke((MethodInvoker) delegate
+					{
+						memberList.Items.Add(new ListViewItem("No members found!", 1));
+						membercount.Text = "0 members";
+					});
 
-            this.Text = library.Text + "/" + spf.Text + " [Listing]";
-            UpdateListing(library.Text, spf.Text);
-            Welcome.JustOpened(library.Text, spf.Text);
-        }
+				Invoke((MethodInvoker) delegate { addmember.Enabled = true; });
+			});
 
-        private void memberList_DoubleClick(object sender, EventArgs e)
-        {
-            if (memberList.SelectedItems.Count == 1)
-            {
-                ListViewItem selection = memberList.SelectedItems[0];
-                if (selection.Tag != null)
-                {
-                    RemoteSource member = (RemoteSource)selection.Tag;
+			gothread.Start();
+		}
 
-                    Editor.OpenSource(member);
-                }
-            }
-        }
+		private void fetchButton_Click(object sender, EventArgs e)
+		{
+			library.Text = library.Text.Trim();
+			spf.Text     = spf.Text.Trim();
 
-        private void addmember_Click(object sender, EventArgs e)
-        {
-            NewMember newMemberForm = new NewMember(library.Text.Trim(), spf.Text.Trim());
-            newMemberForm.ShowDialog();
+			if (!IBMiUtils.IsValueObjectName(library.Text))
+			{
+				MessageBox.Show("Library name is not valid.");
 
-            if (newMemberForm.created)
-            {
-                ListViewItem curItem = new ListViewItem(new string[3] { newMemberForm._mbr, newMemberForm._type, newMemberForm._text }, 0);
-                curItem.Tag = new RemoteSource("", library.Text.Trim(), spf.Text.Trim(), newMemberForm._mbr, newMemberForm._type);
-                memberList.Items.Add(curItem);
-            }
+				return;
+			}
 
-            newMemberForm.Dispose();
-        }
+			if (library.Text.ToUpper() == "*ALL")
+			{
+				MessageBox.Show("Library name is not valid.");
 
-        #region rightclick
+				return;
+			}
 
-        private RemoteSource currentRightClick;
-        private void memberList_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (memberList.FocusedItem.Bounds.Contains(e.Location) == true)
-                {
-                    currentRightClick = (RemoteSource)memberList.FocusedItem.Tag;
-                    compileRightclick.Show(Cursor.Position);
-                }
-            }
-        }
+			if (!IBMiUtils.IsValueObjectName(spf.Text))
+			{
+				MessageBox.Show("Object name is not valid.");
 
-        private void compileRightclick_Opening(object sender, CancelEventArgs e)
-        {
-            compileOtherToolStripMenuItem.DropDownItems.Clear();
-            List<ToolStripMenuItem> Compiles = new List<ToolStripMenuItem>();
-            if (currentRightClick != null)
-            {
-                RemoteSource MemberInfo = currentRightClick;
-                string[] Items = IBMi.CurrentSystem.GetValue("TYPE_" + MemberInfo.GetExtension()).Split('|');
-                foreach (string Item in Items)
-                {
-                    if (Item.Trim() == "") continue;
-                    Compiles.Add(new ToolStripMenuItem(Item, null, compileAnyHandle));
-                }
-            }
+				return;
+			}
 
-            compileToolStripMenuItem.Enabled = (Compiles.Count > 0);
-            compileOtherToolStripMenuItem.Enabled = (Compiles.Count > 0);
-            compileOtherToolStripMenuItem.DropDownItems.AddRange(Compiles.ToArray());
-        }
+			Text = library.Text + "/" + spf.Text + " [Listing]";
+			UpdateListing(library.Text, spf.Text);
+			Welcome.JustOpened(library.Text, spf.Text);
+		}
 
+		private void memberList_DoubleClick(object sender, EventArgs e)
+		{
+			if (memberList.SelectedItems.Count != 1)
+				return;
 
-        private void compileAnyHandle(object sender, EventArgs e)
-        {
-            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
-            if (currentRightClick != null)
-            {
-                IBMiUtils.CompileSource(currentRightClick, clickedItem.Text);
-            }
-        }
+			var selection = memberList.SelectedItems[0];
+			if (selection.Tag != null)
+			{
+				var member = (RemoteSource) selection.Tag;
 
-        private void compileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (currentRightClick != null)
-            {
-                new Thread((ThreadStart)delegate
-                {
-                    IBMiUtils.CompileSource(currentRightClick);
-                }).Start();
-            }
-        }
+				Editor.OpenSource(member);
+			}
+		}
 
-        #endregion
-    }
+		private void AddMember_Click(object sender, EventArgs e)
+		{
+			var newMemberForm = new NewMember(library.Text.Trim(), spf.Text.Trim());
+			newMemberForm.ShowDialog();
+
+			if (newMemberForm.created)
+			{
+				var curItem =
+					new ListViewItem(new string[3] {newMemberForm._mbr, newMemberForm._type, newMemberForm._text}, 0);
+
+				curItem.Tag = new RemoteSource("",
+					library.Text.Trim(),
+					spf.Text.Trim(),
+					newMemberForm._mbr,
+					newMemberForm._type);
+
+				memberList.Items.Add(curItem);
+			}
+
+			newMemberForm.Dispose();
+		}
+
+	#region rightclick
+
+		private RemoteSource currentRightClick;
+
+		private void memberList_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button != MouseButtons.Right)
+				return;
+
+			if (memberList.FocusedItem.Bounds.Contains(e.Location))
+			{
+				currentRightClick = (RemoteSource) memberList.FocusedItem.Tag;
+				compileRightclick.Show(Cursor.Position);
+			}
+		}
+
+		private void compileRightClick_Opening(object sender, CancelEventArgs e)
+		{
+			compileOtherToolStripMenuItem.DropDownItems.Clear();
+			var compiles = new List<ToolStripMenuItem>();
+			if (currentRightClick != null)
+			{
+				var memberInfo = currentRightClick;
+				var items      = IBMi.CurrentSystem.GetValue("TYPE_" + memberInfo.GetExtension()).Split('|');
+				foreach (var item in items)
+				{
+					if (item.Trim() == "")
+						continue;
+
+					compiles.Add(new ToolStripMenuItem(item, null, compileAnyHandle));
+				}
+			}
+
+			compileToolStripMenuItem.Enabled      = compiles.Count > 0;
+			compileOtherToolStripMenuItem.Enabled = compiles.Count > 0;
+			compileOtherToolStripMenuItem.DropDownItems.AddRange(compiles.ToArray());
+		}
+
+		private void compileAnyHandle(object sender, EventArgs e)
+		{
+			var clickedItem = (ToolStripMenuItem) sender;
+			if (currentRightClick != null)
+				IBMiUtils.CompileSource(currentRightClick, clickedItem.Text);
+		}
+
+		private void compileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (currentRightClick != null)
+				new Thread((ThreadStart) delegate { IBMiUtils.CompileSource(currentRightClick); }).Start();
+		}
+
+	#endregion
+	}
 }

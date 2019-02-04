@@ -1,61 +1,66 @@
-﻿using ILEditor.Classes;
-using ILEditor.UserTools;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
+using ILEditor.UserTools;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.Forms
 {
-    public partial class NewSPF : Form
-    {
-        public NewSPF()
-        {
-            InitializeComponent();
-        }
+	public partial class NewSPF : Form
+	{
+		public NewSPF()
+		{
+			InitializeComponent();
+		}
 
-        private void create_Click(object sender, EventArgs e)
-        {
-            bool isValid = true;
+		private void create_Click(object sender, EventArgs e)
+		{
+			var isValid = true;
 
-            lib.Text = lib.Text.Trim();
-            spf.Text = spf.Text.Trim();
+			lib.Text = lib.Text.Trim();
+			spf.Text = spf.Text.Trim();
 
-            if (!IBMiUtils.IsValueObjectName(lib.Text))
-                isValid = false;
-            if (!IBMiUtils.IsValueObjectName(spf.Text))
-                isValid = false;
+			if (!IBMiUtils.IsValueObjectName(lib.Text))
+				isValid = false;
 
-            if (isValid)
-            {
-                if (IBMi.IsConnected())
-                {
-                    string cmd = "CRTSRCPF FILE(" + lib.Text + "/" + spf.Text + ") RCDLEN(" + rcdLen.Value.ToString() + ") CCSID(" + ccsid.Text + ")";
-                    if (IBMi.RemoteCommand(cmd))
-                    {
-                        Editor.TheEditor.AddTool(new MemberBrowse(lib.Text, spf.Text), WeifenLuo.WinFormsUI.Docking.DockState.DockRight);
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(lib.Text.Trim() + "/" + spf.Text.Trim() + " not created.");
-                    }
-                }
-                else
-                {
-                    Directory.CreateDirectory(IBMiUtils.GetLocalDir(lib.Text, spf.Text));
-                    Editor.TheEditor.AddTool(new MemberBrowse(lib.Text, spf.Text), WeifenLuo.WinFormsUI.Docking.DockState.DockRight);
-                }
-            }
-            else
-                MessageBox.Show("SPF information not valid.");
+			else if (!IBMiUtils.IsValueObjectName(spf.Text))
+				isValid = false;
 
-        }
-    }
+			if (isValid)
+			{
+				if (IBMi.IsConnected())
+				{
+					var cmd = "CRTSRCPF FILE(" +
+					          lib.Text +
+					          "/" +
+					          spf.Text +
+					          ") RCDLEN(" +
+					          rcdLen.Value +
+					          ") CCSID(" +
+					          ccsid.Text +
+					          ")";
+
+					if (IBMi.RemoteCommand(cmd))
+					{
+						Editor.TheEditor.AddTool(new MemberBrowse(lib.Text, spf.Text), DockState.DockRight);
+						Close();
+					}
+					else
+					{
+						MessageBox.Show(lib.Text.Trim() + "/" + spf.Text.Trim() + " not created.");
+					}
+				}
+				else
+				{
+					Directory.CreateDirectory(IBMiUtils.GetLocalDir(lib.Text, spf.Text));
+					Editor.TheEditor.AddTool(new MemberBrowse(lib.Text, spf.Text), DockState.DockRight);
+				}
+			}
+			else
+			{
+				MessageBox.Show("SPF information not valid.");
+			}
+		}
+	}
 }

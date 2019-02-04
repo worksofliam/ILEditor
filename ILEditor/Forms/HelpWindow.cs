@@ -12,10 +12,10 @@ namespace ILEditor.Forms
 {
     public partial class HelpWindow : Form
     {
-        public HelpWindow(string HTML)
+        public HelpWindow(string html)
         {
             InitializeComponent();
-            webBrowser1.DocumentText = HTML;
+            webBrowser1.DocumentText = html;
         }
     }
 }

@@ -1,65 +1,68 @@
-﻿using ILEditor.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class FileSelect : Form
-    {
-        public bool Success = false;
-        private string Command = null;
+	public partial class FileSelect : Form
+	{
+		private string Command;
+		public  bool   Success;
 
-        public FileSelect()
-        {
-            InitializeComponent();
-        }
-        
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+		public FileSelect()
+		{
+			InitializeComponent();
+		}
 
-        private void select_Click(object sender, EventArgs e)
-        {
-            Boolean valid = true;
-            string Lib = lib.Text.Trim();
-            string Obj = obj.Text.Trim();
-            string Type = sqlType.Text.Trim().ToUpper();
-            List<string> Options = new List<string>();
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 
-            if (!IBMiUtils.IsValueObjectName(Lib))
-                valid = false;
+		private void select_Click(object sender, EventArgs e)
+		{
+			var valid   = true;
+			var Lib     = lib.Text.Trim();
+			var Obj     = obj.Text.Trim();
+			var type    = sqlType.Text.Trim().ToUpper();
+			var options = new List<string>();
 
-            if (!IBMiUtils.IsValueObjectName(Lib))
-                valid = false;
-            
-            if (!valid)
-            {
-                MessageBox.Show("Member information not valid.");
-            }
-            else
-            {
-                if (Type == "VIEW")
-                    Options.Add("index_instead_of_view_option => ''1''");
+			if (!IBMiUtils.IsValueObjectName(Lib))
+				valid = false;
 
-                Options.Add("REPLACE_OPTION => ''1''");
+			if (!IBMiUtils.IsValueObjectName(Lib))
+				valid = false;
 
-                this.Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" + Obj + "'', ''" + Lib + "'', ''" + Type + "'', " + String.Join(", ", Options) + ")')";
-                this.Success = true;
-                this.Close();
-            }
-        }
+			if (!valid)
+			{
+				MessageBox.Show("Member information not valid.");
+			}
+			else
+			{
+				if (type == "VIEW")
+					options.Add("index_instead_of_view_option => ''1''");
 
-        public string getCommand()
-        {
-            return this.Command;
-        }
-    }
+				options.Add("REPLACE_OPTION => ''1''");
+
+				Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" +
+				          Obj +
+				          "'', ''" +
+				          Lib +
+				          "'', ''" +
+				          type +
+				          "'', " +
+				          string.Join(", ", options) +
+				          ")')";
+
+				Success = true;
+				Close();
+			}
+		}
+
+		public string GetCommand()
+		{
+			return Command;
+		}
+	}
 }

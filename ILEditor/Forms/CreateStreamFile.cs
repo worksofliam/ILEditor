@@ -1,59 +1,53 @@
-﻿using ILEditor.Classes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILEditor.Classes;
 
 namespace ILEditor.Forms
 {
-    public partial class CreateStreamFile : Form
-    {
-        public RemoteSource result = null;
-        public CreateStreamFile(string PrePath = "")
-        {
-            InitializeComponent();
+	public partial class CreateStreamFile : Form
+	{
+		public RemoteSource Result;
 
-            stmfPath.Text = PrePath;
-        }
+		public CreateStreamFile(string PrePath = "")
+		{
+			InitializeComponent();
 
-        private void cancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+			stmfPath.Text = PrePath;
+		}
 
-        private void open_Click(object sender, EventArgs e)
-        {
-            stmfPath.Text = stmfPath.Text.Trim();
+		private void cancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 
-            if (stmfPath.Text == "")
-            {
-                MessageBox.Show("Path cannot be blank");
-            }
-            else
-            {
-                if (!IBMi.FileExists(stmfPath.Text))
-                {
-                    string filetemp = Path.Combine(IBMiUtils.GetLocalDir("IFS"), Path.GetFileName(stmfPath.Text));
-                    File.Create(filetemp).Close();
-                    result = new RemoteSource(filetemp, stmfPath.Text);
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Chosen path already exists.");
-                }
-            }
-        }
+		private void open_Click(object sender, EventArgs e)
+		{
+			stmfPath.Text = stmfPath.Text.Trim();
 
-        private void CreateStreamFile_Load(object sender, EventArgs e)
-        {
-            stmfPath.Focus();
-        }
-    }
+			if (stmfPath.Text.Length == 0)
+			{
+				MessageBox.Show("Path cannot be blank");
+			}
+			else
+			{
+				if (IBMi.FileExists(stmfPath.Text))
+				{
+					MessageBox.Show("Chosen path already exists.");
+				}
+				else
+				{
+					var fileTemp = Path.Combine(IBMiUtils.GetLocalDir("IFS"), Path.GetFileName(stmfPath.Text));
+					File.Create(fileTemp).Close();
+					Result = new RemoteSource(fileTemp, stmfPath.Text);
+					Close();
+				}
+			}
+		}
+
+		private void CreateStreamFile_Load(object sender, EventArgs e)
+		{
+			stmfPath.Focus();
+		}
+	}
 }

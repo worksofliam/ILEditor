@@ -1,101 +1,101 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Reflection;
-using ILEditor.Classes;
 using System.Diagnostics;
-using System.Net;
+using System.Linq;
+using System.Windows.Forms;
+using ILEditor.Classes;
+using ILEditor.Forms;
+using ILEditor.Properties;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace ILEditor.UserTools
 {
+	public partial class Welcome : DockContent
+	{
+		public Welcome()
+		{
+			InitializeComponent();
+			LoadItems();
+		}
 
-    public partial class Welcome : DockContent
-    {
-        public static void JustOpened(string Lib, string Obj)
-        {
-            List<string> SPFs = IBMi.CurrentSystem.GetValue("opened").Split('|').ToList();
-            string Key = Lib + "/" + Obj;
+		public static void JustOpened(string Lib, string Obj)
+		{
+			var spFs = IBMi.CurrentSystem.GetValue("opened").Split('|').ToList();
+			var key  = Lib + "/" + Obj;
 
-            if (SPFs.Contains(Key))
-                SPFs.Remove(Key);
+			if (spFs.Contains(key))
+				spFs.Remove(key);
 
-            if (SPFs.Count >= 5)
-                SPFs.RemoveAt(0);
+			if (spFs.Count >= 5)
+				spFs.RemoveAt(0);
 
-            SPFs.Add(Lib + "/" + Obj);
+			spFs.Add(Lib + "/" + Obj);
 
-            IBMi.CurrentSystem.SetValue("opened", String.Join("|", SPFs));
-        }
+			IBMi.CurrentSystem.SetValue("opened", string.Join("|", spFs));
+		}
 
-        private static string[] GetRecents()
-        {
-            return IBMi.CurrentSystem.GetValue("opened").Split('|').Reverse().ToArray();
-        }
+		private static string[] GetRecents()
+		{
+			return IBMi.CurrentSystem.GetValue("opened").Split('|').Reverse().ToArray();
+		}
 
-        private void LoadItems()
-        {
-            recents.Clear();
-            foreach (string Item in GetRecents())
-            {
-                if (Item.Trim() == "") continue;
-                recents.Items.Add(new ListViewItem(Item, 0));
-            }
-        }
+		private void LoadItems()
+		{
+			recents.Clear();
+			foreach (var item in GetRecents())
+			{
+				if (item.Trim() == "")
+					continue;
 
-        public Welcome()
-        {
-            InitializeComponent();
-            LoadItems();
-        }
+				recents.Items.Add(new ListViewItem(item, 0));
+			}
+		}
 
-        private void recents_DoubleClick(object sender, EventArgs e)
-        {
-            if (recents.SelectedItems.Count == 1)
-            {
-                ListViewItem selection = recents.SelectedItems[0];
-                string[] path = selection.Text.Split('/');
-                Editor.TheEditor.AddTool(new MemberBrowse(path[0], path[1]), DockState.DockRight);
-            }
-        }
+		private void recents_DoubleClick(object sender, EventArgs e)
+		{
+			if (recents.SelectedItems.Count == 1)
+			{
+				var selection = recents.SelectedItems[0];
+				var path      = selection.Text.Split('/');
+				Editor.TheEditor.AddTool(new MemberBrowse(path[0], path[1]), DockState.DockRight);
+			}
+		}
 
-        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel label = (LinkLabel)sender;
+		private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			var label = (LinkLabel) sender;
 
-            switch (label.Tag.ToString())
-            {
-                case "MBR":
-                    new Forms.HelpWindow(Properties.Resources.OpenMember).Show();
-                    break;
-                case "LIBL":
-                    new Forms.HelpWindow(Properties.Resources.LibraryList).Show();
-                    break;
-                case "CMP":
-                    new Forms.HelpWindow(Properties.Resources.Compiling).Show();
-                    break;
-                case "OFFLINE":
-                    new Forms.HelpWindow(Properties.Resources.OfflineMode).Show();
-                    break;
-                case "DARK":
-                    new Forms.HelpWindow(Properties.Resources.DarkMode).Show();
-                    break;
-            }
-        }
+			switch (label.Tag.ToString())
+			{
+				case "MBR":
+					new HelpWindow(Resources.OpenMember).Show();
 
-        private void devNews_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            //cancel the current event
-            e.Cancel = true;
+					break;
+				case "LIBL":
+					new HelpWindow(Resources.LibraryList).Show();
 
-            //this opens the URL in the user's default browser
-            Process.Start(e.Url.ToString());
-        }
-    }
+					break;
+				case "CMP":
+					new HelpWindow(Resources.Compiling).Show();
+
+					break;
+				case "OFFLINE":
+					new HelpWindow(Resources.OfflineMode).Show();
+
+					break;
+				case "DARK":
+					new HelpWindow(Resources.DarkMode).Show();
+
+					break;
+			}
+		}
+
+		private void devNews_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+		{
+			//cancel the current event
+			e.Cancel = true;
+
+			//this opens the URL in the user's default browser
+			Process.Start(e.Url.ToString());
+		}
+	}
 }
