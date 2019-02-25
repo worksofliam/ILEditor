@@ -38,8 +38,9 @@ namespace ILEditor
             { "SQL", Language.SQL },
             { "CBL", Language.COBOL },
             { "COBOL", Language.COBOL },
+            { "SQLCOBOL", Language.COBOL },
             { "CBLLE", Language.COBOL },
-            { "CBBLE", Language.COBOL },
+            { "SQLCBLLE", Language.COBOL },
             { "PYTHON", Language.Python },
             { "PY", Language.Python }
         };
