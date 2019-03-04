@@ -1,229 +1,200 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace ILEditor.Classes
 {
-    class ErrorHandle
-    {
-        private static string _name = "";
-        private static string[] _Lines;
+	internal class ErrorHandle
+	{
+		private static string   _name = "";
+		private static string[] _lines;
 
-        private static int _FileID;
-        private static Dictionary<int, string> _FileIDs;
-        private static Dictionary<int, List<LineError>> _Errors;
-        private static Dictionary<int, List<expRange>> _Expansions;
-        private static Dictionary<int, bool> _TrackCopies; //Used for embedded sql with copies/includes using *lvl2
-        private static Boolean _Success = false;
+		private static int                              _fileId;
+		private static Dictionary<int, string>          _fileIDs;
+		private static Dictionary<int, List<LineError>> _errors;
+		private static Dictionary<int, List<ExpRange>>  _expansions;
 
-        public static void getErrors(string lib, string obj)
-        {
-            lib = lib.Trim().ToUpper();
-            obj = obj.Trim().ToUpper();
+		private static Dictionary<int, bool> _trackCopies; //Used for embedded sql with copies/includes using *lvl2
 
-            _Success = false;
-            string filetemp = IBMiUtils.DownloadMember(lib, "EVFEVENT", obj);
+		private static bool _success;
 
-            if (filetemp != "")
-            {
-                ErrorHandle.doName(lib.ToUpper() + '/' + obj.ToUpper());
-                ErrorHandle.setLines(File.ReadAllLines(filetemp, Program.Encoding));
-                _Success = true;
-            }
-        }
+		public static void GetErrors(string lib, string obj)
+		{
+			lib = lib.Trim().ToUpper();
+			obj = obj.Trim().ToUpper();
 
-        public static string doName(string newName = "")
-        {
-            if (newName != "") _name = newName;
+			_success = false;
+			var filetemp = IBMiUtils.DownloadMember(lib, "EVFEVENT", obj);
 
-            return _name;
-        }
+			if (filetemp != "")
+			{
+				DoName(lib.ToUpper() + '/' + obj.ToUpper());
+				SetLines(File.ReadAllLines(filetemp, Program.Encoding));
+				_success = true;
+			}
+		}
 
-        public static Boolean WasSuccessful()
-        {
-            return _Success;
-        }
-        public static void setLines(string[] data)
-        {
-            _Lines = data;
-            wrkErrors();
-        }
+		public static string DoName(string newName = "")
+		{
+			if (newName != "")
+				_name = newName;
 
-        public static void wrkErrors()
-        {
-            _FileIDs = new Dictionary<int, string>();
-            _Errors = new Dictionary<int, List<LineError>>();
-            _Expansions = new Dictionary<int, List<expRange>>();
-            _TrackCopies = new Dictionary<int, bool>();
-            expRange copyRange = null;
+			return _name;
+		}
 
-            string err;
-            int sev;
-            int linenum, column, sqldiff;
+		public static bool WasSuccessful()
+		{
+			return _success;
+		}
 
-            string[] pieces;
-            string curtype;
+		public static void SetLines(string[] data)
+		{
+			_lines = data;
+			WrkErrors();
+		}
 
-            foreach (string line in _Lines)
-            {
-                if (line == null) continue;
-                err = line.PadRight(150);
-                pieces = err.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                curtype = err.Substring(0, 10).TrimEnd();
-                _FileID = int.Parse(line.Substring(13, 3));
-                switch (curtype)
-                {
-                    case "FILEID":
-                        if (_FileIDs.ContainsKey(_FileID))
-                        {
-                            //_FileIDs[_FileID] = pieces[5];
-                        }
-                        else
-                        {
-                            _FileIDs.Add(_FileID, pieces[5]);
-                            _Errors.Add(_FileID, new List<LineError>());
-                            _Expansions.Add(_FileID, new List<expRange>());
+		public static void WrkErrors()
+		{
+			_fileIDs     = new Dictionary<int, string>();
+			_errors      = new Dictionary<int, List<LineError>>();
+			_expansions  = new Dictionary<int, List<ExpRange>>();
+			_trackCopies = new Dictionary<int, bool>();
+			ExpRange copyRange = null;
 
-                            //000000 check means that the current FILEID is not an include
-                            _TrackCopies.Add(_FileID, line.Substring(17, 6) != "000000");
-                            copyRange = new expRange(1, 0);
-                        }
-                        break;
+			foreach (var line in _lines)
+			{
+				if (line == null)
+					continue;
 
-                    case "FILEEND":
-                        if (_TrackCopies[_FileID])
-                        {
-                            copyRange._high = int.Parse(pieces[3]);
-                            if (_Expansions.ContainsKey(999)) //Indicates SQL precompiler temp file
-                                _Expansions[1].Add(copyRange);
-                        }
-                        break;
+				var err         = line.PadRight(150);
+				var pieces      = err.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+				var currentType = err.Substring(0, 10).TrimEnd();
+				_fileId = int.Parse(line.Substring(13, 3));
+				switch (currentType)
+				{
+					case "FILEID":
+						if (_fileIDs.ContainsKey(_fileId))
+						{
+							//_FileIDs[_FileID] = pieces[5];
+						}
+						else
+						{
+							_fileIDs.Add(_fileId, pieces[5]);
+							_errors.Add(_fileId, new List<LineError>());
+							_expansions.Add(_fileId, new List<ExpRange>());
 
-                    case "EXPANSION":
-                        _Expansions[_FileID].Add(new expRange(int.Parse(pieces[6]), int.Parse(pieces[7])));
-                        break;
+							//000000 check means that the current FILEID is not an include
+							_trackCopies.Add(_fileId, line.Substring(17, 6) != "000000");
+							copyRange = new ExpRange(1, 0);
+						}
 
-                    case "ERROR":
-                        sev = int.Parse(err.Substring(58, 2));
-                        linenum = int.Parse(err.Substring(37, 6));
-                        column = int.Parse(err.Substring(33, 3));
-                        sqldiff = 0;
+						break;
 
-                        if (sev >= 20)
-                        {
-                            foreach (expRange range in _Expansions[_FileID])
-                            {
-                                if (range.inRange(linenum))
-                                {
-                                    sqldiff += range.getVal();
-                                }
-                            }
-                        }
+					case "FILEEND":
+						if (_trackCopies[_fileId])
+						{
+							copyRange.High = int.Parse(pieces[3]);
+							if (_expansions.ContainsKey(999)) //Indicates SQL precompiler temp file
+								_expansions[1].Add(copyRange);
+						}
 
-                        if (sqldiff > 0)
-                        {
-                            linenum -= sqldiff;
-                        }
+						break;
 
-                        _Errors[_FileID].Add(new LineError(sev, linenum, column, err.Substring(65), err.Substring(48, 7)));
-                        break;
-                }
-            }
+					case "EXPANSION":
+						_expansions[_fileId].Add(new ExpRange(int.Parse(pieces[6]), int.Parse(pieces[7])));
 
-            if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
-            {
-                string JobLog = IBMiUtils.GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
-                _FileID = -1;
-                _FileIDs.Add(_FileID, "Job Log");
-                _Errors.Add(_FileID, new List<LineError>());
-                foreach (string Line in File.ReadAllLines(JobLog))
-                {
-                    _Errors[_FileID].Add(new LineError(50, 0, 0, Line, ""));
-                }
-            }
-        }
+						break;
 
-        public static int[] getFileIDs()
-        {
-            return _FileIDs.Keys.ToArray();
-        }
+					case "ERROR":
+						var sev     = int.Parse(err.Substring(58, 2));
+						var lineNum = int.Parse(err.Substring(37, 6));
+						var column  = int.Parse(err.Substring(33, 3));
+						var sqldiff = 0;
 
-        public static string getFilePath(int fileid)
-        {
-            return _FileIDs[fileid];
-        }
+						if (sev >= 20)
+							foreach (var range in _expansions[_fileId])
+								if (range.InRange(lineNum))
+									sqldiff += range.GetVal();
 
-        public static LineError[] getErrors(int fileid)
-        {
-            return _Errors[fileid].ToArray();
-        }
-    }
+						if (sqldiff > 0)
+							lineNum -= sqldiff;
 
-    class expRange
-    {
-        public int _low;
-        public int _high;
+						_errors[_fileId]
+							.Add(new LineError(sev, lineNum, column, err.Substring(65), err.Substring(48, 7)));
 
-        public expRange(int low, int high)
-        {
-            _low = low;
-            _high = high;
-        }
+						break;
+				}
+			}
 
-        public bool inRange(int num)
-        {
-            return (num >= _high);
-        }
+			if (IBMi.CurrentSystem.GetValue("fetchJobLog") == "true")
+			{
+				var jobLog = IBMiUtils.GetLocalFile("QTEMP", "JOBLOG", "JOBLOG");
+				_fileId = -1;
+				_fileIDs.Add(_fileId, "Job Log");
+				_errors.Add(_fileId, new List<LineError>());
+				foreach (var line in File.ReadAllLines(jobLog))
+					_errors[_fileId].Add(new LineError(50, 0, 0, line, ""));
+			}
+		}
 
-        public int getVal()
-        {
-            return (_high - _low) + 1;
-        }
-    }
+		public static int[] GetFileIDs()
+		{
+			return _fileIDs.Keys.ToArray();
+		}
 
-    class LineError
-    {
-        private int _sev;
-        private int _line;
-        private int _col;
-        private string _data = "";
-        private string _errcode;
+		public static string GetFilePath(int fileId)
+		{
+			return _fileIDs[fileId];
+		}
 
-        public LineError(int sev, int line, int col, string data, string errcode)
-        {
-            _sev = sev;
-            _line = line;
-            _col = col;
-            _data = data;
-            _errcode = errcode;
-        }
+		public static LineError[] GetErrors(int fileId)
+		{
+			return _errors[fileId].ToArray();
+		}
+	}
 
-        public int getSev()
-        {
-            return _sev;
-        }
+	internal class ExpRange
+	{
+		public readonly int Low;
+		public          int High;
 
-        public int getLine()
-        {
-            return _line;
-        }
+		public ExpRange(int low, int high)
+		{
+			Low  = low;
+			High = high;
+		}
 
-        public int getColumn()
-        {
-            return _col;
-        }
+		public bool InRange(int num)
+		{
+			return num >= High;
+		}
 
-        public string getData()
-        {
-            return _data;
-        }
+		public int GetVal()
+		{
+			return High - Low + 1;
+		}
+	}
 
-        public string getCode()
-        {
-            return _errcode;
-        }
-    }
+	internal class LineError
+	{
+		public LineError(int sev, int line, int col, string data, string code)
+		{
+			Sev    = sev;
+			Line   = line;
+			Column = col;
+			Data   = data;
+			Code   = code;
+		}
+
+		public int Sev { get; }
+
+		public int Line { get; }
+
+		public int Column { get; }
+
+		public string Data { get; }
+
+		public string Code { get; }
+	}
 }

@@ -3,25 +3,25 @@ using System.IO;
 
 namespace ILEditor.Classes
 {
-	internal class FileCache
+	internal static class FileCache
 	{
 		private static readonly string ExportDir  = Program.SOURCEDIR + @"\" + IBMi.CurrentSystem.GetValue("system");
 		private static readonly string ExportLoc  = ExportDir + @"\membercache";
 		private static readonly string OfflineLoc = ExportDir + @"\offlinecache";
 
-		private static readonly List<string>               OfflineEdits = new List<string>();
-		private static readonly Dictionary<string, string> SourceList   = new Dictionary<string, string>();
+		private static readonly List<string>               OfflineEdits     = new List<string>();
+		private static readonly Dictionary<string, string> SourceDictionary = new Dictionary<string, string>();
 
 		public static void AddMemberCache(string MemberString, string Type)
 		{
-			if (!SourceList.ContainsKey(MemberString))
-				SourceList.Add(MemberString, Type);
+			if (!SourceDictionary.ContainsKey(MemberString))
+				SourceDictionary.Add(MemberString, Type);
 		}
 
 		public static void AddStreamFile(string Path)
 		{
-			if (!SourceList.ContainsKey(Path))
-				SourceList.Add(Path, "");
+			if (!SourceDictionary.ContainsKey(Path))
+				SourceDictionary.Add(Path, "");
 		}
 
 		public static void EditsClear()
@@ -42,60 +42,57 @@ namespace ILEditor.Classes
 
 		public static void Export()
 		{
-			var Output = new List<string>();
+			var output = new List<string>();
 
 			Directory.CreateDirectory(ExportDir);
 
-			foreach (var Member in SourceList)
-				Output.Add(Member.Key + "," + Member.Value);
+			foreach (var member in SourceDictionary)
+				output.Add(member.Key + "," + member.Value);
 
-			File.WriteAllLines(ExportLoc, Output);
+			File.WriteAllLines(ExportLoc, output);
 
-			Output.Clear();
+			output.Clear();
 
-			foreach (var Member in OfflineEdits)
-				Output.Add(Member);
+			foreach (var member in OfflineEdits)
+				output.Add(member);
 
-			File.WriteAllLines(OfflineLoc, Output);
+			File.WriteAllLines(OfflineLoc, output);
 		}
 
 		public static void Import()
 		{
 			if (File.Exists(ExportLoc))
-			{
-				string[] data;
-				foreach (var Line in File.ReadAllLines(ExportLoc))
+				foreach (var line in File.ReadAllLines(ExportLoc))
 				{
-					if (Line == "")
+					if (string.IsNullOrWhiteSpace(line))
 						continue;
 
-					data = Line.Split(',');
-					SourceList.Add(data[0], data[1]);
+					var data = line.Split(',');
+					SourceDictionary.Add(data[0], data[1]);
 				}
-			}
 
 			if (File.Exists(OfflineLoc))
-				foreach (var Line in File.ReadAllLines(OfflineLoc))
-					OfflineEdits.Add(Line);
+				foreach (var line in File.ReadAllLines(OfflineLoc))
+					OfflineEdits.Add(line);
 		}
 
 		public static string[] Find(string Value)
 		{
-			var Output = new List<string>();
+			var output = new List<string>();
 
-			foreach (var Member in SourceList.Keys)
-				if (Member.ToLower().Contains(Value.ToLower()))
-					Output.Add(Member);
+			foreach (var member in SourceDictionary.Keys)
+				if (member.ToLower().Contains(Value.ToLower()))
+					output.Add(member);
 
-			return Output.ToArray();
+			return output.ToArray();
 		}
 
 		public static string GetType(string Member)
 		{
-			if (SourceList.ContainsKey(Member))
-				return SourceList[Member];
+			if (SourceDictionary.ContainsKey(Member))
+				return SourceDictionary[Member];
 
-			return "";
+			return string.Empty;
 		}
 	}
 }

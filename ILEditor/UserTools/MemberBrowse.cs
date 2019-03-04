@@ -56,9 +56,7 @@ namespace ILEditor.UserTools
 					{
 						foreach (var member in members)
 						{
-							var curItem = new ListViewItem(
-								new[] {member.GetName(), member.GetExtension(), member.GetText()},
-								0);
+							var curItem = new ListViewItem(new[] {member.Name, member.Extension, member.Text}, 0);
 
 							curItem.Tag = member;
 
@@ -140,16 +138,17 @@ namespace ILEditor.UserTools
 			var newMemberForm = new NewMember(library.Text.Trim(), spf.Text.Trim());
 			newMemberForm.ShowDialog();
 
-			if (newMemberForm.created)
+			if (newMemberForm.IsCreated)
 			{
 				var curItem =
-					new ListViewItem(new string[3] {newMemberForm._mbr, newMemberForm._type, newMemberForm._text}, 0);
+					new ListViewItem(new string[3] {newMemberForm.Mbr, newMemberForm.Type, newMemberForm.MemberText},
+						0);
 
 				curItem.Tag = new RemoteSource("",
 					library.Text.Trim(),
 					spf.Text.Trim(),
-					newMemberForm._mbr,
-					newMemberForm._type);
+					newMemberForm.Mbr,
+					newMemberForm.Type);
 
 				memberList.Items.Add(curItem);
 			}
@@ -180,7 +179,7 @@ namespace ILEditor.UserTools
 			if (currentRightClick != null)
 			{
 				var memberInfo = currentRightClick;
-				var items      = IBMi.CurrentSystem.GetValue("TYPE_" + memberInfo.GetExtension()).Split('|');
+				var items      = IBMi.CurrentSystem.GetValue("TYPE_" + memberInfo.Extension).Split('|');
 				foreach (var item in items)
 				{
 					if (item.Trim() == "")

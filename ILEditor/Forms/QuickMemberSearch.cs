@@ -15,7 +15,7 @@ namespace ILEditor.Forms
 
 		private void fileValue_TextChanged(object sender, EventArgs e)
 		{
-			new Thread((ThreadStart) delegate { InitSearch(nameValue.Text); }).Start();
+			new Thread(() => InitSearch(nameValue.Text)).Start();
 		}
 
 		private void InitSearch(string Value)
@@ -71,20 +71,20 @@ namespace ILEditor.Forms
 
 		private void SelectFile(string SourcePath)
 		{
-			if (SourcePath == "")
+			if (SourcePath == string.Empty)
 				return;
 
 			RemoteSource sourceFile;
 			if (SourcePath.StartsWith("/"))
 			{
-				sourceFile = new RemoteSource("", SourcePath);
+				sourceFile = new RemoteSource(string.Empty, SourcePath);
 			}
 			else
 			{
 				var type = FileCache.GetType(SourcePath);
 				var data = SourcePath.Split(new[] {'/', '.'}, StringSplitOptions.RemoveEmptyEntries);
 
-				sourceFile = new RemoteSource("", data[0], data[1], data[2], type);
+				sourceFile = new RemoteSource(string.Empty, data[0], data[1], data[2], type);
 			}
 
 			Editor.OpenSource(sourceFile);

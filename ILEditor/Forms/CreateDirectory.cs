@@ -15,21 +15,21 @@ namespace ILEditor.Forms
 
 		private void open_Click(object sender, EventArgs e)
 		{
-			if (path.Text == "")
+			if (string.IsNullOrEmpty(path.Text))
 			{
 				MessageBox.Show("Path cannot be blank");
+
+				return;
+			}
+
+			if (IBMi.DirExists(path.Text))
+			{
+				MessageBox.Show("Chosen directory already exists.");
 			}
 			else
 			{
-				if (!IBMi.DirExists(path.Text))
-				{
-					IBMi.CreateDirectory(path.Text);
-					Close();
-				}
-				else
-				{
-					MessageBox.Show("Chosen path already exists.");
-				}
+				IBMi.CreateDirectory(path.Text);
+				Close();
 			}
 		}
 

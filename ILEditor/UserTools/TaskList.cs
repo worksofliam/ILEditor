@@ -7,7 +7,7 @@ namespace ILEditor.UserTools
 {
 	public partial class TaskList : DockContent
 	{
-		private string FileName = "";
+		private string _fileName = "";
 
 		public TaskList()
 		{
@@ -16,7 +16,7 @@ namespace ILEditor.UserTools
 
 		public void Display(string name, TaskItem[] Items)
 		{
-			FileName = name;
+			_fileName = name;
 			tasks.Items.Clear();
 
 			foreach (var item in Items)
@@ -27,16 +27,17 @@ namespace ILEditor.UserTools
 			}
 		}
 
-		private static void SelectTask(string File, int Line)
+		//todo the code of this method is almost identical to code of method OnSelectError in ErrorListing.cs.
+		private static void SelectTask(string file, int line)
 		{
-			var theTab = Editor.TheEditor.GetTabByName(File, true);
+			var theTab = Editor.TheEditor.GetTabByTitle(file, true);
 
 			if (theTab != null)
 			{
 				var sourceEditor = Editor.TheEditor.GetTabEditor(theTab);
 
 				sourceEditor.Focus();
-				sourceEditor.GotoLine(Line, 0);
+				sourceEditor.GotoLine(line, 0);
 			}
 			else
 			{
@@ -50,7 +51,7 @@ namespace ILEditor.UserTools
 		private void tasks_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
 		{
 			if (tasks.SelectedItems.Count > 0)
-				SelectTask(FileName, int.Parse(tasks.SelectedItems[0].SubItems[1].Text) - 1);
+				SelectTask(_fileName, int.Parse(tasks.SelectedItems[0].SubItems[1].Text) - 1);
 		}
 	}
 }

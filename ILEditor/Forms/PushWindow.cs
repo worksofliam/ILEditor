@@ -21,7 +21,7 @@ namespace ILEditor.Forms
 
 		private void PushWindow_Load(object sender, EventArgs e)
 		{
-			if (!IBMi.IsConnected())
+			if (!IBMi.IsConnected)
 			{
 				MessageBox.Show("The SPF Push tool does not work in Offline Mode.");
 				Close();
@@ -32,7 +32,7 @@ namespace ILEditor.Forms
 		{
 			var localLib = IBMiUtils.GetLocalDir(lib.Text);
 
-			var dirs = Directory.GetDirectories(localLib);
+			var    dirs = Directory.GetDirectories(localLib);
 			string name;
 
 			foreach (var dir in dirs)
@@ -60,7 +60,7 @@ namespace ILEditor.Forms
 					}
 					else
 					{
-						if (memberList.Count(x => x.GetObject() + '/' + x.GetName() == name) == 0)
+						if (memberList.Count(x => x.Object + '/' + x.Name == name) == 0)
 							CreateMembers.Add(name, ext);
 					}
 
@@ -70,13 +70,13 @@ namespace ILEditor.Forms
 				if (memberList != null)
 					foreach (var memberInfo in memberList)
 					{
-						var localMember = IBMiUtils.GetLocalFile(memberInfo.GetLibrary(),
-							memberInfo.GetObject(),
-							memberInfo.GetName(),
-							memberInfo.GetExtension());
+						var localMember = IBMiUtils.GetLocalFile(memberInfo.Library,
+							memberInfo.Object,
+							memberInfo.Name,
+							memberInfo.Extension);
 
 						if (!File.Exists(localMember))
-							DeleteMembers.Add(memberInfo.GetObject() + "/" + memberInfo.GetName());
+							DeleteMembers.Add(memberInfo.Object + "/" + memberInfo.Name);
 					}
 			}
 
@@ -91,7 +91,7 @@ namespace ILEditor.Forms
 
 			foreach (var memberName in UploadMembers)
 			{
-				var mbrPath = memberName.Key.Trim().Split('/');
+				var mbrPath       = memberName.Key.Trim().Split('/');
 				var checkedUpload = FileCache.EditsContains(lib.Text.ToUpper(), mbrPath[0], mbrPath[1]);
 				memberLog.Items.Add(new ListViewItem(memberName.Key) {Checked = checkedUpload});
 			}
@@ -153,27 +153,27 @@ namespace ILEditor.Forms
 						"/QSYS.lib/" + lib.Text.Trim() + ".lib/" + path[0] + ".file/" + path[1] + ".mbr");
 				}
 
-			var success = IBMi.RunCommands(commands.ToArray());
+			if (!IBMi.RunCommands(commands.ToArray()))
+			{
+				MessageBox.Show("Push to server was not successful (stage 1)");
+
+				return;
+			}
+
+			var success = true;
+			foreach (var file in pushList)
+				if (IBMi.UploadFile(file.Key, file.Value) == false)
+					success = false;
+
 			if (success)
 			{
-				foreach (var file in pushList)
-					if (IBMi.UploadFile(file.Key, file.Value) == false)
-						success = false;
-
-				if (success)
-				{
-					MessageBox.Show("Push to server was successful.");
-					FileCache.EditsClear();
-					Close();
-				}
-				else
-				{
-					MessageBox.Show("Push to server was not successful (stage 2)");
-				}
+				MessageBox.Show("Push to server was successful.");
+				FileCache.EditsClear();
+				Close();
 			}
 			else
 			{
-				MessageBox.Show("Push to server was not successful (stage 1)");
+				MessageBox.Show("Push to server was not successful (stage 2)");
 			}
 		}
 

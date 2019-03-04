@@ -27,7 +27,7 @@ namespace ILEditor.UserTools
 			var      DirList = new List<string>();
 
 			files.Nodes.Clear();
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 				new Thread((ThreadStart) delegate
 				{
 					DirList.Add(IBMi.CurrentSystem.GetValue("homeDir"));

@@ -19,7 +19,7 @@ namespace ILEditor.Forms
 
 		private void CloneWindow_Load(object sender, EventArgs e)
 		{
-			if (!IBMi.IsConnected())
+			if (!IBMi.IsConnected)
 			{
 				MessageBox.Show("The SPF Clone tool does not work in Offline Mode.");
 				Close();
@@ -54,20 +54,20 @@ namespace ILEditor.Forms
 				LocalSPFs.Add(IBMiUtils.GetLocalDir(lib.Text, Object.Name));
 				for (var i = 0; i < memberList.Length; i++)
 				{
-					var item = new ListViewItem(memberList[i].GetObject() +
+					var item = new ListViewItem(memberList[i].Object +
 					                            "/" +
-					                            memberList[i].GetName() +
+					                            memberList[i].Name +
 					                            "." +
-					                            memberList[i].GetExtension().ToLower());
+					                            memberList[i].Extension.ToLower());
 
 					item.Checked = true;
 					item.Tag = new string[2]
 					{
-						memberList[i].GetObject() + "/" + memberList[i].GetName(),
-						IBMiUtils.GetLocalFile(memberList[i].GetLibrary(),
-							memberList[i].GetObject(),
-							memberList[i].GetName(),
-							memberList[i].GetExtension())
+						memberList[i].Object + "/" + memberList[i].Name,
+						IBMiUtils.GetLocalFile(memberList[i].Library,
+							memberList[i].Object,
+							memberList[i].Name,
+							memberList[i].Extension)
 					};
 
 					items.Add(item);
@@ -76,9 +76,9 @@ namespace ILEditor.Forms
 
 			this.memberList.Items.AddRange(items.ToArray());
 
-			lib.Enabled        = false;
-			fetch.Enabled      = false;
-			clone.Enabled      = true;
+			lib.Enabled             = false;
+			fetch.Enabled           = false;
+			clone.Enabled           = true;
 			this.memberList.Enabled = true;
 		}
 
@@ -91,7 +91,7 @@ namespace ILEditor.Forms
 				if (listItem.Checked)
 				{
 					var member = (string[]) listItem.Tag;
-					var path = member[0].Split('/');
+					var path   = member[0].Split('/');
 					CloneList.Add("/QSYS.lib/" + lib.Text + ".lib/" + path[0] + ".file/" + path[1] + ".mbr", member[1]);
 				}
 

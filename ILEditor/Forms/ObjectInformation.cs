@@ -15,14 +15,14 @@ namespace ILEditor.Forms
 			objInfo.Items.Add(new ListViewItem(new[] {"Program Type", Object.Type}));
 			objInfo.Items.Add(new ListViewItem(new[] {"Owner", Object.Owner}));
 
-			if (Object.SrcSpf != "")
+			if (Object.SrcSpf == string.Empty)
+				return;
+
+			objInfo.Items.Add(new ListViewItem(new[] {"Extension", Object.Extension}));
+			objInfo.Items.Add(new ListViewItem(new[]
 			{
-				objInfo.Items.Add(new ListViewItem(new[] {"Extension", Object.Extension}));
-				objInfo.Items.Add(new ListViewItem(new[]
-				{
-					"Source Path", Object.SrcLib + "/" + Object.SrcSpf + "(" + Object.SrcMbr + ")"
-				}));
-			}
+				"Source Path", Object.SrcLib + "/" + Object.SrcSpf + "(" + Object.SrcMbr + ")"
+			}));
 		}
 	}
 }

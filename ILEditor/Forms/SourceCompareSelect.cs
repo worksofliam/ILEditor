@@ -14,16 +14,16 @@ namespace ILEditor.Forms
 			if (Editor.LastEditing == null || !(Editor.LastEditing.Tag is RemoteSource src))
 				return;
 
-			switch (src.GetFS())
+			switch (src.FileSystem)
 			{
 				case FileSystem.QSYS:
-					newSourceBox.SetSource(src.GetLibrary(), src.GetObject(), src.GetName());
-					oldSourceBox.SetSource("", src.GetObject(), src.GetName());
+					newSourceBox.SetSource(src.Library, src.Object, src.Name);
+					oldSourceBox.SetSource("", src.Object, src.Name);
 
 					break;
 				case FileSystem.IFS:
-					newSourceBox.SetSource(src.GetRemoteFile());
-					newSourceBox.SetTab(src.GetFS());
+					newSourceBox.SetSource(src.RemoteFile);
+					newSourceBox.SetTab(src.FileSystem);
 
 					break;
 			}

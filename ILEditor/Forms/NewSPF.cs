@@ -29,7 +29,7 @@ namespace ILEditor.Forms
 
 			if (isValid)
 			{
-				if (IBMi.IsConnected())
+				if (IBMi.IsConnected)
 				{
 					var cmd = "CRTSRCPF FILE(" +
 					          lib.Text +

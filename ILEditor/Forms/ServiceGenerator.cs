@@ -8,10 +8,10 @@ namespace ILEditor.Forms
 {
 	public partial class ServiceGenerator : Form
 	{
-		private List<string> Binder;
+		private List<string> _binder;
 
-		private List<string> Ref;
-		private List<string> Src;
+		private List<string> _ref;
+		private List<string> _src;
 
 		public ServiceGenerator()
 		{
@@ -20,7 +20,7 @@ namespace ILEditor.Forms
 
 		private void AddProc_Click(object sender, EventArgs e)
 		{
-			if (!procname.Text.Contains(" ") && procname.Text.Trim() != "")
+			if (!string.IsNullOrWhiteSpace(procname.Text))
 			{
 				procedures.Items.Add(procname.Text.Trim());
 				procname.Clear();
@@ -110,49 +110,49 @@ namespace ILEditor.Forms
 		private void GenerateRPGSource()
 		{
 			var IsTotalFree = false;
-			Ref = new List<string>();
-			Src = new List<string>();
+			_ref = new List<string>();
+			_src = new List<string>();
 
 			var W = IsTotalFree ? "" : "        ";
 
 			if (IsTotalFree) // bug: expression is always false
 			{
-				Ref.Add("**FREE");
-				Ref.Add("");
+				_ref.Add("**FREE");
+				_ref.Add("");
 
-				Src.Add("**FREE");
-				Src.Add("");
+				_src.Add("**FREE");
+				_src.Add("");
 			}
 
-			Src.Add(W + "Ctl-Opt NOMAIN;");
-			Src.Add("");
+			_src.Add(W + "Ctl-Opt NOMAIN;");
+			_src.Add("");
 
 			foreach (string Procedure in procedures.Items)
 			{
-				Ref.Add(W + "Dcl-Pr " + Procedure + ";");
-				Ref.Add(W + "  //Parameters here");
-				Ref.Add(W + "End-Pr;");
-				Ref.Add("");
+				_ref.Add(W + "Dcl-Pr " + Procedure + ";");
+				_ref.Add(W + "  //Parameters here");
+				_ref.Add(W + "End-Pr;");
+				_ref.Add("");
 
-				Src.Add(W + "Dcl-Proc " + Procedure + " Export;");
-				Src.Add(W + "  Dcl-Pi *N;");
-				Src.Add(W + "  End-Pi;");
-				Src.Add("");
-				Src.Add(W + "  //Source code here");
-				Src.Add(W + "  Return;");
-				Src.Add(W + "End-Proc;");
-				Src.Add("");
+				_src.Add(W + "Dcl-Proc " + Procedure + " Export;");
+				_src.Add(W + "  Dcl-Pi *N;");
+				_src.Add(W + "  End-Pi;");
+				_src.Add("");
+				_src.Add(W + "  //Source code here");
+				_src.Add(W + "  Return;");
+				_src.Add(W + "End-Proc;");
+				_src.Add("");
 			}
 		}
 
 		private void GenerateBinderSource()
 		{
-			Binder = new List<string> {"STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('" + srvpgmnam.Text + "')"};
+			_binder = new List<string> {"STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('" + srvpgmnam.Text + "')"};
 
 			foreach (string procedure in procedures.Items)
-				Binder.Add("  EXPORT SYMBOL('" + procedure.ToUpper() + "') ");
+				_binder.Add("  EXPORT SYMBOL('" + procedure.ToUpper() + "') ");
 
-			Binder.Add("ENDPGMEXP");
+			_binder.Add("ENDPGMEXP");
 		}
 
 		private void CompileObjects()
@@ -165,9 +165,9 @@ namespace ILEditor.Forms
 			var moduleFile    = IBMiUtils.GetLocalFile(srvpgmlib.Text, modsrc.Text, srvpgmnam.Text);
 			var binderFile    = IBMiUtils.GetLocalFile(srvpgmlib.Text, bndsrc.Text, srvpgmnam.Text);
 
-			File.WriteAllLines(referenceFile, Ref);
-			File.WriteAllLines(moduleFile, Src);
-			File.WriteAllLines(binderFile, Binder);
+			File.WriteAllLines(referenceFile, _ref);
+			File.WriteAllLines(moduleFile, _src);
+			File.WriteAllLines(binderFile, _binder);
 
 			commands.Add("cd /QSYS.lib");
 

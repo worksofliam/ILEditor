@@ -49,26 +49,24 @@ namespace ILEditor.Forms
 			if (Pass != string.Empty)
 				Pass = Password.Encode(Pass);
 
-			bool successful;
-			var  systemPath = Program.SYSTEMSDIR + @"\" + Alias;
-			var  lines      = new string[5];
-			if (!File.Exists(systemPath))
-			{
-				lines[0] = "alias=" + Alias;
-				lines[1] = "system=" + Host;
-				lines[2] = "username=" + User;
-				lines[3] = "password=" + Pass;
-				lines[4] = "useFTPes=" + useFtpes;
-				File.WriteAllLines(systemPath, lines);
-				successful = true;
-			}
-			else
+			var systemPath = Program.SYSTEMSDIR + @"\" + Alias;
+
+			if (File.Exists(systemPath))
 			{
 				MessageBox.Show("Setup with same alias name already exists.");
-				successful = false;
+
+				return false;
 			}
 
-			return successful;
+			var lines = new string[5];
+			lines[0] = "alias=" + Alias;
+			lines[1] = "system=" + Host;
+			lines[2] = "username=" + User;
+			lines[3] = "password=" + Pass;
+			lines[4] = "useFTPes=" + useFtpes;
+			File.WriteAllLines(systemPath, lines);
+
+			return true;
 		}
 
 		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

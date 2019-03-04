@@ -37,27 +37,27 @@ namespace ILEditor.Forms
 			if (!valid)
 			{
 				MessageBox.Show("Member information not valid.");
+
+				return;
 			}
-			else
-			{
-				if (type == "VIEW")
-					options.Add("index_instead_of_view_option => ''1''");
 
-				options.Add("REPLACE_OPTION => ''1''");
+			if (type == "VIEW")
+				options.Add("index_instead_of_view_option => ''1''");
 
-				Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" +
-				          Obj +
-				          "'', ''" +
-				          Lib +
-				          "'', ''" +
-				          type +
-				          "'', " +
-				          string.Join(", ", options) +
-				          ")')";
+			options.Add("REPLACE_OPTION => ''1''");
 
-				Success = true;
-				Close();
-			}
+			Command = "RUNSQL SQL('CALL QSYS2.GENERATE_SQL(''" +
+			          Obj +
+			          "'', ''" +
+			          Lib +
+			          "'', ''" +
+			          type +
+			          "'', " +
+			          string.Join(", ", options) +
+			          ")')";
+
+			Success = true;
+			Close();
 		}
 
 		public string GetCommand()

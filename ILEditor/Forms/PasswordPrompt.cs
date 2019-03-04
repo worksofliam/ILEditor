@@ -25,7 +25,7 @@ namespace ILEditor.Forms
 
 		private void select_Click(object sender, EventArgs e)
 		{
-			if (password.Text != "")
+			if (password.Text != string.Empty)
 			{
 				Success = true;
 				Close();

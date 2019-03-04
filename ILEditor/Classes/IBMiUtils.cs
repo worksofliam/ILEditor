@@ -42,7 +42,7 @@ namespace ILEditor.Classes
 		public static BindingEntry[] GetBindingDirectory(string Lib, string Obj)
 		{
 			var line = "";
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				var entries = new List<BindingEntry>();
 				if (Lib == "*CURLIB")
@@ -85,7 +85,7 @@ namespace ILEditor.Classes
 
 		public static ILEObject[] GetObjectList(string Lib, string Types = "*PGM *SRVPGM *MODULE")
 		{
-			if (!IBMi.IsConnected())
+			if (!IBMi.IsConnected)
 				return null;
 
 			var objects = new List<ILEObject>();
@@ -154,7 +154,7 @@ namespace ILEditor.Classes
 			if (Lib == "*CURLIB")
 				Lib = IBMi.CurrentSystem.GetValue("curlib");
 
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				string fileA = 'S' + Lib, fileB = "D" + Lib;
 
@@ -234,7 +234,7 @@ namespace ILEditor.Classes
 			Lib = Lib.ToUpper();
 			Obj = Obj.ToUpper();
 
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				if (Lib == "*CURLIB")
 					Lib = IBMi.CurrentSystem.GetValue("curlib");
@@ -278,7 +278,7 @@ namespace ILEditor.Classes
 							{
 								newMember = new RemoteSource("", Lib, Object, name, type, true, int.Parse(rcdLen) - 12);
 
-								newMember._Text = desc;
+								newMember.Text = desc;
 
 								members.Add(newMember);
 								FileCache.AddMemberCache(Lib + "/" + Object + "." + name, type);
@@ -304,7 +304,7 @@ namespace ILEditor.Classes
 
 						newMember = new RemoteSource(file, Lib, Obj, Path.GetFileNameWithoutExtension(file), type);
 
-						newMember._Text = "";
+						newMember.Text = "";
 						members.Add(newMember);
 					}
 				else
@@ -321,7 +321,7 @@ namespace ILEditor.Classes
 			Lib = Lib.ToUpper();
 			Obj = Obj.ToUpper();
 
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				if (Lib == "*CURLIB")
 					Lib = IBMi.CurrentSystem.GetValue("curlib");
@@ -369,7 +369,7 @@ namespace ILEditor.Classes
 
 		public static SpoolFile[] GetSpoolListing(string Lib, string Obj)
 		{
-			if (!IBMi.IsConnected())
+			if (!IBMi.IsConnected)
 				return null;
 
 			var listing  = new List<SpoolFile>();
@@ -419,14 +419,14 @@ namespace ILEditor.Classes
 
 		public static bool CompileSource(RemoteSource SourceInfo, string TrueCmd = "")
 		{
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				var    commands = new List<string>(); // todo: not used
 				string filetemp = GetLocalFile("QTEMP", "JOBLOG", "JOBLOG"), name, library = "";
 
 				if (SourceInfo != null)
 				{
-					var type    = SourceInfo.GetExtension().ToUpper();
+					var type    = SourceInfo.Extension.ToUpper();
 					var command = IBMi.CurrentSystem.GetValue("DFT_" + type);
 
 					if (command.Trim() == "")
@@ -435,9 +435,9 @@ namespace ILEditor.Classes
 					if (TrueCmd != "")
 						command = TrueCmd;
 
-					Editor.TheEditor.SetStatus("Compiling " + SourceInfo.GetName() + " with " + command + "...");
+					Editor.TheEditor.SetStatus("Compiling " + SourceInfo.Name + " with " + command + "...");
 
-					if (SourceInfo.GetFS() == FileSystem.IFS)
+					if (SourceInfo.FileSystem == FileSystem.IFS)
 						command += "_IFS";
 
 					command = IBMi.CurrentSystem.GetValue(command);
@@ -445,22 +445,22 @@ namespace ILEditor.Classes
 					if (command.Trim() == "")
 						return true;
 
-					name = SourceInfo.GetName();
+					name = SourceInfo.Name;
 					if (name.Length > 10)
 						name.Substring(0, 10);
 
-					switch (SourceInfo.GetFS())
+					switch (SourceInfo.FileSystem)
 					{
 						case FileSystem.QSYS:
-							command = command.Replace("&OPENLIB", SourceInfo.GetLibrary());
-							command = command.Replace("&OPENSPF", SourceInfo.GetObject());
-							command = command.Replace("&OPENMBR", SourceInfo.GetName());
-							library = SourceInfo.GetLibrary();
+							command = command.Replace("&OPENLIB", SourceInfo.Library);
+							command = command.Replace("&OPENSPF", SourceInfo.Object);
+							command = command.Replace("&OPENMBR", SourceInfo.Name);
+							library = SourceInfo.Library;
 
 							break;
 						case FileSystem.IFS:
 							command = command.Replace("&FILENAME", name);
-							command = command.Replace("&FILEPATH", SourceInfo.GetRemoteFile());
+							command = command.Replace("&FILEPATH", SourceInfo.RemoteFile);
 							command = command.Replace("&BUILDLIB", IBMi.CurrentSystem.GetValue("buildLib"));
 
 							library = IBMi.CurrentSystem.GetValue("buildLib");
@@ -598,7 +598,7 @@ namespace ILEditor.Classes
 		{
 			//CPYSPLF FILE(NAME) JOB(B/A/JOB) TOSTMF('STMF')
 
-			if (!IBMi.IsConnected())
+			if (!IBMi.IsConnected)
 				return "";
 
 			var filetemp   = GetLocalFile("SPOOLS", Job.Replace('/', '.'), Name + '-' + Number, "SPOOL");
@@ -634,7 +634,7 @@ namespace ILEditor.Classes
 
 			var filetemp = GetLocalFile(Lib, Obj, Mbr, Ext);
 
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				if (IBMi.DownloadFile(filetemp, "/QSYS.lib/" + Lib + ".lib/" + Obj + ".file/" + Mbr + ".mbr") == false)
 					return filetemp;
@@ -654,7 +654,7 @@ namespace ILEditor.Classes
 		{
 			var filetemp = Path.Combine(GetLocalDir("IFS"), Path.GetFileName(RemoteFile));
 
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 			{
 				if (IBMi.DownloadFile(filetemp, RemoteFile) == false)
 					return filetemp;
@@ -676,7 +676,7 @@ namespace ILEditor.Classes
 			Obj = Obj.ToUpper();
 			Mbr = Mbr.ToUpper();
 
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 				return IBMi.UploadFile(Local, "/QSYS.lib/" + Lib + ".lib/" + Obj + ".file/" + Mbr + ".mbr");
 
 			return true;
@@ -684,7 +684,7 @@ namespace ILEditor.Classes
 
 		public static bool UploadFile(string Local, string Remote)
 		{
-			if (IBMi.IsConnected())
+			if (IBMi.IsConnected)
 				return IBMi.UploadFile(Local, Remote);
 
 			Editor.TheEditor.SetStatus("Saving locally only.");

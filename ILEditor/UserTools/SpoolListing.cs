@@ -30,11 +30,7 @@ namespace ILEditor.UserTools
 				if (listing != null)
 					foreach (var spool in listing)
 					{
-						var curItem = new ListViewItem(new[]
-							{
-								spool.GetName(), spool.GetData(), spool.GetStatus(), spool.GetJob()
-							},
-							0);
+						var curItem = new ListViewItem(new[] {spool.Name, spool.UserData, spool.Status, spool.Job}, 0);
 
 						curItem.Tag = spool;
 						items.Add(curItem);
@@ -74,7 +70,7 @@ namespace ILEditor.UserTools
 					if (spoolFile != "")
 						Invoke((MethodInvoker) delegate
 						{
-							Editor.OpenLocalSource(spoolFile, Language.None, spool.GetName(), true);
+							Editor.OpenLocalSource(spoolFile, Language.None, spool.Name, true);
 						});
 					else
 						MessageBox.Show("Spool file was not downloaded. Please check the spool file exists.");

@@ -16,7 +16,7 @@ namespace ILEditor.Forms.CompileOptionForms
 		{
 			var items = IBMi.CurrentSystem.GetValue("CMPTYPES").Split('|').ToList();
 			type.Text = type.Text.Trim();
-			if (type.Text.Trim() != "" && !items.Contains(type.Text))
+			if (type.Text.Trim() != string.Empty && !items.Contains(type.Text))
 			{
 				items.Add(type.Text);
 				IBMi.CurrentSystem.SetValue("CMPTYPES", string.Join("|", items));

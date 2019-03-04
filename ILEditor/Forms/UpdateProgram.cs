@@ -117,7 +117,7 @@ namespace ILEditor.Forms
 		private void addMod_Click(object sender, EventArgs e)
 		{
 			var module = customModule.Text.Trim();
-			if (module != "")
+			if (module != string.Empty)
 			{
 				if (!module.Contains("/"))
 					module = "*LIBL/" + module;
@@ -125,7 +125,7 @@ namespace ILEditor.Forms
 				if (!customModules.Items.Contains(module))
 					customModules.Items.Add(module);
 
-				customModule.Text = "";
+				customModule.Text = string.Empty;
 				customModule.Focus();
 			}
 		}

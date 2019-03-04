@@ -15,15 +15,15 @@ namespace ILEditor.Forms
 			if (MemberInfo == null)
 				return;
 
-			switch (MemberInfo.GetFS())
+			switch (MemberInfo.FileSystem)
 			{
 				case FileSystem.IFS:
-					sourceSelectBox.SetSource(MemberInfo.GetRemoteFile());
-					sourceSelectBox.SetSource("", "", MemberInfo.GetName());
+					sourceSelectBox.SetSource(MemberInfo.RemoteFile);
+					sourceSelectBox.SetSource("", "", MemberInfo.Name);
 
 					break;
 				case FileSystem.QSYS:
-					sourceSelectBox.SetSource("", MemberInfo.GetObject(), MemberInfo.GetName());
+					sourceSelectBox.SetSource("", MemberInfo.Object, MemberInfo.Name);
 
 					break;
 			}

@@ -25,23 +25,23 @@ namespace ILEditor.Forms
 		{
 			stmfPath.Text = stmfPath.Text.Trim();
 
-			if (stmfPath.Text.Length == 0)
+			if (string.IsNullOrEmpty(stmfPath.Text))
 			{
 				MessageBox.Show("Path cannot be blank");
+
+				return;
+			}
+
+			if (IBMi.FileExists(stmfPath.Text))
+			{
+				MessageBox.Show("Chosen file already exists.");
 			}
 			else
 			{
-				if (IBMi.FileExists(stmfPath.Text))
-				{
-					MessageBox.Show("Chosen path already exists.");
-				}
-				else
-				{
-					var fileTemp = Path.Combine(IBMiUtils.GetLocalDir("IFS"), Path.GetFileName(stmfPath.Text));
-					File.Create(fileTemp).Close();
-					Result = new RemoteSource(fileTemp, stmfPath.Text);
-					Close();
-				}
+				var fileTemp = Path.Combine(IBMiUtils.GetLocalDir("IFS"), Path.GetFileName(stmfPath.Text));
+				File.Create(fileTemp).Close();
+				Result = new RemoteSource(fileTemp, stmfPath.Text);
+				Close();
 			}
 		}
 

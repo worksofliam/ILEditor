@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using System.Windows.Forms;
 using FluentFTP;
@@ -8,10 +9,10 @@ using Timer = System.Timers.Timer;
 
 namespace ILEditor.Classes
 {
-	internal class IBMi
+	internal static class IBMi
 	{
 		public static  Config    CurrentSystem;
-		private static FtpClient Client;
+		private static FtpClient _client;
 
 		public static readonly Dictionary<string, string> FTPCodeMessages = new Dictionary<string, string>
 		{
@@ -27,6 +28,8 @@ namespace ILEditor.Classes
 		};
 
 		public static string FTPFile = "";
+
+		public static bool IsConnected => _client?.IsConnected == true;
 
 		public static void HandleError(string Code, string Message)
 		{
@@ -79,17 +82,9 @@ namespace ILEditor.Classes
 			return FtpDataConnectionType.AutoActive;
 		}
 
-		public static bool IsConnected()
-		{
-			if (Client != null)
-				return Client.IsConnected;
-
-			return false;
-		}
-
 		public static bool Connect(bool OfflineMode = false, string promptedPassword = "")
 		{
-			var      result = false;
+			var result = false;
 			try
 			{
 				FTPFile = IBMiUtils.GetLocalFile("QTEMP", "FTPLOG", DateTime.Now.ToString("MMddTHHmm"), "txt");
@@ -102,31 +97,31 @@ namespace ILEditor.Classes
 
 				var remoteSystem = CurrentSystem.GetValue("system").Split(':');
 
-				if (promptedPassword == "")
+				if (promptedPassword == string.Empty)
 					password = Password.Decode(CurrentSystem.GetValue("password"));
 				else
 					password = promptedPassword;
 
-				Client = new FtpClient(remoteSystem[0], CurrentSystem.GetValue("username"), password);
+				_client = new FtpClient(remoteSystem[0], CurrentSystem.GetValue("username"), password);
 
 				if (OfflineMode == false)
 				{
-					Client.UploadDataType   = FtpDataType.ASCII;
-					Client.DownloadDataType = FtpDataType.ASCII;
+					_client.UploadDataType   = FtpDataType.ASCII;
+					_client.DownloadDataType = FtpDataType.ASCII;
 
 					//FTPES is configurable
 					if (CurrentSystem.GetValue("useFTPES") == "true")
-						Client.EncryptionMode = FtpEncryptionMode.Explicit;
+						_client.EncryptionMode = FtpEncryptionMode.Explicit;
 
 					//Client.DataConnectionType = FtpDataConnectionType.AutoPassive; //THIS IS THE DEFAULT VALUE
-					Client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
-					Client.SocketKeepAlive    = true;
+					_client.DataConnectionType = GetFtpDataConnectionType(CurrentSystem.GetValue("transferMode"));
+					_client.SocketKeepAlive    = true;
 
 					if (remoteSystem.Length == 2)
-						Client.Port = int.Parse(remoteSystem[1]);
+						_client.Port = int.Parse(remoteSystem[1]);
 
-					Client.ConnectTimeout = 5000;
-					Client.Connect();
+					_client.ConnectTimeout = 5000;
+					_client.Connect();
 
 					//Change the user library list on connection
 					RemoteCommand(
@@ -153,17 +148,17 @@ namespace ILEditor.Classes
 
 		public static void Disconnect()
 		{
-			if (Client.IsConnected)
-				Client.Disconnect();
+			if (_client.IsConnected)
+				_client.Disconnect();
 		}
 
 		private static void KeepAliveFunc(object sender, ElapsedEventArgs e)
 		{
-			var showError = !Client.IsConnected;
-			if (Client.IsConnected)
+			var showError = !_client.IsConnected;
+			if (_client.IsConnected)
 				try
 				{
-					Client.Execute("NOOP");
+					_client.Execute("NOOP");
 					showError = false;
 				}
 				catch
@@ -177,14 +172,10 @@ namespace ILEditor.Classes
 
 		public static string GetSystem()
 		{
-			if (Client == null)
-				return "";
+			if (_client?.IsConnected == true)
+				return _client.SystemType;
 
-			if (Client.IsConnected)
-				return Client.SystemType;
-
-			return "";
-
+			return string.Empty;
 		}
 
 		//Returns false if successful
@@ -193,17 +184,15 @@ namespace ILEditor.Classes
 			bool result;
 			try
 			{
-				if (Client.IsConnected)
-					result = !Client.DownloadFile(Local, Remote, true);
+				if (_client.IsConnected)
+					result = !_client.DownloadFile(Local, Remote, true);
 				else
 					return true; //error
 			}
 			catch (Exception e)
 			{
 				if (e.InnerException is FtpCommandException ftpCmdErr)
-				{
 					HandleError(ftpCmdErr.CompletionCode, ftpCmdErr.Message);
-				}
 
 				result = true;
 			}
@@ -214,8 +203,8 @@ namespace ILEditor.Classes
 		//Returns true if successful
 		public static bool UploadFile(string Local, string Remote)
 		{
-			if (Client.IsConnected)
-				return Client.UploadFile(Local, Remote, FtpExists.Overwrite);
+			if (_client.IsConnected)
+				return _client.UploadFile(Local, Remote, FtpExists.Overwrite);
 
 			return false;
 		}
@@ -223,65 +212,53 @@ namespace ILEditor.Classes
 		//Returns true if successful
 		public static bool RemoteCommand(string Command, bool ShowError = true)
 		{
-			if (Client.IsConnected)
-			{
-				var inputCmd = "RCMD " + Command;
+			if (!_client.IsConnected)
+				return false;
 
-				//IF THIS CRASHES CLIENT DISCONNECTS!!!
-				var reply = Client.Execute(inputCmd);
+			var inputCmd = "RCMD " + Command;
 
-				if (ShowError)
-					HandleError(reply.Code, reply.ErrorMessage);
+			//IF THIS CRASHES CLIENT DISCONNECTS!!!
+			var reply = _client.Execute(inputCmd);
 
-				return reply.Success;
-			}
+			if (ShowError)
+				HandleError(reply.Code, reply.ErrorMessage);
 
-			return false;
+			return reply.Success;
 		}
 
 		public static string RemoteCommandResponse(string Command)
 		{
-			if (Client.IsConnected)
-			{
-				var inputCmd = "RCMD " + Command;
-				var reply    = Client.Execute(inputCmd);
+			if (!_client.IsConnected)
+				return "Not connected.";
 
-				if (reply.Success)
-					return "";
+			var inputCmd = "RCMD " + Command;
+			var reply    = _client.Execute(inputCmd);
 
-				return reply.ErrorMessage;
-			}
+			if (reply.Success)
+				return string.Empty;
 
-			return "Not connected.";
+			return reply.ErrorMessage;
 		}
 
 		//Returns true if successful
 		public static bool RunCommands(string[] Commands)
 		{
-			var result = true;
-			if (Client.IsConnected)
-				foreach (var command in Commands)
-					if (RemoteCommand(command) == false)
-					{
-						result = false;
-						break;
-					}
-			else
-				result = false;
+			if (_client.IsConnected)
+				return Commands.All(command => RemoteCommand(command));
 
-			return result;
+			return false;
 		}
 
 		public static bool FileExists(string remoteFile)
 		{
-			return Client.FileExists(remoteFile);
+			return _client.FileExists(remoteFile);
 		}
 
 		public static bool DirExists(string remoteDir)
 		{
 			try
 			{
-				return Client.DirectoryExists(remoteDir);
+				return _client.DirectoryExists(remoteDir);
 			}
 			catch (Exception ex)
 			{
@@ -293,7 +270,7 @@ namespace ILEditor.Classes
 
 		public static FtpListItem[] GetListing(string remoteDir)
 		{
-			return Client.GetListing(remoteDir);
+			return _client.GetListing(remoteDir);
 		}
 
 		public static string RenameDir(string remoteDir, string newName)
@@ -302,7 +279,7 @@ namespace ILEditor.Classes
 			pieces[pieces.Length - 1] = newName;
 			newName                   = string.Join("/", pieces);
 
-			if (Client.MoveDirectory(remoteDir, string.Join("/", pieces)))
+			if (_client.MoveDirectory(remoteDir, string.Join("/", pieces)))
 				return newName;
 
 			return remoteDir;
@@ -314,7 +291,7 @@ namespace ILEditor.Classes
 			pieces[pieces.Length - 1] = newName;
 			newName                   = string.Join("/", pieces);
 
-			if (Client.MoveFile(remoteFile, newName))
+			if (_client.MoveFile(remoteFile, newName))
 				return newName;
 
 			return remoteFile;
@@ -322,27 +299,27 @@ namespace ILEditor.Classes
 
 		public static void DeleteDir(string remoteDir)
 		{
-			Client.DeleteDirectory(remoteDir, FtpListOption.AllFiles);
+			_client.DeleteDirectory(remoteDir, FtpListOption.AllFiles);
 		}
 
 		public static void DeleteFile(string remoteFile)
 		{
-			Client.DeleteFile(remoteFile);
+			_client.DeleteFile(remoteFile);
 		}
 
 		public static void SetWorkingDir(string RemoteDir)
 		{
-			Client.SetWorkingDirectory(RemoteDir);
+			_client.SetWorkingDirectory(RemoteDir);
 		}
 
 		public static void CreateDirectory(string RemoteDir)
 		{
-			Client.CreateDirectory(RemoteDir);
+			_client.CreateDirectory(RemoteDir);
 		}
 
 		public static void UploadFiles(string RemoteDir, string[] Files)
 		{
-			Client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
+			_client.UploadFiles(Files, RemoteDir, FtpExists.Overwrite, true);
 		}
 	}
 }

@@ -291,7 +291,7 @@ namespace ILEditor.UserTools
 
 		private void TaskListUpdate()
 		{
-			Invoke((MethodInvoker) delegate { Editor.Tasklist.Display(Text, Tasks); });
+			Invoke((MethodInvoker) delegate { Editor.TaskList.Display(Text, Tasks); });
 		}
 
 		private void DuplicateLine()
@@ -332,24 +332,24 @@ namespace ILEditor.UserTools
 
 				Thread gothread = null;
 				CurrentSaving = true;
-				Editor.TheEditor.SetStatus("Saving " + memberInfo.GetName() + "..");
+				Editor.TheEditor.SetStatus("Saving " + memberInfo.Name + "..");
 				switch (saveAsWindow.SourceInfo().GetFS())
 				{
 					case FileSystem.QSYS:
 						gothread = new Thread((ThreadStart) delegate
 						{
-							var uploadResult = IBMiUtils.UploadMember(memberInfo.GetLocalFile(),
+							var uploadResult = IBMiUtils.UploadMember(memberInfo.LocalFile,
 								saveAsWindow.SourceInfo().GetLibrary(),
 								saveAsWindow.SourceInfo().GetSPF(),
 								saveAsWindow.SourceInfo().GetMember());
 
 							if (uploadResult == false)
-								MessageBox.Show("Failed to upload to " + memberInfo.GetName() + ".");
+								MessageBox.Show("Failed to upload to " + memberInfo.Name + ".");
 
 							Invoke((MethodInvoker) delegate
 							{
 								Editor.TheEditor.SetStatus(
-									memberInfo.GetName() + " " + (uploadResult ? "" : "not ") + "saved.");
+									memberInfo.Name + " " + (uploadResult ? "" : "not ") + "saved.");
 							});
 
 							CurrentSaving = false;
@@ -360,22 +360,22 @@ namespace ILEditor.UserTools
 					case FileSystem.IFS:
 						gothread = new Thread((ThreadStart) delegate
 						{
-							var uploadResult = IBMiUtils.UploadFile(memberInfo.GetLocalFile(),
+							var uploadResult = IBMiUtils.UploadFile(memberInfo.LocalFile,
 								saveAsWindow.SourceInfo().GetIFSPath());
 
 							if (uploadResult == false)
 								MessageBox.Show("Failed to upload to " +
-								                memberInfo.GetName() +
+								                memberInfo.Name +
 								                "." +
-								                memberInfo.GetExtension() +
+								                memberInfo.Extension +
 								                ".");
 
 							Invoke((MethodInvoker) delegate
 							{
 								Editor.TheEditor.SetStatus(
-									memberInfo.GetName() +
+									memberInfo.Name +
 									"." +
-									memberInfo.GetExtension() +
+									memberInfo.Extension +
 									" " +
 									(uploadResult ? "" : "not ") +
 									"saved.");
@@ -402,58 +402,49 @@ namespace ILEditor.UserTools
 
 			if (sourceInfo != null)
 			{
-				if (sourceInfo.IsEditable())
+				if (sourceInfo.IsEditable)
 				{
-					if (Language == Language.CL)
-						if (IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
-							DoAction(EditorAction.Format_CL);
+					if (Language == Language.CL && IBMi.CurrentSystem.GetValue("CL_FORMAT_ON_SAVE") == "true")
+						DoAction(EditorAction.Format_CL);
 
 					if (!CurrentSaving)
 					{
 						CurrentSaving = true;
 
-						Editor.TheEditor.SetStatus("Saving " + sourceInfo.GetName() + "..");
+						Editor.TheEditor.SetStatus("Saving " + sourceInfo.Name + "..");
 						var gothread = new Thread((ThreadStart) delegate
 						{
-							FileCache.EditsAdd(sourceInfo.GetLibrary(), sourceInfo.GetObject(), sourceInfo.GetName());
-							Invoke((MethodInvoker) delegate
-							{
-								File.WriteAllText(sourceInfo.GetLocalFile(), GetText(), textEditor.Encoding);
-							});
+							FileCache.EditsAdd(sourceInfo.Library, sourceInfo.Object, sourceInfo.Name);
+							Invoke((MethodInvoker) (() =>
+								File.WriteAllText(sourceInfo.LocalFile, GetText(), textEditor.Encoding)));
 
-							switch (sourceInfo.GetFS())
+							switch (sourceInfo.FileSystem)
 							{
 								case FileSystem.QSYS:
-									uploadResult = IBMiUtils.UploadMember(sourceInfo.GetLocalFile(),
-										sourceInfo.GetLibrary(),
-										sourceInfo.GetObject(),
-										sourceInfo.GetName());
+									uploadResult = IBMiUtils.UploadMember(sourceInfo.LocalFile,
+										sourceInfo.Library,
+										sourceInfo.Object,
+										sourceInfo.Name);
 
 									break;
 								case FileSystem.IFS:
-									uploadResult = IBMiUtils.UploadFile(sourceInfo.GetLocalFile(),
-										sourceInfo.GetRemoteFile());
+									uploadResult = IBMiUtils.UploadFile(sourceInfo.LocalFile, sourceInfo.RemoteFile);
 
 									break;
 							}
 
-							if (uploadResult == false)
-							{
-							}
-							else
-							{
+							if (uploadResult)
 								Invoke((MethodInvoker) delegate
 								{
 									if (Text.EndsWith("*"))
 										Text = Text.Substring(0, Text.Length - 1);
 								});
-							}
 
-							Invoke((MethodInvoker) delegate
-							{
-								Editor.TheEditor.SetStatus(
-									sourceInfo.GetName() + " " + (uploadResult ? "" : "not ") + "saved.");
-							});
+							Invoke((MethodInvoker) (() => Editor.TheEditor.SetStatus(
+								sourceInfo.Name +
+								" " +
+								(uploadResult ? "" : "not ") +
+								"saved.")));
 
 							CurrentSaving = false;
 						});

@@ -116,9 +116,9 @@ namespace ILEditor.UserTools
 				{
 					foreach (var member in members)
 					{
-						mbr = new TreeNode(member.GetName() +
-						                   (member.GetExtension() == "" ? "" : "." + member.GetExtension().ToLower()) +
-						                   (member.GetText() == "" ? "" : " - " + member.GetText()))
+						mbr = new TreeNode(member.Name +
+						                   (member.Extension == "" ? "" : "." + member.Extension.ToLower()) +
+						                   (member.Text == "" ? "" : " - " + member.Text))
 						{
 							Tag = member, ImageIndex = 3
 						};
@@ -154,9 +154,7 @@ namespace ILEditor.UserTools
 		private void objectList_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
 			if (e.Node.Tag is RemoteSource member)
-			{
 				Editor.OpenSource(member);
-			}
 		}
 
 		private void TreeBrowse_Load(object sender, EventArgs e)
