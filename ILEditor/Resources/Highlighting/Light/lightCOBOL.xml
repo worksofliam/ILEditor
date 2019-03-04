@@ -1,11 +1,13 @@
 ﻿<SyntaxDefinition name="COBOL"
         xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="Green" />
+  <Color name="ESQL" foreground="Blue" />
 
   <RuleSet ignoreCase="true">
 
     <Span color="Comment" begin="/" />
     <Span color="Comment" begin="\*" />
+    <Span color="ESQL" multiline="true" begin="EXEC SQL" end="END-EXEC." />
     
     <Keywords foreground="DarkBlue">
       <Word>access</Word>
