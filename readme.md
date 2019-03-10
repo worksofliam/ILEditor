@@ -1,6 +1,7 @@
 # [ILEditor](https://worksofbarry.com/ileditor/)
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W68TZG649MFTQ&source=url)
+[<img src="https://img.shields.io/badge/slack-ileditor-orange.svg?logo=slack">](https://join.slack.com/t/ileditor/shared_invite/enQtNTczMDUxMzcwMTk5LTA4NTQxMjU5N2E0MzQ1YzJjZTZhMzk5ZmUyNDgwMmRlOWM4Mzg4OGYyNzYwNjQxYzM2YzkzMjhiZTc2OTljYmE)
 
 ![Welcome Screen](https://i.imgur.com/Kl1DQIf.png)
 
