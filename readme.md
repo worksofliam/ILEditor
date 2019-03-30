@@ -7,6 +7,8 @@
 
 ILEditor is an editor for development of ILE applications on IBM i. ILEditor will support development with any ILE language, be it CL, RPG, COBOL, C or C++. Error listing and syntax highlighting is available for all ILE languages.
 
+**ILEditor requires IBM i release V7R1 or higher.**
+
 ## Features
 
 * Source member editing (+ browsing & diff view)
