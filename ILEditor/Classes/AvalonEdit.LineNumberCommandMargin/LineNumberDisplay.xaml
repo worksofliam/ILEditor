@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ILEditor.Classes.AvalonEdit.LineNumberCommandMargin.LineNumberDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ILEditor.Classes.AvalonEdit.LineNumberCommandMargin"
+             mc:Ignorable="d" 
+             x:Name="lineNumberDisplayCtl"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Model.IsInView, ElementName=lineNumberDisplayCtl}" Value="true">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+    <DockPanel Height="{Binding Path=Model.ControlHeight, Mode=TwoWay, ElementName=lineNumberDisplayCtl}">
+        <TextBox DockPanel.Dock="Left"
+                 MinWidth="25"
+                Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl, UpdateSourceTrigger=PropertyChanged}"
+                 Name="lineNumberCommandTextBox"
+                 LostFocus="lineNumberCommandTextBox_LostFocus"
+                 KeyDown="lineNumberCommandTextBox_KeyDown"
+                 PreviewKeyDown="lineNumberCommandTextBox_PreviewKeyDown"
+                 >
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Model.IsCommandEntryVisible, ElementName=lineNumberDisplayCtl}" Value="true">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <TextBlock DockPanel.Dock="Left"
+                   MinWidth="25"
+                   Text="{Binding Path=Model.CommandText, ElementName=lineNumberDisplayCtl}"
+                   Name="lineNumberCommandTextBlock"
+                   MouseUp="lineNumberCommandTextBlock_MouseUp"
+                   >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=Model.HasCommandText, ElementName=lineNumberDisplayCtl}" Value="true" />
+                                <Condition Binding="{Binding Path=Model.IsCommandEntryVisible, ElementName=lineNumberDisplayCtl}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        
+        <TextBlock  DockPanel.Dock="Left"
+                    Text="{Binding Path=Model.LineNumber, ElementName=lineNumberDisplayCtl}" 
+                   Name="lineNumberTextBlock" 
+                    TextAlignment="Right"
+                    MouseUp="lineNumberTextBlock_MouseUp"
+                   >
+        </TextBlock>
+
+    </DockPanel>
+</UserControl>

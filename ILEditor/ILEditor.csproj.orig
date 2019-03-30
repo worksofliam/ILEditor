@@ -24,14 +24,14 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://worksofbarry.com/ileditor/installer/</InstallUrl>
-    <UpdateUrl>https://worksofbarry.com/ileditor/installer/</UpdateUrl>
+    <UpdateUrl>http://worksofbarry.com/ileditor/installer/</UpdateUrl>
     <TargetCulture>en-GB</TargetCulture>
     <ProductName>ILEditor</ProductName>
     <PublisherName>Works Of Barry</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>71</ApplicationRevision>
-    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>73</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -62,16 +62,16 @@
     <ApplicationIcon>worksofbarry_mOq_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>7EE937BF22B73D4D60B11F1615AE3BFFDD31FED1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>DA92B763BFFCE5314360B97F39EDAACE53632514</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ILEditor_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Idle.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -79,13 +79,11 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Idle.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentFTP, Version=19.1.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
@@ -94,13 +92,9 @@
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
@@ -118,13 +112,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TabControlExtra">
+      <HintPath>Resources\TabControlExtra.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationProvider" />
-    <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\packages\DockPanelSuite.3.0.4\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
-    </Reference>
-    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=3.0.4.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
-      <HintPath>..\packages\DockPanelSuite.ThemeVS2015.3.0.4\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
@@ -153,26 +144,22 @@
     <Compile Include="Classes\IBMi.cs" />
     <Compile Include="Classes\IBMiUtils.cs" />
     <Compile Include="Classes\LanguageTools\CLFile.cs" />
-    <Compile Include="Classes\RemoteSource.cs" />
+    <Compile Include="Classes\LanguageTools\RPGParser.cs" />
+    <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\ILEObject.cs" />
-    <Compile Include="Classes\FileCache.cs" />
+    <Compile Include="Classes\MemberCache.cs" />
     <Compile Include="Classes\SearchReplacePanel.cs" />
     <Compile Include="Classes\SpoolFile.cs" />
+<<<<<<< HEAD
     <Compile Include="Classes\WPFHelpers\ViewModelBase.cs" />
-    <Compile Include="Classes\TaskItem.cs" />
-    <Compile Include="Classes\ToolStripRenderer.cs" />
-    <Compile Include="Editor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor.Designer.cs">
-      <DependentUpon>Editor.cs</DependentUpon>
-    </Compile>
+=======
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+>>>>>>> master
     <Compile Include="Forms\CloneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,35 +178,41 @@
     <Compile Include="Forms\CompileOptionForms\NewType.Designer.cs">
       <DependentUpon>NewType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CreateDirectory.cs">
+    <Compile Include="Forms\FirewallHelp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CreateDirectory.Designer.cs">
-      <DependentUpon>CreateDirectory.cs</DependentUpon>
+    <Compile Include="Forms\FirewallHelp.Designer.cs">
+      <DependentUpon>FirewallHelp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FindReferences.cs">
+    <Compile Include="Forms\FirewallPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FindReferences.Designer.cs">
-      <DependentUpon>FindReferences.cs</DependentUpon>
+    <Compile Include="Forms\FirewallPrompt.Designer.cs">
+      <DependentUpon>FirewallPrompt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\IFSManager.cs">
+    <Compile Include="Forms\LibraryList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\IFSManager.Designer.cs">
-      <DependentUpon>IFSManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\JobSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\JobSettings.Designer.cs">
-      <DependentUpon>JobSettings.cs</DependentUpon>
+    <Compile Include="Forms\LibraryList.Designer.cs">
+      <DependentUpon>LibraryList.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Connection.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Connection.Designer.cs">
       <DependentUpon>Connection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberCompareDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberCompareDisplay.Designer.cs">
+      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MemberCompareSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MemberCompareSelect.Designer.cs">
+      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MemberSearch.cs">
       <SubType>Form</SubType>
@@ -251,29 +244,17 @@
     <Compile Include="Forms\FileSelect.Designer.cs">
       <DependentUpon>FileSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\OpenSource.cs">
+    <Compile Include="Forms\OpenMember.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\OpenSource.Designer.cs">
-      <DependentUpon>OpenSource.cs</DependentUpon>
+    <Compile Include="Forms\OpenMember.Designer.cs">
+      <DependentUpon>OpenMember.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HelpWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\HelpWindow.Designer.cs">
       <DependentUpon>HelpWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\CreateStreamFile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CreateStreamFile.Designer.cs">
-      <DependentUpon>CreateStreamFile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\PasswordPrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PasswordPrompt.Designer.cs">
-      <DependentUpon>PasswordPrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PushWindow.cs">
       <SubType>Form</SubType>
@@ -299,60 +280,35 @@
     <Compile Include="Forms\ServiceGenerator.Designer.cs">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SourceCompareSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SourceCompareSelect.Designer.cs">
-      <DependentUpon>SourceCompareSelect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SourceSelectBox.cs">
-      <SubType>UserControl</SubType>
-      <Generator>SourceSelectBox</Generator>
-      <CustomToolNamespace>ILEditor</CustomToolNamespace>
-    </Compile>
-    <Compile Include="Forms\SourceSelectBox.Designer.cs">
-      <DependentUpon>SourceSelectBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\SPFSelect.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SPFSelect.Designer.cs">
       <DependentUpon>SPFSelect.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UpdateProgram.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\UpdateProgram.Designer.cs">
-      <DependentUpon>UpdateProgram.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="UserTools\BindingDirectory.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\BindingDirectory.Designer.cs">
       <DependentUpon>BindingDirectory.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\CompileOptions.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\CompileOptions.Designer.cs">
       <DependentUpon>CompileOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\DiffView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserTools\DiffView.Designer.cs">
-      <DependentUpon>DiffView.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserTools\ErrorListing.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\ErrorListing.Designer.cs">
       <DependentUpon>ErrorListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HostSelect.cs">
       <SubType>Form</SubType>
@@ -368,62 +324,56 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserTools\IFSBrowser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserTools\IFSBrowser.Designer.cs">
-      <DependentUpon>IFSBrowser.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserTools\MemberSearchListing.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\MemberSearchListing.Designer.cs">
       <DependentUpon>MemberSearchListing.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\ObjectBrowse.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\ObjectBrowse.Designer.cs">
       <DependentUpon>ObjectBrowse.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SourceEditor.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\SourceEditor.Designer.cs">
       <DependentUpon>SourceEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\MemberBrowse.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\MemberBrowse.Designer.cs">
       <DependentUpon>MemberBrowse.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\SpoolListing.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\SpoolListing.Designer.cs">
       <DependentUpon>SpoolListing.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\QSYSBrowser.cs">
-      <SubType>Form</SubType>
+    <Compile Include="UserTools\SpoolViewer.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserTools\QSYSBrowser.Designer.cs">
-      <DependentUpon>QSYSBrowser.cs</DependentUpon>
+    <Compile Include="UserTools\SpoolViewer.Designer.cs">
+      <DependentUpon>SpoolViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserTools\TaskList.cs">
-      <SubType>Form</SubType>
+    <Compile Include="UserTools\TreeBrowse.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserTools\TaskList.Designer.cs">
-      <DependentUpon>TaskList.cs</DependentUpon>
+    <Compile Include="UserTools\TreeBrowse.Designer.cs">
+      <DependentUpon>TreeBrowse.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\UserToolList.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\UserToolList.Designer.cs">
       <DependentUpon>UserToolList.cs</DependentUpon>
     </Compile>
     <Compile Include="UserTools\Welcome.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserTools\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
@@ -443,23 +393,23 @@
     <EmbeddedResource Include="Forms\CompileOptionForms\NewType.resx">
       <DependentUpon>NewType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CreateDirectory.resx">
-      <DependentUpon>CreateDirectory.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FirewallHelp.resx">
+      <DependentUpon>FirewallHelp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CreateStreamFile.resx">
-      <DependentUpon>CreateStreamFile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FindReferences.resx">
-      <DependentUpon>FindReferences.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FirewallPrompt.resx">
+      <DependentUpon>FirewallPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HostSelect.resx">
       <DependentUpon>HostSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\IFSManager.resx">
-      <DependentUpon>IFSManager.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LibraryList.resx">
+      <DependentUpon>LibraryList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JobSettings.resx">
-      <DependentUpon>JobSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MemberCompareDisplay.resx">
+      <DependentUpon>MemberCompareDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MemberCompareSelect.resx">
+      <DependentUpon>MemberCompareSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MemberSearch.resx">
       <DependentUpon>MemberSearch.cs</DependentUpon>
@@ -482,11 +432,8 @@
     <EmbeddedResource Include="Forms\FileSelect.resx">
       <DependentUpon>FileSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OpenSource.resx">
-      <DependentUpon>OpenSource.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PasswordPrompt.resx">
-      <DependentUpon>PasswordPrompt.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\OpenMember.resx">
+      <DependentUpon>OpenMember.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PushWindow.resx">
       <DependentUpon>PushWindow.cs</DependentUpon>
@@ -500,23 +447,19 @@
     <EmbeddedResource Include="Forms\ServiceGenerator.resx">
       <DependentUpon>ServiceGenerator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SourceCompareSelect.resx">
-      <DependentUpon>SourceCompareSelect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SourceSelectBox.resx">
-      <DependentUpon>SourceSelectBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SPFSelect.resx">
       <DependentUpon>SPFSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UpdateProgram.resx">
-      <DependentUpon>UpdateProgram.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <EmbeddedResource Include="Forms\HelpWindow.resx">
       <DependentUpon>HelpWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -526,14 +469,8 @@
     <EmbeddedResource Include="UserTools\CompileOptions.resx">
       <DependentUpon>CompileOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\DiffView.resx">
-      <DependentUpon>DiffView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserTools\ErrorListing.resx">
       <DependentUpon>ErrorListing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\IFSBrowser.resx">
-      <DependentUpon>IFSBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\MemberBrowse.resx">
       <DependentUpon>MemberBrowse.cs</DependentUpon>
@@ -550,11 +487,11 @@
     <EmbeddedResource Include="UserTools\SpoolListing.resx">
       <DependentUpon>SpoolListing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\QSYSBrowser.resx">
-      <DependentUpon>QSYSBrowser.cs</DependentUpon>
+    <EmbeddedResource Include="UserTools\SpoolViewer.resx">
+      <DependentUpon>SpoolViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserTools\TaskList.resx">
-      <DependentUpon>TaskList.cs</DependentUpon>
+    <EmbeddedResource Include="UserTools\TreeBrowse.resx">
+      <DependentUpon>TreeBrowse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTools\UserToolList.resx">
       <DependentUpon>UserToolList.cs</DependentUpon>
@@ -562,6 +499,7 @@
     <EmbeddedResource Include="UserTools\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Idle.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -578,6 +516,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Icons\script_go.png" />
+    <None Include="Resources\Icons\application_go.png" />
+    <None Include="Resources\Icons\script_add.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -590,9 +533,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Diagram\diagram.html" />
+    <None Include="Resources\firewall.png" />
+    <Content Include="Resources\AutoComplete\CL.txt" />
+    <Content Include="Resources\AutoComplete\CPP.txt" />
+    <Content Include="Resources\AutoComplete\RPG.txt" />
     <Content Include="Resources\Help\Compiling.html" />
-    <Content Include="Resources\Help\DarkMode.html" />
+    <Content Include="Resources\Help\FTP.html" />
     <Content Include="Resources\Help\LibraryList.html" />
     <Content Include="Resources\Help\OfflineMode.html" />
     <Content Include="Resources\Help\OpenMember.html" />
@@ -603,10 +549,7 @@
     <Content Include="Resources\Highlighting\Dark\darkCPP.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Resources\Highlighting\Dark\darkmakefile.xml" />
-    <Content Include="Resources\Highlighting\Dark\darkRPG.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Resources\Highlighting\Dark\darkRPG.xml" />
     <Content Include="Resources\Highlighting\Dark\darkSQL.xml" />
     <None Include="Resources\Highlighting\Light\lightCL.xml" />
     <None Include="Resources\Highlighting\Light\lightCOBOL.xml" />
@@ -623,16 +566,6 @@
     <None Include="Resources\NewIcons\search.png" />
     <None Include="Resources\NewIcons\refresh.png" />
     <None Include="Resources\NewIcons\filedelete.png" />
-    <Content Include="Resources\Highlighting\Dark\darkPython.xml" />
-    <Content Include="Resources\Highlighting\Light\lightmakefile.xml" />
-    <Content Include="Resources\Highlighting\Light\lightPython.xml" />
-    <None Include="Resources\NewIcons\books.png" />
-    <None Include="Resources\NewIcons\computer.png" />
-    <None Include="Resources\NewIcons\undo.png" />
-    <None Include="Resources\NewIcons\redo.png" />
-    <None Include="Resources\NewIcons\divide-mathematical-sign.png" />
-    <None Include="Resources\NewIcons\cube.png" />
-    <None Include="Resources\NewIcons\bug.png" />
     <Content Include="worksofbarry_mOq_icon.ico" />
   </ItemGroup>
   <ItemGroup>

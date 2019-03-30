@@ -118,6 +118,8 @@ namespace ILEditor.UserTools
             else
                 SearchReplacePanel.Install(textEditor);
 
+            Classes.AvalonEdit.LineNumberCommandMargin.LineNumberMarginWithCommands.Install(textEditor);
+
             string lang = "";
 
             if (Editor.DarkMode)
