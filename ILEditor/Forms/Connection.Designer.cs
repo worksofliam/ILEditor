@@ -64,6 +64,13 @@
             this.buildLib = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.character_assist = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.format_cl = new System.Windows.Forms.CheckBox();
+            this.show_spaces = new System.Windows.Forms.CheckBox();
+            this.highlight_line = new System.Windows.Forms.CheckBox();
+            this.conv_tabs = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.fetchJobLog = new System.Windows.Forms.CheckBox();
@@ -75,16 +82,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.encodingSelection = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.darkMode = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.conv_tabs = new System.Windows.Forms.CheckBox();
-            this.highlight_line = new System.Windows.Forms.CheckBox();
-            this.show_spaces = new System.Windows.Forms.CheckBox();
-            this.format_cl = new System.Windows.Forms.CheckBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.character_assist = new System.Windows.Forms.CheckBox();
+            this.encodingHelp = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.indent_size)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -488,6 +491,73 @@
             this.tabPage2.Text = "Editor";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // character_assist
+            // 
+            this.character_assist.AutoSize = true;
+            this.character_assist.Location = new System.Drawing.Point(220, 206);
+            this.character_assist.Name = "character_assist";
+            this.character_assist.Size = new System.Drawing.Size(101, 17);
+            this.character_assist.TabIndex = 24;
+            this.character_assist.Text = "Character assist";
+            this.character_assist.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(8, 207);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(82, 13);
+            this.label23.TabIndex = 23;
+            this.label23.Text = "Character assist";
+            // 
+            // format_cl
+            // 
+            this.format_cl.AutoSize = true;
+            this.format_cl.Location = new System.Drawing.Point(220, 185);
+            this.format_cl.Name = "format_cl";
+            this.format_cl.Size = new System.Drawing.Size(74, 17);
+            this.format_cl.TabIndex = 22;
+            this.format_cl.Text = "Format CL";
+            this.format_cl.UseVisualStyleBackColor = true;
+            // 
+            // show_spaces
+            // 
+            this.show_spaces.AutoSize = true;
+            this.show_spaces.Location = new System.Drawing.Point(220, 85);
+            this.show_spaces.Name = "show_spaces";
+            this.show_spaces.Size = new System.Drawing.Size(90, 17);
+            this.show_spaces.TabIndex = 21;
+            this.show_spaces.Text = "Show spaces";
+            this.show_spaces.UseVisualStyleBackColor = true;
+            // 
+            // highlight_line
+            // 
+            this.highlight_line.AutoSize = true;
+            this.highlight_line.Location = new System.Drawing.Point(220, 107);
+            this.highlight_line.Name = "highlight_line";
+            this.highlight_line.Size = new System.Drawing.Size(86, 17);
+            this.highlight_line.TabIndex = 20;
+            this.highlight_line.Text = "Highlight line";
+            this.highlight_line.UseVisualStyleBackColor = true;
+            // 
+            // conv_tabs
+            // 
+            this.conv_tabs.Location = new System.Drawing.Point(220, 129);
+            this.conv_tabs.Name = "conv_tabs";
+            this.conv_tabs.Size = new System.Drawing.Size(80, 17);
+            this.conv_tabs.TabIndex = 0;
+            this.conv_tabs.Text = "Convert tabs";
+            this.conv_tabs.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 186);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(96, 13);
+            this.label22.TabIndex = 19;
+            this.label22.Text = "Format CL on save";
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -587,6 +657,9 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.encodingHelp);
+            this.tabPage4.Controls.Add(this.encodingSelection);
+            this.tabPage4.Controls.Add(this.label24);
             this.tabPage4.Controls.Add(this.label15);
             this.tabPage4.Controls.Add(this.darkMode);
             this.tabPage4.Controls.Add(this.label13);
@@ -599,6 +672,164 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ILEditor";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // encodingSelection
+            // 
+            this.encodingSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.encodingSelection.FormattingEnabled = true;
+            this.encodingSelection.Items.AddRange(new object[] {
+            "37",
+            "437",
+            "500",
+            "708",
+            "720",
+            "737",
+            "775",
+            "850",
+            "852",
+            "855",
+            "857",
+            "858",
+            "860",
+            "861",
+            "862",
+            "863",
+            "864",
+            "865",
+            "866",
+            "869",
+            "870",
+            "874",
+            "875",
+            "932",
+            "936",
+            "949",
+            "950",
+            "1026",
+            "1047",
+            "1140",
+            "1141",
+            "1142",
+            "1143",
+            "1144",
+            "1145",
+            "1146",
+            "1147",
+            "1148",
+            "1149",
+            "1200",
+            "1201",
+            "1250",
+            "1251",
+            "1252",
+            "1253",
+            "1254",
+            "1255",
+            "1256",
+            "1257",
+            "1258",
+            "1361",
+            "10000",
+            "10001",
+            "10002",
+            "10003",
+            "10004",
+            "10005",
+            "10006",
+            "10007",
+            "10008",
+            "10010",
+            "10017",
+            "10021",
+            "10029",
+            "10079",
+            "10081",
+            "10082",
+            "12000",
+            "12001",
+            "20000",
+            "20001",
+            "20002",
+            "20003",
+            "20004",
+            "20005",
+            "20105",
+            "20106",
+            "20107",
+            "20108",
+            "20127",
+            "20261",
+            "20269",
+            "20273",
+            "20277",
+            "20278",
+            "20280",
+            "20284",
+            "20285",
+            "20290",
+            "20297",
+            "20420",
+            "20423",
+            "20424",
+            "20833",
+            "20838",
+            "20866",
+            "20871",
+            "20880",
+            "20905",
+            "20924",
+            "20932",
+            "20936",
+            "20949",
+            "21025",
+            "21866",
+            "28591",
+            "28592",
+            "28593",
+            "28594",
+            "28595",
+            "28596",
+            "28597",
+            "28598",
+            "28599",
+            "28603",
+            "28605",
+            "38598",
+            "50220",
+            "50221",
+            "50222",
+            "50225",
+            "50227",
+            "51932",
+            "51936",
+            "51949",
+            "52936",
+            "54936",
+            "57002",
+            "57003",
+            "57004",
+            "57005",
+            "57006",
+            "57007",
+            "57008",
+            "57009",
+            "57010",
+            "57011",
+            "65000",
+            "65001"});
+            this.encodingSelection.Location = new System.Drawing.Point(223, 56);
+            this.encodingSelection.Name = "encodingSelection";
+            this.encodingSelection.Size = new System.Drawing.Size(121, 21);
+            this.encodingSelection.TabIndex = 14;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(8, 59);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(94, 13);
+            this.label24.TabIndex = 13;
+            this.label24.Text = "Program Encoding";
             // 
             // label15
             // 
@@ -628,72 +859,16 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Dark Mode";
             // 
-            // label22
+            // encodingHelp
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(7, 186);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(96, 13);
-            this.label22.TabIndex = 19;
-            this.label22.Text = "Format CL on save";
-            // 
-            // conv_tabs
-            // 
-            this.conv_tabs.Location = new System.Drawing.Point(220, 129);
-            this.conv_tabs.Name = "conv_tabs";
-            this.conv_tabs.Size = new System.Drawing.Size(80, 17);
-            this.conv_tabs.TabIndex = 0;
-            this.conv_tabs.Text = "Convert tabs";
-            this.conv_tabs.UseVisualStyleBackColor = true;
-            // 
-            // highlight_line
-            // 
-            this.highlight_line.AutoSize = true;
-            this.highlight_line.Location = new System.Drawing.Point(220, 107);
-            this.highlight_line.Name = "highlight_line";
-            this.highlight_line.Size = new System.Drawing.Size(86, 17);
-            this.highlight_line.TabIndex = 20;
-            this.highlight_line.Text = "Highlight line";
-            this.highlight_line.UseVisualStyleBackColor = true;
-            // 
-            // show_spaces
-            // 
-            this.show_spaces.AutoSize = true;
-            this.show_spaces.Location = new System.Drawing.Point(220, 85);
-            this.show_spaces.Name = "show_spaces";
-            this.show_spaces.Size = new System.Drawing.Size(90, 17);
-            this.show_spaces.TabIndex = 21;
-            this.show_spaces.Text = "Show spaces";
-            this.show_spaces.UseVisualStyleBackColor = true;
-            // 
-            // format_cl
-            // 
-            this.format_cl.AutoSize = true;
-            this.format_cl.Location = new System.Drawing.Point(220, 185);
-            this.format_cl.Name = "format_cl";
-            this.format_cl.Size = new System.Drawing.Size(74, 17);
-            this.format_cl.TabIndex = 22;
-            this.format_cl.Text = "Format CL";
-            this.format_cl.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(8, 207);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(82, 13);
-            this.label23.TabIndex = 23;
-            this.label23.Text = "Character assist";
-            // 
-            // character_assist
-            // 
-            this.character_assist.AutoSize = true;
-            this.character_assist.Location = new System.Drawing.Point(220, 206);
-            this.character_assist.Name = "character_assist";
-            this.character_assist.Size = new System.Drawing.Size(101, 17);
-            this.character_assist.TabIndex = 24;
-            this.character_assist.Text = "Character assist";
-            this.character_assist.UseVisualStyleBackColor = true;
+            this.encodingHelp.AutoSize = true;
+            this.encodingHelp.Location = new System.Drawing.Point(8, 89);
+            this.encodingHelp.Name = "encodingHelp";
+            this.encodingHelp.Size = new System.Drawing.Size(271, 13);
+            this.encodingHelp.TabIndex = 15;
+            this.encodingHelp.TabStop = true;
+            this.encodingHelp.Text = "A list with all the avaiable Encodings can be found here.";
+            this.encodingHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // Connection
             // 
@@ -784,5 +959,8 @@
         private System.Windows.Forms.CheckBox format_cl;
         private System.Windows.Forms.CheckBox character_assist;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox encodingSelection;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.LinkLabel encodingHelp;
     }
 }

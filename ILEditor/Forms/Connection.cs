@@ -63,6 +63,7 @@ namespace ILEditor.Forms
 
             validACS.Checked = (Program.Config.GetValue("acspath") != "false");
             darkMode.Checked = (Program.Config.GetValue("darkmode") == "true");
+            encodingSelection.SelectedIndex = encodingSelection.Items.IndexOf(Program.Config.GetValue("encoding"));
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -98,6 +99,9 @@ namespace ILEditor.Forms
 
             //ACS value is handled differently (findACS_Click)
             Program.Config.SetValue("darkmode", darkMode.Checked.ToString().ToLower());
+
+            //ToDo: Save Encoding choiche
+            Program.Config.SetValue("encoding", encodingSelection.SelectedItem.ToString());
             this.Close();
         }
 
@@ -122,6 +126,11 @@ namespace ILEditor.Forms
         private void infoBox_SelectionChanged(object sender, EventArgs e)
         {
             infoBox.Text = DataConnectionTypes[dataConnectionType.SelectedItem.ToString().ToString()];
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/dotnet/api/system.text.encoding?view=netcore-3.1#list-of-encodings");
         }
     }
 }

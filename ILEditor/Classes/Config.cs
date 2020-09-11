@@ -56,6 +56,7 @@ namespace ILEditor.Classes
             CheckExist("acspath", "false");
             CheckExist("darkmode", "false");
             CheckExist("srcdat_agreement", "false");
+            CheckExist("encoding", "28591");
         }
 
         public void DoSystemDefaults()
